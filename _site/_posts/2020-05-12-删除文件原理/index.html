@@ -592,11 +592,11 @@
     
     
     <i class="fas fa-file-word fa-fw"></i>
-    584字
+    872字
     
     
     <i class="fas fa-clock fa-fw"></i>
-    2分
+    3分
     
     
     <span class="leancloud-visitors" id="/_posts/2020-05-12-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E5%8E%9F%E7%90%86/" data-xid="/_posts/2020-05-12-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E5%8E%9F%E7%90%86/" data-flag-title="删除文件原理">
@@ -633,6 +633,18 @@
 </ul>
 
 <p>Linux是通过link的数量来控制文件删除的，只有当一个文件不存在任何link的时候，这个文件才会被删除。一般来说，每个文件都有2个link计数器:<code>i_count</code> 和<code>i_link</code></p>
+
+<p>i_count 和 i_nlink,从VFS inode结构体中可以找到：</p>
+
+<pre><code class="language-c">struct inode {
+struct hlist_node   i_hash; /* hash链表的指针 */
+struct list_head    i_list; /* backing dev IO list */
+struct list_head    i_sb_list; /* 超级块的inode链表 */
+struct list_head    i_dentry; /* 引用inode的目录项对象链表头 */
+unsigned long    i_ino; /* 索引节点号 */
+atomic_t     i_count; /* 引用计数器 */
+unsigned int     i_nlink; /* 硬链接数目 */
+</code></pre>
 
 <p><code>i_count</code>的意义是当前文件使用者（或被调用）的数量,i_link 的意义是介质连接的数量（硬链接的数量）；可以理解为<code>i_count</code>是内存引用计数器，i_link是磁盘的引用计数器。</p>
 
