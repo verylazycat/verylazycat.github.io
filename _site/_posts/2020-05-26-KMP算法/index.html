@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>KMP算法 | lazycat</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="KMP算法" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="[toc]" />
+<meta property="og:description" content="[toc]" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-05-26-KMP%E7%AE%97%E6%B3%95/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-05-26-KMP%E7%AE%97%E6%B3%95/" />
+<meta property="og:site_name" content="lazycat" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-26T00:00:00-04:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-05-26-KMP%E7%AE%97%E6%B3%95/","headline":"KMP算法","dateModified":"2020-05-26T00:00:00-04:00","datePublished":"2020-05-26T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-05-26-KMP%E7%AE%97%E6%B3%95/"},"description":"[toc]","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1"
+/>
+<meta
+  http-equiv="content-type"
+  content="text/html; charset=utf-8"
+/>
+<link
+  rel="alternate"
+  href="/feed.xml"
+  title="RSS"
+  type="application/rss+xml"
+/>
+
+  
+  <link
+  rel="apple-touch-icon-precomposed"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+<link
+  rel="shortcut
+  icon"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/gh/poole/lanyon@v1.1.0/public/css/poole.min.css,gh/poole/lanyon@v1.1.0/public/css/lanyon.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/Dreamer-Paul/Pio@2.4/static/pio.min.css"
+/>
+<script
+  async="async"
+  src="https://cdn.jsdelivr.net/combine/gh/Dreamer-Paul/Pio@2.4/static/l2d.min.js,gh/Dreamer-Paul/Pio@2.4/static/pio.min.js"
+  onload='
+      let pio_container = document.createElement("div");
+      pio_container.classList.add("pio-container");
+      pio_container.classList.add("right");
+      pio_container.style.bottom = "-2rem";
+      pio_container.style.zIndex = "1";
+      document.body.insertAdjacentElement("beforeend", pio_container);
+      let pio_action = document.createElement("div");
+      pio_action.classList.add("pio-action");
+      pio_container.insertAdjacentElement("beforeend", pio_action);
+      let pio_canvas = document.createElement("canvas");
+      pio_canvas.id = "pio";
+      pio_canvas.style.width = "14rem";
+      pio_canvas.width = "600";
+      pio_canvas.height = "800";
+      pio_container.insertAdjacentElement("beforeend", pio_canvas);
+      let pio = new Paul_Pio({
+        "mode": "fixed",
+        "hidden": true,
+        "night": "for(let i=7; i<16; ++i) if(document.body.classList.contains(`theme-base-0`+i.toString(16))) { document.body.classList.remove(`theme-base-0`+i.toString(16)); document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16)); break; }",
+        "content": {
+          "link": ["https://jekyll-theme-WuK.wu-kan.cn"],
+          "skin": ["要换成我的朋友吗？", "让她放个假吧~"],
+          "hidden": true,
+          "custom": [{
+            "selector": "a",
+            "type": "link",
+          }, {
+            "selector": ".sidebar-toggle",
+            "text": "打开侧边栏叭~"
+          }, {
+            "selector": ".effect-info",
+            "text": "哇，你发现了什么！"
+          }, {
+            "selector": "#sidebar-search-input",
+            "text": "想搜索什么呢？很多干货哦！"
+          }, {
+            "selector": "#toc",
+            "text": "这是目录~"
+          }, {
+            "selector": ".page-title",
+            "text": "这是标题~"
+          }, {
+            "selector": ".v",
+            "text": "评论没有审核，要对自己的发言负责哦~"
+          }]
+        },
+        "model": [
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Violet/14.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"]
+      });'
+></script>
+
+  
+  <script
+  src='https://zz.bdstatic.com/linksubmit/push.js'
+  async="async"
+></script>
+
+  
+  <script
+  async="async"
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163543967-1"
+  onload="
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-163543967-1');"
+></script>
+
+  
+  <style>
+  .wrap {
+    transition-property: width,background-size,transform;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    min-height: 100%;
+    display: inline-block;
+    background-size: 100% auto;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+  }
+  @media (min-aspect-ratio: 2400/1850) {
+    .wrap {
+      background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+    }
+  }
+  .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    width: calc(100% - 14rem);
+    background-size: calc(100% - 14rem) auto;
+    transform: translateX(14rem);
+  }
+  .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    transform: translateX(0);
+  }
+</style>
+
+  
+  <style>
+  .sidebar,
+  html,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: PingFang SC, Menlo, Monaco, "Courier New", Microsoft JhengHei, monospace;
+  }
+</style>
+
+  
+  <style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+  }
+</style>
+
+  
+  <style>
+  img {
+    display: inline-block;
+    margin: 0;
+  }
+</style>
+
+  
+  <style>
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, Cyan 0%, Magenta 50%, Yellow 100%);
+  }
+</style>
+
+  
+  <style>
+  ::selection {
+    color: White;
+    background: Black;
+  }
+</style>
+
+  
+</head>
+
+<body
+  class="theme-base-07 sidebar-overlay">
+  
+  
+  
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+  <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"
+     />
+  <!-- Toggleable sidebar -->
+  <div class="sidebar" id="sidebar">
+    
+    <div class="sidebar-item">
+      <div class="effect effect-right_to_left">
+        <img class="effect-img" src="https://pic.cr173.com/up/2017-8/2017841818322084.jpg" alt="img" />
+        <div class="effect-info">
+          lazycat<br/>
+<a href="mailto:verylazycat@outlook.com">
+  <i class="fas fa-envelope"></i>
+</a>
+<a href="https://github.com/verylazycat">
+  <i class="fab fa-github"></i>
+</a>
+
+        </div>
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+      
+      <a class="sidebar-nav-item" href="/">
+        <i class="fas fa-home fa-fw"></i> 首页
+      </a>
+      
+      <a class="sidebar-nav-item" href="/comments/">
+        <i class="fas fa-comments fa-fw"></i> 留言
+      </a>
+      
+      <a class="sidebar-nav-item" href="/tags/">
+        <i class="fas fa-tags fa-fw"></i> 标签
+      </a>
+      
+      <a class="sidebar-nav-item" href="/archive/">
+        <i class="fas fa-archive fa-fw"></i> 归档
+      </a>
+      
+      <a class="sidebar-nav-item" href="/merger/">
+        <i class="fas fa-coffee fa-fw"></i> 打赏
+      </a>
+      
+    </nav>
+    <div class="sidebar-item">
+      
+      <style>
+  #sidebar-search-input {
+    background: none;
+    border: none;
+    color: White;
+    width: 100%;
+  }
+  #sidebar-search-results-container {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+<input
+  id="sidebar-search-input"
+  placeholder="搜索博文"
+/>
+<ol
+  id="sidebar-search-results-container"
+></ol>
+<script
+  src='https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.7/dest/simple-jekyll-search.min.js'
+  async='async'
+  onload='
+    SimpleJekyllSearch({
+      json: "/assets/simple-jekyll-search/search.json",
+      searchInput: document.getElementById("sidebar-search-input"),
+      resultsContainer: document.getElementById("sidebar-search-results-container"),
+      searchResultTemplate: `<li><a href="{url}">{title}</a></li>`,
+      limit: 999,
+      fuzzy: true
+    })'
+></script>
+
+      
+      
+      <style>
+  #toc {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+
+      <ol id="toc">
+  <li><a href="#bf">BF</a></li>
+  <li><a href="#kmp">KMP</a></li>
+  <li><a href="#next%E6%95%B0%E7%BB%84">Next数组</a>
+    1.  <a href="#%E9%80%90%E6%AD%A5%E8%AE%A8%E8%AE%BA">逐步讨论</a></li>
+  <li><a href="#kmp%E5%AE%9E%E7%8E%B0">KMP实现</a></li>
+  <li><a href="#next">next</a></li>
+  <li><a href="#nextval">Nextval</a></li>
+</ol>
+      
+      
+      <style>
+  .sidebar-checkbox {
+    display: none;
+  }
+  .sidebar-toggle {
+    position: fixed;
+  }
+</style>
+
+      
+      <style>
+  .effect {
+    margin: 1rem;
+    perspective: 900px;
+  }
+  .effect-info {
+    text-align: center;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    transform-style: preserve-3d;
+  }
+  .effect-img {
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+  }
+  .effect-img:before {
+    position: absolute;
+    display: block;
+  }
+  .effect-right_to_left .effect-img {
+    transform-origin: 0% 50%;
+  }
+  .effect-right_to_left:hover .effect-img {
+    transform: rotate3d(0, 1, 0, -180deg);
+  }
+</style>
+
+      
+      <div>
+  <i class="fas fa-cog fa-spin fa-fw"></i>
+  <span id="run_time_day">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>天
+  <span id="run_time_hour">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>时
+  <span id="run_time_minute">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>分
+  <span id="run_time_second">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>秒
+  <script>
+    setInterval(function (d,h,m,s,b) {
+      function setzero(i) {
+        return i < 10 ? "0" + i : i;
+      }
+      let BirthDay = new Date(b);
+      let today = new Date();
+      let timeold = (today.getTime() - BirthDay.getTime());
+      let sectimeold = timeold / 1000;
+      let secondsold = Math.floor(sectimeold);
+      let msPerDay = 24 * 60 * 60 * 1000;
+      let e_daysold = timeold / msPerDay;
+      let daysold = Math.floor(e_daysold);
+      let e_hrsold = (e_daysold - daysold) * 24;
+      let hrsold = Math.floor(e_hrsold);
+      let e_minsold = (e_hrsold - hrsold) * 60;
+      let minsold = Math.floor((e_hrsold - hrsold) * 60);
+      let seconds = Math.floor((e_minsold - minsold) * 60);
+      d.textContent = daysold;
+      h.textContent = setzero(hrsold);
+      m.textContent = setzero(minsold);
+      s.textContent = setzero(seconds);
+    },
+    1000,
+    document.getElementById("run_time_day"),
+    document.getElementById("run_time_hour"),
+    document.getElementById("run_time_minute"),
+    document.getElementById("run_time_second"),
+    "05/02/2020 11:03:56")// 这是我第一篇博客的时间
+  </script>
+</div>
+
+      
+      <div>
+  <div>
+    <i class="fas fa-eye fa-fw"></i>
+    <span id="busuanzi_value_page_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>次
+  </div>
+  <div>
+    <i class="fas fa-paw fa-fw"></i>
+    <span id="busuanzi_value_site_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>枚
+  </div>
+  <div>
+    <i class="fas fa-user-friends fa-fw"></i>
+    <span id="busuanzi_value_site_uv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>人
+  </div>
+  <script
+    src='https://cdn.jsdelivr.net/npm/busuanzi@2.3.0'
+    async='async'
+  ></script>
+</div>
+
+      
+      <div>
+  <i class="fas fa-copyright fa-fw"></i>
+  2020-2022 lazycat
+</div>
+
+      
+      <div>
+  <i class="fas fa-info-circle fa-fw"></i>
+  <a href="http://beian.miit.gov.cn">
+    蜀ICP备20011774号
+  </a>
+</div>
+
+      
+      
+    </div>
+  </div>
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the content to avoid any CSS collisions with our real content. -->
+  
+  <div class="wrap">
+    
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/katex@0.11.1/dist/katex.min.js,npm/katex@0.11.1/dist/contrib/mathtex-script-type.min.js,npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  defer="defer"
+  onload='renderMathInElement(document.body, { delimiters: [{ left: "$", right: "$", display: false }] })'
+></script>
+
+
+
+<style>
+  pre.language-mermaid,
+  code.language-mermaid {
+    display: none;
+  }
+</style>
+<script
+  src="https://cdn.jsdelivr.net/npm/mermaid@8.5.1/dist/mermaid.min.js"
+  defer="defer"
+  onload='
+    for(let x of document.getElementsByClassName("language-mermaid"))
+      if(x.nodeName=="CODE")
+      {
+        let m = document.createElement("div");
+        m.classList.add("mermaid");
+        m.textContent = x.textContent;
+        x.parentNode.insertAdjacentElement("beforebegin", m);
+      }'
+></script>
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.css,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.css,gh/PrismJS/prism-themes@1955cfef6953b3a59e66016e8a1e016b45d6cc79/themes/prism-nord.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/components/prism-core.min.js,npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js,npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.js,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.js"
+  defer="defer"
+  onload='
+    Prism.plugins.autoloader.languages_path = "https:\/\/cdn.jsdelivr.net/npm/prismjs/components/";
+    for(let x of document.getElementsByTagName("pre"))
+      x.classList.add("line-numbers");
+    Prism.plugins.toolbar.registerButton("select-code", function (env) {
+      let button = document.createElement("button");
+      button.textContent = "select this " + env.language;
+      button.addEventListener("click", function () {
+        if (document.body.createTextRange) {
+          let range = document.body.createTextRange();
+          range.moveToElementText(env.element);
+          range.select();
+        } else if (window.getSelection) {
+          let selection = window.getSelection();
+          let range = document.createRange();
+          range.selectNodeContents(env.element);
+          selection.removeAllRanges();
+            selection.addRange(range);
+        }
+      });
+      return button;
+    })'
+></script>
+
+
+
+<style>
+  pre {
+    max-height: 50vh;
+    overflow: auto;
+  }
+</style>
+
+
+<style>
+  @media (min-width: 56em) {
+    .container {
+      max-width: 66.6%;
+    }
+  }
+</style>
+
+
+<style>
+  .masthead,
+  .container.content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 .75rem rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    animation-duration: 2s;
+    animation-name: fadeIn;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+
+
+<div class="masthead">
+  <h3 class="container masthead-title">
+    
+    KMP算法
+    <a href="/" title="Home">
+      <small>
+        lazycat
+      </small>
+    </a>
+    
+  </h3>
+</div>
+
+<div class="container content">
+  <div class="post">
+  <span class="post-date">
+    
+    <i class="fas fa-calendar-day fa-fw"></i>
+    26 May 2020
+    
+    
+    <i class="fas fa-file-word fa-fw"></i>
+    2590字
+    
+    
+    <i class="fas fa-clock fa-fw"></i>
+    9分
+    
+    
+    <span class="leancloud-visitors" id="/_posts/2020-05-26-KMP%E7%AE%97%E6%B3%95/" data-xid="/_posts/2020-05-26-KMP%E7%AE%97%E6%B3%95/" data-flag-title="KMP算法">
+      <i class="fas fa-book-reader fa-fw"></i>
+      <span class="leancloud-visitors-count">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </span>次
+    </span>
+    
+    
+    
+    <i class="fas fa-tag fa-fw"></i>
+    算法
+    
+    
+    <br/>
+<i class="fas fa-coffee fa-fw"></i>
+<a href="/merger/">如果这篇博客帮助到你，可以请我喝一杯咖啡~</a>
+<br/>
+<i class="fab fa-creative-commons-by fa-fw"></i>
+<a
+  href="https://creativecommons.org/licenses/by/4.0/deed.zh"
+  rel="license">
+  CC BY 4.0
+</a>
+（除特别声明或转载文章外）
+
+    
+  </span>
+  <p>[toc]</p>
+
+<h1 id="bf">BF</h1>
+
+<p>Brute-Force(BF) 算法又称naive算法，是对字符串子串搜索最简单明了的算法。其主旨就是：</p>
+
+<ul>
+  <li>不处理模式串</li>
+  <li>模式串从目标串<strong>第一个元素</strong>起逐一匹配</li>
+  <li>发现无法匹配，模式串匹配右移一位，从下一位目标串元素重新初始逐一元素匹配</li>
+</ul>
+
+<p><img src="/img/BF.gif" alt="" /></p>
+
+<p>虽然简单易懂，但是同时也导致了复杂度较高，最慢的情形其复杂度可以到达O（模式串长 * 目标串长）</p>
+
+<p><img src="/img/BF_LOW.webp" alt="" /></p>
+
+<h1 id="kmp"><strong>KMP</strong></h1>
+
+<p>但是如果仔细观察，可以发现<strong>模式串</strong>本身是可以自带一些<strong>可被预先计算出</strong>的<strong>可用于加速匹配的信息</strong>的。</p>
+
+<p>当模式串的第K位失配时，前K-1位必然是匹配的，如果直接整体后移一位重新从头开始匹配那之前的那些<strong>已经匹配的信息</strong>就被浪费了。于是我们可以寻找<strong>最大的必定不需要再匹配的串</strong>，那这个串是什么呢？</p>
+
+<p>很显然，这个串就是[1,K-1]位串中<strong>最大且相同</strong>的<strong>头尾</strong>串（S）。当失配发生，可以直接<strong>保持目标串中的失配元素不变</strong>，移动模式串，K-1-S串长个单位重新匹配，这就是KMP算法。</p>
+
+<p><img src="/img/KMP.gif" alt="" /></p>
+
+<p>为什么要移动K-1-S串长个单位？失配元素前方一共有K-1个元素，最大相同头尾串长为S。</p>
+
+<p><img src="/img/KMP2.png" alt="" /></p>
+
+<p>若移动小于K-1-S长度(例如K-1-S-1 = K - 1 - (S+1))，则必然无法匹配，因为不存在<strong>更大</strong>的相同首尾串，如下图中（bab不是相同首尾串，故必然不匹配）。</p>
+
+<p><img src="/img/KMP3.png" alt="" /></p>
+
+<p>若移动大于K-1-S长度(例如K-1-S+1 = K - 1 - (S-1))，有可能匹配（当S-1同样是相同子串时），但是可能会因为多移动了位数而遗漏结果。</p>
+
+<p>KMP算法本身比较好理解，而关于KMP的实现需要引入一个Next数组（由模式串预处理出的数组），Next数组的本身的算法则很难理解</p>
+
+<h1 id="next数组"><strong>Next数组</strong></h1>
+
+<p>Next数组的含义很直观，就是<strong>第几个元素失配时应该右移模式串重新匹配第几个元素</strong>（不同的教材采用的首元素索引序号不同有的是0有的是1，这也是Next数组算法难以理解的一大原因，所以文中讨论索引序号都直接使用的是<strong>第</strong>几个元素）。</p>
+
+<p>Next数组的算法步骤如下图所示，在我们逐步讨论完其算法过程后再会看这张动图或许你会有更深刻地理解。</p>
+
+<p><img src="/img/next.webp" alt="" /></p>
+
+<h3 id="逐步讨论"><strong>逐步讨论</strong></h3>
+
+<p>对于模式串的首个元素的Next值，约定为<strong>首元素索引值 - 1</strong>，这么做仅仅是为了<strong>方便实现递归算法</strong>。这个值<strong>不一定只为首元素的Next值</strong>，经过优化后可能为其他元素的Next值，这个值（首元素索引 - 1）的含义是：</p>
+
+<p>将<strong>模式串</strong>的<strong>首元素</strong>移动到<strong>失配元素后一位</strong>并从首元素开始，重新匹配。</p>
+
+<p><img src="/img/next2.webp" alt="" /></p>
+
+<h1 id="kmp实现">KMP实现</h1>
+
+<pre><code class="language-c">// T 模式串， S目标串， pos第几个字符之后搜索
+// 约定索引起始值为1
+void Index_KMP(SString S, SString T, int pos){
+   // i 目标串指针，j 模式串指针
+    i = pos; j = 1;
+    // 只要指针没有溢出对应的串
+    while( i &lt;= length(S) &amp;&amp; j &lt;= length(T)){
+        // 如果将要和 目标串元素 匹配的元素是模式串首元素前一位的元素
+        // 或者
+        // 当前目标串元素 和 模式串元素可以匹配
+        // if (j == first_indexof(T) - 1 || S[i] == T[j]){
+        if(j == 0 || S[i] == T[j]){
+           // 指针各自右移一位
+            ++i;
+            ++j;
+        }else{
+            // 发生了失配，查Next数组移动模式串指针
+            j = next[j];
+        }
+    }
+    if (j &gt; length(T)){
+        // 如果模式串指针溢出了（模式串指针匹配完毕了所有模式串中的元素）
+       return i - length(T);
+    }
+    else return 0;
+}
+</code></pre>
+
+<h1 id="next">next</h1>
+
+<pre><code class="language-c">// T 模式串， next Next数组
+// 约定索引起始值为1
+void get_next(SString T, int &amp;next[]){
+    // i 计算每一个元素Next值的指针，它只可能右移用于计算下一个元素的Next值
+    // j 用于指向 无法找到头尾串时 的递归回溯的元素 
+    // 初始化第一个元素的Next值
+    i = 1; next[1] = 0; j = 0;
+    while(i &lt; length(T)){
+        // 如果递归回溯到第一个元素，它的next值为0，就无法继续回溯 -&gt; 下一位元素的 Next值 就会等于 第一个元素的索引（1 即 0 + 1）
+        // 如果 当前元素 等于 当前元素Next值对应的元素 -&gt; 下一个元素的 Next值 就会等于 当前元素的Next值 + 1
+        if (j == 0 || T[i] == T[j]){
+            ++i; ++j; next[i] = j;
+        }
+        else{
+            // 否则递归回溯j，将其指向更小的一个同首尾的子串的尾部 + 1
+            j = next[j];
+        }
+    }
+}
+</code></pre>
+
+<h1 id="nextval"><strong>Nextval</strong></h1>
+
+<p>(以下的讨论假设不需要递归以简化讨论过程)</p>
+
+<p>优化Next，当第<code>i+1</code>位失配的时候。通常，我们按照算法会比较 <code>T[i]</code> 和 <code>T[next[i]]</code>，若它们相同则将<code>Next[i+1]</code>设置成<code>Next[i] + 1</code>。但是，如果 <code>T[Next[i] + 1]</code>和失配元素（<code>T[i+1]</code>）相同时，这样设置则是多余的（Next元素的含义就是，某个元素失配时用哪个元素补充匹配，若补充匹配的元素和失配元素相同则这样设置是多余的）。所以，此时应该把<code>Next[i+1]</code>设置成<code>Next[Next[i] + 1]</code>，就是当<code>Next[i]+1</code>失配时应该用哪个元素补充匹配。</p>
+
+<p>那为什么<code>T[Next[Next[i] + 1]]</code>不会等于<code>T[i+1]</code>呢？因为按照这样的算法<strong>递推</strong>是从第一个元素开始计算，可以确保除了当前失配的元素以外，<strong>之前的任意一个元素（索引为m）</strong>都不可能等于<code>T[Next[m]+1]</code></p>
+
+<pre><code class="language-c">// T 模式串， next Next数组
+// 约定索引起始值为1
+void get_nextval(SString T, int &amp;nextval[]){
+    // i 计算每一个元素Next值的指针，它只可能右移用于计算下一个元素的Next值
+    // j 用于指向 无法找到头尾串时 的递归回溯的元素 
+    // 初始化第一个元素的Next值
+    i = 1; nextval[1] = 0; j = 0;
+    while(i &lt; length(T)){
+        // 如果递归回溯到第一个元素，它的next值为0，就无法继续回溯 
+        // 如果 当前元素 等于 当前元素Next值对应的元素 
+        if (j == 0 || T[i] == T[j]){
+            ++i; ++j; 
+            if(T[i] != T[j]){
+                // 如果替补匹配的值不等于当前失配值,则设置它的索引为Next值
+               nextval[i] = j;
+            }
+          else{
+                // 否则设置它的Next值为当前失配值的Next值
+                nextval[i] = next[j];
+            }
+        }
+        else{
+            // 否则递归回溯j，将其指向更小的一个同首尾的子串的尾部 + 1
+            j = nextval[j];
+        }
+    }
+}
+</code></pre>
+
+<p><img src="/img/next3.webp" alt="" /></p>
+
+</div>
+<div class="v">
+  <i class="fas fa-spinner fa-pulse"></i>
+</div>
+<script
+  src='https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js'
+  defer='defer'
+  onload='
+    new Valine({
+      "el": document.getElementsByClassName("v")[0],
+      "appId": "9hABRddSuEkTgqLrt1VSK5B1-gzGzoHsz",
+      "appKey": "NJ7RwmgrxsF7KDzlqU7YewlL",
+      "placeholder": "在这里评论吧！填写邮箱可以获得 Gravatar 头像和回复通知哦",
+      "requiredFields": ["nick","mail"],
+      "visitor": true,
+      "recordIP": true
+    })'
+></script>
+
+</div>
+  </div>
+  
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  
+</body>
+
+</html>

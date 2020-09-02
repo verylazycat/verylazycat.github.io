@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>sql-server复习一 | lazycat</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="sql-server复习一" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="[toc]" />
+<meta property="og:description" content="[toc]" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-05-02-sql-server%E5%A4%8D%E4%B9%A0%E4%B8%80/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-05-02-sql-server%E5%A4%8D%E4%B9%A0%E4%B8%80/" />
+<meta property="og:site_name" content="lazycat" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-02T00:00:00-04:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-05-02-sql-server%E5%A4%8D%E4%B9%A0%E4%B8%80/","headline":"sql-server复习一","dateModified":"2020-05-02T00:00:00-04:00","datePublished":"2020-05-02T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-05-02-sql-server%E5%A4%8D%E4%B9%A0%E4%B8%80/"},"description":"[toc]","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1"
+/>
+<meta
+  http-equiv="content-type"
+  content="text/html; charset=utf-8"
+/>
+<link
+  rel="alternate"
+  href="/feed.xml"
+  title="RSS"
+  type="application/rss+xml"
+/>
+
+  
+  <link
+  rel="apple-touch-icon-precomposed"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+<link
+  rel="shortcut
+  icon"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/gh/poole/lanyon@v1.1.0/public/css/poole.min.css,gh/poole/lanyon@v1.1.0/public/css/lanyon.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/Dreamer-Paul/Pio@2.4/static/pio.min.css"
+/>
+<script
+  async="async"
+  src="https://cdn.jsdelivr.net/combine/gh/Dreamer-Paul/Pio@2.4/static/l2d.min.js,gh/Dreamer-Paul/Pio@2.4/static/pio.min.js"
+  onload='
+      let pio_container = document.createElement("div");
+      pio_container.classList.add("pio-container");
+      pio_container.classList.add("right");
+      pio_container.style.bottom = "-2rem";
+      pio_container.style.zIndex = "1";
+      document.body.insertAdjacentElement("beforeend", pio_container);
+      let pio_action = document.createElement("div");
+      pio_action.classList.add("pio-action");
+      pio_container.insertAdjacentElement("beforeend", pio_action);
+      let pio_canvas = document.createElement("canvas");
+      pio_canvas.id = "pio";
+      pio_canvas.style.width = "14rem";
+      pio_canvas.width = "600";
+      pio_canvas.height = "800";
+      pio_container.insertAdjacentElement("beforeend", pio_canvas);
+      let pio = new Paul_Pio({
+        "mode": "fixed",
+        "hidden": true,
+        "night": "for(let i=7; i<16; ++i) if(document.body.classList.contains(`theme-base-0`+i.toString(16))) { document.body.classList.remove(`theme-base-0`+i.toString(16)); document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16)); break; }",
+        "content": {
+          "link": ["https://jekyll-theme-WuK.wu-kan.cn"],
+          "skin": ["要换成我的朋友吗？", "让她放个假吧~"],
+          "hidden": true,
+          "custom": [{
+            "selector": "a",
+            "type": "link",
+          }, {
+            "selector": ".sidebar-toggle",
+            "text": "打开侧边栏叭~"
+          }, {
+            "selector": ".effect-info",
+            "text": "哇，你发现了什么！"
+          }, {
+            "selector": "#sidebar-search-input",
+            "text": "想搜索什么呢？很多干货哦！"
+          }, {
+            "selector": "#toc",
+            "text": "这是目录~"
+          }, {
+            "selector": ".page-title",
+            "text": "这是标题~"
+          }, {
+            "selector": ".v",
+            "text": "评论没有审核，要对自己的发言负责哦~"
+          }]
+        },
+        "model": [
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Violet/14.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"]
+      });'
+></script>
+
+  
+  <script
+  src='https://zz.bdstatic.com/linksubmit/push.js'
+  async="async"
+></script>
+
+  
+  <script
+  async="async"
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163543967-1"
+  onload="
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-163543967-1');"
+></script>
+
+  
+  <style>
+  .wrap {
+    transition-property: width,background-size,transform;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    min-height: 100%;
+    display: inline-block;
+    background-size: 100% auto;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+  }
+  @media (min-aspect-ratio: 2400/1850) {
+    .wrap {
+      background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+    }
+  }
+  .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    width: calc(100% - 14rem);
+    background-size: calc(100% - 14rem) auto;
+    transform: translateX(14rem);
+  }
+  .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    transform: translateX(0);
+  }
+</style>
+
+  
+  <style>
+  .sidebar,
+  html,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: PingFang SC, Menlo, Monaco, "Courier New", Microsoft JhengHei, monospace;
+  }
+</style>
+
+  
+  <style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+  }
+</style>
+
+  
+  <style>
+  img {
+    display: inline-block;
+    margin: 0;
+  }
+</style>
+
+  
+  <style>
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, Cyan 0%, Magenta 50%, Yellow 100%);
+  }
+</style>
+
+  
+  <style>
+  ::selection {
+    color: White;
+    background: Black;
+  }
+</style>
+
+  
+</head>
+
+<body
+  class="theme-base-07 sidebar-overlay">
+  
+  
+  
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+  <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"
+     />
+  <!-- Toggleable sidebar -->
+  <div class="sidebar" id="sidebar">
+    
+    <div class="sidebar-item">
+      <div class="effect effect-right_to_left">
+        <img class="effect-img" src="https://pic.cr173.com/up/2017-8/2017841818322084.jpg" alt="img" />
+        <div class="effect-info">
+          lazycat<br/>
+<a href="mailto:verylazycat@outlook.com">
+  <i class="fas fa-envelope"></i>
+</a>
+<a href="https://github.com/verylazycat">
+  <i class="fab fa-github"></i>
+</a>
+
+        </div>
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+      
+      <a class="sidebar-nav-item" href="/">
+        <i class="fas fa-home fa-fw"></i> 首页
+      </a>
+      
+      <a class="sidebar-nav-item" href="/comments/">
+        <i class="fas fa-comments fa-fw"></i> 留言
+      </a>
+      
+      <a class="sidebar-nav-item" href="/tags/">
+        <i class="fas fa-tags fa-fw"></i> 标签
+      </a>
+      
+      <a class="sidebar-nav-item" href="/archive/">
+        <i class="fas fa-archive fa-fw"></i> 归档
+      </a>
+      
+      <a class="sidebar-nav-item" href="/merger/">
+        <i class="fas fa-coffee fa-fw"></i> 打赏
+      </a>
+      
+    </nav>
+    <div class="sidebar-item">
+      
+      <style>
+  #sidebar-search-input {
+    background: none;
+    border: none;
+    color: White;
+    width: 100%;
+  }
+  #sidebar-search-results-container {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+<input
+  id="sidebar-search-input"
+  placeholder="搜索博文"
+/>
+<ol
+  id="sidebar-search-results-container"
+></ol>
+<script
+  src='https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.7/dest/simple-jekyll-search.min.js'
+  async='async'
+  onload='
+    SimpleJekyllSearch({
+      json: "/assets/simple-jekyll-search/search.json",
+      searchInput: document.getElementById("sidebar-search-input"),
+      resultsContainer: document.getElementById("sidebar-search-results-container"),
+      searchResultTemplate: `<li><a href="{url}">{title}</a></li>`,
+      limit: 999,
+      fuzzy: true
+    })'
+></script>
+
+      
+      
+      <style>
+  #toc {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+
+      <ol id="toc">
+  <li><a href="#sql-server%E5%A4%8D%E4%B9%A0%E4%B8%80">sql-server复习一</a>
+    <ol>
+      <li><a href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5">基础概念</a></li>
+      <li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90">数据库系统组成</a></li>
+      <li><a href="#dbms%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD">DBMS主要功能</a></li>
+      <li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E5%91%98dba%E8%81%8C%E8%B4%A3">数据库管理员(DBA)职责</a></li>
+      <li><a href="#%E4%B8%89%E7%BA%A7%E6%A8%A1%E5%BC%8F%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84">三级模式体系结构</a></li>
+      <li><a href="#%E6%A8%A1%E5%BC%8F%E5%86%85%E6%A8%A1%E5%BC%8F%E6%98%A0%E5%83%8F">模式/内模式映像</a></li>
+      <li><a href="#%E5%A4%96%E6%A8%A1%E5%BC%8F%E6%A8%A1%E5%BC%8F%E6%98%A0%E5%83%8F">外模式/模式映像</a></li>
+      <li><a href="#%E6%95%B0%E6%8D%AE%E7%8B%AC%E7%AB%8B%E6%80%A7data-independence">数据独立性（Data Independence）</a></li>
+      <li><a href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%89%E4%B8%AA%E9%98%B6%E6%AE%B5">数据处理的三个阶段</a></li>
+      <li><a href="#er">ER</a></li>
+      <li><a href="#%E4%BA%8C%E5%85%83%E8%81%94%E7%B3%BB%E4%B8%BB">二元联系主</a></li>
+      <li><a href="#%E4%B8%89%E5%85%83%E8%81%94%E7%B3%BB%E5%92%8C%E4%B8%80%E5%85%83%E8%81%94%E7%B3%BB">三元联系和一元联系</a></li>
+      <li><a href="#%E9%80%BB%E8%BE%91%E6%A8%A1%E5%9E%8B">逻辑模型</a></li>
+      <li><a href="#%E9%80%BB%E8%BE%91%E6%A8%A1%E5%9E%8B%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8F%8F%E8%BF%B0">逻辑模型中的数据描述</a></li>
+      <li><a href="#%E5%B1%82%E6%AC%A1%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">层次数据模型的数据结构</a></li>
+      <li><a href="#%E5%B1%82%E6%AC%A1%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BC%98%E7%82%B9">层次模型的优点</a></li>
+      <li><a href="#%E5%B1%82%E6%AC%A1%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BC%BA%E7%82%B9">层次模型的缺点</a></li>
+      <li><a href="#%E7%BD%91%E7%8A%B6%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">网状数据模型的数据结构</a></li>
+      <li><a href="#%E7%BD%91%E7%8A%B6%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BC%98%E7%82%B9">网状数据模型的优点</a></li>
+      <li><a href="#%E7%BD%91%E7%8A%B6%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BC%BA%E7%82%B9">网状数据模型的缺点</a></li>
+      <li><a href="#%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">关系数据模型的数据结构</a></li>
+      <li><a href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%BC%8F">关系模式</a></li>
+      <li><a href="#%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E4%BC%98%E7%82%B9">关系数据模型优点</a></li>
+      <li><a href="#%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%BC%BA%E7%82%B9">关系数据模型缺点</a></li>
+      <li><a href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B">面向对象模型</a></li>
+    </ol>
+  </li>
+</ol>
+      
+      
+      <style>
+  .sidebar-checkbox {
+    display: none;
+  }
+  .sidebar-toggle {
+    position: fixed;
+  }
+</style>
+
+      
+      <style>
+  .effect {
+    margin: 1rem;
+    perspective: 900px;
+  }
+  .effect-info {
+    text-align: center;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    transform-style: preserve-3d;
+  }
+  .effect-img {
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+  }
+  .effect-img:before {
+    position: absolute;
+    display: block;
+  }
+  .effect-right_to_left .effect-img {
+    transform-origin: 0% 50%;
+  }
+  .effect-right_to_left:hover .effect-img {
+    transform: rotate3d(0, 1, 0, -180deg);
+  }
+</style>
+
+      
+      <div>
+  <i class="fas fa-cog fa-spin fa-fw"></i>
+  <span id="run_time_day">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>天
+  <span id="run_time_hour">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>时
+  <span id="run_time_minute">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>分
+  <span id="run_time_second">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>秒
+  <script>
+    setInterval(function (d,h,m,s,b) {
+      function setzero(i) {
+        return i < 10 ? "0" + i : i;
+      }
+      let BirthDay = new Date(b);
+      let today = new Date();
+      let timeold = (today.getTime() - BirthDay.getTime());
+      let sectimeold = timeold / 1000;
+      let secondsold = Math.floor(sectimeold);
+      let msPerDay = 24 * 60 * 60 * 1000;
+      let e_daysold = timeold / msPerDay;
+      let daysold = Math.floor(e_daysold);
+      let e_hrsold = (e_daysold - daysold) * 24;
+      let hrsold = Math.floor(e_hrsold);
+      let e_minsold = (e_hrsold - hrsold) * 60;
+      let minsold = Math.floor((e_hrsold - hrsold) * 60);
+      let seconds = Math.floor((e_minsold - minsold) * 60);
+      d.textContent = daysold;
+      h.textContent = setzero(hrsold);
+      m.textContent = setzero(minsold);
+      s.textContent = setzero(seconds);
+    },
+    1000,
+    document.getElementById("run_time_day"),
+    document.getElementById("run_time_hour"),
+    document.getElementById("run_time_minute"),
+    document.getElementById("run_time_second"),
+    "05/02/2020 11:03:56")// 这是我第一篇博客的时间
+  </script>
+</div>
+
+      
+      <div>
+  <div>
+    <i class="fas fa-eye fa-fw"></i>
+    <span id="busuanzi_value_page_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>次
+  </div>
+  <div>
+    <i class="fas fa-paw fa-fw"></i>
+    <span id="busuanzi_value_site_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>枚
+  </div>
+  <div>
+    <i class="fas fa-user-friends fa-fw"></i>
+    <span id="busuanzi_value_site_uv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>人
+  </div>
+  <script
+    src='https://cdn.jsdelivr.net/npm/busuanzi@2.3.0'
+    async='async'
+  ></script>
+</div>
+
+      
+      <div>
+  <i class="fas fa-copyright fa-fw"></i>
+  2020-2022 lazycat
+</div>
+
+      
+      <div>
+  <i class="fas fa-info-circle fa-fw"></i>
+  <a href="http://beian.miit.gov.cn">
+    蜀ICP备20011774号
+  </a>
+</div>
+
+      
+      
+    </div>
+  </div>
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the content to avoid any CSS collisions with our real content. -->
+  
+  <div class="wrap">
+    
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/katex@0.11.1/dist/katex.min.js,npm/katex@0.11.1/dist/contrib/mathtex-script-type.min.js,npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  defer="defer"
+  onload='renderMathInElement(document.body, { delimiters: [{ left: "$", right: "$", display: false }] })'
+></script>
+
+
+
+<style>
+  pre.language-mermaid,
+  code.language-mermaid {
+    display: none;
+  }
+</style>
+<script
+  src="https://cdn.jsdelivr.net/npm/mermaid@8.5.1/dist/mermaid.min.js"
+  defer="defer"
+  onload='
+    for(let x of document.getElementsByClassName("language-mermaid"))
+      if(x.nodeName=="CODE")
+      {
+        let m = document.createElement("div");
+        m.classList.add("mermaid");
+        m.textContent = x.textContent;
+        x.parentNode.insertAdjacentElement("beforebegin", m);
+      }'
+></script>
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.css,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.css,gh/PrismJS/prism-themes@1955cfef6953b3a59e66016e8a1e016b45d6cc79/themes/prism-nord.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/components/prism-core.min.js,npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js,npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.js,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.js"
+  defer="defer"
+  onload='
+    Prism.plugins.autoloader.languages_path = "https:\/\/cdn.jsdelivr.net/npm/prismjs/components/";
+    for(let x of document.getElementsByTagName("pre"))
+      x.classList.add("line-numbers");
+    Prism.plugins.toolbar.registerButton("select-code", function (env) {
+      let button = document.createElement("button");
+      button.textContent = "select this " + env.language;
+      button.addEventListener("click", function () {
+        if (document.body.createTextRange) {
+          let range = document.body.createTextRange();
+          range.moveToElementText(env.element);
+          range.select();
+        } else if (window.getSelection) {
+          let selection = window.getSelection();
+          let range = document.createRange();
+          range.selectNodeContents(env.element);
+          selection.removeAllRanges();
+            selection.addRange(range);
+        }
+      });
+      return button;
+    })'
+></script>
+
+
+
+<style>
+  pre {
+    max-height: 50vh;
+    overflow: auto;
+  }
+</style>
+
+
+<style>
+  @media (min-width: 56em) {
+    .container {
+      max-width: 66.6%;
+    }
+  }
+</style>
+
+
+<style>
+  .masthead,
+  .container.content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 .75rem rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    animation-duration: 2s;
+    animation-name: fadeIn;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+
+
+<div class="masthead">
+  <h3 class="container masthead-title">
+    
+    sql-server复习一
+    <a href="/" title="Home">
+      <small>
+        lazycat
+      </small>
+    </a>
+    
+  </h3>
+</div>
+
+<div class="container content">
+  <div class="post">
+  <span class="post-date">
+    
+    <i class="fas fa-calendar-day fa-fw"></i>
+    02 May 2020
+    
+    
+    <i class="fas fa-file-word fa-fw"></i>
+    4099字
+    
+    
+    <i class="fas fa-clock fa-fw"></i>
+    14分
+    
+    
+    <span class="leancloud-visitors" id="/_posts/2020-05-02-sql-server%E5%A4%8D%E4%B9%A0%E4%B8%80/" data-xid="/_posts/2020-05-02-sql-server%E5%A4%8D%E4%B9%A0%E4%B8%80/" data-flag-title="sql-server复习一">
+      <i class="fas fa-book-reader fa-fw"></i>
+      <span class="leancloud-visitors-count">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </span>次
+    </span>
+    
+    
+    
+    <i class="fas fa-tag fa-fw"></i>
+    sql
+    
+    
+    <br/>
+<i class="fas fa-coffee fa-fw"></i>
+<a href="/merger/">如果这篇博客帮助到你，可以请我喝一杯咖啡~</a>
+<br/>
+<i class="fab fa-creative-commons-by fa-fw"></i>
+<a
+  href="https://creativecommons.org/licenses/by/4.0/deed.zh"
+  rel="license">
+  CC BY 4.0
+</a>
+（除特别声明或转载文章外）
+
+    
+  </span>
+  <p>[toc]</p>
+
+<h1 id="sql-server复习一">sql-server复习一</h1>
+
+<h2 id="基础概念">基础概念</h2>
+
+<ol>
+  <li>数据库(Data)</li>
+  <li>数据库(Database)</li>
+  <li>数据库管理系统(DBMS)</li>
+  <li>数据库系统(DBS)</li>
+</ol>
+
+<h2 id="数据库系统组成">数据库系统组成</h2>
+
+<ol>
+  <li>数据库</li>
+  <li>数据库管理系统</li>
+  <li>应用程序</li>
+  <li>数据库管理员</li>
+</ol>
+
+<h2 id="dbms主要功能">DBMS主要功能</h2>
+
+<ol>
+  <li>数据库的定义功能:定义语言DDL来定义数据库的三级结构、两级映象，定义数据的完整性约束、保密限制等约束</li>
+  <li>数据库的操纵功能：操纵语言DML实现对数据的基本操作，数据查询和数据更新</li>
+  <li>数据库的保护功能：数据库恢复、数据库的并发控制、数据完整性控制、数据安全性控制</li>
+  <li>数据库的维护功能：数据库的数据载入、转换、转储、数据库的改组以及性能监控工能</li>
+  <li>数据字典（DD）：对数据库的操作都要通过DD才能实现，DD还存放数据库运行时的统计信息</li>
+</ol>
+
+<h2 id="数据库管理员dba职责">数据库管理员(DBA)职责</h2>
+
+<ol>
+  <li>决定数据库中的信息内容和结构：数据库中要存放哪些信息，DBA要参与决策</li>
+  <li>决定数据库的存储结构和存取策略：DBA要综合各用户的应用要求，和数据库设计人员共同决定数据的存储结构和存取策略，以求获得较高的存取效率和存储空间利用率</li>
+  <li>定义数据的安全性要求和完整性约束条件：DBA的重要职责是保证数据库的安全性和完整性</li>
+  <li>监控数据库的使用和运行：DBA还有一个重要职责就是监视数据库系统的运行情况，及时处理运行过程中出现的问题。比如系统发生各种故障时，数据库会因此遭到不同程度的破坏，DBA必须在最短时间内将数据库恢复到正确状态，并尽可能不影响或少影响计算机系统其他部分的正常运行</li>
+  <li>数据库的改进、重组或重构：DBA还负责在系统运行期间监视系统的空间利用率、处理效率等性能指标，对运行情况进行记录、统计分析，依靠工作实践并根据实际应用环境，不断改进数据库设计</li>
+</ol>
+
+<h2 id="三级模式体系结构">三级模式体系结构</h2>
+
+<ol>
+  <li>外部级（External）</li>
+  <li>概念级（Conceptual）</li>
+  <li>内部级（Internal）</li>
+</ol>
+
+<h2 id="模式内模式映像">模式/内模式映像</h2>
+
+<p>由于这两级的数据结构可能不一致，即记录类型、字段类型的命名和组成可能不一样，因此需要这个映像说明概念记录和内部记录之间的对应性。模式/内模式映像一般是放在内模式中描述的。</p>
+
+<h2 id="外模式模式映像">外模式/模式映像</h2>
+
+<p>外模式/模式映像一般是放在外模式中描述的。三级模式结构中，模式即全局逻辑结构是数据库的中心与关键，它独立于其他层次。因此设计数据库模式结构时应首先确定数据库的逻辑模式</p>
+
+<h2 id="数据独立性data-independence">数据独立性（Data Independence）</h2>
+
+<ol>
+  <li>物理数据独立性
+如果数据库的内模式要修改，即数据库的物理结构有所变化，那么只要对模式/内模式映像做相应的修改即可。</li>
+  <li>逻辑数据独立性  <br />
+   如果数据库的概念模式要修改，譬如增加记录类型或增加数据项，那么只要对外模式/模式映像做相应的修改，可以使外模式和应用程序尽可能保持不变。</li>
+</ol>
+
+<h2 id="数据处理的三个阶段">数据处理的三个阶段</h2>
+
+<ol>
+  <li>
+    <p>概念数据模型：</p>
+
+    <p>独立于计算机系统的数据模型，完全不涉及信息在计算机中的表示，只是用来描述某个特定组织所关心的信息结构</p>
+  </li>
+  <li>
+    <p>逻辑数据模型：</p>
+
+    <p>是直接面向数据库的逻辑结构，它是对现实世界的第二层抽象。这类模型直接与DBMS有关，简称“逻辑模型”。</p>
+  </li>
+</ol>
+
+<h2 id="er">ER</h2>
+
+<ol>
+  <li>
+    <p>ER（实体─联系方法）图提供了表示实体型、属性和联系的方法：</p>
+
+    <ol>
+      <li>实体型：用矩形表示，矩形框内写明实体名。</li>
+      <li>属性：用椭圆形表示，并用无向边将其与相应的实体型连接起来。<img src="/img/er.png" alt="er" /></li>
+      <li>联系：用菱形表示，菱形框内写明联系名，并用无向边分别与有关实体型连接起来，同时在无向边旁标上联系的类型（1:1，1:N或M:N）</li>
+    </ol>
+
+    <p><img src="/img/联系.png" alt="联系" /></p>
+  </li>
+</ol>
+
+<h2 id="二元联系主">二元联系主</h2>
+
+<ol>
+  <li>一对一联系（1:1）：如果对于实体集A中的每一个实体，实体集B中至多有一个（也可以没有）实体与之联系，反之亦然，则称实体集A与实体集B具有一对一联系，记为l:1</li>
+  <li>一对多联系（1:N）：如果对于实体集A中的每一个实体，实体集B中有N（N≥0）个实体与之联系，反之，对于实体集B中的每一个实体，实体集A中至多只有一个实体与之联系，则称实体集A与实体集B有一对多联系，记为1:N</li>
+  <li>多对多联系（M:N）：如果对于实体集A中的每一个实体，实体集B中有N（N≥0）个实体与之联系，反之，对于实体集B中的每一个实体，实体集A中也有M（M≥0）个实体与之联系，则称实体集A与实体集B具有多对多联系，记为M:N</li>
+</ol>
+
+<h2 id="三元联系和一元联系">三元联系和一元联系</h2>
+
+<ol>
+  <li>三元联系是三个实体之间的联系，这些实体之间也存在着一对一、一对多或多对多的联系。例如，对于课程、教师与参考书3个实体，如果一门课程可以有多个教师讲授，使用若干本参考书，而每一个教师只讲授一门课程，每一本参考书只供一门课程使用，则课程与教师、参考书之间的联系是一对多的</li>
+  <li>同一个实体集内的各实体之间也可以存在一对一、一对多、多对多的联系，称为一元联系。例如，一个公司的所有员工组成的实体集内部具有领导与被领导的联系，即某一员工（经理）领导若干名员工，而一个员工仅被另外一个员工（经理）直接领导，因此这是一对多的联</li>
+</ol>
+
+<h2 id="逻辑模型">逻辑模型</h2>
+
+<ol>
+  <li>在数据库系统中，传统的逻辑模型有层次模型、网状模型和关系模型三种，非传统的逻辑模型有面向对象模型（Object-Oriented model，OO）</li>
+</ol>
+
+<h2 id="逻辑模型中的数据描述">逻辑模型中的数据描述</h2>
+
+<ol>
+  <li>字段（field）：标记实体属性的命名单位称为字段或数据项。字段的命名往往和属性名相同。例如学生有学号、姓名、性别、年龄等字段。</li>
+  <li>记录（record）：字段的有序集合称为记录。一般用一个记录描述一个实体，所以记录又可以定义为能完整地描述一个实体的字段集。</li>
+  <li>文件（file）： 同一类记录的集合称为文件。文件是用来描述实体集的。
+关键码（key）： 能惟一标识文件中每个记录的字段或字段集，称为记录的关键码（简称为键）</li>
+</ol>
+
+<h2 id="层次数据模型的数据结构">层次数据模型的数据结构</h2>
+
+<ol>
+  <li>在数据库中定义满足下面两个条件的基本层次联系的集合为层次模型。有且只有一个结点没有双亲结点，这个结点称为根结点；</li>
+  <li>根以外的其他结点有且只有一个双亲结点</li>
+</ol>
+
+<h2 id="层次模型的优点">层次模型的优点</h2>
+
+<ol>
+  <li>层次模型的数据结构比较简单清晰。</li>
+  <li>层次数据库的查询效率高。因为层次模型中记录之间的联系用有向边表示，这种联系在DBMS中常常用指针来实现。因此这种联系也就是记录之间的存取路径。当要存取某个结点的记录值，DBMS就沿着这一条路径很快找到该记录值，所以，层次数据库的查询性能优于关系数据库，不低于网状数据库。</li>
+  <li>层次数据模型提供了良好的完整性支持。</li>
+</ol>
+
+<h2 id="层次模型的缺点">层次模型的缺点</h2>
+
+<ol>
+  <li>现实世界中很多联系是非层次型的，如结点之间具有多对多联系。</li>
+  <li>一个结点具有多个双亲等，层次模型表示这类联系的方法很笨拙，只能通过引入冗余数据（易产生不一致性）或创建非自然的数据结构（引入虚拟结点）来解决。对插入和删除操作的限制比较多，因此应用程序的编写比较复杂。</li>
+  <li>查询子女结点必须通过双亲结点。</li>
+  <li>由于结构严密，层次命令趋于程序化</li>
+</ol>
+
+<h2 id="网状数据模型的数据结构">网状数据模型的数据结构</h2>
+
+<ol>
+  <li>在数据库中，把满足以下两个条件的基本层次联系集合称为网状模型：允许一个以上的结点无双亲；一个结点可以有多于一个的双亲。</li>
+</ol>
+
+<h2 id="网状数据模型的优点">网状数据模型的优点</h2>
+
+<ol>
+  <li>能够更为直接地描述现实世界，如一个结点可以有多个双亲。结点之间可以有多种联系。</li>
+  <li>具有良好的性能，存取效率较高</li>
+</ol>
+
+<h2 id="网状数据模型的缺点">网状数据模型的缺点</h2>
+
+<ol>
+  <li>结构比较复杂，而且随着应用环境的扩大，数据库的结构就变得越来越复杂，不利于最终用户掌握。</li>
+  <li>网状模型的DDL、DML复杂，并且要嵌入某一种高级语言（如COBOL、C）中。因此用户不易掌握和使用。</li>
+  <li>由于记录之间的联系是通过存取路径实现的，应用程序在访问数据时必须选择适当的存取路径，因此，用户必须了解系统结构的细节。这样就加重了编写应用程序的负担</li>
+</ol>
+
+<h2 id="关系数据模型的数据结构">关系数据模型的数据结构</h2>
+
+<ol>
+  <li>关系（Relation）： 一个关系对应通常说的一张表，如表2.2中的这张学生登记表。元组（Tuple） 表中的一行即为一个元组。</li>
+  <li>属性（Attribute）： 表中的一列即为一个属性，给每一个属性起一个名称即属性名。如这张表有6列，对应6个属性：学号，姓名，年龄，性别，系名和年级。</li>
+  <li>码（Key）： 也称为码键。表中的某个属性组，它可以惟一确定一个元组，如表2.2中的学号，可以惟一确定一个学生，也就成为本关系的码。</li>
+  <li>域（Domain）： 属性的取值范围，如人的年龄一般在1～150岁之间，大学生年龄属性的域是（14～38），性别的域是（男，女），系名的域是一个学校所有系名的集合。分量 元组中的一个属性值。</li>
+</ol>
+
+<h2 id="关系模式">关系模式</h2>
+
+<p>关系名（属性l，属性2，…，属性n）</p>
+
+<h2 id="关系数据模型优点">关系数据模型优点</h2>
+
+<ol>
+  <li>关系模型与非关系模型不同，它是建立在严格的数学概念的基础上的。</li>
+  <li>关系模型的概念单一。无论实体还是实体之间的联系都用关系来表示。对数据的检索和更新结果也是关系（即表）。所以其数据结构简单、清晰，用户易懂易用。</li>
+  <li>关系模型的存取路径对用户透明，从而具有更高的数据独立性、更好的安全保密性，也简化了程序员的工作和数据库开发建立的工作</li>
+</ol>
+
+<h2 id="关系数据模型缺点">关系数据模型缺点</h2>
+
+<ol>
+  <li>由于存取路径对用户透明，查询效率往往不如非关系数据模型。</li>
+</ol>
+
+<h2 id="面向对象模型">面向对象模型</h2>
+
+<ol>
+  <li>对象（Object）： 对象是现实世界中实体的模型化，与记录概念相仿，但远比记录复杂。每个对象有一个惟一的标识符，把状态（State）和行为（Behavior）封装（Encapsulate）在一起。其中，对象的状态是该对象属性值的集合，对象的行为是在对象状态上操作的方法集。</li>
+  <li>类（Class）： 将属性集和方法集相同的所有对象组合在一起，构成了一个类。类的属性值域可以是基本数据类型（整型、实型、字符串型），也可以是记录类型和集合类型。也就是类可以有嵌套结构。系统中所有的类组成了一个有根的有向无环图，叫类层次</li>
+</ol>
+
+<ul>
+  <li>
+    <p>面向对象数据库系统的优点</p>
+
+    <ol>
+      <li>能有效地表达客观世界和有效地查询信息：面向对象方法综合了在关系数据库中发展的全部工程原理、系统分析、软件工程和专家系统领域的内容。</li>
+      <li>可维护性好：在耦合性和内聚性方面，面向对象数据模型的性能尤为突出。</li>
+      <li>能很好地解决“阻抗不匹配”（impedance mismatch）问题：应用程序语言与数据库管理系统对数据类型支持的不一致问题，这一问题通常称之为阻抗不匹配问题</li>
+    </ol>
+  </li>
+  <li>
+    <p>面向对象数据库系统的缺点</p>
+
+    <ol>
+      <li>技术还不成熟：面向对象模型还存在着标准化问题，是否修改SQL以适应面向对象的程序，还是用新的对象查询语言来代替它，目前还没有解决。</li>
+      <li>面向对象系统开发的有关原理才刚开始，只是具有雏形，还需要一段时间的研究。但在可靠性、成本等方面还是令人可以接受的。</li>
+      <li>理论还需完善：到现在为止没有关于面向对象分析的一套清晰的概念模型，怎样设计独立于物理存储的信息还不明确</li>
+    </ol>
+  </li>
+</ul>
+
+</div>
+<div class="v">
+  <i class="fas fa-spinner fa-pulse"></i>
+</div>
+<script
+  src='https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js'
+  defer='defer'
+  onload='
+    new Valine({
+      "el": document.getElementsByClassName("v")[0],
+      "appId": "9hABRddSuEkTgqLrt1VSK5B1-gzGzoHsz",
+      "appKey": "NJ7RwmgrxsF7KDzlqU7YewlL",
+      "placeholder": "在这里评论吧！填写邮箱可以获得 Gravatar 头像和回复通知哦",
+      "requiredFields": ["nick","mail"],
+      "visitor": true,
+      "recordIP": true
+    })'
+></script>
+
+</div>
+  </div>
+  
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  
+</body>
+
+</html>

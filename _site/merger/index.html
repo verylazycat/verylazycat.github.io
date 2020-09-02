@@ -1,0 +1,125 @@
+<!--
+  Merger v0.21.1 - Merge Your Qrcode Together. Even Quicker.
+  User docs: https://docs.justhx.com/merger
+  Released under GNU General Public License v3.0. Open source at https://github.com/hifocus/merger.
+  Author @hifocus (https://github.com/hifocus), @LF112 (https://github.com/LF112)
+  Please preserve the copywrite notices above as required by the license.
+ -->
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>lazycat | lazycat</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="lazycat" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="lazycat" />
+<meta property="og:description" content="lazycat" />
+<link rel="canonical" href="http://localhost:4000/merger/" />
+<meta property="og:url" content="http://localhost:4000/merger/" />
+<meta property="og:site_name" content="lazycat" />
+<script type="application/ld+json">
+{"@type":"WebPage","url":"http://localhost:4000/merger/","headline":"lazycat","description":"lazycat","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  
+  <script>
+  var usage = "payment";
+  var wechat = "wxp://f2f0GFnv47zPUAHOW0nV6X6dLn0DQ78ef1GB";
+  var tenpay = "https://i.qianbao.qq.com/wallet/sqrcode.htm?m=tenpay&f=wallet&a=1&ac=CAEQhJTLkQYY2qW09QU%3D_xxx_sign&u=1647495684&n=%E6%A0%BC%E7%89%A9%E8%87%B4%E7%9F%A5";
+  var alipay = "https://qr.alipay.com/fkx086246zrdyjj6nn3zxea";
+
+  var myname = "lazycat";
+  var profile = "https://pic.cr173.com/up/2017-8/2017841818322084.jpg";
+  var multilingual = true;
+  var myname_hans = "lazycat";
+  var myname_hant = "lazycat";
+  var myname_eng = "lazycat";
+  var title = "选择你的支付方式";
+  var subtitle = "跟随进一步的指示以向" + myname + "付款";
+  var qrcodeapi = "https://www.zhihu.com/qrcode?url=";
+</script>
+
+  
+  <meta
+  charset="utf-8"
+/>
+<meta
+  name="viewport"
+  content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+/>
+<meta
+  http-equiv="Content-Security-Policy"
+  content="upgrade-insecure-requests"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/gh/hifocus/merger@0.21.1/assets/styles/spectre.css/spectre-modified.min.css,gh/hifocus/merger@0.21.1/assets/styles/style.min.css"
+/>
+<script
+  src='https://cdn.jsdelivr.net/combine/gh/hifocus/merger@0.21.1/assets/js/jQuery/jquery.min.js,gh/hifocus/merger@0.21.1/assets/js/jquery-qrcode/jquery-qrcode.min.js,gh/hifocus/merger@0.21.1/assets/js/JavaScript_MD5/md5.min.js,gh/hifocus/merger@0.21.1/assets/js/function.min.js,gh/hifocus/merger@0.21.1/assets/js/font_974919_xgtacm93vxp.min.js'
+  defer='defer'
+></script>
+
+  
+</head>
+
+<body>
+  
+
+  <div class="main" id="h">
+    <i id="i"></i>
+    <div class="texts">
+      <h2 id="name"></h2>
+      <p id="description"></p>
+    </div>
+
+    <!-- Button Section Starts -->
+    <div id="pending">
+      <p id="depends" class="middlebtn">
+        <a href="#showqrcode" class="btn btn-primary" id="tenpaybtn" onclick="opentenpay()"><svg class="icon"
+            aria-hidden="true">
+            <use xlink:href="#icon-QQ"></use>
+          </svg></a>
+        <a href="#showqrcode" class="btn btn-primary" id="toclick" onclick="openwechat()"><svg class="icon"
+            aria-hidden="true">
+            <use xlink:href="#icon-weixinzhifu"></use>
+          </svg></a>
+        <a href="#showqrcode" class="btn btn-primary" id="alipaybtn" onclick="openalipay()"><svg class="icon"
+            aria-hidden="true">
+            <use xlink:href="#icon-iconfontrectangle390"></use>
+          </svg></a>
+        <button class="btn btn-primary" id="paypalbtn" onclick="openbox()"><svg class="icon paypal-wide"
+            aria-hidden="true">
+            <use xlink:href="#icon-paypal"></use>
+          </svg></button>
+      </p>
+    </div>
+  </div>
+
+  <!-- Button Section Ends -->
+
+  <!-- Modal Section Starts -->
+  <div class="modal" id="showqrcode">
+    <div class="modal-container" role="document">
+      <div class="modal-header" id="btncontainer">
+        <a href="#" class="btn btn-clear float-right" id="qrcodeclose" aria-label="Close"></a>
+        <div id="titleinfo" class="modal-title h5" style="text-align: center"></div>
+      </div>
+      <div class="modal-body">
+        <div class="content" id="qrcontainer">
+          <div id="currentqrcode" class="img smaller"></div>
+          <img id="tenpayonly" class="img smaller">
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

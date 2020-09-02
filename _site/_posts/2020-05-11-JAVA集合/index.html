@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>JAVA集合 | lazycat</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="JAVA集合" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="[toc]" />
+<meta property="og:description" content="[toc]" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-05-11-JAVA%E9%9B%86%E5%90%88/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-05-11-JAVA%E9%9B%86%E5%90%88/" />
+<meta property="og:site_name" content="lazycat" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-11T00:00:00-04:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-05-11-JAVA%E9%9B%86%E5%90%88/","headline":"JAVA集合","dateModified":"2020-05-11T00:00:00-04:00","datePublished":"2020-05-11T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-05-11-JAVA%E9%9B%86%E5%90%88/"},"description":"[toc]","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1"
+/>
+<meta
+  http-equiv="content-type"
+  content="text/html; charset=utf-8"
+/>
+<link
+  rel="alternate"
+  href="/feed.xml"
+  title="RSS"
+  type="application/rss+xml"
+/>
+
+  
+  <link
+  rel="apple-touch-icon-precomposed"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+<link
+  rel="shortcut
+  icon"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/gh/poole/lanyon@v1.1.0/public/css/poole.min.css,gh/poole/lanyon@v1.1.0/public/css/lanyon.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/Dreamer-Paul/Pio@2.4/static/pio.min.css"
+/>
+<script
+  async="async"
+  src="https://cdn.jsdelivr.net/combine/gh/Dreamer-Paul/Pio@2.4/static/l2d.min.js,gh/Dreamer-Paul/Pio@2.4/static/pio.min.js"
+  onload='
+      let pio_container = document.createElement("div");
+      pio_container.classList.add("pio-container");
+      pio_container.classList.add("right");
+      pio_container.style.bottom = "-2rem";
+      pio_container.style.zIndex = "1";
+      document.body.insertAdjacentElement("beforeend", pio_container);
+      let pio_action = document.createElement("div");
+      pio_action.classList.add("pio-action");
+      pio_container.insertAdjacentElement("beforeend", pio_action);
+      let pio_canvas = document.createElement("canvas");
+      pio_canvas.id = "pio";
+      pio_canvas.style.width = "14rem";
+      pio_canvas.width = "600";
+      pio_canvas.height = "800";
+      pio_container.insertAdjacentElement("beforeend", pio_canvas);
+      let pio = new Paul_Pio({
+        "mode": "fixed",
+        "hidden": true,
+        "night": "for(let i=7; i<16; ++i) if(document.body.classList.contains(`theme-base-0`+i.toString(16))) { document.body.classList.remove(`theme-base-0`+i.toString(16)); document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16)); break; }",
+        "content": {
+          "link": ["https://jekyll-theme-WuK.wu-kan.cn"],
+          "skin": ["要换成我的朋友吗？", "让她放个假吧~"],
+          "hidden": true,
+          "custom": [{
+            "selector": "a",
+            "type": "link",
+          }, {
+            "selector": ".sidebar-toggle",
+            "text": "打开侧边栏叭~"
+          }, {
+            "selector": ".effect-info",
+            "text": "哇，你发现了什么！"
+          }, {
+            "selector": "#sidebar-search-input",
+            "text": "想搜索什么呢？很多干货哦！"
+          }, {
+            "selector": "#toc",
+            "text": "这是目录~"
+          }, {
+            "selector": ".page-title",
+            "text": "这是标题~"
+          }, {
+            "selector": ".v",
+            "text": "评论没有审核，要对自己的发言负责哦~"
+          }]
+        },
+        "model": [
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Violet/14.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"]
+      });'
+></script>
+
+  
+  <script
+  src='https://zz.bdstatic.com/linksubmit/push.js'
+  async="async"
+></script>
+
+  
+  <script
+  async="async"
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163543967-1"
+  onload="
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-163543967-1');"
+></script>
+
+  
+  <style>
+  .wrap {
+    transition-property: width,background-size,transform;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    min-height: 100%;
+    display: inline-block;
+    background-size: 100% auto;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+  }
+  @media (min-aspect-ratio: 2400/1850) {
+    .wrap {
+      background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+    }
+  }
+  .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    width: calc(100% - 14rem);
+    background-size: calc(100% - 14rem) auto;
+    transform: translateX(14rem);
+  }
+  .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    transform: translateX(0);
+  }
+</style>
+
+  
+  <style>
+  .sidebar,
+  html,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: PingFang SC, Menlo, Monaco, "Courier New", Microsoft JhengHei, monospace;
+  }
+</style>
+
+  
+  <style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+  }
+</style>
+
+  
+  <style>
+  img {
+    display: inline-block;
+    margin: 0;
+  }
+</style>
+
+  
+  <style>
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, Cyan 0%, Magenta 50%, Yellow 100%);
+  }
+</style>
+
+  
+  <style>
+  ::selection {
+    color: White;
+    background: Black;
+  }
+</style>
+
+  
+</head>
+
+<body
+  class="theme-base-07 sidebar-overlay">
+  
+  
+  
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+  <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"
+     />
+  <!-- Toggleable sidebar -->
+  <div class="sidebar" id="sidebar">
+    
+    <div class="sidebar-item">
+      <div class="effect effect-right_to_left">
+        <img class="effect-img" src="https://pic.cr173.com/up/2017-8/2017841818322084.jpg" alt="img" />
+        <div class="effect-info">
+          lazycat<br/>
+<a href="mailto:verylazycat@outlook.com">
+  <i class="fas fa-envelope"></i>
+</a>
+<a href="https://github.com/verylazycat">
+  <i class="fab fa-github"></i>
+</a>
+
+        </div>
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+      
+      <a class="sidebar-nav-item" href="/">
+        <i class="fas fa-home fa-fw"></i> 首页
+      </a>
+      
+      <a class="sidebar-nav-item" href="/comments/">
+        <i class="fas fa-comments fa-fw"></i> 留言
+      </a>
+      
+      <a class="sidebar-nav-item" href="/tags/">
+        <i class="fas fa-tags fa-fw"></i> 标签
+      </a>
+      
+      <a class="sidebar-nav-item" href="/archive/">
+        <i class="fas fa-archive fa-fw"></i> 归档
+      </a>
+      
+      <a class="sidebar-nav-item" href="/merger/">
+        <i class="fas fa-coffee fa-fw"></i> 打赏
+      </a>
+      
+    </nav>
+    <div class="sidebar-item">
+      
+      <style>
+  #sidebar-search-input {
+    background: none;
+    border: none;
+    color: White;
+    width: 100%;
+  }
+  #sidebar-search-results-container {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+<input
+  id="sidebar-search-input"
+  placeholder="搜索博文"
+/>
+<ol
+  id="sidebar-search-results-container"
+></ol>
+<script
+  src='https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.7/dest/simple-jekyll-search.min.js'
+  async='async'
+  onload='
+    SimpleJekyllSearch({
+      json: "/assets/simple-jekyll-search/search.json",
+      searchInput: document.getElementById("sidebar-search-input"),
+      resultsContainer: document.getElementById("sidebar-search-results-container"),
+      searchResultTemplate: `<li><a href="{url}">{title}</a></li>`,
+      limit: 999,
+      fuzzy: true
+    })'
+></script>
+
+      
+      
+      <style>
+  #toc {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+
+      <ol id="toc">
+  <li><a href="#arraylist">ArrayList</a>
+    <ol>
+      <li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96">序列化</a></li>
+    </ol>
+  </li>
+  <li><a href="#vector">Vector</a></li>
+  <li><a href="#linkedlist">LinkedList</a>
+    <ol>
+      <li><a href="#%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95">新增方法</a></li>
+      <li><a href="#%E6%9F%A5%E8%AF%A2%E6%96%B9%E6%B3%95">查询方法</a></li>
+    </ol>
+  </li>
+  <li><a href="#hashmap">HashMap</a></li>
+  <li><a href="#hashset">HashSet</a>
+    <ol>
+      <li><a href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F">成员变量</a></li>
+      <li><a href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">构造函数</a></li>
+      <li><a href="#add">add</a></li>
+      <li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+    </ol>
+  </li>
+  <li><a href="#linkedhashmap">LinkedHashMap</a>
+    <ol>
+      <li><a href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a></li>
+      <li><a href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95">构造方法</a></li>
+      <li><a href="#put-%E6%96%B9%E6%B3%95">put() 方法</a></li>
+      <li><a href="#get-%E6%96%B9%E6%B3%95">get 方法</a></li>
+      <li><a href="#%E6%80%BB%E7%BB%93-1">总结</a></li>
+    </ol>
+  </li>
+</ol>
+      
+      
+      <style>
+  .sidebar-checkbox {
+    display: none;
+  }
+  .sidebar-toggle {
+    position: fixed;
+  }
+</style>
+
+      
+      <style>
+  .effect {
+    margin: 1rem;
+    perspective: 900px;
+  }
+  .effect-info {
+    text-align: center;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    transform-style: preserve-3d;
+  }
+  .effect-img {
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+  }
+  .effect-img:before {
+    position: absolute;
+    display: block;
+  }
+  .effect-right_to_left .effect-img {
+    transform-origin: 0% 50%;
+  }
+  .effect-right_to_left:hover .effect-img {
+    transform: rotate3d(0, 1, 0, -180deg);
+  }
+</style>
+
+      
+      <div>
+  <i class="fas fa-cog fa-spin fa-fw"></i>
+  <span id="run_time_day">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>天
+  <span id="run_time_hour">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>时
+  <span id="run_time_minute">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>分
+  <span id="run_time_second">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>秒
+  <script>
+    setInterval(function (d,h,m,s,b) {
+      function setzero(i) {
+        return i < 10 ? "0" + i : i;
+      }
+      let BirthDay = new Date(b);
+      let today = new Date();
+      let timeold = (today.getTime() - BirthDay.getTime());
+      let sectimeold = timeold / 1000;
+      let secondsold = Math.floor(sectimeold);
+      let msPerDay = 24 * 60 * 60 * 1000;
+      let e_daysold = timeold / msPerDay;
+      let daysold = Math.floor(e_daysold);
+      let e_hrsold = (e_daysold - daysold) * 24;
+      let hrsold = Math.floor(e_hrsold);
+      let e_minsold = (e_hrsold - hrsold) * 60;
+      let minsold = Math.floor((e_hrsold - hrsold) * 60);
+      let seconds = Math.floor((e_minsold - minsold) * 60);
+      d.textContent = daysold;
+      h.textContent = setzero(hrsold);
+      m.textContent = setzero(minsold);
+      s.textContent = setzero(seconds);
+    },
+    1000,
+    document.getElementById("run_time_day"),
+    document.getElementById("run_time_hour"),
+    document.getElementById("run_time_minute"),
+    document.getElementById("run_time_second"),
+    "05/02/2020 11:03:56")// 这是我第一篇博客的时间
+  </script>
+</div>
+
+      
+      <div>
+  <div>
+    <i class="fas fa-eye fa-fw"></i>
+    <span id="busuanzi_value_page_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>次
+  </div>
+  <div>
+    <i class="fas fa-paw fa-fw"></i>
+    <span id="busuanzi_value_site_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>枚
+  </div>
+  <div>
+    <i class="fas fa-user-friends fa-fw"></i>
+    <span id="busuanzi_value_site_uv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>人
+  </div>
+  <script
+    src='https://cdn.jsdelivr.net/npm/busuanzi@2.3.0'
+    async='async'
+  ></script>
+</div>
+
+      
+      <div>
+  <i class="fas fa-copyright fa-fw"></i>
+  2020-2022 lazycat
+</div>
+
+      
+      <div>
+  <i class="fas fa-info-circle fa-fw"></i>
+  <a href="http://beian.miit.gov.cn">
+    蜀ICP备20011774号
+  </a>
+</div>
+
+      
+      
+    </div>
+  </div>
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the content to avoid any CSS collisions with our real content. -->
+  
+  <div class="wrap">
+    
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/katex@0.11.1/dist/katex.min.js,npm/katex@0.11.1/dist/contrib/mathtex-script-type.min.js,npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  defer="defer"
+  onload='renderMathInElement(document.body, { delimiters: [{ left: "$", right: "$", display: false }] })'
+></script>
+
+
+
+<style>
+  pre.language-mermaid,
+  code.language-mermaid {
+    display: none;
+  }
+</style>
+<script
+  src="https://cdn.jsdelivr.net/npm/mermaid@8.5.1/dist/mermaid.min.js"
+  defer="defer"
+  onload='
+    for(let x of document.getElementsByClassName("language-mermaid"))
+      if(x.nodeName=="CODE")
+      {
+        let m = document.createElement("div");
+        m.classList.add("mermaid");
+        m.textContent = x.textContent;
+        x.parentNode.insertAdjacentElement("beforebegin", m);
+      }'
+></script>
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.css,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.css,gh/PrismJS/prism-themes@1955cfef6953b3a59e66016e8a1e016b45d6cc79/themes/prism-nord.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/components/prism-core.min.js,npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js,npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.js,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.js"
+  defer="defer"
+  onload='
+    Prism.plugins.autoloader.languages_path = "https:\/\/cdn.jsdelivr.net/npm/prismjs/components/";
+    for(let x of document.getElementsByTagName("pre"))
+      x.classList.add("line-numbers");
+    Prism.plugins.toolbar.registerButton("select-code", function (env) {
+      let button = document.createElement("button");
+      button.textContent = "select this " + env.language;
+      button.addEventListener("click", function () {
+        if (document.body.createTextRange) {
+          let range = document.body.createTextRange();
+          range.moveToElementText(env.element);
+          range.select();
+        } else if (window.getSelection) {
+          let selection = window.getSelection();
+          let range = document.createRange();
+          range.selectNodeContents(env.element);
+          selection.removeAllRanges();
+            selection.addRange(range);
+        }
+      });
+      return button;
+    })'
+></script>
+
+
+
+<style>
+  pre {
+    max-height: 50vh;
+    overflow: auto;
+  }
+</style>
+
+
+<style>
+  @media (min-width: 56em) {
+    .container {
+      max-width: 66.6%;
+    }
+  }
+</style>
+
+
+<style>
+  .masthead,
+  .container.content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 .75rem rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    animation-duration: 2s;
+    animation-name: fadeIn;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+
+
+<div class="masthead">
+  <h3 class="container masthead-title">
+    
+    JAVA集合
+    <a href="/" title="Home">
+      <small>
+        lazycat
+      </small>
+    </a>
+    
+  </h3>
+</div>
+
+<div class="container content">
+  <div class="post">
+  <span class="post-date">
+    
+    <i class="fas fa-calendar-day fa-fw"></i>
+    11 May 2020
+    
+    
+    <i class="fas fa-file-word fa-fw"></i>
+    8860字
+    
+    
+    <i class="fas fa-clock fa-fw"></i>
+    30分
+    
+    
+    <span class="leancloud-visitors" id="/_posts/2020-05-11-JAVA%E9%9B%86%E5%90%88/" data-xid="/_posts/2020-05-11-JAVA%E9%9B%86%E5%90%88/" data-flag-title="JAVA集合">
+      <i class="fas fa-book-reader fa-fw"></i>
+      <span class="leancloud-visitors-count">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </span>次
+    </span>
+    
+    
+    
+    <i class="fas fa-tag fa-fw"></i>
+    JAVA
+    
+    
+    <br/>
+<i class="fas fa-coffee fa-fw"></i>
+<a href="/merger/">如果这篇博客帮助到你，可以请我喝一杯咖啡~</a>
+<br/>
+<i class="fab fa-creative-commons-by fa-fw"></i>
+<a
+  href="https://creativecommons.org/licenses/by/4.0/deed.zh"
+  rel="license">
+  CC BY 4.0
+</a>
+（除特别声明或转载文章外）
+
+    
+  </span>
+  <p>[toc]</p>
+
+<h1 id="arraylist">ArrayList</h1>
+
+<p><code>ArrayList</code> 实现于 <code>List</code>、<code>RandomAccess</code> 接口。可以插入空数据，也支持随机访问。</p>
+
+<p><code>ArrayList</code>相当于动态数据，其中最重要的两个属性分别是: <code>elementData</code> 数组，以及 <code>size</code> 大小。 在调用 <code>add()</code> 方法的时候：</p>
+
+<pre><code class="language-java">    public boolean add(E e) {
+        ensureCapacityInternal(size + 1);  // Increments modCount!!
+        elementData[size++] = e;
+        return true;
+    }
+</code></pre>
+
+<ul>
+  <li>
+    <p>首先进行扩容校验。</p>
+  </li>
+  <li>
+    <p>将插入的值放到尾部，并将 size + 1</p>
+  </li>
+</ul>
+
+<p>如果是调用 <code>add(index,e)</code> 在指定位置添加的话：</p>
+
+<pre><code class="language-java">    public void add(int index, E element) {
+        rangeCheckForAdd(index);
+
+        ensureCapacityInternal(size + 1);  // Increments modCount!!
+        //复制，向后移动
+        System.arraycopy(elementData, index, elementData, index + 1,
+                         size - index);
+        elementData[index] = element;
+        size++;
+    }
+</code></pre>
+
+<ul>
+  <li>也是首先扩容校验。</li>
+  <li>接着对数据进行复制，目的是把 index 位置空出来放本次插入的数据，并将后面的数据向后移动一个位置。</li>
+</ul>
+
+<p>其实扩容最终调用的代码:</p>
+
+<pre><code class="language-java">    private void grow(int minCapacity) {
+        // overflow-conscious code
+        int oldCapacity = elementData.length;
+        int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);
+        if (newCapacity - minCapacity &lt; 0)
+            newCapacity = minCapacity;
+        if (newCapacity - MAX_ARRAY_SIZE &gt; 0)
+            newCapacity = hugeCapacity(minCapacity);
+        // minCapacity is usually close to size, so this is a win:
+        elementData = Arrays.copyOf(elementData, newCapacity);
+    }
+</code></pre>
+
+<p>也是一个数组复制的过程。</p>
+
+<p>由此可见 <code>ArrayList</code> 的主要消耗是数组扩容以及在指定位置添加数据，在日常使用时最好是指定大小，尽量减少扩容。更要减少在指定位置插入数据的操作。</p>
+
+<h2 id="序列化">序列化</h2>
+
+<p>由于 ArrayList 是基于动态数组实现的，所以并不是所有的空间都被使用。因此使用了 <code>transient</code> 修饰，可以防止被自动序列化。</p>
+
+<pre><code class="language-java">transient Object[] elementData;
+</code></pre>
+
+<p>因此 ArrayList 自定义了序列化与反序列化：</p>
+
+<pre><code class="language-java">    private void writeObject(java.io.ObjectOutputStream s)
+        throws java.io.IOException{
+        // Write out element count, and any hidden stuff
+        int expectedModCount = modCount;
+        s.defaultWriteObject();
+
+        // Write out size as capacity for behavioural compatibility with clone()
+        s.writeInt(size);
+
+        // Write out all elements in the proper order.
+        //只序列化了被使用的数据
+        for (int i=0; i&lt;size; i++) {
+            s.writeObject(elementData[i]);
+        }
+
+        if (modCount != expectedModCount) {
+            throw new ConcurrentModificationException();
+        }
+    }
+
+    private void readObject(java.io.ObjectInputStream s)
+        throws java.io.IOException, ClassNotFoundException {
+        elementData = EMPTY_ELEMENTDATA;
+
+        // Read in size, and any hidden stuff
+        s.defaultReadObject();
+
+        // Read in capacity
+        s.readInt(); // ignored
+
+        if (size &gt; 0) {
+            // be like clone(), allocate array based upon size not capacity
+            ensureCapacityInternal(size);
+
+            Object[] a = elementData;
+            // Read in all elements in the proper order.
+            for (int i=0; i&lt;size; i++) {
+                a[i] = s.readObject();
+            }
+        }
+    }
+</code></pre>
+
+<blockquote>
+  <p>当对象中自定义了 writeObject 和 readObject 方法时，JVM 会调用这两个自定义方法来实现序列化与反序列化。</p>
+</blockquote>
+
+<p>从实现中可以看出 ArrayList 只序列化了被使用的数据。</p>
+
+<h1 id="vector">Vector</h1>
+
+<p><code>Vector</code> 也是实现于 <code>List</code> 接口，底层数据结构和 <code>ArrayList</code> 类似,也是一个动态数组存放数据。不过是在 <code>add()</code> 方法的时候使用 <code>synchronized</code> 进行同步写数据，但是开销较大，所以 <code>Vector</code> 是一个同步容器并不是一个并发容器。</p>
+
+<p>以下是 <code>add()</code> 方法：</p>
+
+<pre><code class="language-java">    public synchronized boolean add(E e) {
+        modCount++;
+        ensureCapacityHelper(elementCount + 1);
+        elementData[elementCount++] = e;
+        return true;
+    }
+</code></pre>
+
+<p>以及指定位置插入数据:</p>
+
+<pre><code class="language-java">    public void add(int index, E element) {
+        insertElementAt(element, index);
+    }
+    public synchronized void insertElementAt(E obj, int index) {
+        modCount++;
+        if (index &gt; elementCount) {
+            throw new ArrayIndexOutOfBoundsException(index
+                                                     + " &gt; " + elementCount);
+        }
+        ensureCapacityHelper(elementCount + 1);
+        System.arraycopy(elementData, index, elementData, index + 1, elementCount - index);
+        elementData[index] = obj;
+        elementCount++;
+    }
+</code></pre>
+
+<h1 id="linkedlist">LinkedList</h1>
+
+<p><code>LinkedList</code> 底层是基于双向链表实现的，也是实现了 <code>List</code> 接口，所以也拥有 List 的一些特点(JDK1.7/8 之后取消了循环，修改为双向链表)。</p>
+
+<h2 id="新增方法">新增方法</h2>
+
+<pre><code class="language-java">    public boolean add(E e) {
+        linkLast(e);
+        return true;
+    }
+     /**
+     * Links e as last element.
+     */
+    void linkLast(E e) {
+        final Node&lt;E&gt; l = last;
+        final Node&lt;E&gt; newNode = new Node&lt;&gt;(l, e, null);
+        last = newNode;
+        if (l == null)
+            first = newNode;
+        else
+            l.next = newNode;
+        size++;
+        modCount++;
+    }
+</code></pre>
+
+<p>可见每次插入都是移动指针，和 ArrayList 的拷贝数组来说效率要高上不少。</p>
+
+<h2 id="查询方法">查询方法</h2>
+
+<pre><code class="language-java">    public E get(int index) {
+        checkElementIndex(index);
+        return node(index).item;
+    }
+
+    Node&lt;E&gt; node(int index) {
+        // assert isElementIndex(index);
+
+        if (index &lt; (size &gt;&gt; 1)) {
+            Node&lt;E&gt; x = first;
+            for (int i = 0; i &lt; index; i++)
+                x = x.next;
+            return x;
+        } else {
+            Node&lt;E&gt; x = last;
+            for (int i = size - 1; i &gt; index; i--)
+                x = x.prev;
+            return x;
+        }
+    }
+</code></pre>
+
+<p>上述代码，利用了双向链表的特性，如果<code>index</code>离链表头比较近，就从节点头部遍历。否则就从节点尾部开始遍历。使用空间（双向链表）来换取时间。</p>
+
+<ul>
+  <li><code>node()</code>会以<code>O(n/2)</code>的性能去获取一个结点
+    <ul>
+      <li>如果索引值大于链表大小的一半，那么将从尾结点开始遍历</li>
+    </ul>
+  </li>
+</ul>
+
+<p>这样的效率是非常低的，特别是当 index 越接近 size 的中间值时。</p>
+
+<p>总结：</p>
+
+<ul>
+  <li>LinkedList 插入，删除都是移动指针效率很高。</li>
+  <li>查找需要进行遍历查询，效率较低。</li>
+</ul>
+
+<h1 id="hashmap">HashMap</h1>
+
+<p>参考<a href="/_posts/2020-05-21-HashMap实现原理">文章</a></p>
+
+<h1 id="hashset">HashSet</h1>
+
+<p><code>HashSet</code> 是一个不允许存储重复元素的集合，它的实现比较简单，只要理解了 <code>HashMap</code>，<code>HashSet</code> 就水到渠成了。</p>
+
+<h2 id="成员变量">成员变量</h2>
+
+<p>首先了解下 <code>HashSet</code> 的成员变量:</p>
+
+<pre><code class="language-java">    private transient HashMap&lt;E,Object&gt; map;
+
+    // Dummy value to associate with an Object in the backing Map
+    private static final Object PRESENT = new Object();
+</code></pre>
+
+<p>发现主要就两个变量:</p>
+
+<ul>
+  <li><code>map</code> ：用于存放最终数据的。</li>
+  <li><code>PRESENT</code> ：是所有写入 map 的 <code>value</code> 值。</li>
+</ul>
+
+<h2 id="构造函数">构造函数</h2>
+
+<pre><code class="language-java">    public HashSet() {
+        map = new HashMap&lt;&gt;();
+    }
+
+    public HashSet(int initialCapacity, float loadFactor) {
+        map = new HashMap&lt;&gt;(initialCapacity, loadFactor);
+    }    
+</code></pre>
+
+<p>构造函数很简单，利用了 <code>HashMap</code> 初始化了 <code>map</code> 。</p>
+
+<h2 id="add">add</h2>
+
+<pre><code class="language-java">    public boolean add(E e) {
+        return map.put(e, PRESENT)==null;
+    }
+</code></pre>
+
+<p>比较关键的就是这个 <code>add()</code> 方法。 可以看出它是将存放的对象当做了 <code>HashMap</code> 的健，<code>value</code> 都是相同的 <code>PRESENT</code> 。由于 <code>HashMap</code> 的 <code>key</code> 是不能重复的，所以每当有重复的值写入到 <code>HashSet</code> 时，<code>value</code> 会被覆盖，但 <code>key</code> 不会受到影响，这样就保证了 <code>HashSet</code> 中只能存放不重复的元素。</p>
+
+<h2 id="总结">总结</h2>
+
+<p><code>HashSet</code> 的原理比较简单，几乎全部借助于 <code>HashMap</code> 来实现的。</p>
+
+<p>所以 <code>HashMap</code> 会出现的问题 <code>HashSet</code> 依然不能避免。</p>
+
+<h1 id="linkedhashmap">LinkedHashMap</h1>
+
+<p>众所周知 HashMap 是一个无序的 <code>Map</code>，因为每次根据 <code>key</code> 的 <code>hashcode</code> 映射到 <code>Entry</code> 数组上，所以遍历出来的顺序并不是写入的顺序。</p>
+
+<p>因此 JDK 推出一个基于 <code>HashMap</code> 但具有顺序的 <code>LinkedHashMap</code> 来解决有排序需求的场景。</p>
+
+<p>它的底层是继承于 <code>HashMap</code> 实现的，由一个双向链表所构成。</p>
+
+<p><code>LinkedHashMap</code> 的排序方式有两种：</p>
+
+<ul>
+  <li>根据写入顺序排序。</li>
+  <li>根据访问顺序排序。</li>
+</ul>
+
+<p>其中根据访问顺序排序时，每次 <code>get</code> 都会将访问的值移动到链表末尾，这样重复操作就能得到一个按照访问顺序排序的链表。</p>
+
+<h2 id="数据结构">数据结构</h2>
+
+<pre><code class="language-java">    @Test
+    public void test(){
+        Map&lt;String, Integer&gt; map = new LinkedHashMap&lt;String, Integer&gt;();
+        map.put("1",1) ;
+        map.put("2",2) ;
+        map.put("3",3) ;
+        map.put("4",4) ;
+        map.put("5",5) ;
+        System.out.println(map.toString());
+
+    }
+</code></pre>
+
+<p>打开源码可以看到：</p>
+
+<pre><code class="language-java">    /**
+     * The head of the doubly linked list.
+     */
+    private transient Entry&lt;K,V&gt; header;
+
+    /**
+     * The iteration ordering method for this linked hash map: &lt;tt&gt;true&lt;/tt&gt;
+     * for access-order, &lt;tt&gt;false&lt;/tt&gt; for insertion-order.
+     *
+     * @serial
+     */
+    private final boolean accessOrder;
+
+    private static class Entry&lt;K,V&gt; extends HashMap.Entry&lt;K,V&gt; {
+        // These fields comprise the doubly linked list used for iteration.
+        Entry&lt;K,V&gt; before, after;
+
+        Entry(int hash, K key, V value, HashMap.Entry&lt;K,V&gt; next) {
+            super(hash, key, value, next);
+        }
+    }  
+</code></pre>
+
+<p>其中 <code>Entry</code> 继承于 <code>HashMap</code> 的 <code>Entry</code>，并新增了上下节点的指针，也就形成了双向链表。</p>
+
+<p>还有一个 <code>header</code> 的成员变量，是这个双向链表的头结点。</p>
+
+<p>第一个类似于 <code>HashMap</code> 的结构，利用 <code>Entry</code> 中的 <code>next</code> 指针进行关联。</p>
+
+<p>下边则是 <code>LinkedHashMap</code> 如何达到有序的关键。</p>
+
+<p>就是利用了头节点和其余的各个节点之间通过 <code>Entry</code> 中的 <code>after</code> 和 <code>before</code> 指针进行关联。</p>
+
+<p>其中还有一个 <code>accessOrder</code> 成员变量，默认是 <code>false</code>，默认按照插入顺序排序，为 <code>true</code> 时按照访问顺序排序，也可以调用:</p>
+
+<pre><code>    public LinkedHashMap(int initialCapacity,
+                         float loadFactor,
+                         boolean accessOrder) {
+        super(initialCapacity, loadFactor);
+        this.accessOrder = accessOrder;
+    }
+</code></pre>
+
+<p>这个构造方法可以显示的传入 <code>accessOrder</code>。</p>
+
+<h2 id="构造方法">构造方法</h2>
+
+<p><code>LinkedHashMap</code> 的构造方法:</p>
+
+<pre><code class="language-java">    public LinkedHashMap() {
+        super();
+        accessOrder = false;
+    }
+</code></pre>
+
+<p>其实就是调用的 <code>HashMap</code> 的构造方法:</p>
+
+<p><code>HashMap</code> 实现：</p>
+
+<pre><code class="language-java">    public HashMap(int initialCapacity, float loadFactor) {
+        if (initialCapacity &lt; 0)
+            throw new IllegalArgumentException("Illegal initial capacity: " +
+                                               initialCapacity);
+        if (initialCapacity &gt; MAXIMUM_CAPACITY)
+            initialCapacity = MAXIMUM_CAPACITY;
+        if (loadFactor &lt;= 0 || Float.isNaN(loadFactor))
+            throw new IllegalArgumentException("Illegal load factor: " +
+                                               loadFactor);
+
+        this.loadFactor = loadFactor;
+        threshold = initialCapacity;
+        //HashMap 只是定义了改方法，具体实现交给了 LinkedHashMap
+        init();
+    }
+</code></pre>
+
+<p>可以看到里面有一个空的 <code>init()</code>，具体是由 <code>LinkedHashMap</code> 来实现的：</p>
+
+<pre><code class="language-java">    @Override
+    void init() {
+        header = new Entry&lt;&gt;(-1, null, null, null);
+        header.before = header.after = header;
+    }
+</code></pre>
+
+<p>其实也就是对 <code>header</code> 进行了初始化。</p>
+
+<h2 id="put-方法">put() 方法</h2>
+
+<p>看 <code>LinkedHashMap</code> 的 <code>put()</code> 方法之前先看看 <code>HashMap</code> 的 <code>put</code> 方法：</p>
+
+<pre><code>    public V put(K key, V value) {
+        if (table == EMPTY_TABLE) {
+            inflateTable(threshold);
+        }
+        if (key == null)
+            return putForNullKey(value);
+        int hash = hash(key);
+        int i = indexFor(hash, table.length);
+        for (Entry&lt;K,V&gt; e = table[i]; e != null; e = e.next) {
+            Object k;
+            if (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) {
+                V oldValue = e.value;
+                e.value = value;
+                //空实现，交给 LinkedHashMap 自己实现
+                e.recordAccess(this);
+                return oldValue;
+            }
+        }
+
+        modCount++;
+        // LinkedHashMap 对其重写
+        addEntry(hash, key, value, i);
+        return null;
+    }
+
+    // LinkedHashMap 对其重写
+    void addEntry(int hash, K key, V value, int bucketIndex) {
+        if ((size &gt;= threshold) &amp;&amp; (null != table[bucketIndex])) {
+            resize(2 * table.length);
+            hash = (null != key) ? hash(key) : 0;
+            bucketIndex = indexFor(hash, table.length);
+        }
+
+        createEntry(hash, key, value, bucketIndex);
+    }
+
+    // LinkedHashMap 对其重写
+    void createEntry(int hash, K key, V value, int bucketIndex) {
+        Entry&lt;K,V&gt; e = table[bucketIndex];
+        table[bucketIndex] = new Entry&lt;&gt;(hash, key, value, e);
+        size++;
+    }       
+</code></pre>
+
+<p>主体的实现都是借助于 <code>HashMap</code> 来完成的，只是对其中的 <code>recordAccess(), addEntry(), createEntry()</code> 进行了重写。</p>
+
+<p><code>LinkedHashMap</code> 的实现：</p>
+
+<pre><code class="language-java">        //就是判断是否是根据访问顺序排序，如果是则需要将当前这个 Entry 移动到链表的末尾
+        void recordAccess(HashMap&lt;K,V&gt; m) {
+            LinkedHashMap&lt;K,V&gt; lm = (LinkedHashMap&lt;K,V&gt;)m;
+            if (lm.accessOrder) {
+                lm.modCount++;
+                remove();
+                addBefore(lm.header);
+            }
+        }
+
+
+    //调用了 HashMap 的实现，并判断是否需要删除最少使用的 Entry(默认不删除)    
+    void addEntry(int hash, K key, V value, int bucketIndex) {
+        super.addEntry(hash, key, value, bucketIndex);
+
+        // Remove eldest entry if instructed
+        Entry&lt;K,V&gt; eldest = header.after;
+        if (removeEldestEntry(eldest)) {
+            removeEntryForKey(eldest.key);
+        }
+    }
+
+    void createEntry(int hash, K key, V value, int bucketIndex) {
+        HashMap.Entry&lt;K,V&gt; old = table[bucketIndex];
+        Entry&lt;K,V&gt; e = new Entry&lt;&gt;(hash, key, value, old);
+        //就多了这一步，将新增的 Entry 加入到 header 双向链表中
+        table[bucketIndex] = e;
+        e.addBefore(header);
+        size++;
+    }
+
+        //写入到双向链表中
+        private void addBefore(Entry&lt;K,V&gt; existingEntry) {
+            after  = existingEntry;
+            before = existingEntry.before;
+            before.after = this;
+            after.before = this;
+        }  
+</code></pre>
+
+<h2 id="get-方法">get 方法</h2>
+
+<p>LinkedHashMap 的 <code>get()</code> 方法也重写了：</p>
+
+<pre><code class="language-java">    public V get(Object key) {
+        Entry&lt;K,V&gt; e = (Entry&lt;K,V&gt;)getEntry(key);
+        if (e == null)
+            return null;
+
+        //多了一个判断是否是按照访问顺序排序，是则将当前的 Entry 移动到链表头部。   
+        e.recordAccess(this);
+        return e.value;
+    }
+
+    void recordAccess(HashMap&lt;K,V&gt; m) {
+        LinkedHashMap&lt;K,V&gt; lm = (LinkedHashMap&lt;K,V&gt;)m;
+        if (lm.accessOrder) {
+            lm.modCount++;
+
+            //删除
+            remove();
+            //添加到头部
+            addBefore(lm.header);
+        }
+    }
+</code></pre>
+
+<p><code>clear()</code> 清空就要比较简单了：</p>
+
+<pre><code class="language-java">    //只需要把指针都指向自己即可，原本那些 Entry 没有引用之后就会被 JVM 自动回收。
+    public void clear() {
+        super.clear();
+        header.before = header.after = header;
+    }
+</code></pre>
+
+<h2 id="总结-1">总结</h2>
+
+<p>总的来说 <code>LinkedHashMap</code> 其实就是对 <code>HashMap</code> 进行了拓展，使用了双向链表来保证了顺序性。</p>
+
+<p>因为是继承与 <code>HashMap</code> 的，所以一些 <code>HashMap</code> 存在的问题 <code>LinkedHashMap</code> 也会存在，比如不支持并发等。</p>
+
+</div>
+<div class="v">
+  <i class="fas fa-spinner fa-pulse"></i>
+</div>
+<script
+  src='https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js'
+  defer='defer'
+  onload='
+    new Valine({
+      "el": document.getElementsByClassName("v")[0],
+      "appId": "9hABRddSuEkTgqLrt1VSK5B1-gzGzoHsz",
+      "appKey": "NJ7RwmgrxsF7KDzlqU7YewlL",
+      "placeholder": "在这里评论吧！填写邮箱可以获得 Gravatar 头像和回复通知哦",
+      "requiredFields": ["nick","mail"],
+      "visitor": true,
+      "recordIP": true
+    })'
+></script>
+
+</div>
+  </div>
+  
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  
+</body>
+
+</html>

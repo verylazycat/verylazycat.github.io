@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>BIO&amp;NIO&amp;AIO | lazycat</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="BIO&amp;NIO&amp;AIO" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Java 中的 BIO、NIO和 AIO 理解为是 Java 语言对操作系统的各种 IO 模型的封装。程序员在使用这些 API 的时候，不需要关心操作系统层面的知识，也不需要根据不同操作系统编写不同的代码。只需要使用Java的API就可以了" />
+<meta property="og:description" content="Java 中的 BIO、NIO和 AIO 理解为是 Java 语言对操作系统的各种 IO 模型的封装。程序员在使用这些 API 的时候，不需要关心操作系统层面的知识，也不需要根据不同操作系统编写不同的代码。只需要使用Java的API就可以了" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-05-08-BIO&NIO&AIO/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-05-08-BIO&NIO&AIO/" />
+<meta property="og:site_name" content="lazycat" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-08T00:00:00-04:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-05-08-BIO&NIO&AIO/","headline":"BIO&amp;NIO&amp;AIO","dateModified":"2020-05-08T00:00:00-04:00","datePublished":"2020-05-08T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-05-08-BIO&NIO&AIO/"},"description":"Java 中的 BIO、NIO和 AIO 理解为是 Java 语言对操作系统的各种 IO 模型的封装。程序员在使用这些 API 的时候，不需要关心操作系统层面的知识，也不需要根据不同操作系统编写不同的代码。只需要使用Java的API就可以了","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1"
+/>
+<meta
+  http-equiv="content-type"
+  content="text/html; charset=utf-8"
+/>
+<link
+  rel="alternate"
+  href="/feed.xml"
+  title="RSS"
+  type="application/rss+xml"
+/>
+
+  
+  <link
+  rel="apple-touch-icon-precomposed"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+<link
+  rel="shortcut
+  icon"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/gh/poole/lanyon@v1.1.0/public/css/poole.min.css,gh/poole/lanyon@v1.1.0/public/css/lanyon.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/Dreamer-Paul/Pio@2.4/static/pio.min.css"
+/>
+<script
+  async="async"
+  src="https://cdn.jsdelivr.net/combine/gh/Dreamer-Paul/Pio@2.4/static/l2d.min.js,gh/Dreamer-Paul/Pio@2.4/static/pio.min.js"
+  onload='
+      let pio_container = document.createElement("div");
+      pio_container.classList.add("pio-container");
+      pio_container.classList.add("right");
+      pio_container.style.bottom = "-2rem";
+      pio_container.style.zIndex = "1";
+      document.body.insertAdjacentElement("beforeend", pio_container);
+      let pio_action = document.createElement("div");
+      pio_action.classList.add("pio-action");
+      pio_container.insertAdjacentElement("beforeend", pio_action);
+      let pio_canvas = document.createElement("canvas");
+      pio_canvas.id = "pio";
+      pio_canvas.style.width = "14rem";
+      pio_canvas.width = "600";
+      pio_canvas.height = "800";
+      pio_container.insertAdjacentElement("beforeend", pio_canvas);
+      let pio = new Paul_Pio({
+        "mode": "fixed",
+        "hidden": true,
+        "night": "for(let i=7; i<16; ++i) if(document.body.classList.contains(`theme-base-0`+i.toString(16))) { document.body.classList.remove(`theme-base-0`+i.toString(16)); document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16)); break; }",
+        "content": {
+          "link": ["https://jekyll-theme-WuK.wu-kan.cn"],
+          "skin": ["要换成我的朋友吗？", "让她放个假吧~"],
+          "hidden": true,
+          "custom": [{
+            "selector": "a",
+            "type": "link",
+          }, {
+            "selector": ".sidebar-toggle",
+            "text": "打开侧边栏叭~"
+          }, {
+            "selector": ".effect-info",
+            "text": "哇，你发现了什么！"
+          }, {
+            "selector": "#sidebar-search-input",
+            "text": "想搜索什么呢？很多干货哦！"
+          }, {
+            "selector": "#toc",
+            "text": "这是目录~"
+          }, {
+            "selector": ".page-title",
+            "text": "这是标题~"
+          }, {
+            "selector": ".v",
+            "text": "评论没有审核，要对自己的发言负责哦~"
+          }]
+        },
+        "model": [
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Violet/14.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"]
+      });'
+></script>
+
+  
+  <script
+  src='https://zz.bdstatic.com/linksubmit/push.js'
+  async="async"
+></script>
+
+  
+  <script
+  async="async"
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163543967-1"
+  onload="
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-163543967-1');"
+></script>
+
+  
+  <style>
+  .wrap {
+    transition-property: width,background-size,transform;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    min-height: 100%;
+    display: inline-block;
+    background-size: 100% auto;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+  }
+  @media (min-aspect-ratio: 2400/1850) {
+    .wrap {
+      background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+    }
+  }
+  .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    width: calc(100% - 14rem);
+    background-size: calc(100% - 14rem) auto;
+    transform: translateX(14rem);
+  }
+  .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    transform: translateX(0);
+  }
+</style>
+
+  
+  <style>
+  .sidebar,
+  html,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: PingFang SC, Menlo, Monaco, "Courier New", Microsoft JhengHei, monospace;
+  }
+</style>
+
+  
+  <style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+  }
+</style>
+
+  
+  <style>
+  img {
+    display: inline-block;
+    margin: 0;
+  }
+</style>
+
+  
+  <style>
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, Cyan 0%, Magenta 50%, Yellow 100%);
+  }
+</style>
+
+  
+  <style>
+  ::selection {
+    color: White;
+    background: Black;
+  }
+</style>
+
+  
+</head>
+
+<body
+  class="theme-base-07 sidebar-overlay">
+  
+  
+  
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+  <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"
+     />
+  <!-- Toggleable sidebar -->
+  <div class="sidebar" id="sidebar">
+    
+    <div class="sidebar-item">
+      <div class="effect effect-right_to_left">
+        <img class="effect-img" src="https://pic.cr173.com/up/2017-8/2017841818322084.jpg" alt="img" />
+        <div class="effect-info">
+          lazycat<br/>
+<a href="mailto:verylazycat@outlook.com">
+  <i class="fas fa-envelope"></i>
+</a>
+<a href="https://github.com/verylazycat">
+  <i class="fab fa-github"></i>
+</a>
+
+        </div>
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+      
+      <a class="sidebar-nav-item" href="/">
+        <i class="fas fa-home fa-fw"></i> 首页
+      </a>
+      
+      <a class="sidebar-nav-item" href="/comments/">
+        <i class="fas fa-comments fa-fw"></i> 留言
+      </a>
+      
+      <a class="sidebar-nav-item" href="/tags/">
+        <i class="fas fa-tags fa-fw"></i> 标签
+      </a>
+      
+      <a class="sidebar-nav-item" href="/archive/">
+        <i class="fas fa-archive fa-fw"></i> 归档
+      </a>
+      
+      <a class="sidebar-nav-item" href="/merger/">
+        <i class="fas fa-coffee fa-fw"></i> 打赏
+      </a>
+      
+    </nav>
+    <div class="sidebar-item">
+      
+      <style>
+  #sidebar-search-input {
+    background: none;
+    border: none;
+    color: White;
+    width: 100%;
+  }
+  #sidebar-search-results-container {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+<input
+  id="sidebar-search-input"
+  placeholder="搜索博文"
+/>
+<ol
+  id="sidebar-search-results-container"
+></ol>
+<script
+  src='https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.7/dest/simple-jekyll-search.min.js'
+  async='async'
+  onload='
+    SimpleJekyllSearch({
+      json: "/assets/simple-jekyll-search/search.json",
+      searchInput: document.getElementById("sidebar-search-input"),
+      resultsContainer: document.getElementById("sidebar-search-results-container"),
+      searchResultTemplate: `<li><a href="{url}">{title}</a></li>`,
+      limit: 999,
+      fuzzy: true
+    })'
+></script>
+
+      
+      
+      <style>
+  #toc {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+
+      <ol id="toc">
+  <li><a href="#%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5">同步与异步</a></li>
+  <li><a href="#%E9%98%BB%E5%A1%9E%E5%92%8C%E9%9D%9E%E9%98%BB%E5%A1%9E">阻塞和非阻塞</a></li>
+  <li><a href="#%E4%BC%A0%E7%BB%9F-bio">传统 BIO</a></li>
+  <li><a href="#%E6%88%91%E4%BB%AC%E5%86%8D%E8%AE%BE%E6%83%B3%E4%B8%80%E4%B8%8B%E5%BD%93%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B9%B6%E5%8F%91%E8%AE%BF%E9%97%AE%E9%87%8F%E5%A2%9E%E5%8A%A0%E5%90%8E%E8%BF%99%E7%A7%8D%E6%A8%A1%E5%9E%8B%E4%BC%9A%E5%87%BA%E7%8E%B0%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98">我们再设想一下当客户端并发访问量增加后这种模型会出现什么问题？</a></li>
+  <li><a href="#non-blocking-io%E9%9D%9E%E9%98%BB%E5%A1%9Eio">Non-blocking IO（非阻塞IO）</a></li>
+  <li><a href="#buffer%E7%BC%93%E5%86%B2%E5%8C%BA">Buffer(缓冲区)</a></li>
+  <li><a href="#channel-%E9%80%9A%E9%81%93">Channel (通道)</a></li>
+  <li><a href="#selectors%E9%80%89%E6%8B%A9%E5%99%A8">Selectors(选择器)</a></li>
+  <li><a href="#nio-%E8%AF%BB%E6%95%B0%E6%8D%AE%E5%92%8C%E5%86%99%E6%95%B0%E6%8D%AE%E6%96%B9%E5%BC%8F">NIO 读数据和写数据方式</a></li>
+  <li><a href="#%E4%BB%8E%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%90%86%E8%A7%A3">从操作系统上理解</a></li>
+</ol>
+      
+      
+      <style>
+  .sidebar-checkbox {
+    display: none;
+  }
+  .sidebar-toggle {
+    position: fixed;
+  }
+</style>
+
+      
+      <style>
+  .effect {
+    margin: 1rem;
+    perspective: 900px;
+  }
+  .effect-info {
+    text-align: center;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    transform-style: preserve-3d;
+  }
+  .effect-img {
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+  }
+  .effect-img:before {
+    position: absolute;
+    display: block;
+  }
+  .effect-right_to_left .effect-img {
+    transform-origin: 0% 50%;
+  }
+  .effect-right_to_left:hover .effect-img {
+    transform: rotate3d(0, 1, 0, -180deg);
+  }
+</style>
+
+      
+      <div>
+  <i class="fas fa-cog fa-spin fa-fw"></i>
+  <span id="run_time_day">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>天
+  <span id="run_time_hour">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>时
+  <span id="run_time_minute">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>分
+  <span id="run_time_second">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>秒
+  <script>
+    setInterval(function (d,h,m,s,b) {
+      function setzero(i) {
+        return i < 10 ? "0" + i : i;
+      }
+      let BirthDay = new Date(b);
+      let today = new Date();
+      let timeold = (today.getTime() - BirthDay.getTime());
+      let sectimeold = timeold / 1000;
+      let secondsold = Math.floor(sectimeold);
+      let msPerDay = 24 * 60 * 60 * 1000;
+      let e_daysold = timeold / msPerDay;
+      let daysold = Math.floor(e_daysold);
+      let e_hrsold = (e_daysold - daysold) * 24;
+      let hrsold = Math.floor(e_hrsold);
+      let e_minsold = (e_hrsold - hrsold) * 60;
+      let minsold = Math.floor((e_hrsold - hrsold) * 60);
+      let seconds = Math.floor((e_minsold - minsold) * 60);
+      d.textContent = daysold;
+      h.textContent = setzero(hrsold);
+      m.textContent = setzero(minsold);
+      s.textContent = setzero(seconds);
+    },
+    1000,
+    document.getElementById("run_time_day"),
+    document.getElementById("run_time_hour"),
+    document.getElementById("run_time_minute"),
+    document.getElementById("run_time_second"),
+    "05/02/2020 11:03:56")// 这是我第一篇博客的时间
+  </script>
+</div>
+
+      
+      <div>
+  <div>
+    <i class="fas fa-eye fa-fw"></i>
+    <span id="busuanzi_value_page_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>次
+  </div>
+  <div>
+    <i class="fas fa-paw fa-fw"></i>
+    <span id="busuanzi_value_site_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>枚
+  </div>
+  <div>
+    <i class="fas fa-user-friends fa-fw"></i>
+    <span id="busuanzi_value_site_uv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>人
+  </div>
+  <script
+    src='https://cdn.jsdelivr.net/npm/busuanzi@2.3.0'
+    async='async'
+  ></script>
+</div>
+
+      
+      <div>
+  <i class="fas fa-copyright fa-fw"></i>
+  2020-2022 lazycat
+</div>
+
+      
+      <div>
+  <i class="fas fa-info-circle fa-fw"></i>
+  <a href="http://beian.miit.gov.cn">
+    蜀ICP备20011774号
+  </a>
+</div>
+
+      
+      
+    </div>
+  </div>
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the content to avoid any CSS collisions with our real content. -->
+  
+  <div class="wrap">
+    
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/katex@0.11.1/dist/katex.min.js,npm/katex@0.11.1/dist/contrib/mathtex-script-type.min.js,npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  defer="defer"
+  onload='renderMathInElement(document.body, { delimiters: [{ left: "$", right: "$", display: false }] })'
+></script>
+
+
+
+<style>
+  pre.language-mermaid,
+  code.language-mermaid {
+    display: none;
+  }
+</style>
+<script
+  src="https://cdn.jsdelivr.net/npm/mermaid@8.5.1/dist/mermaid.min.js"
+  defer="defer"
+  onload='
+    for(let x of document.getElementsByClassName("language-mermaid"))
+      if(x.nodeName=="CODE")
+      {
+        let m = document.createElement("div");
+        m.classList.add("mermaid");
+        m.textContent = x.textContent;
+        x.parentNode.insertAdjacentElement("beforebegin", m);
+      }'
+></script>
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.css,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.css,gh/PrismJS/prism-themes@1955cfef6953b3a59e66016e8a1e016b45d6cc79/themes/prism-nord.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/components/prism-core.min.js,npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js,npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.js,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.js"
+  defer="defer"
+  onload='
+    Prism.plugins.autoloader.languages_path = "https:\/\/cdn.jsdelivr.net/npm/prismjs/components/";
+    for(let x of document.getElementsByTagName("pre"))
+      x.classList.add("line-numbers");
+    Prism.plugins.toolbar.registerButton("select-code", function (env) {
+      let button = document.createElement("button");
+      button.textContent = "select this " + env.language;
+      button.addEventListener("click", function () {
+        if (document.body.createTextRange) {
+          let range = document.body.createTextRange();
+          range.moveToElementText(env.element);
+          range.select();
+        } else if (window.getSelection) {
+          let selection = window.getSelection();
+          let range = document.createRange();
+          range.selectNodeContents(env.element);
+          selection.removeAllRanges();
+            selection.addRange(range);
+        }
+      });
+      return button;
+    })'
+></script>
+
+
+
+<style>
+  pre {
+    max-height: 50vh;
+    overflow: auto;
+  }
+</style>
+
+
+<style>
+  @media (min-width: 56em) {
+    .container {
+      max-width: 66.6%;
+    }
+  }
+</style>
+
+
+<style>
+  .masthead,
+  .container.content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 .75rem rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    animation-duration: 2s;
+    animation-name: fadeIn;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+
+
+<div class="masthead">
+  <h3 class="container masthead-title">
+    
+    BIO&NIO&AIO
+    <a href="/" title="Home">
+      <small>
+        lazycat
+      </small>
+    </a>
+    
+  </h3>
+</div>
+
+<div class="container content">
+  <div class="post">
+  <span class="post-date">
+    
+    <i class="fas fa-calendar-day fa-fw"></i>
+    08 May 2020
+    
+    
+    <i class="fas fa-file-word fa-fw"></i>
+    10546字
+    
+    
+    <i class="fas fa-clock fa-fw"></i>
+    36分
+    
+    
+    <span class="leancloud-visitors" id="/_posts/2020-05-08-BIO&NIO&AIO/" data-xid="/_posts/2020-05-08-BIO&NIO&AIO/" data-flag-title="BIO&NIO&AIO">
+      <i class="fas fa-book-reader fa-fw"></i>
+      <span class="leancloud-visitors-count">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </span>次
+    </span>
+    
+    
+    
+    <i class="fas fa-tag fa-fw"></i>
+    JAVA
+    
+    
+    <br/>
+<i class="fas fa-coffee fa-fw"></i>
+<a href="/merger/">如果这篇博客帮助到你，可以请我喝一杯咖啡~</a>
+<br/>
+<i class="fab fa-creative-commons-by fa-fw"></i>
+<a
+  href="https://creativecommons.org/licenses/by/4.0/deed.zh"
+  rel="license">
+  CC BY 4.0
+</a>
+（除特别声明或转载文章外）
+
+    
+  </span>
+  <p>Java 中的 BIO、NIO和 AIO 理解为是 Java 语言对操作系统的各种 IO 模型的封装。程序员在使用这些 API 的时候，不需要关心操作系统层面的知识，也不需要根据不同操作系统编写不同的代码。只需要使用Java的API就可以了</p>
+
+<ul>
+  <li>
+    <h4 id="同步与异步"><strong>同步与异步</strong></h4>
+  </li>
+</ul>
+
+<ol>
+  <li><strong>同步：</strong> 同步就是发起一个调用后，被调用者未处理完请求之前，调用不返回。</li>
+  <li><strong>异步：</strong> 异步就是发起一个调用后，立刻得到被调用者的回应表示已接收到请求，但是被调用者并没有返回结果，此时我们可以处理其他的请求，被调用者通常依靠事件，回调等机制来通知调用者其返回结果</li>
+</ol>
+
+<p>同步和异步的区别最大在于异步的调用者不需要等待处理结果，被调用者会通过回调等机制来通知调用者其返回结果</p>
+
+<ul>
+  <li>
+    <h4 id="阻塞和非阻塞"><strong>阻塞和非阻塞</strong></h4>
+  </li>
+</ul>
+
+<ol>
+  <li><strong>阻塞：</strong> 阻塞就是发起一个请求，调用者一直等待请求结果返回，也就是当前线程会被挂起，无法从事其他任务，只有当条件就绪才能继续。</li>
+  <li><strong>非阻塞：</strong> 非阻塞就是发起一个请求，调用者不用一直等着结果返回，可以先去干其他事情</li>
+</ol>
+
+<ul>
+  <li>
+    <h2 id="bio-blocking-io">BIO (Blocking I/O)</h2>
+  </li>
+</ul>
+
+<p>同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成</p>
+
+<h4 id="传统-bio">传统 BIO</h4>
+
+<p><img src="/img/BIO.png" alt="BIO" /></p>
+
+<p>采用 <strong>BIO 通信模型</strong> 的服务端，通常由一个独立的 Acceptor 线程负责监听客户端的连接。我们一般通过在 <code>while(true)</code> 循环中服务端会调用 <code>accept()</code> 方法等待接收客户端的连接的方式监听请求，请求一旦接收到一个连接请求，就可以建立通信套接字在这个通信套接字上进行读写操作，此时不能再接收其他客户端连接请求，只能等待同当前连接的客户端的操作执行完成， 不过可以通过多线程来支持多个客户端的连接，如上图所示。</p>
+
+<p>如果要让 <strong>BIO 通信模型</strong> 能够同时处理多个客户端请求，就必须使用多线程（主要原因是 <code>socket.accept()</code>、 <code>socket.read()</code>、 <code>socket.write()</code> 涉及的三个主要函数都是同步阻塞的），也就是说它在接收到客户端连接请求之后为每个客户端创建一个新的线程进行链路处理，处理完成之后，通过输出流返回应答给客户端，线程销毁。这就是典型的 <strong>一请求一应答通信模型</strong> 。我们可以设想一下如果这个连接不做任何事情的话就会造成不必要的线程开销，不过可以通过 <strong>线程池机制</strong> 改善，线程池还可以让线程的创建和回收成本相对较低。使用<code>FixedThreadPool</code> 可以有效的控制了线程的最大数量，保证了系统有限的资源的控制，实现了N(客户端请求数量):M(处理客户端请求的线程数量)的伪异步I/O模型（N 可以远远大于 M），下面一节”伪异步 BIO”中会详细介绍到。</p>
+
+<h4 id="我们再设想一下当客户端并发访问量增加后这种模型会出现什么问题"><strong>我们再设想一下当客户端并发访问量增加后这种模型会出现什么问题？</strong></h4>
+
+<p>在 Java 虚拟机中，线程是宝贵的资源，线程的创建和销毁成本很高，除此之外，线程的切换成本也是很高的。尤其在 Linux 这样的操作系统中，线程本质上就是一个进程，创建和销毁线程都是重量级的系统函数。如果并发访问量增加会导致线程数急剧膨胀可能会导致线程堆栈溢出、创建新线程失败等问题，最终导致进程宕机或者僵死，不能对外提供服务。</p>
+
+<ul>
+  <li>
+    <h2 id="伪异步-io">伪异步 IO</h2>
+  </li>
+</ul>
+
+<p>为了解决同步阻塞I/O面临的一个链路需要一个线程处理的问题，后来有人对它的线程模型进行了优化一一一后端通过一个线程池来处理多个客户端的请求接入，形成客户端个数M：线程池最大线程数N的比例关系，其中M可以远远大于N.通过线程池可以灵活地调配线程资源，设置线程的最大值，防止由于海量并发接入导致线程耗尽</p>
+
+<p>伪异步IO模型图</p>
+
+<p><img src="/img/伪异步io.png" alt="伪异步io" /></p>
+
+<p>采用线程池和任务队列可以实现一种叫做伪异步的 I/O 通信框架，它的模型图如上图所示。当有新的客户端接入时，将客户端的 Socket 封装成一个Task（该任务实现java.lang.Runnable接口）投递到后端的线程池中进行处理，JDK 的线程池维护一个消息队列和 N 个活跃线程，对消息队列中的任务进行处理。由于线程池可以设置消息队列的大小和最大线程数，因此，它的资源占用是可控的，无论多少个客户端并发访问，都不会导致资源的耗尽和宕机。</p>
+
+<p>伪异步I/O通信框架采用了线程池实现，因此避免了为每个请求都创建一个独立线程造成的线程资源耗尽问题。不过因为它的底层任然是同步阻塞的BIO模型，因此无法从根本上解决问题。</p>
+
+<p>在活动连接数不是特别高（小于单机1000）的情况下，这种模型是比较不错的，可以让每一个连接专注于自己的 I/O 并且编程模型简单，也不用过多考虑系统的过载、限流等问题。线程池本身就是一个天然的漏斗，可以缓冲一些系统处理不了的连接或请求。但是，当面对十万甚至百万级连接的时候，传统的 BIO 模型是无能为力的。因此，我们需要一种更高效的 I/O 处理模型来应对更高的并发量。</p>
+
+<ul>
+  <li>
+    <h2 id="nio-new-io">NIO (New I/O)</h2>
+  </li>
+</ul>
+
+<p>NIO是一种同步非阻塞的I/O模型，在Java 1.4 中引入了NIO框架，对应 java.nio 包，提供了 Channel , Selector，Buffer等抽象。</p>
+
+<p>NIO中的N可以理解为Non-blocking，不单纯是New。它支持面向缓冲的，基于通道的I/O操作方法。 NIO提供了与传统BIO模型中的 <code>Socket</code> 和 <code>ServerSocket</code> 相对应的 <code>SocketChannel</code> 和 <code>ServerSocketChannel</code> 两种不同的套接字通道实现,两种通道都支持阻塞和非阻塞两种模式。阻塞模式使用就像传统中的支持一样，比较简单，但是性能和可靠性都不好；非阻塞模式正好与之相反。对于低负载、低并发的应用程序，可以使用同步阻塞I/O来提升开发速率和更好的维护性；对于高负载、高并发的（网络）应用，应使用 NIO 的非阻塞模式来开发</p>
+
+<ul>
+  <li>NIO的特性/NIO与IO区别</li>
+</ul>
+
+<h4 id="non-blocking-io非阻塞io">Non-blocking IO（非阻塞IO）</h4>
+
+<p><strong>IO流是阻塞的，NIO流是不阻塞的。</strong></p>
+
+<p>Java NIO使我们可以进行非阻塞IO操作。比如说，单线程中从通道读取数据到buffer，同时可以继续做别的事情，当数据读取到buffer中后，线程再继续处理数据。写数据也是一样的。另外，非阻塞写也是如此。一个线程请求写入一些数据到某通道，但不需要等待它完全写入，这个线程同时可以去做别的事情。</p>
+
+<p>Java IO的各种流是阻塞的。这意味着，当一个线程调用 <code>read()</code> 或 <code>write()</code> 时，该线程被阻塞，直到有一些数据被读取，或数据完全写入。该线程在此期间不能再干任何事情了</p>
+
+<h4 id="buffer缓冲区">Buffer(缓冲区)</h4>
+
+<p><strong>IO 面向流(Stream oriented)，而 NIO 面向缓冲区(Buffer oriented)。</strong></p>
+
+<p>Buffer是一个对象，它包含一些要写入或者要读出的数据。在NIO类库中加入Buffer对象，体现了新库与原I/O的一个重要区别。在面向流的I/O中·可以将数据直接写入或者将数据直接读到 Stream 对象中。虽然 Stream 中也有 Buffer 开头的扩展类，但只是流的包装类，还是从流读到缓冲区，而 NIO 却是直接读到 Buffer 中进行操作。</p>
+
+<p>在NIO厍中，所有数据都是用缓冲区处理的。在读取数据时，它是直接读到缓冲区中的; 在写入数据时，写入到缓冲区中。任何时候访问NIO中的数据，都是通过缓冲区进行操作。</p>
+
+<p>最常用的缓冲区是 ByteBuffer,一个 ByteBuffer 提供了一组功能用于操作 byte 数组。除了ByteBuffer,还有其他的一些缓冲区，事实上，每一种Java基本类型（除了Boolean类型）都对应有一种缓冲区。</p>
+
+<h4 id="channel-通道">Channel (通道)</h4>
+
+<p>NIO 通过Channel（通道） 进行读写。</p>
+
+<p>通道是双向的，可读也可写，而流的读写是单向的。无论读写，通道只能和Buffer交互。因为 Buffer，通道可以异步地读写。</p>
+
+<h4 id="selectors选择器">Selectors(选择器)</h4>
+
+<p>NIO有选择器，而IO没有。</p>
+
+<p>选择器用于使用单个线程处理多个通道。因此，它需要较少的线程来处理这些通道。线程之间的切换对于操作系统来说是昂贵的。 因此，为了提高系统效率选择器是有用的。</p>
+
+<ul>
+  <li>
+    <h4 id="nio-读数据和写数据方式">NIO 读数据和写数据方式</h4>
+  </li>
+</ul>
+
+<p>通常来说NIO中的所有IO都是从 Channel（通道） 开始的。</p>
+
+<ul>
+  <li>从通道进行数据读取 ：创建一个缓冲区，然后请求通道读取数据。</li>
+  <li>从通道进行数据写入 ：创建一个缓冲区，填充数据，并要求通道写入数据。</li>
+</ul>
+
+<p>数据读取和写入操作图示：</p>
+
+<p><code>channel</code> —»»<code>buffer</code></p>
+
+<p><code>channel</code> ««—-<code>buffer</code></p>
+
+<ul>
+  <li>
+    <h3 id="nio核心组件简单介绍">NIO核心组件简单介绍</h3>
+  </li>
+</ul>
+
+<p>NIO 包含下面几个核心的组件：</p>
+
+<ul>
+  <li>Channel(通道)</li>
+  <li>Buffer(缓冲区)</li>
+  <li>Selector(选择器)</li>
+</ul>
+
+<p>整个NIO体系包含的类远远不止这三个，只能说这三个是NIO体系的“核心API”</p>
+
+<h2 id="aio-asynchronous-io">AIO (Asynchronous I/O)</h2>
+
+<p>AIO 也就是 NIO 2。在 Java 7 中引入了 NIO 的改进版 NIO 2,它是异步非阻塞的IO模型。异步 IO 是基于事件和回调机制实现的，也就是应用操作之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的线程进行后续的操作。</p>
+
+<p>AIO 是异步IO的缩写，虽然 NIO 在网络操作中，提供了非阻塞的方法，但是 NIO 的 IO 行为还是同步的。对于 NIO 来说，我们的业务线程是在 IO 操作准备好时，得到通知，接着就由这个线程自行进行 IO 操作，IO操作本身是同步的。（除了 AIO 其他的 IO 类型都是同步的，这一点可以从底层IO线程模型解释。</p>
+
+<hr />
+
+<h4 id="从操作系统上理解">从操作系统上理解</h4>
+
+<p>考虑下面两种情况：</p>
+
+<ul>
+  <li>用系统调用<code>read</code>从socket里读取一段数据</li>
+  <li>用系统调用<code>read</code>从一个磁盘文件读取一段数据到内存</li>
+</ul>
+
+<p>对于第一种情况，算作block，因为Linux无法知道网络上对方是否会发数据。如果没数据发过来，对于调用<code>read</code>的程序来说，就只能“等”。</p>
+
+<p>对于第二种情况，<strong>不算做block</strong></p>
+
+<p>对于磁盘文件IO，Linux总是不视作Block</p>
+
+<p>一个解释是，所谓“Block”是指操作系统可以预见这个Block会发生才会主动Block。例如当读取TCP连接的数据时，如果发现Socket buffer里没有数据就可以确定定对方还没有发过来，于是Block；而对于普通磁盘文件的读写，也许磁盘运作期间会抖动，会短暂暂停，但是操作系统无法预见这种情况，只能视作不会Block，照样执行</p>
+
+<p>基于这个基本的设定，在讨论IO时，一定要严格区分网络IO和磁盘文件IO。NIO和后文讲到的IO多路复用只对网络IO有意义。</p>
+
+<h1 id="bio">BIO</h1>
+
+<p>有了Block的定义，就可以讨论BIO和NIO了。BIO是Blocking IO的意思。在类似于网络中进行<code>read</code>, <code>write</code>, <code>connect</code>一类的系统调用时会被卡住。</p>
+
+<p>举个例子，当用<code>read</code>去读取网络的数据时，是无法预知对方是否已经发送数据的。因此在收到数据之前，能做的只有等待，直到对方把数据发过来，或者等到网络超时。</p>
+
+<p>对于单线程的网络服务，这样做就会有卡死的问题。因为当等待时，整个线程会被挂起，无法执行，也无法做其他的工作。</p>
+
+<p>这种Block是不会影响同时运行的其他程序（进程）的，因为现代操作系统都是多任务的，任务之间的切换是抢占式的。这里Block只是指Block当前的进程。</p>
+
+<p>网络服务为了同时响应多个并发的网络请求，必须实现为多线程的。每个线程处理一个网络请求。线程数随着并发连接数线性增长。这的确能奏效。实际上2000年之前很多网络服务器就是这么实现的。但这带来两个问题：</p>
+
+<ul>
+  <li>
+    <p>线程越多，Context Switch就越多，而Context Switch是一个比较重的操作，会无谓浪费大量的CPU。</p>
+  </li>
+  <li>
+    <p>每个线程会占用一定的内存作为线程的栈。比如有1000个线程同时运行，每个占用1MB内存，就占用了1个G的内存。</p>
+  </li>
+</ul>
+
+<p>问题的关键在于，当调用<code>read</code>接受网络请求时，有数据到了就用，没数据到时，实际上是可以干别的。使用大量线程，仅仅是因为Block发生，没有其他办法。</p>
+
+<p>当然你可能会说，是不是可以弄个线程池呢？这样既能并发的处理请求，又不会产生大量线程。但这样会限制最大并发的连接数。比如你弄4个线程，那么最大4个线程都Block了就没法响应更多请求了。</p>
+
+<p>要是操作IO接口时，操作系统能够总是直接告诉有没有数据，而不是Block去等就好了。于是，NIO登场</p>
+
+<h1 id="nio">NIO</h1>
+
+<p>NIO是指将IO模式设为“Non-Blocking”模式。在Linux下，一般是这样：</p>
+
+<pre><code class="language-c">void setnonblocking(int fd) {
+    int flags = fcntl(fd, F_GETFL, 0);
+    fcntl(fd, F_SETFL, flags | O_NONBLOCK);
+}
+</code></pre>
+
+<p>在BIO模式下，调用read，如果发现没数据已经到达，就会Block住。</p>
+
+<p>在NIO模式下，调用read，如果发现没数据已经到达，就会立刻返回-1, 并且errno被设为<code>EAGAIN</code></p>
+
+<p>于是，一段NIO的代码，大概就可以写成这个样子</p>
+
+<pre><code class="language-c">struct timespec sleep_interval{.tv_sec = 0, .tv_nsec = 1000};
+ssize_t nbytes;
+while (1) {
+    /* 尝试读取 */
+    if ((nbytes = read(fd, buf, sizeof(buf))) &lt; 0) {
+        if (errno == EAGAIN) { // 没数据到
+            perror("nothing can be read");
+        } else {
+            perror("fatal error");
+            exit(EXIT_FAILURE);
+        }
+    } else { // 有数据
+        process_data(buf, nbytes);
+    }
+    // 处理其他事情，做完了就等一会，再尝试
+    nanosleep(sleep_interval, NULL);
+}
+</code></pre>
+
+<pre><code class="language-c">
+</code></pre>
+
+<p>这段代码很容易理解，就是轮询，不断的尝试有没有数据到达，有了就处理，没有(得到<code>EWOULDBLOCK</code>或者<code>EAGAIN</code>)就等一小会再试。这比之前BIO好多了，起码程序不会被卡死了</p>
+
+<p>但这样会带来两个新问题：</p>
+
+<ul>
+  <li>如果有大量文件描述符都要等，那么就得一个一个的read。这会带来大量的Context Switch（<code>read</code>是系统调用，每调用一次就得在用户态和核心态切换一次）</li>
+  <li>休息一会的时间不好把握。这里是要猜多久之后数据才能到。等待时间设的太长，程序响应延迟就过大；设的太短，就会造成过于频繁的重试，干耗CPU而已。</li>
+</ul>
+
+<p>要是操作系统能一口气告诉程序，哪些数据到了就好了。</p>
+
+<p>于是IO多路复用被搞出来解决这个问题</p>
+
+<h1 id="io多路复用">IO多路复用</h1>
+
+<p>IO多路复用（IO Multiplexing) 是这么一种机制：程序注册一组socket文件描述符给操作系统，表示“我要监视这些fd是否有IO事件发生，有了就告诉程序处理”。</p>
+
+<p>IO多路复用是要和NIO一起使用的。尽管在操作系统级别，NIO和IO多路复用是两个相对独立的事情。NIO仅仅是指IO API总是能立刻返回，不会被Blocking；而IO多路复用仅仅是操作系统提供的一种便利的通知机制。操作系统并不会强制这俩必须得一起用——你可以用NIO，但不用IO多路复用，就像上一节中的代码；也可以只用IO多路复用 + BIO，这时效果还是当前线程被卡住。但是，<strong>IO多路复用和NIO是要配合一起使用才有实际意义</strong>。因此，在使用IO多路复用之前，请总是先把fd设为<code>O_NONBLOCK</code>。</p>
+
+<p>对IO多路复用，还存在一些常见的误解，比如：</p>
+
+<ul>
+  <li>
+    <p><strong>❌IO多路复用是指多个数据流共享同一个Socket</strong>。其实IO多路复用说的是多个Socket，只不过操作系统是一起监听他们的事件而已。</p>
+
+    <blockquote>
+      <p>多个数据流共享同一个TCP连接的场景的确是有，比如Http2 Multiplexing就是指Http2通讯中中多个逻辑的数据流共享同一个TCP连接。但这与IO多路复用是完全不同的问题。</p>
+    </blockquote>
+  </li>
+  <li>
+    <p><strong>❌IO多路复用是NIO，所以总是不Block的</strong>。其实IO多路复用的关键API调用(<code>select</code>，<code>poll</code>，<code>epoll_wait</code>）总是Block的，正如下文的例子所讲。</p>
+  </li>
+  <li>
+    <p>❌<strong>IO多路复用和NIO一起减少了IO</strong>。实际上，IO本身（网络数据的收发）无论用不用IO多路复用和NIO，都没有变化。请求的数据该是多少还是多少；网络上该传输多少数据还是多少数据。IO多路复用和NIO一起仅仅是解决了调度的问题，避免CPU在这个过程中的浪费，使系统的瓶颈更容易触达到网络带宽，而非CPU或者内存。要提高IO吞吐，还是提高硬件的容量（例如，用支持更大带宽的网线、网卡和交换机）和依靠并发传输（例如HDFS的数据多副本并发传输</p>
+  </li>
+</ul>
+
+<p>操作系统级别提供了一些接口来支持IO多路复用，最老掉牙的是<code>select</code>和<code>poll</code>。</p>
+
+<h2 id="select">select</h2>
+
+<p><code>select</code>长这样：</p>
+
+<pre><code class="language-c">int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);
+</code></pre>
+
+<p>它接受3个文件描述符的数组，分别监听读取(<code>readfds</code>)，写入(<code>writefds</code>)和异常(<code>expectfds</code>)事件。那么一个 IO多路复用的代码大概是这样</p>
+
+<pre><code class="language-c">struct timeval tv = {.tv_sec = 1, .tv_usec = 0};
+
+ssize_t nbytes;
+while(1) {
+    FD_ZERO(&amp;read_fds);
+    setnonblocking(fd1);
+    setnonblocking(fd2);
+    FD_SET(fd1, &amp;read_fds);
+    FD_SET(fd2, &amp;read_fds);
+    // 把要监听的fd拼到一个数组里，而且每次循环都得重来一次...
+    if (select(FD_SETSIZE, &amp;read_fds, NULL, NULL, &amp;tv) &lt; 0) { // block住，直到有事件到达
+        perror("select出错了");
+        exit(EXIT_FAILURE);
+    }
+    for (int i = 0; i &lt; FD_SETSIZE; i++) {
+        if (FD_ISSET(i, &amp;read_fds)) {
+            /* 检测到第[i]个读取fd已经收到了，这里假设buf总是大于到达的数据，所以可以一次read完 */
+            if ((nbytes = read(i, buf, sizeof(buf))) &gt;= 0) {
+                process_data(nbytes, buf);
+            } else {
+                perror("读取出错了");
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+}
+</code></pre>
+
+<p>首先，为了<code>select</code>需要构造一个fd数组（这里为了简化，没有构造要监听写入和异常事件的fd数组）。之后，用<code>select</code>监听了<code>read_fds</code>中的多个socket的读取时间。调用<code>select</code>后，程序会Block住，直到一个事件发生了，或者等到最大1秒钟(<code>tv</code>定义了这个时间长度）就返回。之后，需要遍历所有注册的fd，挨个检查哪个fd有事件到达(<code>FD_ISSET</code>返回true)。如果是，就说明数据已经到达了，可以读取fd了。读取后就可以进行数据的处理。</p>
+
+<p><code>select</code>有一些发指的缺点：</p>
+
+<ul>
+  <li><code>select</code>能够支持的最大的fd数组的长度是1024。这对要处理高并发的web服务器是不可接受的。</li>
+  <li>fd数组按照监听的事件分为了3个数组，为了这3个数组要分配3段内存去构造，而且每次调用<code>select</code>前都要重设它们（因为<code>select</code>会改这3个数组)；调用<code>select</code>后，这3数组要从用户态复制一份到内核态；事件到达后，要遍历这3数组。很不爽。</li>
+  <li><code>select</code>返回后要挨个遍历fd，找到被“SET”的那些进行处理。这样比较低效。</li>
+  <li><code>select</code>是无状态的，即每次调用<code>select</code>，内核都要重新检查所有被注册的fd的状态。<code>select</code>返回后，这些状态就被返回了，内核不会记住它们；到了下一次调用，内核依然要重新检查一遍。于是查询的效率很低。</li>
+</ul>
+
+<h2 id="poll">poll</h2>
+
+<p><code>poll</code>与<code>select</code>类似于。它大概长这样</p>
+
+<pre><code class="language-CQL">int poll(struct pollfd *fds, nfds_t nfds, int timeout);
+</code></pre>
+
+<p><code>poll</code>的代码例子和<code>select</code>差不多，因此也就不赘述了。有意思的是<code>poll</code>这个单词的意思是“轮询”，所以很多中文资料都会提到对IO进行“轮询”。</p>
+
+<p><code>poll</code>优化了<code>select</code>的一些问题。比如不再有3个数组，而是1个<code>polldfd</code>结构的数组了，并且也不需要每次重设了。数组的个数也没有了1024的限制。但其他的问题依旧：</p>
+
+<ul>
+  <li>依然是无状态的，性能的问题与<code>select</code>差不多一样；</li>
+  <li>应用程序仍然无法很方便的拿到那些“有事件发生的fd“，还是需要遍历所有注册的fd。</li>
+</ul>
+
+<p>目前来看，高性能的web服务器都不会使用<code>select</code>和<code>poll</code>。他们俩存在的意义仅仅是“兼容性”，因为很多操作系统都实现了这两个系统调用。</p>
+
+<p>如果是追求性能的话，在BSD/macOS上提供了kqueue api；在Salorias中提供了/dev/poll（可惜该操作系统已经凉凉)；而在Linux上提供了epoll api。它们的出现彻底解决了<code>select</code>和<code>poll</code>的问题。Java NIO，nginx等在对应的平台的上都是使用这些api实现。</p>
+
+<p>因为大部分情况下我会用Linux做服务器，所以下文以Linux epoll为例子来解释多路复用是怎么工作的。</p>
+
+<h1 id="用epoll实现的io多路复用">用epoll实现的IO多路复用</h1>
+
+<p>epoll是Linux下的IO多路复用的实现。这里单开一章是因为它非常有代表性，并且Linux也是目前最广泛被作为服务器的操作系统。细致的了解epoll对整个IO多路复用的工作原理非常有帮助。</p>
+
+<p>与<code>select</code>和<code>poll</code>不同，要使用epoll是需要先创建一下的。</p>
+
+<pre><code class="language-c">int epfd = epoll_create(10);
+</code></pre>
+
+<p><code>epoll_create</code>在内核层创建了一个数据表，接口会返回一个“epoll的文件描述符”指向这个表。注意，接口参数是一个表达要监听事件列表的长度的数值。但不用太在意，因为epoll内部随后会根据事件注册和事件注销动态调整epoll中表格的大小。</p>
+
+<p><img src="/img/epoll.png" alt="epoll" /></p>
+
+<p>为什么epoll要创建一个用文件描述符来指向的表呢？这里有两个好处：</p>
+
+<ul>
+  <li>epoll是有状态的，不像<code>select</code>和<code>poll</code>那样每次都要重新传入所有要监听的fd，这避免了很多无谓的数据复制。epoll的数据是用接口<code>epoll_ctl</code>来管理的（增、删、改）。</li>
+  <li>epoll文件描述符在进程被fork时，子进程是可以继承的。这可以给对多进程共享一份epoll数据，实现并行监听网络请求带来便利。但这超过了本文的讨论范围，就此打住。</li>
+</ul>
+
+<p>epoll创建后，第二步是使用<code>epoll_ctl</code>接口来注册要监听的事件</p>
+
+<pre><code class="language-c">int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);
+</code></pre>
+
+<p>其中第一个参数就是上面创建的<code>epfd</code>。第二个参数<code>op</code>表示如何对文件名进行操作，共有3种。</p>
+
+<ul>
+  <li><code>EPOLL_CTL_ADD</code> - 注册一个事件</li>
+  <li><code>EPOLL_CTL_DEL</code> - 取消一个事件的注册</li>
+  <li><code>EPOLL_CTL_MOD</code> - 修改一个事件的注册</li>
+</ul>
+
+<p>第三个参数是要操作的fd，这里必须是支持NIO的fd（比如socket）。第四个参数是一个<code>epoll_event</code>的类型的数据，表达了注册的事件的具体信息。</p>
+
+<pre><code class="language-c">typedef union epoll_data {
+    void    *ptr;
+    int      fd;
+    uint32_t u32;
+    uint64_t u64;
+} epoll_data_t;
+
+struct epoll_event {
+    uint32_t     events;    /* Epoll events */
+    epoll_data_t data;      /* User data variable */
+};
+</code></pre>
+
+<p>比方说，想关注一个fd1的读取事件事件，并采用边缘触发(下文会解释什么是边缘触发），大概要这么写：</p>
+
+<pre><code class="language-c">struct epoll_data ev;
+ev.events = EPOLLIN | EPOLLET; // EPOLLIN表示读事件；EPOLLET表示边缘触发
+ev.data.fd = fd1;
+</code></pre>
+
+<p>通过<code>epoll_ctl</code>就可以灵活的注册/取消注册/修改注册某个fd的某些事件</p>
+
+<p><img src="/img/epoll_ctl.png" alt="epoll_ctl" /></p>
+
+<p>第三步，使用<code>epoll_wait</code>来等待事件的发生</p>
+
+<pre><code class="language-CQL">int epoll_wait(int epfd, struct epoll_event *evlist, int maxevents, int timeout);
+</code></pre>
+
+<p>特别留意，这一步是”block”的。只有当注册的事件至少有一个发生，或者<code>timeout</code>达到时，该调用才会返回。这与<code>select</code>和<code>poll</code>几乎一致。但不一样的地方是<code>evlist</code>，它是<code>epoll_wait</code>的返回数组，里面<strong>只包含那些被触发的事件对应的fd</strong>，而不是像<code>select</code>和<code>poll</code>那样返回所有注册的fd。</p>
+
+<p><img src="/img/epoll_wait.png" alt="epoll_wait" /></p>
+
+<p>综合起来，一段比较完整的epoll代码大概是这样的</p>
+
+<pre><code class="language-c">#define MAX_EVENTS 10
+struct epoll_event ev, events[MAX_EVENTS];
+int nfds, epfd, fd1, fd2;
+
+// 假设这里有两个socket，fd1和fd2，被初始化好。
+// 设置为non blocking
+setnonblocking(fd1);
+setnonblocking(fd2);
+
+// 创建epoll
+epfd = epoll_create(MAX_EVENTS);
+if (epollfd == -1) {
+    perror("epoll_create1");
+    exit(EXIT_FAILURE);
+}
+
+//注册事件
+ev.events = EPOLLIN | EPOLLET;
+ev.data.fd = fd1;
+if (epoll_ctl(epollfd, EPOLL_CTL_ADD, fd1, &amp;ev) == -1) {
+    perror("epoll_ctl: error register fd1");
+    exit(EXIT_FAILURE);
+}
+if (epoll_ctl(epollfd, EPOLL_CTL_ADD, fd2, &amp;ev) == -1) {
+    perror("epoll_ctl: error register fd2");
+    exit(EXIT_FAILURE);
+}
+
+// 监听事件
+for (;;) {
+    nfds = epoll_wait(epdf, events, MAX_EVENTS, -1);
+    if (nfds == -1) {
+        perror("epoll_wait");
+        exit(EXIT_FAILURE);
+    }
+
+    for (n = 0; n &lt; nfds; ++n) { // 处理所有发生IO事件的fd
+        process_event(events[n].data.fd);
+        // 如果有必要，可以利用epoll_ctl继续对本fd注册下一次监听，然后重新epoll_wait
+    }
+}
+</code></pre>
+
+<p>所有的基于IO多路复用的代码都会遵循这样的写法：注册——监听事件——处理——再注册，无限循环下去。</p>
+
+</div>
+<div class="v">
+  <i class="fas fa-spinner fa-pulse"></i>
+</div>
+<script
+  src='https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js'
+  defer='defer'
+  onload='
+    new Valine({
+      "el": document.getElementsByClassName("v")[0],
+      "appId": "9hABRddSuEkTgqLrt1VSK5B1-gzGzoHsz",
+      "appKey": "NJ7RwmgrxsF7KDzlqU7YewlL",
+      "placeholder": "在这里评论吧！填写邮箱可以获得 Gravatar 头像和回复通知哦",
+      "requiredFields": ["nick","mail"],
+      "visitor": true,
+      "recordIP": true
+    })'
+></script>
+
+</div>
+  </div>
+  
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  
+</body>
+
+</html>

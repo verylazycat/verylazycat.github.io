@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>JAVA线程池 | lazycat</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="JAVA线程池" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="[toc]" />
+<meta property="og:description" content="[toc]" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-07-02-JAVA%E7%BA%BF%E7%A8%8B%E6%B1%A0/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-07-02-JAVA%E7%BA%BF%E7%A8%8B%E6%B1%A0/" />
+<meta property="og:site_name" content="lazycat" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-02T00:00:00-04:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-07-02-JAVA%E7%BA%BF%E7%A8%8B%E6%B1%A0/","headline":"JAVA线程池","dateModified":"2020-07-02T00:00:00-04:00","datePublished":"2020-07-02T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-07-02-JAVA%E7%BA%BF%E7%A8%8B%E6%B1%A0/"},"description":"[toc]","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1"
+/>
+<meta
+  http-equiv="content-type"
+  content="text/html; charset=utf-8"
+/>
+<link
+  rel="alternate"
+  href="/feed.xml"
+  title="RSS"
+  type="application/rss+xml"
+/>
+
+  
+  <link
+  rel="apple-touch-icon-precomposed"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+<link
+  rel="shortcut
+  icon"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/gh/poole/lanyon@v1.1.0/public/css/poole.min.css,gh/poole/lanyon@v1.1.0/public/css/lanyon.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/Dreamer-Paul/Pio@2.4/static/pio.min.css"
+/>
+<script
+  async="async"
+  src="https://cdn.jsdelivr.net/combine/gh/Dreamer-Paul/Pio@2.4/static/l2d.min.js,gh/Dreamer-Paul/Pio@2.4/static/pio.min.js"
+  onload='
+      let pio_container = document.createElement("div");
+      pio_container.classList.add("pio-container");
+      pio_container.classList.add("right");
+      pio_container.style.bottom = "-2rem";
+      pio_container.style.zIndex = "1";
+      document.body.insertAdjacentElement("beforeend", pio_container);
+      let pio_action = document.createElement("div");
+      pio_action.classList.add("pio-action");
+      pio_container.insertAdjacentElement("beforeend", pio_action);
+      let pio_canvas = document.createElement("canvas");
+      pio_canvas.id = "pio";
+      pio_canvas.style.width = "14rem";
+      pio_canvas.width = "600";
+      pio_canvas.height = "800";
+      pio_container.insertAdjacentElement("beforeend", pio_canvas);
+      let pio = new Paul_Pio({
+        "mode": "fixed",
+        "hidden": true,
+        "night": "for(let i=7; i<16; ++i) if(document.body.classList.contains(`theme-base-0`+i.toString(16))) { document.body.classList.remove(`theme-base-0`+i.toString(16)); document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16)); break; }",
+        "content": {
+          "link": ["https://jekyll-theme-WuK.wu-kan.cn"],
+          "skin": ["要换成我的朋友吗？", "让她放个假吧~"],
+          "hidden": true,
+          "custom": [{
+            "selector": "a",
+            "type": "link",
+          }, {
+            "selector": ".sidebar-toggle",
+            "text": "打开侧边栏叭~"
+          }, {
+            "selector": ".effect-info",
+            "text": "哇，你发现了什么！"
+          }, {
+            "selector": "#sidebar-search-input",
+            "text": "想搜索什么呢？很多干货哦！"
+          }, {
+            "selector": "#toc",
+            "text": "这是目录~"
+          }, {
+            "selector": ".page-title",
+            "text": "这是标题~"
+          }, {
+            "selector": ".v",
+            "text": "评论没有审核，要对自己的发言负责哦~"
+          }]
+        },
+        "model": [
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Violet/14.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"]
+      });'
+></script>
+
+  
+  <script
+  src='https://zz.bdstatic.com/linksubmit/push.js'
+  async="async"
+></script>
+
+  
+  <script
+  async="async"
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163543967-1"
+  onload="
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-163543967-1');"
+></script>
+
+  
+  <style>
+  .wrap {
+    transition-property: width,background-size,transform;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    min-height: 100%;
+    display: inline-block;
+    background-size: 100% auto;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+  }
+  @media (min-aspect-ratio: 2400/1850) {
+    .wrap {
+      background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+    }
+  }
+  .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    width: calc(100% - 14rem);
+    background-size: calc(100% - 14rem) auto;
+    transform: translateX(14rem);
+  }
+  .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    transform: translateX(0);
+  }
+</style>
+
+  
+  <style>
+  .sidebar,
+  html,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: PingFang SC, Menlo, Monaco, "Courier New", Microsoft JhengHei, monospace;
+  }
+</style>
+
+  
+  <style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+  }
+</style>
+
+  
+  <style>
+  img {
+    display: inline-block;
+    margin: 0;
+  }
+</style>
+
+  
+  <style>
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, Cyan 0%, Magenta 50%, Yellow 100%);
+  }
+</style>
+
+  
+  <style>
+  ::selection {
+    color: White;
+    background: Black;
+  }
+</style>
+
+  
+</head>
+
+<body
+  class="theme-base-07 sidebar-overlay">
+  
+  
+  
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+  <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"
+     />
+  <!-- Toggleable sidebar -->
+  <div class="sidebar" id="sidebar">
+    
+    <div class="sidebar-item">
+      <div class="effect effect-right_to_left">
+        <img class="effect-img" src="https://pic.cr173.com/up/2017-8/2017841818322084.jpg" alt="img" />
+        <div class="effect-info">
+          lazycat<br/>
+<a href="mailto:verylazycat@outlook.com">
+  <i class="fas fa-envelope"></i>
+</a>
+<a href="https://github.com/verylazycat">
+  <i class="fab fa-github"></i>
+</a>
+
+        </div>
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+      
+      <a class="sidebar-nav-item" href="/">
+        <i class="fas fa-home fa-fw"></i> 首页
+      </a>
+      
+      <a class="sidebar-nav-item" href="/comments/">
+        <i class="fas fa-comments fa-fw"></i> 留言
+      </a>
+      
+      <a class="sidebar-nav-item" href="/tags/">
+        <i class="fas fa-tags fa-fw"></i> 标签
+      </a>
+      
+      <a class="sidebar-nav-item" href="/archive/">
+        <i class="fas fa-archive fa-fw"></i> 归档
+      </a>
+      
+      <a class="sidebar-nav-item" href="/merger/">
+        <i class="fas fa-coffee fa-fw"></i> 打赏
+      </a>
+      
+    </nav>
+    <div class="sidebar-item">
+      
+      <style>
+  #sidebar-search-input {
+    background: none;
+    border: none;
+    color: White;
+    width: 100%;
+  }
+  #sidebar-search-results-container {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+<input
+  id="sidebar-search-input"
+  placeholder="搜索博文"
+/>
+<ol
+  id="sidebar-search-results-container"
+></ol>
+<script
+  src='https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.7/dest/simple-jekyll-search.min.js'
+  async='async'
+  onload='
+    SimpleJekyllSearch({
+      json: "/assets/simple-jekyll-search/search.json",
+      searchInput: document.getElementById("sidebar-search-input"),
+      resultsContainer: document.getElementById("sidebar-search-results-container"),
+      searchResultTemplate: `<li><a href="{url}">{title}</a></li>`,
+      limit: 999,
+      fuzzy: true
+    })'
+></script>
+
+      
+      
+      <style>
+  #toc {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+
+      <ol id="toc">
+  <li><a href="#threadpoolexecutor%E7%B1%BB">ThreadPoolExecutor类</a></li>
+  <li><a href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86">线程池实现原理</a>
+    <ol>
+      <li><a href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%8A%B6%E6%80%81">线程池状态</a></li>
+      <li><a href="#%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%A7%E8%A1%8C">任务的执行</a></li>
+      <li><a href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%B8%AD%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%88%9D%E5%A7%8B%E5%8C%96">线程池中的线程初始化</a></li>
+      <li><a href="#%E4%BB%BB%E5%8A%A1%E7%BC%93%E5%AD%98%E9%98%9F%E5%88%97%E5%8F%8A%E6%8E%92%E9%98%9F%E7%AD%96%E7%95%A5">任务缓存队列及排队策略</a></li>
+      <li><a href="#%E4%BB%BB%E5%8A%A1%E6%8B%92%E7%BB%9D%E7%AD%96%E7%95%A5">任务拒绝策略</a></li>
+      <li><a href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%85%B3%E9%97%AD">线程池的关闭</a></li>
+      <li><a href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%B9%E9%87%8F%E7%9A%84%E5%8A%A8%E6%80%81%E8%B0%83%E6%95%B4">线程池容量的动态调整</a></li>
+    </ol>
+  </li>
+  <li><a href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B">使用示例</a></li>
+  <li><a href="#%E5%A6%82%E4%BD%95%E5%90%88%E7%90%86%E9%85%8D%E7%BD%AE%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%A4%A7%E5%B0%8F">如何合理配置线程池的大小</a></li>
+</ol>
+      
+      
+      <style>
+  .sidebar-checkbox {
+    display: none;
+  }
+  .sidebar-toggle {
+    position: fixed;
+  }
+</style>
+
+      
+      <style>
+  .effect {
+    margin: 1rem;
+    perspective: 900px;
+  }
+  .effect-info {
+    text-align: center;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    transform-style: preserve-3d;
+  }
+  .effect-img {
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+  }
+  .effect-img:before {
+    position: absolute;
+    display: block;
+  }
+  .effect-right_to_left .effect-img {
+    transform-origin: 0% 50%;
+  }
+  .effect-right_to_left:hover .effect-img {
+    transform: rotate3d(0, 1, 0, -180deg);
+  }
+</style>
+
+      
+      <div>
+  <i class="fas fa-cog fa-spin fa-fw"></i>
+  <span id="run_time_day">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>天
+  <span id="run_time_hour">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>时
+  <span id="run_time_minute">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>分
+  <span id="run_time_second">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>秒
+  <script>
+    setInterval(function (d,h,m,s,b) {
+      function setzero(i) {
+        return i < 10 ? "0" + i : i;
+      }
+      let BirthDay = new Date(b);
+      let today = new Date();
+      let timeold = (today.getTime() - BirthDay.getTime());
+      let sectimeold = timeold / 1000;
+      let secondsold = Math.floor(sectimeold);
+      let msPerDay = 24 * 60 * 60 * 1000;
+      let e_daysold = timeold / msPerDay;
+      let daysold = Math.floor(e_daysold);
+      let e_hrsold = (e_daysold - daysold) * 24;
+      let hrsold = Math.floor(e_hrsold);
+      let e_minsold = (e_hrsold - hrsold) * 60;
+      let minsold = Math.floor((e_hrsold - hrsold) * 60);
+      let seconds = Math.floor((e_minsold - minsold) * 60);
+      d.textContent = daysold;
+      h.textContent = setzero(hrsold);
+      m.textContent = setzero(minsold);
+      s.textContent = setzero(seconds);
+    },
+    1000,
+    document.getElementById("run_time_day"),
+    document.getElementById("run_time_hour"),
+    document.getElementById("run_time_minute"),
+    document.getElementById("run_time_second"),
+    "05/02/2020 11:03:56")// 这是我第一篇博客的时间
+  </script>
+</div>
+
+      
+      <div>
+  <div>
+    <i class="fas fa-eye fa-fw"></i>
+    <span id="busuanzi_value_page_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>次
+  </div>
+  <div>
+    <i class="fas fa-paw fa-fw"></i>
+    <span id="busuanzi_value_site_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>枚
+  </div>
+  <div>
+    <i class="fas fa-user-friends fa-fw"></i>
+    <span id="busuanzi_value_site_uv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>人
+  </div>
+  <script
+    src='https://cdn.jsdelivr.net/npm/busuanzi@2.3.0'
+    async='async'
+  ></script>
+</div>
+
+      
+      <div>
+  <i class="fas fa-copyright fa-fw"></i>
+  2020-2022 lazycat
+</div>
+
+      
+      <div>
+  <i class="fas fa-info-circle fa-fw"></i>
+  <a href="http://beian.miit.gov.cn">
+    蜀ICP备20011774号
+  </a>
+</div>
+
+      
+      
+    </div>
+  </div>
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the content to avoid any CSS collisions with our real content. -->
+  
+  <div class="wrap">
+    
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/katex@0.11.1/dist/katex.min.js,npm/katex@0.11.1/dist/contrib/mathtex-script-type.min.js,npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  defer="defer"
+  onload='renderMathInElement(document.body, { delimiters: [{ left: "$", right: "$", display: false }] })'
+></script>
+
+
+
+<style>
+  pre.language-mermaid,
+  code.language-mermaid {
+    display: none;
+  }
+</style>
+<script
+  src="https://cdn.jsdelivr.net/npm/mermaid@8.5.1/dist/mermaid.min.js"
+  defer="defer"
+  onload='
+    for(let x of document.getElementsByClassName("language-mermaid"))
+      if(x.nodeName=="CODE")
+      {
+        let m = document.createElement("div");
+        m.classList.add("mermaid");
+        m.textContent = x.textContent;
+        x.parentNode.insertAdjacentElement("beforebegin", m);
+      }'
+></script>
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.css,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.css,gh/PrismJS/prism-themes@1955cfef6953b3a59e66016e8a1e016b45d6cc79/themes/prism-nord.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/components/prism-core.min.js,npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js,npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.js,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.js"
+  defer="defer"
+  onload='
+    Prism.plugins.autoloader.languages_path = "https:\/\/cdn.jsdelivr.net/npm/prismjs/components/";
+    for(let x of document.getElementsByTagName("pre"))
+      x.classList.add("line-numbers");
+    Prism.plugins.toolbar.registerButton("select-code", function (env) {
+      let button = document.createElement("button");
+      button.textContent = "select this " + env.language;
+      button.addEventListener("click", function () {
+        if (document.body.createTextRange) {
+          let range = document.body.createTextRange();
+          range.moveToElementText(env.element);
+          range.select();
+        } else if (window.getSelection) {
+          let selection = window.getSelection();
+          let range = document.createRange();
+          range.selectNodeContents(env.element);
+          selection.removeAllRanges();
+            selection.addRange(range);
+        }
+      });
+      return button;
+    })'
+></script>
+
+
+
+<style>
+  pre {
+    max-height: 50vh;
+    overflow: auto;
+  }
+</style>
+
+
+<style>
+  @media (min-width: 56em) {
+    .container {
+      max-width: 66.6%;
+    }
+  }
+</style>
+
+
+<style>
+  .masthead,
+  .container.content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 .75rem rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    animation-duration: 2s;
+    animation-name: fadeIn;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+
+
+<div class="masthead">
+  <h3 class="container masthead-title">
+    
+    JAVA线程池
+    <a href="/" title="Home">
+      <small>
+        lazycat
+      </small>
+    </a>
+    
+  </h3>
+</div>
+
+<div class="container content">
+  <div class="post">
+  <span class="post-date">
+    
+    <i class="fas fa-calendar-day fa-fw"></i>
+    02 Jul 2020
+    
+    
+    <i class="fas fa-file-word fa-fw"></i>
+    19681字
+    
+    
+    <i class="fas fa-clock fa-fw"></i>
+    66分
+    
+    
+    <span class="leancloud-visitors" id="/_posts/2020-07-02-JAVA%E7%BA%BF%E7%A8%8B%E6%B1%A0/" data-xid="/_posts/2020-07-02-JAVA%E7%BA%BF%E7%A8%8B%E6%B1%A0/" data-flag-title="JAVA线程池">
+      <i class="fas fa-book-reader fa-fw"></i>
+      <span class="leancloud-visitors-count">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </span>次
+    </span>
+    
+    
+    
+    <i class="fas fa-tag fa-fw"></i>
+    JAVA
+    
+    
+    <br/>
+<i class="fas fa-coffee fa-fw"></i>
+<a href="/merger/">如果这篇博客帮助到你，可以请我喝一杯咖啡~</a>
+<br/>
+<i class="fab fa-creative-commons-by fa-fw"></i>
+<a
+  href="https://creativecommons.org/licenses/by/4.0/deed.zh"
+  rel="license">
+  CC BY 4.0
+</a>
+（除特别声明或转载文章外）
+
+    
+  </span>
+  <p>[toc]</p>
+
+<blockquote>
+  <p>如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，因为频繁创建线程和销毁线程需要时间。那么有没有一种办法使得线程可以复用，就是执行完一个任务，并不被销毁，而是可以继续执行其他的任务？在Java中可以通过线程池来达到这样的效果</p>
+</blockquote>
+
+<h1 id="threadpoolexecutor类">ThreadPoolExecutor类</h1>
+
+<p><code>java.uitl.concurrent.ThreadPoolExecutor</code>类是线程池中最核心的一个类，因此如果要透彻地了解Java中的线程池，必须先了解这个类。具体实现源码,在ThreadPoolExecutor类中提供了四个构造方法：</p>
+
+<pre><code class="language-java">public class ThreadPoolExecutor extends AbstractExecutorService {
+    .....
+    public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long keepAliveTime,TimeUnit unit,
+            BlockingQueue&lt;Runnable&gt; workQueue);
+ 
+    public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long keepAliveTime,TimeUnit unit,
+            BlockingQueue&lt;Runnable&gt; workQueue,ThreadFactory threadFactory);
+ 
+    public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long keepAliveTime,TimeUnit unit,
+            BlockingQueue&lt;Runnable&gt; workQueue,RejectedExecutionHandler handler);
+ 
+    public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long keepAliveTime,TimeUnit unit,
+        BlockingQueue&lt;Runnable&gt; workQueue,ThreadFactory threadFactory,RejectedExecutionHandler handler);
+    ...
+}
+</code></pre>
+
+<p>从上面的代码可以得知，ThreadPoolExecutor继承了AbstractExecutorService类，并提供了四个构造器，事实上，通过观察每个构造器的源码具体实现，发现前面三个构造器都是调用的第四个构造器进行的初始化工作。</p>
+
+<p>参数的含义：</p>
+
+<ul>
+  <li>corePoolSize：核心池的大小，这个参数跟后面讲述的线程池的实现原理有非常大的关系。在创建了线程池后，默认情况下，线程池中并没有任何线程，而是等待有任务到来才创建线程去执行任务，除非调用了prestartAllCoreThreads()或者prestartCoreThread()方法，从这2个方法的名字就可以看出，是预创建线程的意思，即在没有任务到来之前就创建corePoolSize个线程或者一个线程。默认情况下，在创建了线程池后，线程池中的线程数为0，当有任务来之后，就会创建一个线程去执行任务，当线程池中的线程数目达到corePoolSize后，就会把到达的任务放到缓存队列当中；</li>
+  <li>maximumPoolSize：线程池最大线程数，这个参数也是一个非常重要的参数，它表示在线程池中最多能创建多少个线程；</li>
+  <li>keepAliveTime：表示线程没有任务执行时最多保持多久时间会终止。默认情况下，只有当线程池中的线程数大于corePoolSize时，keepAliveTime才会起作用，直到线程池中的线程数不大于corePoolSize，即当线程池中的线程数大于corePoolSize时，如果一个线程空闲的时间达到keepAliveTime，则会终止，直到线程池中的线程数不超过corePoolSize。但是如果调用了allowCoreThreadTimeOut(boolean)方法，在线程池中的线程数不大于corePoolSize时，keepAliveTime参数也会起作用，直到线程池中的线程数为0；</li>
+  <li>unit：参数keepAliveTime的时间单位，有7种取值，在TimeUnit类中有7种静态属性：</li>
+</ul>
+
+<pre><code class="language-java">TimeUnit.DAYS;               //天
+TimeUnit.HOURS;             //小时
+TimeUnit.MINUTES;           //分钟
+TimeUnit.SECONDS;           //秒
+TimeUnit.MILLISECONDS;      //毫秒
+TimeUnit.MICROSECONDS;      //微妙
+TimeUnit.NANOSECONDS;       //纳秒
+</code></pre>
+
+<ul>
+  <li>workQueue：一个阻塞队列，用来存储等待执行的任务，这个参数的选择也很重要，会对线程池的运行过程产生重大影响，一般来说，这里的阻塞队列有以下几种选择：</li>
+</ul>
+
+<pre><code class="language-java">ArrayBlockingQueue;
+LinkedBlockingQueue;
+SynchronousQueue;
+</code></pre>
+
+<p>ArrayBlockingQueue和PriorityBlockingQueue使用较少，一般使用LinkedBlockingQueue和Synchronous。线程池的排队策略与BlockingQueue有关。</p>
+
+<ul>
+  <li>threadFactory：线程工厂，主要用来创建线程；</li>
+  <li>handler：表示当拒绝处理任务时的策略，有以下四种取值：</li>
+</ul>
+
+<pre><code class="language-java">ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。 
+ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。 
+ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
+ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务 
+</code></pre>
+
+<p>从上面给出的ThreadPoolExecutor类的代码可以知道，ThreadPoolExecutor继承了AbstractExecutorService，我们来看一下AbstractExecutorService的实现：</p>
+
+<pre><code class="language-java">public abstract class AbstractExecutorService implements ExecutorService {
+ 
+     
+    protected &lt;T&gt; RunnableFuture&lt;T&gt; newTaskFor(Runnable runnable, T value) { };
+    protected &lt;T&gt; RunnableFuture&lt;T&gt; newTaskFor(Callable&lt;T&gt; callable) { };
+    public Future&lt;?&gt; submit(Runnable task) {};
+    public &lt;T&gt; Future&lt;T&gt; submit(Runnable task, T result) { };
+    public &lt;T&gt; Future&lt;T&gt; submit(Callable&lt;T&gt; task) { };
+    private &lt;T&gt; T doInvokeAny(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks,
+                            boolean timed, long nanos)
+        throws InterruptedException, ExecutionException, TimeoutException {
+    };
+    public &lt;T&gt; T invokeAny(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks)
+        throws InterruptedException, ExecutionException {
+    };
+    public &lt;T&gt; T invokeAny(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks,
+                           long timeout, TimeUnit unit)
+        throws InterruptedException, ExecutionException, TimeoutException {
+    };
+    public &lt;T&gt; List&lt;Future&lt;T&gt;&gt; invokeAll(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks)
+        throws InterruptedException {
+    };
+    public &lt;T&gt; List&lt;Future&lt;T&gt;&gt; invokeAll(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks,
+                                         long timeout, TimeUnit unit)
+        throws InterruptedException {
+    };
+}
+</code></pre>
+
+<p>AbstractExecutorService是一个抽象类，它实现了ExecutorService接口。</p>
+
+<p>我们接着看ExecutorService接口的实现：</p>
+
+<pre><code class="language-java">public interface ExecutorService extends Executor {
+ 
+    void shutdown();
+    boolean isShutdown();
+    boolean isTerminated();
+    boolean awaitTermination(long timeout, TimeUnit unit)
+        throws InterruptedException;
+    &lt;T&gt; Future&lt;T&gt; submit(Callable&lt;T&gt; task);
+    &lt;T&gt; Future&lt;T&gt; submit(Runnable task, T result);
+    Future&lt;?&gt; submit(Runnable task);
+    &lt;T&gt; List&lt;Future&lt;T&gt;&gt; invokeAll(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks)
+        throws InterruptedException;
+    &lt;T&gt; List&lt;Future&lt;T&gt;&gt; invokeAll(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks,
+                                  long timeout, TimeUnit unit)
+        throws InterruptedException;
+ 
+    &lt;T&gt; T invokeAny(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks)
+        throws InterruptedException, ExecutionException;
+    &lt;T&gt; T invokeAny(Collection&lt;? extends Callable&lt;T&gt;&gt; tasks,
+                    long timeout, TimeUnit unit)
+        throws InterruptedException, ExecutionException, TimeoutException;
+}
+</code></pre>
+
+<p>而ExecutorService又是继承了Executor接口，我们看一下Executor接口的实现：</p>
+
+<pre><code class="language-java">public interface Executor {
+    void execute(Runnable command);
+}
+</code></pre>
+
+<p>Executor是一个顶层接口，在它里面只声明了一个方法execute(Runnable)，返回值为void，参数为Runnable类型，从字面意思可以理解，就是用来执行传进去的任务的；</p>
+
+<p>然后ExecutorService接口继承了Executor接口，并声明了一些方法：submit、invokeAll、invokeAny以及shutDown等；</p>
+
+<p>抽象类AbstractExecutorService实现了ExecutorService接口，基本实现了ExecutorService中声明的所有方法；</p>
+
+<p>然后ThreadPoolExecutor继承了类AbstractExecutorService。</p>
+
+<p>在ThreadPoolExecutor类中有几个非常重要的方法：</p>
+
+<pre><code class="language-java">execute()
+submit()
+shutdown()
+shutdownNow()
+</code></pre>
+
+<p>execute()方法实际上是Executor中声明的方法，在ThreadPoolExecutor进行了具体的实现，这个方法是ThreadPoolExecutor的核心方法，通过这个方法可以向线程池提交一个任务，交由线程池去执行。</p>
+
+<p>submit()方法是在ExecutorService中声明的方法，在AbstractExecutorService就已经有了具体的实现，在ThreadPoolExecutor中并没有对其进行重写，这个方法也是用来向线程池提交任务的，但是它和execute()方法不同，它能够返回任务执行的结果，去看submit()方法的实现，会发现它实际上还是调用的execute()方法，只不过它利用了Future来获取任务执行结果（Future相关内容将在下一篇讲述）。</p>
+
+<p>shutdown()和shutdownNow()是用来关闭线程池的。</p>
+
+<p>还有很多其他的方法：</p>
+
+<p>比如：getQueue() 、getPoolSize() 、getActiveCount()、getCompletedTaskCount()等获取与线程池相关属性的方法</p>
+
+<h1 id="线程池实现原理">线程池实现原理</h1>
+
+<h2 id="线程池状态"><strong>线程池状态</strong></h2>
+
+<p>在ThreadPoolExecutor中定义了一个volatile变量，另外定义了几个static final变量表示线程池的各个状态：</p>
+
+<pre><code class="language-java">volatile int runState;
+static final int RUNNING    = 0;
+static final int SHUTDOWN   = 1;
+static final int STOP       = 2;
+static final int TERMINATED = 3;
+</code></pre>
+
+<p>runState表示当前线程池的状态，它是一个volatile变量用来保证线程之间的可见性；</p>
+
+<p>　　下面的几个static final变量表示runState可能的几个取值。</p>
+
+<p>　　当创建线程池后，初始时，线程池处于RUNNING状态；</p>
+
+<p>　　如果调用了shutdown()方法，则线程池处于SHUTDOWN状态，此时线程池不能够接受新的任务，它会等待所有任务执行完毕；</p>
+
+<p>　　如果调用了shutdownNow()方法，则线程池处于STOP状态，此时线程池不能接受新的任务，并且会去尝试终止正在执行的任务；</p>
+
+<p>　　当线程池处于SHUTDOWN或STOP状态，并且所有工作线程已经销毁，任务缓存队列已经清空或执行结束后，线程池被设置为TERMINATED状态。</p>
+
+<h2 id="任务的执行"><strong>任务的执行</strong></h2>
+
+<p>在了解将任务提交给线程池到任务执行完毕整个过程之前，我们先来看一下ThreadPoolExecutor类中其他的一些比较重要成员变量：</p>
+
+<pre><code class="language-java">private final BlockingQueue&lt;Runnable&gt; workQueue;              //任务缓存队列，用来存放等待执行的任务
+private final ReentrantLock mainLock = new ReentrantLock();   //线程池的主要状态锁，对线程池状态（比如线程池大小
+                                                              //、runState等）的改变都要使用这个锁
+private final HashSet&lt;Worker&gt; workers = new HashSet&lt;Worker&gt;();  //用来存放工作集
+ 
+private volatile long  keepAliveTime;    //线程存货时间   
+private volatile boolean allowCoreThreadTimeOut;   //是否允许为核心线程设置存活时间
+private volatile int   corePoolSize;     //核心池的大小（即线程池中的线程数目大于这个参数时，提交的任务会被放进任务缓存队列）
+private volatile int   maximumPoolSize;   //线程池最大能容忍的线程数
+ 
+private volatile int   poolSize;       //线程池中当前的线程数
+ 
+private volatile RejectedExecutionHandler handler; //任务拒绝策略
+ 
+private volatile ThreadFactory threadFactory;   //线程工厂，用来创建线程
+ 
+private int largestPoolSize;   //用来记录线程池中曾经出现过的最大线程数
+ 
+private long completedTaskCount;   //用来记录已经执行完毕的任务个数
+</code></pre>
+
+<p>每个变量的作用都已经标明出来了，这里要重点解释一下corePoolSize、maximumPoolSize、largestPoolSize三个变量。</p>
+
+<p>　　corePoolSize在很多地方被翻译成核心池大小，其实我的理解这个就是线程池的大小。举个简单的例子：</p>
+
+<p>　　假如有一个工厂，工厂里面有10个工人，每个工人同时只能做一件任务。</p>
+
+<p>　　因此只要当10个工人中有工人是空闲的，来了任务就分配给空闲的工人做；</p>
+
+<p>　　当10个工人都有任务在做时，如果还来了任务，就把任务进行排队等待；</p>
+
+<p>　　如果说新任务数目增长的速度远远大于工人做任务的速度，那么此时工厂主管可能会想补救措施，比如重新招4个临时工人进来；</p>
+
+<p>　　然后就将任务也分配给这4个临时工人做；</p>
+
+<p>　　如果说着14个工人做任务的速度还是不够，此时工厂主管可能就要考虑不再接收新的任务或者抛弃前面的一些任务了。</p>
+
+<p>　　当这14个工人当中有人空闲时，而新任务增长的速度又比较缓慢，工厂主管可能就考虑辞掉4个临时工了，只保持原来的10个工人，毕竟请额外的工人是要花钱的。</p>
+
+<p>　　这个例子中的corePoolSize就是10，而maximumPoolSize就是14（10+4）。</p>
+
+<p>　　也就是说corePoolSize就是线程池大小，maximumPoolSize在我看来是线程池的一种补救措施，即任务量突然过大时的一种补救措施。</p>
+
+<p>　　不过为了方便理解，在本文后面还是将corePoolSize翻译成核心池大小。</p>
+
+<p>　　largestPoolSize只是一个用来起记录作用的变量，用来记录线程池中曾经有过的最大线程数目，跟线程池的容量没有任何关系。</p>
+
+<p>　　下面我们进入正题，看一下任务从提交到最终执行完毕经历了哪些过程。</p>
+
+<p>　　在ThreadPoolExecutor类中，最核心的任务提交方法是execute()方法，虽然通过submit也可以提交任务，但是实际上submit方法里面最终调用的还是execute()方法，所以我们只需要研究execute()方法的实现原理即可：</p>
+
+<pre><code class="language-java">public void execute(Runnable command) {
+    if (command == null)
+        throw new NullPointerException();
+    if (poolSize &gt;= corePoolSize || !addIfUnderCorePoolSize(command)) {
+        if (runState == RUNNING &amp;&amp; workQueue.offer(command)) {
+            if (runState != RUNNING || poolSize == 0)
+                ensureQueuedTaskHandled(command);
+        }
+        else if (!addIfUnderMaximumPoolSize(command))
+            reject(command); // is shutdown or saturated
+    }
+}
+</code></pre>
+
+<p>上面的代码可能看起来不是那么容易理解，下面我们一句一句解释：</p>
+
+<p>　　首先，判断提交的任务command是否为null，若是null，则抛出空指针异常；</p>
+
+<p>　　接着是这句，这句要好好理解一下：</p>
+
+<pre><code class="language-java">if (poolSize &gt;= corePoolSize || !addIfUnderCorePoolSize(command))
+</code></pre>
+
+<p>由于是或条件运算符，所以先计算前半部分的值，如果线程池中当前线程数不小于核心池大小，那么就会直接进入下面的if语句块了。</p>
+
+<p>　　如果线程池中当前线程数小于核心池大小，则接着执行后半部分，也就是执行</p>
+
+<pre><code class="language-java">addIfUnderCorePoolSize(command)
+</code></pre>
+
+<p>如果执行完addIfUnderCorePoolSize这个方法返回false，则继续执行下面的if语句块，否则整个方法就直接执行完毕了。</p>
+
+<p>　　如果执行完addIfUnderCorePoolSize这个方法返回false，然后接着判断：</p>
+
+<pre><code class="language-java">if (runState == RUNNING &amp;&amp; workQueue.offer(command))
+</code></pre>
+
+<p>如果当前线程池处于RUNNING状态，则将任务放入任务缓存队列；如果当前线程池不处于RUNNING状态或者任务放入缓存队列失败，则执行：</p>
+
+<pre><code class="language-java">addIfUnderMaximumPoolSize(command)
+</code></pre>
+
+<p>如果执行addIfUnderMaximumPoolSize方法失败，则执行reject()方法进行任务拒绝处理。</p>
+
+<p>　　回到前面：</p>
+
+<pre><code class="language-java">if (runState == RUNNING &amp;&amp; workQueue.offer(command))
+</code></pre>
+
+<p>这句的执行，如果说当前线程池处于RUNNING状态且将任务放入任务缓存队列成功，则继续进行判断：</p>
+
+<pre><code class="language-java">if (runState != RUNNING || poolSize == 0)
+</code></pre>
+
+<p>这句判断是为了防止在将此任务添加进任务缓存队列的同时其他线程突然调用shutdown或者shutdownNow方法关闭了线程池的一种应急措施。如果是这样就执行：</p>
+
+<pre><code class="language-java">ensureQueuedTaskHandled(command)
+</code></pre>
+
+<p>进行应急处理，从名字可以看出是保证 添加到任务缓存队列中的任务得到处理。</p>
+
+<p>　　我们接着看2个关键方法的实现：addIfUnderCorePoolSize和addIfUnderMaximumPoolSize：</p>
+
+<pre><code class="language-java">private boolean addIfUnderCorePoolSize(Runnable firstTask) {
+    Thread t = null;
+    final ReentrantLock mainLock = this.mainLock;
+    mainLock.lock();
+    try {
+        if (poolSize &lt; corePoolSize &amp;&amp; runState == RUNNING)
+            t = addThread(firstTask);        //创建线程去执行firstTask任务   
+        } finally {
+        mainLock.unlock();
+    }
+    if (t == null)
+        return false;
+    t.start();
+    return true;
+}
+</code></pre>
+
+<p>这个是addIfUnderCorePoolSize方法的具体实现，从名字可以看出它的意图就是当低于核心吃大小时执行的方法。下面看其具体实现，首先获取到锁，因为这地方涉及到线程池状态的变化，先通过if语句判断当前线程池中的线程数目是否小于核心池大小，有朋友也许会有疑问：前面在execute()方法中不是已经判断过了吗，只有线程池当前线程数目小于核心池大小才会执行addIfUnderCorePoolSize方法的，为何这地方还要继续判断？原因很简单，前面的判断过程中并没有加锁，因此可能在execute方法判断的时候poolSize小于corePoolSize，而判断完之后，在其他线程中又向线程池提交了任务，就可能导致poolSize不小于corePoolSize了，所以需要在这个地方继续判断。然后接着判断线程池的状态是否为RUNNING，原因也很简单，因为有可能在其他线程中调用了shutdown或者shutdownNow方法。然后就是执行</p>
+
+<pre><code class="language-java">t = addThread(firstTask);
+</code></pre>
+
+<p>这个方法也非常关键，传进去的参数为提交的任务，返回值为Thread类型。然后接着在下面判断t是否为空，为空则表明创建线程失败（即poolSize&gt;=corePoolSize或者runState不等于RUNNING），否则调用t.start()方法启动线程。</p>
+
+<p>　　我们来看一下addThread方法的实现：</p>
+
+<pre><code class="language-java">private Thread addThread(Runnable firstTask) {
+    Worker w = new Worker(firstTask);
+    Thread t = threadFactory.newThread(w);  //创建一个线程，执行任务   
+    if (t != null) {
+        w.thread = t;            //将创建的线程的引用赋值为w的成员变量       
+        workers.add(w);
+        int nt = ++poolSize;     //当前线程数加1       
+        if (nt &gt; largestPoolSize)
+            largestPoolSize = nt;
+    }
+    return t;
+}
+</code></pre>
+
+<p>在addThread方法中，首先用提交的任务创建了一个Worker对象，然后调用线程工厂threadFactory创建了一个新的线程t，然后将线程t的引用赋值给了Worker对象的成员变量thread，接着通过workers.add(w)将Worker对象添加到工作集当中。</p>
+
+<p>　　下面我们看一下Worker类的实现：</p>
+
+<pre><code class="language-java">private final class Worker implements Runnable {
+    private final ReentrantLock runLock = new ReentrantLock();
+    private Runnable firstTask;
+    volatile long completedTasks;
+    Thread thread;
+    Worker(Runnable firstTask) {
+        this.firstTask = firstTask;
+    }
+    boolean isActive() {
+        return runLock.isLocked();
+    }
+    void interruptIfIdle() {
+        final ReentrantLock runLock = this.runLock;
+        if (runLock.tryLock()) {
+            try {
+        if (thread != Thread.currentThread())
+        thread.interrupt();
+            } finally {
+                runLock.unlock();
+            }
+        }
+    }
+    void interruptNow() {
+        thread.interrupt();
+    }
+ 
+    private void runTask(Runnable task) {
+        final ReentrantLock runLock = this.runLock;
+        runLock.lock();
+        try {
+            if (runState &lt; STOP &amp;&amp;
+                Thread.interrupted() &amp;&amp;
+                runState &gt;= STOP)
+            boolean ran = false;
+            beforeExecute(thread, task);   //beforeExecute方法是ThreadPoolExecutor类的一个方法，没有具体实现，用户可以根据
+            //自己需要重载这个方法和后面的afterExecute方法来进行一些统计信息，比如某个任务的执行时间等           
+            try {
+                task.run();
+                ran = true;
+                afterExecute(task, null);
+                ++completedTasks;
+            } catch (RuntimeException ex) {
+                if (!ran)
+                    afterExecute(task, ex);
+                throw ex;
+            }
+        } finally {
+            runLock.unlock();
+        }
+    }
+ 
+    public void run() {
+        try {
+            Runnable task = firstTask;
+            firstTask = null;
+            while (task != null || (task = getTask()) != null) {
+                runTask(task);
+                task = null;
+            }
+        } finally {
+            workerDone(this);   //当任务队列中没有任务时，进行清理工作       
+        }
+    }
+}
+</code></pre>
+
+<p>它实际上实现了Runnable接口，因此上面的Thread t = threadFactory.newThread(w);效果跟下面这句的效果基本一样：</p>
+
+<pre><code class="language-java">Thread t = new Thread(w);
+</code></pre>
+
+<p>相当于传进去了一个Runnable任务，在线程t中执行这个Runnable。</p>
+
+<p>　　既然Worker实现了Runnable接口，那么自然最核心的方法便是run()方法了：</p>
+
+<pre><code class="language-java">public void run() {
+    try {
+        Runnable task = firstTask;
+        firstTask = null;
+        while (task != null || (task = getTask()) != null) {
+            runTask(task);
+            task = null;
+        }
+    } finally {
+        workerDone(this);
+    }
+}
+</code></pre>
+
+<p>从run方法的实现可以看出，它首先执行的是通过构造器传进来的任务firstTask，在调用runTask()执行完firstTask之后，在while循环里面不断通过getTask()去取新的任务来执行，那么去哪里取呢？自然是从任务缓存队列里面去取，getTask是ThreadPoolExecutor类中的方法，并不是Worker类中的方法，下面是getTask方法的实现：</p>
+
+<pre><code class="language-java">Runnable getTask() {
+    for (;;) {
+        try {
+            int state = runState;
+            if (state &gt; SHUTDOWN)
+                return null;
+            Runnable r;
+            if (state == SHUTDOWN)  // Help drain queue
+                r = workQueue.poll();
+            else if (poolSize &gt; corePoolSize || allowCoreThreadTimeOut) //如果线程数大于核心池大小或者允许为核心池线程设置空闲时间，
+                //则通过poll取任务，若等待一定的时间取不到任务，则返回null
+                r = workQueue.poll(keepAliveTime, TimeUnit.NANOSECONDS);
+            else
+                r = workQueue.take();
+            if (r != null)
+                return r;
+            if (workerCanExit()) {    //如果没取到任务，即r为null，则判断当前的worker是否可以退出
+                if (runState &gt;= SHUTDOWN) // Wake up others
+                    interruptIdleWorkers();   //中断处于空闲状态的worker
+                return null;
+            }
+            // Else retry
+        } catch (InterruptedException ie) {
+            // On interruption, re-check runState
+        }
+    }
+}
+</code></pre>
+
+<p>在getTask中，先判断当前线程池状态，如果runState大于SHUTDOWN（即为STOP或者TERMINATED），则直接返回null。</p>
+
+<p>　　如果runState为SHUTDOWN或者RUNNING，则从任务缓存队列取任务。</p>
+
+<p>　　如果当前线程池的线程数大于核心池大小corePoolSize或者允许为核心池中的线程设置空闲存活时间，则调用poll(time,timeUnit)来取任务，这个方法会等待一定的时间，如果取不到任务就返回null。</p>
+
+<p>　　然后判断取到的任务r是否为null，为null则通过调用workerCanExit()方法来判断当前worker是否可以退出，我们看一下workerCanExit()的实现：</p>
+
+<pre><code class="language-java">private boolean workerCanExit() {
+    final ReentrantLock mainLock = this.mainLock;
+    mainLock.lock();
+    boolean canExit;
+    //如果runState大于等于STOP，或者任务缓存队列为空了
+    //或者  允许为核心池线程设置空闲存活时间并且线程池中的线程数目大于1
+    try {
+        canExit = runState &gt;= STOP ||
+            workQueue.isEmpty() ||
+            (allowCoreThreadTimeOut &amp;&amp;
+             poolSize &gt; Math.max(1, corePoolSize));
+    } finally {
+        mainLock.unlock();
+    }
+    return canExit;
+}
+</code></pre>
+
+<p>也就是说如果线程池处于STOP状态、或者任务队列已为空或者允许为核心池线程设置空闲存活时间并且线程数大于1时，允许worker退出。如果允许worker退出，则调用interruptIdleWorkers()中断处于空闲状态的worker，我们看一下interruptIdleWorkers()的实现：</p>
+
+<pre><code class="language-java">void interruptIdleWorkers() {
+    final ReentrantLock mainLock = this.mainLock;
+    mainLock.lock();
+    try {
+        for (Worker w : workers)  //实际上调用的是worker的interruptIfIdle()方法
+            w.interruptIfIdle();
+    } finally {
+        mainLock.unlock();
+    }
+}
+</code></pre>
+
+<p>从实现可以看出，它实际上调用的是worker的interruptIfIdle()方法，在worker的interruptIfIdle()方法中：</p>
+
+<pre><code class="language-java">void interruptIfIdle() {
+    final ReentrantLock runLock = this.runLock;
+    if (runLock.tryLock()) {    //注意这里，是调用tryLock()来获取锁的，因为如果当前worker正在执行任务，锁已经被获取了，是无法获取到锁的
+                                //如果成功获取了锁，说明当前worker处于空闲状态
+        try {
+    if (thread != Thread.currentThread())  
+    thread.interrupt();
+        } finally {
+            runLock.unlock();
+        }
+    }
+}
+</code></pre>
+
+<p>这里有一个非常巧妙的设计方式，假如我们来设计线程池，可能会有一个任务分派线程，当发现有线程空闲时，就从任务缓存队列中取一个任务交给空闲线程执行。但是在这里，并没有采用这样的方式，因为这样会要额外地对任务分派线程进行管理，无形地会增加难度和复杂度，这里直接让执行完任务的线程去任务缓存队列里面取任务来执行。</p>
+
+<p>　我们再看addIfUnderMaximumPoolSize方法的实现，这个方法的实现思想和addIfUnderCorePoolSize方法的实现思想非常相似，唯一的区别在于addIfUnderMaximumPoolSize方法是在线程池中的线程数达到了核心池大小并且往任务队列中添加任务失败的情况下执行的：</p>
+
+<pre><code class="language-java">private boolean addIfUnderMaximumPoolSize(Runnable firstTask) {
+    Thread t = null;
+    final ReentrantLock mainLock = this.mainLock;
+    mainLock.lock();
+    try {
+        if (poolSize &lt; maximumPoolSize &amp;&amp; runState == RUNNING)
+            t = addThread(firstTask);
+    } finally {
+        mainLock.unlock();
+    }
+    if (t == null)
+        return false;
+    t.start();
+    return true;
+}
+</code></pre>
+
+<p>看到没有，其实它和addIfUnderCorePoolSize方法的实现基本一模一样，只是if语句判断条件中的poolSize &lt; maximumPoolSize不同而已。</p>
+
+<p>　　到这里，大部分朋友应该对任务提交给线程池之后到被执行的整个过程有了一个基本的了解，下面总结一下：</p>
+
+<p>　　1）首先，要清楚corePoolSize和maximumPoolSize的含义；</p>
+
+<p>　　2）其次，要知道Worker是用来起到什么作用的；</p>
+
+<p>　　3）要知道任务提交给线程池之后的处理策略，这里总结一下主要有4点：</p>
+
+<ul>
+  <li>如果当前线程池中的线程数目小于corePoolSize，则每来一个任务，就会创建一个线程去执行这个任务；</li>
+  <li>如果当前线程池中的线程数目&gt;=corePoolSize，则每来一个任务，会尝试将其添加到任务缓存队列当中，若添加成功，则该任务会等待空闲线程将其取出去执行；若添加失败（一般来说是任务缓存队列已满），则会尝试创建新的线程去执行这个任务；</li>
+  <li>如果当前线程池中的线程数目达到maximumPoolSize，则会采取任务拒绝策略进行处理；</li>
+  <li>如果线程池中的线程数量大于  corePoolSize时，如果某线程空闲时间超过keepAliveTime，线程将被终止，直至线程池中的线程数目不大于corePoolSize；如果允许为核心池中的线程设置存活时间，那么核心池中的线程空闲时间超过keepAliveTime，线程也会被终止</li>
+</ul>
+
+<h2 id="线程池中的线程初始化"><strong>线程池中的线程初始化</strong></h2>
+
+<p>默认情况下，创建线程池之后，线程池中是没有线程的，需要提交任务之后才会创建线程。</p>
+
+<p>　　在实际中如果需要线程池创建之后立即创建线程，可以通过以下两个方法办到：</p>
+
+<ul>
+  <li>prestartCoreThread()：初始化一个核心线程；</li>
+  <li>prestartAllCoreThreads()：初始化所有核心线程</li>
+</ul>
+
+<p>　　下面是这2个方法的实现：</p>
+
+<pre><code class="language-java">public boolean prestartCoreThread() {
+    return addIfUnderCorePoolSize(null); //注意传进去的参数是null
+}
+ 
+public int prestartAllCoreThreads() {
+    int n = 0;
+    while (addIfUnderCorePoolSize(null))//注意传进去的参数是null
+        ++n;
+    return n;
+}
+</code></pre>
+
+<p>注意上面传进去的参数是null，根据第2小节的分析可知如果传进去的参数为null，则最后执行线程会阻塞在getTask方法中的</p>
+
+<pre><code class="language-java">r = workQueue.take();
+</code></pre>
+
+<p>即等待任务队列中有任务</p>
+
+<h2 id="任务缓存队列及排队策略"><strong>任务缓存队列及排队策略</strong></h2>
+
+<p>在前面我们多次提到了任务缓存队列，即workQueue，它用来存放等待执行的任务。</p>
+
+<p>　　workQueue的类型为BlockingQueue<Runnable>，通常可以取下面三种类型：</Runnable></p>
+
+<p>　　1）ArrayBlockingQueue：基于数组的先进先出队列，此队列创建时必须指定大小；</p>
+
+<p>　　2）LinkedBlockingQueue：基于链表的先进先出队列，如果创建时没有指定此队列大小，则默认为Integer.MAX_VALUE；</p>
+
+<p>　　3）synchronousQueue：这个队列比较特殊，它不会保存提交的任务，而是将直接新建一个线程来执行新来的任务。</p>
+
+<h2 id="任务拒绝策略"><strong>任务拒绝策略</strong></h2>
+
+<p>当线程池的任务缓存队列已满并且线程池中的线程数目达到maximumPoolSize，如果还有任务到来就会采取任务拒绝策略，通常有以下四种策略：</p>
+
+<pre><code class="language-java">ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。
+ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。
+ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
+ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务 
+</code></pre>
+
+<h2 id="线程池的关闭"><strong>线程池的关闭</strong></h2>
+
+<p>hreadPoolExecutor提供了两个方法，用于线程池的关闭，分别是shutdown()和shutdownNow()，其中：</p>
+
+<ul>
+  <li>shutdown()：不会立即终止线程池，而是要等所有任务缓存队列中的任务都执行完后才终止，但再也不会接受新的任务</li>
+  <li>shutdownNow()：立即终止线程池，并尝试打断正在执行的任务，并且清空任务缓存队列，返回尚未执行的任务</li>
+</ul>
+
+<h2 id="线程池容量的动态调整"><strong>线程池容量的动态调整</strong></h2>
+
+<p>hreadPoolExecutor提供了动态调整线程池容量大小的方法：setCorePoolSize()和setMaximumPoolSize()，</p>
+
+<ul>
+  <li>setCorePoolSize：设置核心池大小</li>
+  <li>setMaximumPoolSize：设置线程池最大能创建的线程数目大小</li>
+</ul>
+
+<p>　　当上述参数从小变大时，ThreadPoolExecutor进行线程赋值，还可能立即创建新的线程来执行任务。</p>
+
+<h1 id="使用示例">使用示例</h1>
+
+<pre><code class="language-java">public class Test {
+     public static void main(String[] args) {   
+         ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 200, TimeUnit.MILLISECONDS,
+                 new ArrayBlockingQueue&lt;Runnable&gt;(5));
+          
+         for(int i=0;i&lt;15;i++){
+             MyTask myTask = new MyTask(i);
+             executor.execute(myTask);
+             System.out.println("线程池中线程数目："+executor.getPoolSize()+"，队列中等待执行的任务数目："+
+             executor.getQueue().size()+"，已执行玩别的任务数目："+executor.getCompletedTaskCount());
+         }
+         executor.shutdown();
+     }
+}
+ 
+ 
+class MyTask implements Runnable {
+    private int taskNum;
+     
+    public MyTask(int num) {
+        this.taskNum = num;
+    }
+     
+    @Override
+    public void run() {
+        System.out.println("正在执行task "+taskNum);
+        try {
+            Thread.currentThread().sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("task "+taskNum+"执行完毕");
+    }
+}
+</code></pre>
+
+<p>结果:</p>
+
+<pre><code class="language-markdown">正在执行task 0
+线程池中线程数目：1，队列中等待执行的任务数目：0，已执行玩别的任务数目：0
+线程池中线程数目：2，队列中等待执行的任务数目：0，已执行玩别的任务数目：0
+正在执行task 1
+线程池中线程数目：3，队列中等待执行的任务数目：0，已执行玩别的任务数目：0
+正在执行task 2
+线程池中线程数目：4，队列中等待执行的任务数目：0，已执行玩别的任务数目：0
+正在执行task 3
+线程池中线程数目：5，队列中等待执行的任务数目：0，已执行玩别的任务数目：0
+正在执行task 4
+线程池中线程数目：5，队列中等待执行的任务数目：1，已执行玩别的任务数目：0
+线程池中线程数目：5，队列中等待执行的任务数目：2，已执行玩别的任务数目：0
+线程池中线程数目：5，队列中等待执行的任务数目：3，已执行玩别的任务数目：0
+线程池中线程数目：5，队列中等待执行的任务数目：4，已执行玩别的任务数目：0
+线程池中线程数目：5，队列中等待执行的任务数目：5，已执行玩别的任务数目：0
+线程池中线程数目：6，队列中等待执行的任务数目：5，已执行玩别的任务数目：0
+正在执行task 10
+线程池中线程数目：7，队列中等待执行的任务数目：5，已执行玩别的任务数目：0
+正在执行task 11
+线程池中线程数目：8，队列中等待执行的任务数目：5，已执行玩别的任务数目：0
+正在执行task 12
+线程池中线程数目：9，队列中等待执行的任务数目：5，已执行玩别的任务数目：0
+正在执行task 13
+线程池中线程数目：10，队列中等待执行的任务数目：5，已执行玩别的任务数目：0
+正在执行task 14
+task 3执行完毕
+task 0执行完毕
+task 2执行完毕
+task 1执行完毕
+正在执行task 8
+正在执行task 7
+正在执行task 6
+正在执行task 5
+task 4执行完毕
+task 10执行完毕
+task 11执行完毕
+task 13执行完毕
+task 12执行完毕
+正在执行task 9
+task 14执行完毕
+task 8执行完毕
+task 5执行完毕
+task 7执行完毕
+task 6执行完毕
+task 9执行完毕
+</code></pre>
+
+<p>从执行结果可以看出，当线程池中线程的数目大于5时，便将任务放入任务缓存队列里面，当任务缓存队列满了之后，便创建新的线程。如果上面程序中，将for循环中改成执行20个任务，就会抛出任务拒绝异常了。</p>
+
+<p>　　不过在java doc中，并不提倡我们直接使用ThreadPoolExecutor，而是使用Executors类中提供的几个静态方法来创建线程池：</p>
+
+<pre><code class="language-java">Executors.newCachedThreadPool();        //创建一个缓冲池，缓冲池容量大小为Integer.MAX_VALUE
+Executors.newSingleThreadExecutor();   //创建容量为1的缓冲池
+Executors.newFixedThreadPool(int);    //创建固定容量大小的缓冲池
+</code></pre>
+
+<p>下面是这三个静态方法的具体实现;</p>
+
+<pre><code class="language-java">public static ExecutorService newFixedThreadPool(int nThreads) {
+    return new ThreadPoolExecutor(nThreads, nThreads,
+                                  0L, TimeUnit.MILLISECONDS,
+                                  new LinkedBlockingQueue&lt;Runnable&gt;());
+}
+public static ExecutorService newSingleThreadExecutor() {
+    return new FinalizableDelegatedExecutorService
+        (new ThreadPoolExecutor(1, 1,
+                                0L, TimeUnit.MILLISECONDS,
+                                new LinkedBlockingQueue&lt;Runnable&gt;()));
+}
+public static ExecutorService newCachedThreadPool() {
+    return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+                                  60L, TimeUnit.SECONDS,
+                                  new SynchronousQueue&lt;Runnable&gt;());
+}
+</code></pre>
+
+<p>从它们的具体实现来看，它们实际上也是调用了ThreadPoolExecutor，只不过参数都已配置好了。</p>
+
+<p>　　newFixedThreadPool创建的线程池corePoolSize和maximumPoolSize值是相等的，它使用的LinkedBlockingQueue；</p>
+
+<p>　　newSingleThreadExecutor将corePoolSize和maximumPoolSize都设置为1，也使用的LinkedBlockingQueue；</p>
+
+<p>　　newCachedThreadPool将corePoolSize设置为0，将maximumPoolSize设置为Integer.MAX_VALUE，使用的SynchronousQueue，也就是说来了任务就创建线程运行，当线程空闲超过60秒，就销毁线程。</p>
+
+<p>　　实际中，如果Executors提供的三个静态方法能满足要求，就尽量使用它提供的三个方法，因为自己去手动配置ThreadPoolExecutor的参数有点麻烦，要根据实际任务的类型和数量来进行配置。</p>
+
+<p>　　另外，如果ThreadPoolExecutor达不到要求，可以自己继承ThreadPoolExecutor类进行重写。</p>
+
+<h1 id="如何合理配置线程池的大小">如何合理配置线程池的大小</h1>
+
+<p>一般需要根据任务的类型来配置线程池大小：</p>
+
+<p>　　如果是CPU密集型任务，就需要尽量压榨CPU，参考值可以设为 <em>N</em>CPU+1</p>
+
+<p>　　如果是IO密集型任务，参考值可以设置为2<em>*N</em>CPU</p>
+
+<p>　　当然，这只是一个参考值，具体的设置还需要根据实际情况进行调整，比如可以先将线程池大小设置为参考值，再观察任务运行情况和系统负载、资源利用率来进行适当调整。</p>
+
+</div>
+<div class="v">
+  <i class="fas fa-spinner fa-pulse"></i>
+</div>
+<script
+  src='https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js'
+  defer='defer'
+  onload='
+    new Valine({
+      "el": document.getElementsByClassName("v")[0],
+      "appId": "9hABRddSuEkTgqLrt1VSK5B1-gzGzoHsz",
+      "appKey": "NJ7RwmgrxsF7KDzlqU7YewlL",
+      "placeholder": "在这里评论吧！填写邮箱可以获得 Gravatar 头像和回复通知哦",
+      "requiredFields": ["nick","mail"],
+      "visitor": true,
+      "recordIP": true
+    })'
+></script>
+
+</div>
+  </div>
+  
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  
+</body>
+
+</html>

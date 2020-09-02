@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>nmap | lazycat</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="nmap" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="[toc]" />
+<meta property="og:description" content="[toc]" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-07-12-nmap/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-07-12-nmap/" />
+<meta property="og:site_name" content="lazycat" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-12T00:00:00-04:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-07-12-nmap/","headline":"nmap","dateModified":"2020-07-12T00:00:00-04:00","datePublished":"2020-07-12T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-07-12-nmap/"},"description":"[toc]","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1"
+/>
+<meta
+  http-equiv="content-type"
+  content="text/html; charset=utf-8"
+/>
+<link
+  rel="alternate"
+  href="/feed.xml"
+  title="RSS"
+  type="application/rss+xml"
+/>
+
+  
+  <link
+  rel="apple-touch-icon-precomposed"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+<link
+  rel="shortcut
+  icon"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/gh/poole/lanyon@v1.1.0/public/css/poole.min.css,gh/poole/lanyon@v1.1.0/public/css/lanyon.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/Dreamer-Paul/Pio@2.4/static/pio.min.css"
+/>
+<script
+  async="async"
+  src="https://cdn.jsdelivr.net/combine/gh/Dreamer-Paul/Pio@2.4/static/l2d.min.js,gh/Dreamer-Paul/Pio@2.4/static/pio.min.js"
+  onload='
+      let pio_container = document.createElement("div");
+      pio_container.classList.add("pio-container");
+      pio_container.classList.add("right");
+      pio_container.style.bottom = "-2rem";
+      pio_container.style.zIndex = "1";
+      document.body.insertAdjacentElement("beforeend", pio_container);
+      let pio_action = document.createElement("div");
+      pio_action.classList.add("pio-action");
+      pio_container.insertAdjacentElement("beforeend", pio_action);
+      let pio_canvas = document.createElement("canvas");
+      pio_canvas.id = "pio";
+      pio_canvas.style.width = "14rem";
+      pio_canvas.width = "600";
+      pio_canvas.height = "800";
+      pio_container.insertAdjacentElement("beforeend", pio_canvas);
+      let pio = new Paul_Pio({
+        "mode": "fixed",
+        "hidden": true,
+        "night": "for(let i=7; i<16; ++i) if(document.body.classList.contains(`theme-base-0`+i.toString(16))) { document.body.classList.remove(`theme-base-0`+i.toString(16)); document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16)); break; }",
+        "content": {
+          "link": ["https://jekyll-theme-WuK.wu-kan.cn"],
+          "skin": ["要换成我的朋友吗？", "让她放个假吧~"],
+          "hidden": true,
+          "custom": [{
+            "selector": "a",
+            "type": "link",
+          }, {
+            "selector": ".sidebar-toggle",
+            "text": "打开侧边栏叭~"
+          }, {
+            "selector": ".effect-info",
+            "text": "哇，你发现了什么！"
+          }, {
+            "selector": "#sidebar-search-input",
+            "text": "想搜索什么呢？很多干货哦！"
+          }, {
+            "selector": "#toc",
+            "text": "这是目录~"
+          }, {
+            "selector": ".page-title",
+            "text": "这是标题~"
+          }, {
+            "selector": ".v",
+            "text": "评论没有审核，要对自己的发言负责哦~"
+          }]
+        },
+        "model": [
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Violet/14.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"]
+      });'
+></script>
+
+  
+  <script
+  src='https://zz.bdstatic.com/linksubmit/push.js'
+  async="async"
+></script>
+
+  
+  <script
+  async="async"
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163543967-1"
+  onload="
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-163543967-1');"
+></script>
+
+  
+  <style>
+  .wrap {
+    transition-property: width,background-size,transform;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    min-height: 100%;
+    display: inline-block;
+    background-size: 100% auto;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+  }
+  @media (min-aspect-ratio: 2400/1850) {
+    .wrap {
+      background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+    }
+  }
+  .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    width: calc(100% - 14rem);
+    background-size: calc(100% - 14rem) auto;
+    transform: translateX(14rem);
+  }
+  .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    transform: translateX(0);
+  }
+</style>
+
+  
+  <style>
+  .sidebar,
+  html,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: PingFang SC, Menlo, Monaco, "Courier New", Microsoft JhengHei, monospace;
+  }
+</style>
+
+  
+  <style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+  }
+</style>
+
+  
+  <style>
+  img {
+    display: inline-block;
+    margin: 0;
+  }
+</style>
+
+  
+  <style>
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, Cyan 0%, Magenta 50%, Yellow 100%);
+  }
+</style>
+
+  
+  <style>
+  ::selection {
+    color: White;
+    background: Black;
+  }
+</style>
+
+  
+</head>
+
+<body
+  class="theme-base-07 sidebar-overlay">
+  
+  
+  
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+  <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"
+     />
+  <!-- Toggleable sidebar -->
+  <div class="sidebar" id="sidebar">
+    
+    <div class="sidebar-item">
+      <div class="effect effect-right_to_left">
+        <img class="effect-img" src="https://pic.cr173.com/up/2017-8/2017841818322084.jpg" alt="img" />
+        <div class="effect-info">
+          lazycat<br/>
+<a href="mailto:verylazycat@outlook.com">
+  <i class="fas fa-envelope"></i>
+</a>
+<a href="https://github.com/verylazycat">
+  <i class="fab fa-github"></i>
+</a>
+
+        </div>
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+      
+      <a class="sidebar-nav-item" href="/">
+        <i class="fas fa-home fa-fw"></i> 首页
+      </a>
+      
+      <a class="sidebar-nav-item" href="/comments/">
+        <i class="fas fa-comments fa-fw"></i> 留言
+      </a>
+      
+      <a class="sidebar-nav-item" href="/tags/">
+        <i class="fas fa-tags fa-fw"></i> 标签
+      </a>
+      
+      <a class="sidebar-nav-item" href="/archive/">
+        <i class="fas fa-archive fa-fw"></i> 归档
+      </a>
+      
+      <a class="sidebar-nav-item" href="/merger/">
+        <i class="fas fa-coffee fa-fw"></i> 打赏
+      </a>
+      
+    </nav>
+    <div class="sidebar-item">
+      
+      <style>
+  #sidebar-search-input {
+    background: none;
+    border: none;
+    color: White;
+    width: 100%;
+  }
+  #sidebar-search-results-container {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+<input
+  id="sidebar-search-input"
+  placeholder="搜索博文"
+/>
+<ol
+  id="sidebar-search-results-container"
+></ol>
+<script
+  src='https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.7/dest/simple-jekyll-search.min.js'
+  async='async'
+  onload='
+    SimpleJekyllSearch({
+      json: "/assets/simple-jekyll-search/search.json",
+      searchInput: document.getElementById("sidebar-search-input"),
+      resultsContainer: document.getElementById("sidebar-search-results-container"),
+      searchResultTemplate: `<li><a href="{url}">{title}</a></li>`,
+      limit: 999,
+      fuzzy: true
+    })'
+></script>
+
+      
+      
+      <style>
+  #toc {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+
+      <ol id="toc">
+  <li><a href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">基本操作</a>
+    <ol>
+      <li><a href="#%E5%9F%BA%E6%9C%AC%E5%BF%AB%E9%80%9F%E6%89%AB%E6%8F%8F">基本快速扫描</a></li>
+      <li><a href="#%E5%BF%AB%E9%80%9F%E6%89%AB%E6%8F%8F%E5%A4%9A%E4%B8%AA%E7%9B%AE%E6%A0%87">快速扫描多个目标</a></li>
+      <li><a href="#%E8%AF%A6%E7%BB%86%E6%8F%8F%E8%BF%B0%E8%BE%93%E5%87%BA%E6%89%AB%E6%8F%8F">详细描述输出扫描</a></li>
+      <li><a href="#%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3%E5%92%8C%E8%8C%83%E5%9B%B4%E6%89%AB%E6%8F%8F">指定端口和范围扫描</a></li>
+      <li><a href="#%E6%89%AB%E6%8F%8F%E9%99%A4%E8%BF%87%E6%9F%90%E4%B8%80%E4%B8%AAip%E5%A4%96%E7%9A%84%E6%89%80%E6%9C%89%E5%AD%90%E7%BD%91%E4%B8%BB%E6%9C%BA">扫描除过某一个ip外的所有子网主机</a></li>
+      <li><a href="#%E6%89%AB%E6%8F%8F%E9%99%A4%E8%BF%87%E6%9F%90%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84ip%E5%A4%96%E7%9A%84%E5%AD%90%E7%BD%91%E4%B8%BB%E6%9C%BA">扫描除过某一个文件中的ip外的子网主机</a></li>
+      <li><a href="#%E6%98%BE%E7%A4%BA%E6%89%AB%E6%8F%8F%E7%9A%84%E6%89%80%E6%9C%89%E4%B8%BB%E6%9C%BA%E7%9A%84%E5%88%97%E8%A1%A8">显示扫描的所有主机的列表</a></li>
+      <li><a href="#sp-ping-%E6%89%AB%E6%8F%8F">sP ping 扫描</a></li>
+      <li><a href="#ss-syn%E5%8D%8A%E5%BC%80%E6%94%BE%E6%89%AB%E6%8F%8F">sS SYN半开放扫描</a></li>
+      <li><a href="#st-tcp%E6%89%AB%E6%8F%8F">sT TCP扫描</a></li>
+      <li><a href="#su-udp%E6%89%AB%E6%8F%8F">sU UDP扫描</a></li>
+      <li><a href="#sf-fin%E6%A0%87%E5%BF%97%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85%E6%89%AB%E6%8F%8F">sF FIN标志的数据包扫描</a></li>
+      <li><a href="#sv-version%E7%89%88%E6%9C%AC%E6%A3%80%E6%B5%8B%E6%89%AB%E6%8F%8F">sV Version版本检测扫描</a></li>
+      <li><a href="#o-os%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%8E%A2%E6%B5%8B">O OS操作系统类型的探测</a></li>
+      <li><a href="#osscan-guess-%E7%8C%9C%E6%B5%8B%E5%8C%B9%E9%85%8D%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F">osscan-guess 猜测匹配操作系统</a></li>
+      <li><a href="#pn-no-ping%E6%89%AB%E6%8F%8F">PN No ping扫描</a></li>
+      <li><a href="#t-%E8%AE%BE%E7%BD%AE%E6%97%B6%E9%97%B4%E6%A8%A1%E6%9D%BF">T 设置时间模板</a></li>
+      <li><a href="#%E7%BD%91%E6%AE%B5%E6%89%AB%E6%8F%8F%E6%A0%BC%E5%BC%8F">网段扫描格式</a></li>
+      <li><a href="#%E4%BB%8E%E6%96%87%E4%BB%B6%E4%B8%AD%E8%AF%BB%E5%8F%96%E9%9C%80%E8%A6%81%E6%89%AB%E6%8F%8F%E7%9A%84ip%E5%88%97%E8%A1%A8">从文件中读取需要扫描的IP列表</a></li>
+      <li><a href="#%E8%B7%AF%E7%94%B1%E8%B7%9F%E8%B8%AA%E6%89%AB%E6%8F%8F">路由跟踪扫描</a></li>
+      <li><a href="#a-os%E8%AF%86%E5%88%AB%E7%89%88%E6%9C%AC%E6%8E%A2%E6%B5%8B%E8%84%9A%E6%9C%AC%E6%89%AB%E6%8F%8F%E5%92%8Ctraceroute%E7%BB%BC%E5%90%88%E6%89%AB%E6%8F%8F">A OS识别,版本探测,脚本扫描和traceroute综合扫描</a></li>
+      <li><a href="#%E5%91%BD%E4%BB%A4%E6%B7%B7%E5%90%88%E5%BC%8F%E6%89%AB%E6%8F%8F">命令混合式扫描</a></li>
+      <li><a href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F">输出格式</a></li>
+    </ol>
+  </li>
+  <li><a href="#nmap%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95%E4%B9%8B%E8%84%9A%E6%9C%AC%E4%BD%BF%E7%94%A8">nmap高级用法之脚本使用</a>
+    <ol>
+      <li><a href="#%E6%8C%89%E7%85%A7%E8%84%9A%E6%9C%AC%E5%88%86%E7%B1%BB%E8%BF%9B%E8%A1%8C%E6%89%AB%E6%8F%8F">按照脚本分类进行扫描</a>
+        <ol>
+          <li><a href="#%E4%BD%BF%E7%94%A8%E5%85%B7%E4%BD%93%E8%84%9A%E6%9C%AC%E8%BF%9B%E8%A1%8C%E6%89%AB%E6%8F%8F">使用具体脚本进行扫描</a>
+            <ol>
+              <li><a href="#%E6%89%AB%E6%8F%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E">扫描服务器的常见漏洞</a></li>
+              <li><a href="#%E6%A3%80%E6%9F%A5ftp%E6%98%AF%E5%90%A6%E5%BC%80%E5%90%AF%E5%8C%BF%E5%90%8D%E7%99%BB%E9%99%86">检查FTP是否开启匿名登陆</a></li>
+              <li><a href="#%E5%AF%B9mysql%E8%BF%9B%E8%A1%8C%E6%9A%B4%E7%A0%B4%E8%A7%A3">对MySQL进行暴破解</a></li>
+              <li><a href="#%E5%AF%B9mssql%E8%BF%9B%E8%A1%8C%E6%9A%B4%E7%A0%B4%E8%A7%A3">对MsSQL进行暴破解</a></li>
+              <li><a href="#%E5%AF%B9oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9B%E8%A1%8C%E6%9A%B4%E7%A0%B4%E8%A7%A3">对Oracle数据库进行暴破解</a></li>
+              <li><a href="#%E5%AF%B9ssh%E8%BF%9B%E8%A1%8C%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3">对SSH进行暴力破解</a></li>
+              <li><a href="#%E5%88%A9%E7%94%A8dns%E8%BF%9B%E8%A1%8C%E5%AD%90%E5%9F%9F%E5%90%8D%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3">利用DNS进行子域名暴力破解</a></li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+      
+      
+      <style>
+  .sidebar-checkbox {
+    display: none;
+  }
+  .sidebar-toggle {
+    position: fixed;
+  }
+</style>
+
+      
+      <style>
+  .effect {
+    margin: 1rem;
+    perspective: 900px;
+  }
+  .effect-info {
+    text-align: center;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    transform-style: preserve-3d;
+  }
+  .effect-img {
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+  }
+  .effect-img:before {
+    position: absolute;
+    display: block;
+  }
+  .effect-right_to_left .effect-img {
+    transform-origin: 0% 50%;
+  }
+  .effect-right_to_left:hover .effect-img {
+    transform: rotate3d(0, 1, 0, -180deg);
+  }
+</style>
+
+      
+      <div>
+  <i class="fas fa-cog fa-spin fa-fw"></i>
+  <span id="run_time_day">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>天
+  <span id="run_time_hour">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>时
+  <span id="run_time_minute">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>分
+  <span id="run_time_second">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>秒
+  <script>
+    setInterval(function (d,h,m,s,b) {
+      function setzero(i) {
+        return i < 10 ? "0" + i : i;
+      }
+      let BirthDay = new Date(b);
+      let today = new Date();
+      let timeold = (today.getTime() - BirthDay.getTime());
+      let sectimeold = timeold / 1000;
+      let secondsold = Math.floor(sectimeold);
+      let msPerDay = 24 * 60 * 60 * 1000;
+      let e_daysold = timeold / msPerDay;
+      let daysold = Math.floor(e_daysold);
+      let e_hrsold = (e_daysold - daysold) * 24;
+      let hrsold = Math.floor(e_hrsold);
+      let e_minsold = (e_hrsold - hrsold) * 60;
+      let minsold = Math.floor((e_hrsold - hrsold) * 60);
+      let seconds = Math.floor((e_minsold - minsold) * 60);
+      d.textContent = daysold;
+      h.textContent = setzero(hrsold);
+      m.textContent = setzero(minsold);
+      s.textContent = setzero(seconds);
+    },
+    1000,
+    document.getElementById("run_time_day"),
+    document.getElementById("run_time_hour"),
+    document.getElementById("run_time_minute"),
+    document.getElementById("run_time_second"),
+    "05/02/2020 11:03:56")// 这是我第一篇博客的时间
+  </script>
+</div>
+
+      
+      <div>
+  <div>
+    <i class="fas fa-eye fa-fw"></i>
+    <span id="busuanzi_value_page_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>次
+  </div>
+  <div>
+    <i class="fas fa-paw fa-fw"></i>
+    <span id="busuanzi_value_site_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>枚
+  </div>
+  <div>
+    <i class="fas fa-user-friends fa-fw"></i>
+    <span id="busuanzi_value_site_uv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>人
+  </div>
+  <script
+    src='https://cdn.jsdelivr.net/npm/busuanzi@2.3.0'
+    async='async'
+  ></script>
+</div>
+
+      
+      <div>
+  <i class="fas fa-copyright fa-fw"></i>
+  2020-2022 lazycat
+</div>
+
+      
+      <div>
+  <i class="fas fa-info-circle fa-fw"></i>
+  <a href="http://beian.miit.gov.cn">
+    蜀ICP备20011774号
+  </a>
+</div>
+
+      
+      
+    </div>
+  </div>
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the content to avoid any CSS collisions with our real content. -->
+  
+  <div class="wrap">
+    
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/katex@0.11.1/dist/katex.min.js,npm/katex@0.11.1/dist/contrib/mathtex-script-type.min.js,npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  defer="defer"
+  onload='renderMathInElement(document.body, { delimiters: [{ left: "$", right: "$", display: false }] })'
+></script>
+
+
+
+<style>
+  pre.language-mermaid,
+  code.language-mermaid {
+    display: none;
+  }
+</style>
+<script
+  src="https://cdn.jsdelivr.net/npm/mermaid@8.5.1/dist/mermaid.min.js"
+  defer="defer"
+  onload='
+    for(let x of document.getElementsByClassName("language-mermaid"))
+      if(x.nodeName=="CODE")
+      {
+        let m = document.createElement("div");
+        m.classList.add("mermaid");
+        m.textContent = x.textContent;
+        x.parentNode.insertAdjacentElement("beforebegin", m);
+      }'
+></script>
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.css,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.css,gh/PrismJS/prism-themes@1955cfef6953b3a59e66016e8a1e016b45d6cc79/themes/prism-nord.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/components/prism-core.min.js,npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js,npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.js,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.js"
+  defer="defer"
+  onload='
+    Prism.plugins.autoloader.languages_path = "https:\/\/cdn.jsdelivr.net/npm/prismjs/components/";
+    for(let x of document.getElementsByTagName("pre"))
+      x.classList.add("line-numbers");
+    Prism.plugins.toolbar.registerButton("select-code", function (env) {
+      let button = document.createElement("button");
+      button.textContent = "select this " + env.language;
+      button.addEventListener("click", function () {
+        if (document.body.createTextRange) {
+          let range = document.body.createTextRange();
+          range.moveToElementText(env.element);
+          range.select();
+        } else if (window.getSelection) {
+          let selection = window.getSelection();
+          let range = document.createRange();
+          range.selectNodeContents(env.element);
+          selection.removeAllRanges();
+            selection.addRange(range);
+        }
+      });
+      return button;
+    })'
+></script>
+
+
+
+<style>
+  pre {
+    max-height: 50vh;
+    overflow: auto;
+  }
+</style>
+
+
+<style>
+  @media (min-width: 56em) {
+    .container {
+      max-width: 66.6%;
+    }
+  }
+</style>
+
+
+<style>
+  .masthead,
+  .container.content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 .75rem rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    animation-duration: 2s;
+    animation-name: fadeIn;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+
+
+<div class="masthead">
+  <h3 class="container masthead-title">
+    
+    nmap
+    <a href="/" title="Home">
+      <small>
+        lazycat
+      </small>
+    </a>
+    
+  </h3>
+</div>
+
+<div class="container content">
+  <div class="post">
+  <span class="post-date">
+    
+    <i class="fas fa-calendar-day fa-fw"></i>
+    12 Jul 2020
+    
+    
+    <i class="fas fa-file-word fa-fw"></i>
+    5468字
+    
+    
+    <i class="fas fa-clock fa-fw"></i>
+    19分
+    
+    
+    <span class="leancloud-visitors" id="/_posts/2020-07-12-nmap/" data-xid="/_posts/2020-07-12-nmap/" data-flag-title="nmap">
+      <i class="fas fa-book-reader fa-fw"></i>
+      <span class="leancloud-visitors-count">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </span>次
+    </span>
+    
+    
+    
+    <i class="fas fa-tag fa-fw"></i>
+    安全
+    
+    
+    <br/>
+<i class="fas fa-coffee fa-fw"></i>
+<a href="/merger/">如果这篇博客帮助到你，可以请我喝一杯咖啡~</a>
+<br/>
+<i class="fab fa-creative-commons-by fa-fw"></i>
+<a
+  href="https://creativecommons.org/licenses/by/4.0/deed.zh"
+  rel="license">
+  CC BY 4.0
+</a>
+（除特别声明或转载文章外）
+
+    
+  </span>
+  <p>[toc]</p>
+
+<blockquote>
+  <p>nmap是用来探测计算机网络上的主机和服务的一种安全扫描器。为了绘制网络拓扑图Nmap的发送特制的数据包到目标主机然后对返回数据包进行分析。Nmap是一款枚举和测试网络的强大工具。</p>
+</blockquote>
+
+<p>官网:<a href="https://link.zhihu.com/?target=http%3A//nmap.org/">http://nmap.org</a> 图形化:Zenmap</p>
+
+<h1 id="基本操作">基本操作</h1>
+
+<h2 id="基本快速扫描">基本快速扫描</h2>
+
+<p>Nmap 默认发送一个<code>arp的ping数据包</code>来探测目标主机在1-10000范围内所开放的端口。</p>
+
+<pre><code class="language-bashl">nmap  ip
+</code></pre>
+
+<h2 id="快速扫描多个目标">快速扫描多个目标</h2>
+
+<pre><code class="language-bash">nmap  ip1 ip2
+</code></pre>
+
+<h2 id="详细描述输出扫描">详细描述输出扫描</h2>
+
+<p>简单扫描并对返回的结果详细描述输出,这个扫描是可以看到扫描的过程的,漫长的扫描的过程中可以看到百分比 就不会显得那么枯燥而且可以提升逼格。</p>
+
+<pre><code class="language-bash">nmap -vv ip
+</code></pre>
+
+<h2 id="指定端口和范围扫描">指定端口和范围扫描</h2>
+
+<p>nmap 默认扫描目标1-10000范围内的端口号。我们则可以通过参数<code>-p</code> 来设置我们将要扫描的端口号</p>
+
+<pre><code class="language-bash">nmap -p(range) &lt;target IP&gt; 
+</code></pre>
+
+<h2 id="扫描除过某一个ip外的所有子网主机">扫描除过某一个ip外的所有子网主机</h2>
+
+<pre><code class="language-bash">nmap 10.130.1.1/24 -exclude 10.130.1.1
+</code></pre>
+
+<h2 id="扫描除过某一个文件中的ip外的子网主机">扫描除过某一个文件中的ip外的子网主机</h2>
+
+<pre><code class="language-bash">nmap 10.130.1.1/24 -excludefile gov.txt
+</code></pre>
+
+<h2 id="显示扫描的所有主机的列表">显示扫描的所有主机的列表</h2>
+
+<pre><code class="language-bash">nmap -sL 10.130.1.1/24
+</code></pre>
+
+<h2 id="sp-ping-扫描">sP ping 扫描</h2>
+
+<p>nmap 可以利用类似window/linux 系统下的ping方式进行扫描</p>
+
+<pre><code class="language-bash">nmap -sP &lt;target ip&gt;
+</code></pre>
+
+<p>一般来说 我们会用这个命令去扫描内网的一个ip范围用来做内网的主机发现。</p>
+
+<pre><code class="language-bash">nmap -sP 10.130.1.1-255
+</code></pre>
+
+<p>PING扫描不同于其它的扫描方式因为它只用于找出主机是否是存在在网络中的.它不是用来发现是否开放端口的.PING扫描需要ROOT权限如果用户没有ROOT权限,PING扫描将会使用connect()调用</p>
+
+<h2 id="ss-syn半开放扫描">sS SYN半开放扫描</h2>
+
+<pre><code class="language-bash">nmap -sS 192.168.1.1
+</code></pre>
+
+<p>Tcp SYN Scan (sS) 这是一个基本的扫描方式,它被称为半开放扫描因为这种技术使得Nmap不需要通过完整的握手就能获得远程主机的信息。Nmap发送SYN包到远程主机但是它不会产生任何会话.因此<code>不会在目标主机上产生任何日志记录</code>,因为没有形成会话。这个就是SYN扫描的优势.如果Nmap命令中没有指出扫描类型,默认的就是<code>Tcp SYN</code>.但是它需要<code>root/administrator</code>权限。</p>
+
+<h2 id="st-tcp扫描">sT TCP扫描</h2>
+
+<pre><code class="language-text">nmap -sT 192.168.1.1
+</code></pre>
+
+<p>不同于Tcp SYN扫描,Tcp connect()扫描需要完成三次握手,并且要求调用系统的connect().Tcp connect()扫描技术只适用于找出TCP和UDP端口。</p>
+
+<h2 id="su-udp扫描">sU UDP扫描</h2>
+
+<pre><code class="language-text">nmap -sU 192.168.1.1
+</code></pre>
+
+<p>这种扫描技术用来寻找目标主机打开的UDP端口.它不需要发送任何的SYN包因为这种技术是针对UDP端口的。UDP扫描发送UDP数据包到目标主机并等待响应,如果返回ICMP不可达的错误消息说明端口是关闭的如果得到正确的适当的回应说明端口是开放的.</p>
+
+<h2 id="sf-fin标志的数据包扫描">sF FIN标志的数据包扫描</h2>
+
+<pre><code class="language-text">nmap -sF 110.130.1.43
+</code></pre>
+
+<p>可以看出这个扫描的话 会漏扫许多~FIN扫描也不会在目标主机上创建日志(FIN扫描的优势之一).个类型的扫描都是具有差异性的,FIN扫描发送的包只包含FIN标识,NULL扫描不发送数据包上的任何字节,XMAS扫描发送FIN、PSH和URG标识的数据包.</p>
+
+<h2 id="sv-version版本检测扫描">sV Version版本检测扫描</h2>
+
+<pre><code class="language-text">nmap -sV 192.168.1.135
+</code></pre>
+
+<p>本检测是用来扫描目标主机和端口上<code>运行的软件的版本</code>.它不同于其它的扫描技术它不是用来扫描目标主机上开放的端口不过它需要从开放的端口获取信息来判断软件的版本.使用版本检测扫描之前需要先用TCPSYN扫描开放了哪些端口。</p>
+
+<p>这个扫描的话速度会慢一些<code>67.86</code>秒扫一个IP。</p>
+
+<h2 id="o-os操作系统类型的探测">O OS操作系统类型的探测</h2>
+
+<pre><code class="language-text">nmap -O 10.130.1.43
+</code></pre>
+
+<p>远程检测操作系统和软件Nmap的OS检测技术在渗透测试中用来了解远程主机的操作系统和软件是非常有用的通过获取的信息你可以知道已知的漏洞。Nmap有一个名为的nmap-OS-DB数据库该数据库包含超过2600操作系统的信息。Nmap把TCP和UDP数据包发送到目标机器上然后检查结果和数据库对照。</p>
+
+<h2 id="osscan-guess-猜测匹配操作系统">osscan-guess 猜测匹配操作系统</h2>
+
+<pre><code class="language-text">nmap -O --osscan-guess 192.168.1.134
+</code></pre>
+
+<p>通过Nmap准确的检测到远程操作系统是比较困难的需要使用到Nmap的猜测功能选项,<code>–osscan-guess</code>猜测认为最接近目标的匹配操作系统类型。</p>
+
+<h2 id="pn-no-ping扫描">PN No ping扫描</h2>
+
+<pre><code class="language-text">nmap -O -PN 192.168.1.1/24
+</code></pre>
+
+<p>如果远程主机有防火墙IDS和IPS系统你可以使用-PN命令来确保不ping远程主机因为有时候防火墙会组织掉ping请求.-PN命令告诉Nmap不用ping远程主机。使用-PN参数可以绕过PING命令,但是不影响主机的系统的发现。</p>
+
+<p>这个扫描整个c段局域网的话还是比较耗时的但是信息收集很详细大概耗时<code>9</code>分钟。</p>
+
+<h2 id="t-设置时间模板">T 设置时间模板</h2>
+
+<pre><code class="language-text">nmap -sS -T&lt;0-5&gt; 192.168.1.134
+</code></pre>
+
+<p>优化时间控制选项的功能很强大也很有效但有些用户会被迷惑。此外 往往选择合适参数的时间超过了所需优化的扫描时间。因此Nmap提供了一些简单的 方法使用6个时间模板使用时采用-T选项及数字(0 – 5) 或名称。模板名称有<code>paranoid (0)、sneaky (1)、polite (2)、normal(3)、 aggressive (4)和insane (5)</code></p>
+
+<ul>
+  <li>
+    <p>paranoid、sneaky模式用于IDS躲避</p>
+  </li>
+  <li>
+    <p>Polite模式降低了扫描 速度以使用更少的带宽和目标主机资源。</p>
+  </li>
+  <li>
+    <p>Normal为默认模式因此-T3 实际上是未做任何优化。</p>
+  </li>
+  <li>
+    <p>Aggressive模式假设用户具有合适及可靠的网络从而加速 扫描.</p>
+  </li>
+  <li>
+    <p>nsane模式假设用户具有特别快的网络或者愿意为获得速度而牺牲准确性</p>
+  </li>
+</ul>
+
+<h2 id="网段扫描格式">网段扫描格式</h2>
+
+<pre><code class="language-text">nmap -sP &lt;network address &gt; &lt;/CIDR &gt;
+</code></pre>
+
+<p>解释CIDR 为你设置的子网掩码<code>(/24 , /16 ,/8 等)</code></p>
+
+<pre><code class="language-text">10.1.1.0/24  =  10.1.1.1-10.1.1.255       #c段扫描10.1.1.0/16  =  10.1.1.1-10.1.255.255     #b段扫描10.1.1.0/8   =  10.1.1.1-10.255.255.255   #a段扫描
+</code></pre>
+
+<h2 id="从文件中读取需要扫描的ip列表">从文件中读取需要扫描的IP列表</h2>
+
+<pre><code class="language-text">nmap -iL ip-address.txt
+</code></pre>
+
+<h2 id="路由跟踪扫描">路由跟踪扫描</h2>
+
+<p>路由器追踪功能能够帮网络管理员了解网络通行情况同时也是网络管理人员很好的辅助工具通过路由器追踪可以轻松的查处从我们电脑所在地到目标地之间所经常的网络节点并可以看到通过各个节点所花费的时间</p>
+
+<pre><code class="language-text">nmap -traceroute www.baidu.com
+</code></pre>
+
+<h2 id="a-os识别版本探测脚本扫描和traceroute综合扫描">A OS识别,版本探测,脚本扫描和traceroute综合扫描</h2>
+
+<p>此选项设置包含了1-10000的端口ping扫描操作系统扫描脚本扫描路由跟踪服务探测。</p>
+
+<pre><code class="language-text">nmap -A 10.130.1.43
+</code></pre>
+
+<h2 id="命令混合式扫描">命令混合式扫描</h2>
+
+<p>命令混合扫描可以做到类似参数-A所完成的功能但又能细化到我们所需特殊要求。所以一般高手选择这个混合扫描</p>
+
+<pre><code class="language-text">nmap -vv -p1-100,3306,3389 -O -traceroute 10.130.1.43
+</code></pre>
+
+<h2 id="输出格式">输出格式</h2>
+
+<p>扫描的结果输出到屏幕,同时会存储一份到grep-output.txt</p>
+
+<pre><code class="language-text">nmap -sV -p 139,445 -oG grep-output.txt 10.0.1.0/24
+</code></pre>
+
+<p>扫描结果输出为html</p>
+
+<pre><code class="language-text">nmap -sS -sV -T5 10.0.1.99 --webxml -oX - | xsltproc --output file.html
+</code></pre>
+
+<h1 id="nmap高级用法之脚本使用">nmap高级用法之脚本使用</h1>
+
+<h2 id="按照脚本分类进行扫描">按照脚本分类进行扫描</h2>
+
+<pre><code class="language-text">nmap --script 类别
+</code></pre>
+
+<p>nmap官方脚本文档: <a href="https://link.zhihu.com/?target=https%3A//nmap.org/nsedoc/">https://nmap.org/nsedoc/</a></p>
+
+<p>nmap脚本分类:</p>
+
+<pre><code class="language-text">- auth: 负责处理鉴权证书绕开鉴权的脚本  
+- broadcast: 在局域网内探查更多服务开启状况如dhcp/dns/sqlserver等服务  
+- brute: 提供暴力破解方式针对常见的应用如http/snmp等  
+- default: 使用-sC或-A选项扫描时候默认的脚本提供基本脚本扫描能力  
+- discovery: 对网络进行更多的信息如SMB枚举、SNMP查询等  
+- dos: 用于进行拒绝服务攻击  
+- exploit: 利用已知的漏洞入侵系统  
+- external: 利用第三方的数据库或资源例如进行whois解析  
+- fuzzer: 模糊测试的脚本发送异常的包到目标机探测出潜在漏洞 
+- intrusive: 入侵性的脚本此类脚本可能引发对方的IDS/IPS的记录或屏蔽- malware: 探测目标机是否感染了病毒、开启了后门等信息  
+- safe: 此类与intrusive相反属于安全性脚本  
+- version: 负责增强服务与版本扫描Version Detection功能的脚本  
+- vuln: 负责检查目标机是否有常见的漏洞Vulnerability如是否有MS08_067
+</code></pre>
+
+<h3 id="使用具体脚本进行扫描">使用具体脚本进行扫描</h3>
+
+<pre><code class="language-text">nmap --script 具体的脚本 www.baidu.com
+</code></pre>
+
+<p>常用脚本使用案例</p>
+
+<h4 id="扫描服务器的常见漏洞">扫描服务器的常见漏洞</h4>
+
+<pre><code class="language-text">nmap --script vuln &lt;target&gt;
+</code></pre>
+
+<h4 id="检查ftp是否开启匿名登陆">检查FTP是否开启匿名登陆</h4>
+
+<pre><code class="language-text">nmap --script ftp-anon &lt;target&gt;PORT   STATE SERVICE
+21/tcp open  ftp
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| -rw-r--r--   1 1170     924            31 Mar 28  2001 .banner| d--x--x--x   2 root     root         1024 Jan 14  2002 bin| d--x--x--x   2 root     root         1024 Aug 10  1999 etc| drwxr-srwt   2 1170     924          2048 Jul 19 18:48 incoming [NSE: writeable]
+| d--x--x--x   2 root     root         1024 Jan 14  2002 lib| drwxr-sr-x   2 1170     924          1024 Aug  5  2004 pub
+|_Only 6 shown. Use --script-args ftp-anon.maxlist=-1 to see all.
+</code></pre>
+
+<h4 id="对mysql进行暴破解">对MySQL进行暴破解</h4>
+
+<pre><code class="language-text">nmap --script=mysql-brute &lt;target&gt;3306/tcp open  mysql
+| mysql-brute:
+|   Accounts
+|     root:root - Valid credentials
+</code></pre>
+
+<h4 id="对mssql进行暴破解">对MsSQL进行暴破解</h4>
+
+<pre><code class="language-text">nmap -p 1433 --script ms-sql-brute --script-args userdb=customuser.txt,passdb=custompass.txt &lt;host&gt;
+| ms-sql-brute:
+|   [192.168.100.128\TEST]
+|     No credentials found
+|     Warnings:
+|       sa: AccountLockedOut
+|   [192.168.100.128\PROD]
+|     Credentials found:
+|       webshop_reader:secret =&gt; Login Success
+|       testuser:secret1234 =&gt; PasswordMustChange
+|_      lordvader:secret1234 =&gt; Login Success
+</code></pre>
+
+<h4 id="对oracle数据库进行暴破解">对Oracle数据库进行暴破解</h4>
+
+<pre><code class="language-text">nmap --script oracle-brute -p 1521 --script-args oracle-brute.sid=ORCL &lt;host&gt;
+PORT     STATE  SERVICE REASON1521/tcp open  oracle  syn-ack
+| oracle-brute:
+|   Accounts
+|     system:powell =&gt; Account locked
+|     haxxor:haxxor =&gt; Valid credentials
+|   Statistics
+|_    Perfomed 157 guesses in 8 seconds, average tps: 19
+</code></pre>
+
+<h4 id="对ssh进行暴力破解">对SSH进行暴力破解</h4>
+
+<pre><code class="language-text">nmap -p 22 --script ssh-brute --script-args userdb=users.lst,passdb=pass.lst --script-args ssh-brute.timeout=4s &lt;target&gt;22/ssh open  ssh
+| ssh-brute:
+|  Accounts
+|    username:password
+|  Statistics
+|_   Performed 32 guesses in 25 seconds.
+</code></pre>
+
+<h4 id="利用dns进行子域名暴力破解">利用DNS进行子域名暴力破解</h4>
+
+<pre><code class="language-text">nmap --script dns-brute www.baidu.com
+λ nmap --script dns-brute www.baidu.com                      
+
+Starting Nmap 7.50 ( https://nmap.org ) at 2017-07-25 13:12 ?
+Nmap scan report for www.baidu.com (180.97.33.108)           
+Host is up (0.018s latency).                                 
+Other addresses for www.baidu.com (not scanned): 180.97.33.10Not shown: 998 filtered ports                                
+PORT    STATE SERVICE                                        
+80/tcp  open  http                                           
+443/tcp open  https                                          
+
+Host script results:                                         
+| dns-brute:                                &amp;n                
+</code></pre>
+
+</div>
+<div class="v">
+  <i class="fas fa-spinner fa-pulse"></i>
+</div>
+<script
+  src='https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js'
+  defer='defer'
+  onload='
+    new Valine({
+      "el": document.getElementsByClassName("v")[0],
+      "appId": "9hABRddSuEkTgqLrt1VSK5B1-gzGzoHsz",
+      "appKey": "NJ7RwmgrxsF7KDzlqU7YewlL",
+      "placeholder": "在这里评论吧！填写邮箱可以获得 Gravatar 头像和回复通知哦",
+      "requiredFields": ["nick","mail"],
+      "visitor": true,
+      "recordIP": true
+    })'
+></script>
+
+</div>
+  </div>
+  
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  
+</body>
+
+</html>
