@@ -1,11 +1,67 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-05T11:30:15-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-17T08:00:12-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">Linux文件系统</title><link href="http://localhost:4000/_posts/2020-08-27-Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="alternate" type="text/html" title="Linux文件系统" /><published>2020-08-27T00:00:00-04:00</published><updated>2020-08-27T00:00:00-04:00</updated><id>http://localhost:4000/_posts/Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F</id><content type="html" xml:base="http://localhost:4000/_posts/2020-08-27-Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">CVE-2020-11107</title><link href="http://localhost:4000/_posts/2020-09-17-CVE-2020-11107/" rel="alternate" type="text/html" title="CVE-2020-11107" /><published>2020-09-17T00:00:00-04:00</published><updated>2020-09-17T00:00:00-04:00</updated><id>http://localhost:4000/_posts/CVE-2020-11107</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-17-CVE-2020-11107/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;cve-2020-11107&quot;&gt;CVE-2020-11107&lt;/h1&gt;
+
+&lt;h2 id=&quot;xampp简介&quot;&gt;&lt;strong&gt;XAMPP简介&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;XAMPP是Apache Friends开发的免费开源跨平台Web建站集成软件包，其原名为LAMPP，后为避免误解，更名为XAMPP，此命名方式为该软件包主要软件缩写而来，XAMPP主要由Apache、MySQL、PHP和PERL组成。&lt;/p&gt;
+
+&lt;h2 id=&quot;漏洞描述&quot;&gt;&lt;strong&gt;漏洞描述&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;在Windows系统中，非特权用户可以访问和修改编辑器和浏览器中的配置，编辑器的默认配置notepad.exe被修改后，则windows下每个用户的编辑器配置都将被修改。如果攻击者使用恶意的.exe文件或者.bat文件作为编辑器的值时，当管理员通过XAMPP文件查看对应日志文件时，就会执行该恶意的.exe文件或者.bat文件，从而达到任意命令执行，利用该漏洞，可以实现非特权用户提权等。&lt;/p&gt;
+
+&lt;h2 id=&quot;影响范围&quot;&gt;&lt;strong&gt;影响范围&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Windows Apache Friends XAMPP &amp;lt;7.2.29；&lt;/li&gt;
+  &lt;li&gt;Windows Apache Friends XAMPP 7.3.*，&amp;lt;7.3.16；&lt;/li&gt;
+  &lt;li&gt;Windows Apache Friends XAMPP 7.4.*，&amp;lt;7.4.4;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;漏洞复现&quot;&gt;&lt;strong&gt;漏洞复现&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;本次漏洞复现，利用该漏洞实现从普通账号到管理员账号的权限提升，在实际环境中常用于后渗透阶段，本次漏洞复现基于以下环境:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;windows 10操作系统&lt;/li&gt;
+  &lt;li&gt;XAMPP7.3.12&lt;/li&gt;
+  &lt;li&gt;拥有普通权限和管理员权限两个账户&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;创建普通权限用户&quot;&gt;创建普通权限用户&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;net user low test  /add
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;查看新建用户&quot;&gt;查看新建用户&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;net user low 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;创建提权脚本&quot;&gt;创建提权脚本&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bat&quot;&gt;@echo off
+net localgroup administrators low /add
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;也可以是其他脚本&lt;/p&gt;
+
+&lt;h3 id=&quot;修改notepadexe&quot;&gt;修改notepad.exe&lt;/h3&gt;
+
+&lt;p&gt;xampp-control.exe—»&amp;gt;config—»&amp;gt;Editor—»&amp;gt;save&lt;/p&gt;
+
+&lt;p&gt;路径修改为提权脚本路径&lt;/p&gt;
+
+&lt;h3 id=&quot;触发&quot;&gt;触发&lt;/h3&gt;
+
+&lt;p&gt;管理员点击logs按钮即可触发&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">Linux文件系统</title><link href="http://localhost:4000/_posts/2020-08-27-Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="alternate" type="text/html" title="Linux文件系统" /><published>2020-08-27T00:00:00-04:00</published><updated>2020-08-27T00:00:00-04:00</updated><id>http://localhost:4000/_posts/Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F</id><content type="html" xml:base="http://localhost:4000/_posts/2020-08-27-Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;linux文件系统&quot;&gt;linux文件系统&lt;/h1&gt;
 
@@ -3012,99 +3068,4 @@ if __name__ == '__main__':
 
 &lt;p&gt;https://www.cnblogs.com/baifan2618/p/7704678.html&lt;/p&gt;
 
-&lt;p&gt;https://blog.csdn.net/nzjdsds/article/details/96989492&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">GPC&amp;amp;绕过</title><link href="http://localhost:4000/_posts/2020-07-25-GPC&%E7%BB%95%E8%BF%87/" rel="alternate" type="text/html" title="GPC&amp;绕过" /><published>2020-07-25T00:00:00-04:00</published><updated>2020-07-25T00:00:00-04:00</updated><id>http://localhost:4000/_posts/GPC&amp;%E7%BB%95%E8%BF%87</id><content type="html" xml:base="http://localhost:4000/_posts/2020-07-25-GPC&amp;%E7%BB%95%E8%BF%87/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;PHP magic_quotes_gpc作用范围是：WEB客户服务端；作用时间：请求开始时&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;使用&quot;&gt;使用&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;对于PHP magic_quotes_gpc=on的情况， 我们可以不对输入和输出数据库的字符串数据作addslashes()和&lt;a href=&quot;https://baike.baidu.com/item/stripslashes&quot;&gt;stripslashes&lt;/a&gt;()的操作,数据也会正常显示。如果此时你对输入的数据作了addslashes()处理，那么在输出的时候就必须使用stripslashes()去掉多余的&lt;a href=&quot;https://baike.baidu.com/item/反斜杠&quot;&gt;反斜杠&lt;/a&gt;。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;对于PHP magic_quotes_gpc=off 的情况,必须使用addslashes()对输入数据进行处理，但并不需要使用stripslashes()格式化输出，因为addslashes()并未将反斜杠一起写入数据库，只是帮助mysql完成了sql语句的执行。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;实例&quot;&gt;实例&lt;/h1&gt;
-
-&lt;p&gt;条件： PHP magic_quotes_gpc=off&lt;/p&gt;
-
-&lt;p&gt;写入数据库的字符串未经过任何过滤处理。从数据库读出的字符串也未作任何处理。&lt;/p&gt;
-
-&lt;p&gt;数据：  $data=”snow”’’sun” ; (snow和sun之间是四个连续的单引号).&lt;/p&gt;
-
-&lt;p&gt;操作： 将字符串:”snow”’’sun” 写入数据库，&lt;/p&gt;
-
-&lt;p&gt;结果： 出现sql语句错误，mysql不能顺利完成sql语句，写入数据库失败。&lt;/p&gt;
-
-&lt;p&gt;数据库保存格式：无数据。&lt;/p&gt;
-
-&lt;p&gt;输出数据格式：无数据。&lt;/p&gt;
-
-&lt;p&gt;说明： 对于未经处理的单引号在写入数据库时会使sql语句发生错误。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;条件： PHP magic_quotes_gpc=off&lt;/p&gt;
-
-&lt;p&gt;写入数据库的字符串经过函数addslashes()处理。从数据库读出的字符串未作任何处理。&lt;/p&gt;
-
-&lt;p&gt;数据：  $data=”snow”’’sun” ; (snow和sun之间是四个连续的单引号).&lt;/p&gt;
-
-&lt;p&gt;操作： 将字符串:”snow”’’sun” 写入数据库，&lt;/p&gt;
-
-&lt;p&gt;结果： sql语句顺利执行，数据成功写入数据库&lt;/p&gt;
-
-&lt;p&gt;数据库保存格式：snow”’’sun (和输入一样)&lt;/p&gt;
-
-&lt;p&gt;输出数据格式：snow”’’sun (和输入一样)&lt;/p&gt;
-
-&lt;p&gt;说明： addslashes()函数将单引号转换为\’的&lt;a href=&quot;https://baike.baidu.com/item/转义字符&quot;&gt;转义字符&lt;/a&gt;使sql语句成功执行，&lt;/p&gt;
-
-&lt;p&gt;但\’并未作为数据存入数据库，数据库保存的是snow”’’sun 而并不是我们想象的snow\’\’\’\’sun&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;条件： PHP magic_quotes_gpc=on&lt;/p&gt;
-
-&lt;p&gt;写入数据库的字符串未经过任何处理。从数据库读出的字符串未作任何处理。&lt;/p&gt;
-
-&lt;p&gt;数据：  $data=”snow”’’sun” ; (snow和sun之间是四个连续的单引号).&lt;/p&gt;
-
-&lt;p&gt;操作： 将字符串:”snow”’’sun” 写入数据库，&lt;/p&gt;
-
-&lt;p&gt;结果： sql语句顺利执行，数据成功写入数据库&lt;/p&gt;
-
-&lt;p&gt;数据库保存格式：snow”’’sun (和输入一样)&lt;/p&gt;
-
-&lt;p&gt;输出数据格式：snow”’’sun (和输入一样)&lt;/p&gt;
-
-&lt;p&gt;说明： PHP magic_quotes_gpc=on 将单引号转换为\’的&lt;a href=&quot;https://baike.baidu.com/item/转义字符&quot;&gt;转义字符&lt;/a&gt;使sql语句成功执行，&lt;/p&gt;
-
-&lt;p&gt;但\’并未作为数据入数据库，数据库保存的是snow”’’sun而并不是我们想象的snow\’\’\’\’sun。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;条件： PHP magic_quotes_gpc=on&lt;/p&gt;
-
-&lt;p&gt;写入数据库的字符串经过函数addlashes()处理。从数据库读出的字符串未作任何处理。&lt;/p&gt;
-
-&lt;p&gt;数据：  $data=”snow”’’sun” ; (snow和sun之间是四个连续的单引号).&lt;/p&gt;
-
-&lt;p&gt;操作： 将字符串:”snow”’’sun” 写入数据库，&lt;/p&gt;
-
-&lt;p&gt;结果： sql语句顺利执行，数据成功写入数据库&lt;/p&gt;
-
-&lt;p&gt;数据库保存格式：snow\’\’\’\’sun (添加了&lt;a href=&quot;https://baike.baidu.com/item/转义字符&quot;&gt;转义字符&lt;/a&gt;)&lt;/p&gt;
-
-&lt;p&gt;输出数据格式：snow\’\’\’\’sun (添加了转义字符)&lt;/p&gt;
-
-&lt;p&gt;说明： PHP magic_quotes_gpc=on 将单引号转换为\’的转义字符使sql语句成功执行，&lt;/p&gt;
-
-&lt;p&gt;addslashes又将即将写入数据库的单引号转换为\’,后者的转换被作为数据写入&lt;/p&gt;
-
-&lt;p&gt;数据库，数据库保存的是snow\’\’\’\’sun&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>
+&lt;p&gt;https://blog.csdn.net/nzjdsds/article/details/96989492&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>
