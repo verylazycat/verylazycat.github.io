@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-20T03:44:31-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-20T08:41:47-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -31,7 +31,81 @@ sudo make install
 &lt;h1 id=&quot;打包&quot;&gt;打包&lt;/h1&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;linuxdeployqt 程序名 -appimage
-&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry><entry><title type="html">CVE-2020-11107</title><link href="http://localhost:4000/_posts/2020-09-17-CVE-2020-11107/" rel="alternate" type="text/html" title="CVE-2020-11107" /><published>2020-09-17T00:00:00-04:00</published><updated>2020-09-17T00:00:00-04:00</updated><id>http://localhost:4000/_posts/CVE-2020-11107</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-17-CVE-2020-11107/">&lt;p&gt;[toc]&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry><entry><title type="html">常用工具</title><link href="http://localhost:4000/_posts/2020-09-20-%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" rel="alternate" type="text/html" title="常用工具" /><published>2020-09-20T00:00:00-04:00</published><updated>2020-09-20T00:00:00-04:00</updated><id>http://localhost:4000/_posts/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-20-%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;信息收集&quot;&gt;信息收集&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;name&lt;/th&gt;
+      &lt;th&gt;info&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;nmap&lt;/td&gt;
+      &lt;td&gt;https://nmap.org&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Findomain&lt;/td&gt;
+      &lt;td&gt;https://github.com/Findomain/Findomain&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;wappalyzer&lt;/td&gt;
+      &lt;td&gt;https://www.wappalyzer.com/&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SSL证书查询&lt;/td&gt;
+      &lt;td&gt;https://crt.sh/&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;censys&lt;/td&gt;
+      &lt;td&gt;https://censys.io/&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;burpsuite&lt;/td&gt;
+      &lt;td&gt;https://portswigger.net/burp&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;渗透利用&quot;&gt;渗透利用&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;name&lt;/th&gt;
+      &lt;th&gt;info&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;metasploit&lt;/td&gt;
+      &lt;td&gt;https://www.metasploit.com/&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">CVE-2020-11107</title><link href="http://localhost:4000/_posts/2020-09-17-CVE-2020-11107/" rel="alternate" type="text/html" title="CVE-2020-11107" /><published>2020-09-17T00:00:00-04:00</published><updated>2020-09-17T00:00:00-04:00</updated><id>http://localhost:4000/_posts/CVE-2020-11107</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-17-CVE-2020-11107/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;cve-2020-11107&quot;&gt;CVE-2020-11107&lt;/h1&gt;
 
@@ -2734,123 +2808,4 @@ thread A退出。。
 
 &lt;p&gt;&lt;strong&gt;影响版本&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Vmware Workstation 12.5.5以前的版本&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">linux&amp;amp;win计划任务</title><link href="http://localhost:4000/_posts/2020-07-27-linux&win%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1/" rel="alternate" type="text/html" title="linux&amp;win计划任务" /><published>2020-07-27T00:00:00-04:00</published><updated>2020-07-27T00:00:00-04:00</updated><id>http://localhost:4000/_posts/linux&amp;win%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1</id><content type="html" xml:base="http://localhost:4000/_posts/2020-07-27-linux&amp;win%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;linux&quot;&gt;linux&lt;/h1&gt;
-
-&lt;h2 id=&quot;at&quot;&gt;at&lt;/h2&gt;
-
-&lt;p&gt;at在ubuntu，kali里面都是没有预先装好的&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;安装:sudo apt-get install at&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;at: invalid option -- '-'
-Usage: at [-V] [-q x] [-f file] [-mMlbv] timespec ...
-       at [-V] [-q x] [-f file] [-mMlbv] -t time
-       at -c job ...
-       atq [-V] [-q x]
-       at [ -rd ] job ...
-       atrm [-V] job ...
-       batch
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;-V	版本&lt;/p&gt;
-
-  &lt;p&gt;-q x	使用队列&lt;/p&gt;
-
-  &lt;p&gt;-f file 使用文件&lt;/p&gt;
-
-  &lt;p&gt;-m	发邮件&lt;/p&gt;
-
-  &lt;p&gt;-M	不发邮件&lt;/p&gt;
-
-  &lt;p&gt;-l	显示设置任务列表&lt;/p&gt;
-
-  &lt;p&gt;-d x	删除编号为x的任务&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;按ctrl+D来提交任务&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;batch&quot;&gt;&lt;strong&gt;batch&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;batch不需要设置时间，那么不需要设置时间，它的任务是怎么执行的呢&lt;/p&gt;
-
-&lt;p&gt;在系统平均负载量降到 0.8 以下时执行某项一次性的任务&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;-f file    使用文件里面的shell脚本
--q x　　　　将计划任务加入某个队列
--m    　　　发送邮件给用户
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;crontab&quot;&gt;&lt;strong&gt;crontab&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;➜  ~ crontab --help
-crontab: 不适用的选项 -- -
-crontab: usage error: unrecognized option
-usage:	crontab [-u user] file
-	crontab [ -u user ] [ -i ] { -e | -l | -r }
-		(default operation is replace, per 1003.2)
-	-e	(edit user's crontab)
-	-l	(list user's crontab)
-	-r	(delete user's crontab)
-	-i	(prompt before deleting user's crontab)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;-e　　　　进入编写
--l　　　　列出任务
--r　　　　删除任务
--i　　　　删除前给提示
--u　　　　指定某用户运行任务
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;每条计划任务的格式书写如下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;min 　　hour 　　day 　　month 　　week 　　[user] 　　command
-0-59　　0-23　　 1-31　　1-12　　　0-7　　　　　　　　　　echo &quot;sijidou&quot; &amp;gt; /home/sijidou/Desktop/1.tx
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;前面5个参数可以是这些形式&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;每个参数间用空格隔开
-*        表示任意
-1,2      表示1,2号都可以（这里假设是day的值）
-1-20    表示1号到20号都可以（这里假设是day的值）
-/10      表示每隔10天就执行一次（这里假设是day的值）
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;举例:&lt;/p&gt;
-
-&lt;p&gt;每月每周每日每小时51分的在桌面上生成有着”hello world”的1.txt文件&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;51 * * * * echo &quot;hello world&quot; &amp;gt; /home/sijidou/Desktop/1.tx
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;windows&quot;&gt;windows&lt;/h1&gt;
-
-&lt;h2 id=&quot;at-1&quot;&gt;at&lt;/h2&gt;
-
-&lt;p&gt;at命令是比较简单的一个命令，但是后面不常用了&lt;/p&gt;
-
-&lt;p&gt;使用必须是administrator权限，并且win8之后没有这个命令了&lt;/p&gt;
-
-&lt;h2 id=&quot;schtasks&quot;&gt;&lt;strong&gt;schtasks&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;schtasks功能丰富，应该算是windows下计划任务最主要的工具之一了&lt;/p&gt;
-
-&lt;p&gt;适用环境是win7~win10都可以&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;/Create         创建新计划任务。
-/Delete         删除计划任务。
-/Query          显示所有计划任务。
-/Change         更改计划任务属性。
-/Run            按需运行计划任务。
-/End            中止当前正在运行的计划任务。
-/ShowSid        显示与计划的任务名称相应的安全标识符。
-创建新计划任务
-SCHTASKS /Create [/S system [/U username [/P [password]]]][/RU username [/RP password]] /SC schedule [/MO modifier] [/D day][/M months][/I idletime]/TN taskname /TR taskrun [/ST starttime][/RIinterval] [{/ET endtime | /DU duration} [/K] [/XML xmlfile][/V1]] [/SD startdate] [/ED enddate] [/IT | /NP] [/Z] [/F]
-&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>
+&lt;p&gt;Vmware Workstation 12.5.5以前的版本&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>
