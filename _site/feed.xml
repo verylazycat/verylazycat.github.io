@@ -1,11 +1,82 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-23T06:26:42-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-24T09:52:27-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">appimage打包程序</title><link href="http://localhost:4000/_posts/2020-09-20-appimage%E6%89%93%E5%8C%85/" rel="alternate" type="text/html" title="appimage打包程序" /><published>2020-09-20T00:00:00-04:00</published><updated>2020-09-20T00:00:00-04:00</updated><id>http://localhost:4000/_posts/appimage%E6%89%93%E5%8C%85</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-20-appimage%E6%89%93%E5%8C%85/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">DVWA</title><link href="http://localhost:4000/_posts/2020-09-24-DVWA/" rel="alternate" type="text/html" title="DVWA" /><published>2020-09-24T00:00:00-04:00</published><updated>2020-09-24T00:00:00-04:00</updated><id>http://localhost:4000/_posts/DVWA</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-24-DVWA/">&lt;h1 id=&quot;security-level&quot;&gt;Security Level&lt;/h1&gt;
+
+&lt;h2 id=&quot;low&quot;&gt;&lt;em&gt;low&lt;/em&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;brute-force&quot;&gt;Brute Force&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;尝试登录&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Username:admin&lt;/p&gt;
+
+&lt;p&gt;Password:test&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;burpsuite抓包,转移到&lt;code&gt;Intruder&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;对admin和test添加$,选择Cluster bomb攻击方式&lt;/li&gt;
+  &lt;li&gt;对payload set1 和怕payload set2 添加字典&lt;/li&gt;
+  &lt;li&gt;点击start attack ,根据返回的length判断用户名为admin密码为password&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;command-injection&quot;&gt;Command Injection&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;输入ip 返回ping命令的返回值,猜测为程序为&lt;code&gt;exec ping + 输入ip&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;测试,输入ip &amp;amp;&amp;amp; ipconfig,成功执行后续的命令&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;原因&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-php&quot;&gt;if( stristr( php_uname( 's' ), 'Windows NT' ) ) {
+        // Windows
+        $cmd = shell_exec( 'ping  ' . $target );
+    }
+    else {
+        // *nix
+        $cmd = shell_exec( 'ping  -c 4 ' . $target );
+    } 
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;p&gt;未对&lt;code&gt;$target&lt;/code&gt;做过滤&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;file-inclusion&quot;&gt;File Inclusion&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;分别点击file123返回不同的内容,尝试测试&lt;code&gt;ip/DVWA/vulnerabilities/fi/?page=file4.php&lt;/code&gt;,成功执行&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;再次验证&lt;code&gt;ip/DVWA/vulnerabilities/fi/?page=../../CHANGELOG.md&lt;/code&gt;成功返回内容&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;原因&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-php&quot;&gt;&amp;lt;?php
+// The page we wish to display
+$file = $_GET[ 'page' ];
+?&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;p&gt;没对&lt;code&gt;page&lt;/code&gt;做过滤&lt;/p&gt;
+
+    &lt;p&gt;php配置中开启的远程包含&lt;code&gt;Allow_url_include = on&lt;/code&gt;,扩展名为：jpg、rar、txt 进行测试都可以被php解析（只要符合 php代码规范），如若包含非 php 语法规范的源文件，将会暴露其代码&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="安全" /><summary type="html">Security Level</summary></entry><entry><title type="html">appimage打包程序</title><link href="http://localhost:4000/_posts/2020-09-20-appimage%E6%89%93%E5%8C%85/" rel="alternate" type="text/html" title="appimage打包程序" /><published>2020-09-20T00:00:00-04:00</published><updated>2020-09-20T00:00:00-04:00</updated><id>http://localhost:4000/_posts/appimage%E6%89%93%E5%8C%85</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-20-appimage%E6%89%93%E5%8C%85/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;打包工具&quot;&gt;打包工具&lt;/h1&gt;
 
@@ -2754,58 +2825,4 @@ thread A退出。。
 
 &lt;p&gt;补充介绍：需对漏洞成因，验证过程中带来的危害进行分析&lt;/p&gt;
 
-&lt;p&gt;修补建议：给开发或运维人员提出合理高效安全的解决方案&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">虚拟机逃逸</title><link href="http://localhost:4000/_posts/2020-07-29-%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%80%83%E9%80%B8/" rel="alternate" type="text/html" title="虚拟机逃逸" /><published>2020-07-29T00:00:00-04:00</published><updated>2020-07-29T00:00:00-04:00</updated><id>http://localhost:4000/_posts/%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%80%83%E9%80%B8</id><content type="html" xml:base="http://localhost:4000/_posts/2020-07-29-%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%80%83%E9%80%B8/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;虚拟化方案有：&lt;strong&gt;软件虚拟化&lt;/strong&gt;、&lt;strong&gt;半虚拟化&lt;/strong&gt;、&lt;strong&gt;硬件虚拟化&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;软件虚拟化&quot;&gt;&lt;strong&gt;软件虚拟化&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;是指将虚拟机的指令流交给虚拟机核心层进行分析，将非特权指令直接交给CPU运行，特权指令交给虚拟机核心层执行。&lt;/p&gt;
-
-&lt;h1 id=&quot;半虚拟化&quot;&gt;&lt;strong&gt;半虚拟化&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;是改造GuestOS(虚拟机内的系统)，使让GuestOS知道他在虚拟机环境中，使其只使用非特权指令（准确说是避免使用具有虚拟化缺陷的特权指令），需要用到特权操作时使用hypercall的方式请求虚拟机核心层代为完成&lt;/p&gt;
-
-&lt;h1 id=&quot;硬件虚拟化&quot;&gt;&lt;strong&gt;硬件虚拟化&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;是芯片级别的虚拟化支持，克服x86虚拟化缺陷问题，无需改造GuestOS：将虚拟机运行在Ring1模式下，所有指令交给硬件执行。对于特权指令CPU不会直接执行，将其捕获交给虚拟机核心层进行处理&lt;/p&gt;
-
-&lt;p&gt;典型代表：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;软件虚拟化：早期的vmware，qemu&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;半虚拟化：Xen&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;硬件虚拟化：vmware，kvm+qemu&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;逃逸方式1局域网攻击&quot;&gt;&lt;strong&gt;逃逸方式1：局域网攻击&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;此种方式不多说，因为本不属于逃逸范畴，但实际上却可以达到同等的目的。原理是利用局域网漏洞进行感染提权。著名代表就是永恒之蓝。&lt;/p&gt;
-
-&lt;h1 id=&quot;逃逸方式2软件漏洞逃逸&quot;&gt;&lt;strong&gt;逃逸方式2：软件漏洞逃逸&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;Xen是重灾区域。半虚拟化系统无需硬件级别支持，效率极高的，但代价是改造GuestOS，虚拟机核心层需要大量代码来帮助GuestOS进行特权操作。是所有虚拟化方案中复杂度最高的一种。系统越复杂，安全性越低，所以Xen的半虚拟化经常被作为攻击的对象。曾听业内朋友说过思捷和威睿在竞标虚拟化时，威睿的团队的人经常给客户演示如何在Xen平台下做逃逸，导致思捷经常因为这个问题竞标失败。&lt;/p&gt;
-
-&lt;h1 id=&quot;逃逸方式3硬件漏洞逃逸&quot;&gt;&lt;strong&gt;逃逸方式3：硬件漏洞逃逸&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;上面说了虚拟化的原理，再此做一次简单的总结：&lt;strong&gt;虚拟机运行在低权限的CPU状态，非指令交给CPU执行，特权指令交给虚拟机核心层执行&lt;/strong&gt;。若CPU有某种漏洞或后门：能使软件在低权限状态通过运行特定指令代码序列进入到高权限状态，那么虚拟机核心层则不再能对GuestOS运行的特权代码进行捕获处理。这时虚拟机内部的系统直接拥有了CPU的最高权限，可以随意践踏宿主系统的一切资源。此种攻击方式的代表：我不知道，但不代表没有，也许国家级别的安全实验室拥有此种技术。&lt;/p&gt;
-
-&lt;p&gt;那么退一步，不取得最高权限，访问宿主机上的敏感数据是否可行？&lt;strong&gt;这个是可行的，17年底，18年初时，Intel/AMD公司的处理器纷纷爆出因指令预测机制未充分考虑旁路嗅探攻击。导致软件可以在Ring3的状态下，通过一些巧妙的手段嗅探出受CPU保护的敏感数据。&lt;/strong&gt;这个漏洞实际上对普通用户的影响甚小，但影响最大的则是各大云平台，因为云上任意一台虚拟机内，可以通过这个漏洞嗅探宿主机的数据，甚至是运行在同一个宿主机上其他虚拟机的数据。所以Intel/AMD出漏洞以后第一时间向各大云服务商披露硬件漏洞以及提供缓解方法。&lt;/p&gt;
-
-&lt;h1 id=&quot;例子分析&quot;&gt;例子分析&lt;/h1&gt;
-
-&lt;p&gt;VMware Workstation和Fusion中的拖放（DnD）功能含有越界内存访问漏洞。 这会允许访客在运行Workstation或Fusion的操作系统上执行代码。VMware实现了多种虚拟机（下文称为guest）与宿主机（下文称文host）之间的通信方式。其中一种方式是通过一个叫做Backdoor的接口，guest只需在用户态就可以通过该接口发送命令。VMware Tools也部分使用了这种接口来和host通信。&lt;/p&gt;
-
-&lt;p&gt;针对Vmware的虚拟机逃逸的exploit源码GitHub早已公布(https://github.com/unamer/vmware_escape)。实现了从虚拟机到宿主机器的代码执行，弹出了熟悉的计算器。该开源代码，只需要将执行计算器部分的shellcode替换成其他具有恶意攻击的代码，就可以造成很大的危害。借鉴各位大神的分析，本文重点分析复现虚拟机逃逸典型漏洞CVE-2017-4901，当然还有其他几个CVE漏洞，能力有限，就不一一复现。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;影响版本&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Vmware Workstation 12.5.5以前的版本&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>
+&lt;p&gt;修补建议：给开发或运维人员提出合理高效安全的解决方案&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>

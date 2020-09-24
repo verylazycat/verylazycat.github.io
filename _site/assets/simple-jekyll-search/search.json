@@ -2,6 +2,15 @@
 [
   
     {
+      "title"    : "DVWA",
+      "category" : "",
+      "tags"     : "安全",
+      "date"     : "2020-09-24 00:00:00 -0400",
+      
+      "url"      : "/_posts/2020-09-24-DVWA/"
+    } ,
+  
+    {
       "title"    : "常用工具",
       "category" : "",
       "tags"     : "安全",
