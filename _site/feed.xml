@@ -1,11 +1,217 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-24T09:52:27-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-25T07:12:26-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">DVWA</title><link href="http://localhost:4000/_posts/2020-09-24-DVWA/" rel="alternate" type="text/html" title="DVWA" /><published>2020-09-24T00:00:00-04:00</published><updated>2020-09-24T00:00:00-04:00</updated><id>http://localhost:4000/_posts/DVWA</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-24-DVWA/">&lt;h1 id=&quot;security-level&quot;&gt;Security Level&lt;/h1&gt;
+</subtitle><entry><title type="html">ApacheCommonsCollections反序列化漏洞</title><link href="http://localhost:4000/_posts/2020-09-25-ApacheCommonsCollections%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" rel="alternate" type="text/html" title="ApacheCommonsCollections反序列化漏洞" /><published>2020-09-25T00:00:00-04:00</published><updated>2020-09-25T00:00:00-04:00</updated><id>http://localhost:4000/_posts/ApacheCommonsCollections%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-25-ApacheCommonsCollections%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;简述&quot;&gt;简述&lt;/h1&gt;
+
+&lt;p&gt;Apache Commons  Collections反序列化漏洞必然是2015年影响重大的漏洞之一，同时也开启了各类java反序列漏洞的大门，这几年大量各类java反序列化漏洞不断出现。java反序列化漏洞基本一出必高危，风险程度极大，最近研究了一些反序列化漏洞，本篇记录apache commons collections反序列化漏洞。&lt;/p&gt;
+
+&lt;h1 id=&quot;序列化与反序列化&quot;&gt;序列化与反序列化&lt;/h1&gt;
+
+&lt;p&gt;java程序在运行时，会产生大量的数据。有些时候，我们需要将内存中的对象信息存储到磁盘或者通过网络发送给第三者，此时，就需要对对象进行序列化操作。当我们需要从磁盘或网络读取存储的信息时，即为反序列化。简单理解，序列化即将内存中的对象信息转换为字节流并存储在磁盘或通过网络发送。反序列化，即从磁盘或网络读取信息，直接转换为内存对象。&lt;/p&gt;
+
+&lt;p&gt;如果一个对象需要进行序列化，需要注意一下两点：&lt;/p&gt;
+
+&lt;p&gt;​    1.必须实现Serializable接口&lt;/p&gt;
+
+&lt;p&gt;​    2.序列化的是实例对象，故static修饰的属性不会序列化。transient修饰的属性也不会被序列化&lt;/p&gt;
+
+&lt;h2 id=&quot;例子&quot;&gt;例子&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Person类&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.io.*;
+
+public class Person implements Serializable {
+    private  static final long serialVersionUID = 2484848939485859L;
+    private String name;
+    private String sex;
+    private Integer age;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Person{&quot; +
+                &quot;name='&quot; + name + '\'' +
+                &quot;, sex='&quot; + sex + '\'' +
+                &quot;, age=&quot; + age +
+                '}';
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;test1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.io.*;
+
+public class test1 {
+    public static void main(String[] args) throws IOException {
+        Person person = new Person();
+        person.setName(&quot;abc&quot;);
+        person.setAge(12);
+        person.setSex(&quot;男&quot;);
+        ObjectOutputStream oo = new ObjectOutputStream(new FileOutputStream(new File(&quot;/home/admin233/IdeaProjects/test/123.txt&quot;)));
+        oo.writeObject(person);
+        System.out.println(&quot;Person对象序列化成功&quot;);
+        oo.close();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;用16进制编辑器查看123.txt文件,可以看到序列化，即是将对象通过ObejctOutPutStream类的writeObject()方法写入文件即可&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;test2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.io.*;
+
+public class test2 {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(&quot;/home/admin233/IdeaProjects/test/123.txt&quot;)));
+        Person person  = (Person) ois.readObject();
+        System.out.println(&quot;Person对象反序列化成功&quot;);
+        System.out.println(person.toString());
+        ois.close();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;反序列化即通过ObjectInputStream类中的readObject()方法读取文件流，即可直接在内存中还原序列化的对象，包括其中的属性值&lt;/p&gt;
+
+&lt;h1 id=&quot;readobject方法&quot;&gt;readObject方法&lt;/h1&gt;
+
+&lt;p&gt;反序列化过程中关键的就是readObject方法，通过readObject将文件流转换为内存对象。因此，反序列化漏洞的关键就是在readObject()方法。在序列化后的文件中，可以看到是哪个对象被序列化到文件中的。在反序列化过程中如果该对象的类中重写的readObject()方法，在反序列化中会调用该类中的readObject()方法&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;person2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+
+public class Person2 implements Serializable {
+    private static final long serialVersionUID = 248484898547362356L;
+    private String name;
+    private String sex;
+    private Integer age;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    private void readObject(ObjectInputStream in) throws ClassNotFoundException, IOException {
+        Runtime.getRuntime().exec(&quot;gnome-calculator&quot;);
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Person2{&quot; +
+                &quot;name='&quot; + name + '\'' +
+                &quot;, sex='&quot; + sex + '\'' +
+                &quot;, age=&quot; + age +
+                '}';
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;test3&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.io.*;
+
+public class test3 {
+    public static void main(String[] args) throws IOException {
+        Person2 person2 = new Person2();
+        person2.setName(&quot;abc&quot;);
+        person2.setAge(12);
+        person2.setSex(&quot;男&quot;);
+        ObjectOutputStream oo = new ObjectOutputStream(new FileOutputStream(new File(&quot;/home/admin233/IdeaProjects/test/123.txt&quot;)));
+        oo.writeObject(person2);
+        System.out.println(&quot;Person对象序列化成功&quot;);
+        oo.close();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;test4&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.io.*;
+
+public class test4 {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(&quot;/home/admin233/IdeaProjects/test/123.txt&quot;)));
+        Person2 person2 = (Person2) ois.readObject();
+        System.out.println(&quot;Person对象反序列化成功&quot;);
+        System.out.println(person2.toString());
+        ois.close();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/反序列化.png&quot; alt=&quot;反序列化&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;通过以上分析，如果我们能够控制重写反序列化类的readObject方法，就可以制造反序列化漏洞，从而达到攻击效果。&lt;code&gt;然而，我们自己写个类，随后进行序列化，再发送给远程服务器，服务器反序列化的时候也是不成功的，因为服务器端根本没有我们自己写的类&lt;/code&gt;。只能考虑，如果服务器已经存在的某个库中的某个类，类本身就重写了readObject方法，是否能通过构造该类的序列化对象，以达到在反序列化时，触发特定操作，实现攻击,满足重写readObject方法的类有非常多AnnotationInvocationHandler、BadAttributeValueExpException等类均满足条件&lt;/p&gt;
+
+&lt;h1 id=&quot;反射链&quot;&gt;反射链&lt;/h1&gt;
+
+&lt;p&gt;我们的目标是通过反序列化运行&lt;code&gt;Runtime.getRuntime().exec(new String[]{&quot;gnome-calculator&quot;})&lt;/code&gt;，没有任何类可以直接提供运行条件&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">DVWA</title><link href="http://localhost:4000/_posts/2020-09-24-DVWA/" rel="alternate" type="text/html" title="DVWA" /><published>2020-09-24T00:00:00-04:00</published><updated>2020-09-24T00:00:00-04:00</updated><id>http://localhost:4000/_posts/DVWA</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-24-DVWA/">&lt;h1 id=&quot;security-level&quot;&gt;Security Level&lt;/h1&gt;
 
 &lt;h2 id=&quot;low&quot;&gt;&lt;em&gt;low&lt;/em&gt;&lt;/h2&gt;
 
@@ -139,8 +345,58 @@ sudo make install
       &lt;td&gt;https://portswigger.net/burp&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
+      &lt;td&gt;ARL&lt;/td&gt;
+      &lt;td&gt;https://github.com/TophantTechnology/ARL&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
       &lt;td&gt; &lt;/td&gt;
       &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;漏洞扫描&quot;&gt;漏洞扫描&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;name&lt;/th&gt;
+      &lt;th&gt;info&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;NIKTO&lt;/td&gt;
+      &lt;td&gt;https://tools.kali.org/information-gathering/nikto&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Acunetix&lt;/td&gt;
+      &lt;td&gt;https://www.acunetix.com/&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sn1per&lt;/td&gt;
+      &lt;td&gt;https://github.com/1N3/Sn1per&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;社会工程学&quot;&gt;社会工程学&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;name&lt;/th&gt;
+      &lt;th&gt;info&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Maltego&lt;/td&gt;
+      &lt;td&gt;https://www.maltego.com&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt; &lt;/td&gt;
@@ -2677,152 +2933,4 @@ thread A退出。。
 
 &lt;p&gt;需要注意的是，输入流和输出流需要首先建立连接。这样线程 B 就可以收到线程 A 发出的消息了。&lt;/p&gt;
 
-&lt;p&gt;实际开发中可以灵活根据需求选择最适合的线程通信方式。&lt;/p&gt;</content><author><name></name></author><category term="JAVA" /><summary type="html">[toc]</summary></entry><entry><title type="html">渗透测试流程</title><link href="http://localhost:4000/_posts/2020-07-29-%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B/" rel="alternate" type="text/html" title="渗透测试流程" /><published>2020-07-29T00:00:00-04:00</published><updated>2020-07-29T00:00:00-04:00</updated><id>http://localhost:4000/_posts/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B</id><content type="html" xml:base="http://localhost:4000/_posts/2020-07-29-%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;明确目标&quot;&gt;明确目标&lt;/h1&gt;
-
-&lt;h2 id=&quot;确定范围&quot;&gt;确定范围&lt;/h2&gt;
-
-&lt;p&gt;IP、域名、内外网、整站、部分模块……&lt;/p&gt;
-
-&lt;h2 id=&quot;确定规则&quot;&gt;确定规则&lt;/h2&gt;
-
-&lt;p&gt;能渗透到什么程度,是发现漏洞即可还是需要利用该漏洞、时间限制、能否修改上传、能否提权……&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;目标系统介绍、重点保护对象及特性&lt;/p&gt;
-
-  &lt;p&gt;是否允许破坏数据？&lt;/p&gt;
-
-  &lt;p&gt;是否允许阻断业务正常运行&lt;/p&gt;
-
-  &lt;p&gt;测试之前是否应当知会甲方安全部门，IP是否需要加白&lt;/p&gt;
-
-  &lt;p&gt;接入方式？外网和内网？&lt;/p&gt;
-
-  &lt;p&gt;测试是发现问题即可，还是尽可能发现更多问题&lt;/p&gt;
-
-  &lt;p&gt;测试过程是否需要考虑社会工程手段&lt;/p&gt;
-
-  &lt;p&gt;测试过程中要求完全仿真，除了破坏操作需要报备，其余手段不受限制还是如何&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;确定需求&quot;&gt;确定需求&lt;/h2&gt;
-
-&lt;p&gt;上线前的web应用测试、业务逻辑漏洞测试、人员权限管理漏洞测试&lt;/p&gt;
-
-&lt;h1 id=&quot;分析风险获得授权&quot;&gt;分析风险，获得授权&lt;/h1&gt;
-
-&lt;p&gt;需分析渗透过程可能产生的风险：测试是否对系统产生影响、带宽占用、系统资源消耗、爆破测试行为或其他可能触发动态感知系统或其他告警机制、影响正常业务开展、服务器发生异常的应急、数据备份和恢复、测试人力物力成本……&lt;/p&gt;
-
-&lt;p&gt;由乙方书写实施方案初稿提交给甲方或公司内部审核,审核通过后，测试人必须拿到正规的乙方书面委托授权书才能开工，代理商第三方授权不具备法律效力，若是第三方授权，必须拿到甲方给中间商的授权，且注明中间商有转让授权的权限，这样中间商下发的授权测试才是合法的。需要提前跟甲方确认是否能提供测试账号，测试账号最好覆盖各个权限级别，金融行业或者交易类的测试账号需要账户中有一定的余额……&lt;/p&gt;
-
-&lt;h1 id=&quot;信息搜集&quot;&gt;信息搜集&lt;/h1&gt;
-
-&lt;p&gt;信息搜集的方法很多，不详细阐述，大概列举如下:&lt;/p&gt;
-
-&lt;p&gt;方 式：主动扫描+开放搜索&lt;/p&gt;
-
-&lt;p&gt;基础信息：IP、网段、域名、端口……&lt;/p&gt;
-
-&lt;p&gt;系统信息：操作系统版本……&lt;/p&gt;
-
-&lt;p&gt;应用信息：各端口应用、例如web应用、邮件应用、脚本语言类型、目录结构、数据库类型、web框架……&lt;/p&gt;
-
-&lt;p&gt;版本信息：所有探测到的版本&lt;/p&gt;
-
-&lt;p&gt;服务信息: 服务器类型、版本&lt;/p&gt;
-
-&lt;p&gt;人员信息: 域名注册人信息，web应用中网站发帖人的id,管理员姓名等&lt;/p&gt;
-
-&lt;p&gt;防护信息：尝试探测防护设备&lt;/p&gt;
-
-&lt;h1 id=&quot;漏洞探测&quot;&gt;漏洞探测&lt;/h1&gt;
-
-&lt;p&gt;汇总信息搜集到的信息，使用与之匹配的漏洞检测策略&lt;/p&gt;
-
-&lt;p&gt;方法:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;1.漏扫:AWVS、AppScan、Nessus……&lt;/p&gt;
-
-  &lt;p&gt;2.漏扫结果去exploit-db等位置找利用&lt;/p&gt;
-
-  &lt;p&gt;3.在网上寻找验证POC&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;内容:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;系统漏洞:系统没能及时更新补丁&lt;/p&gt;
-
-  &lt;p&gt;Webserver漏洞:webserver配置问题……&lt;/p&gt;
-
-  &lt;p&gt;Web应用漏洞:Web应用开发问题、错误页面未定义、后台暴露……&lt;/p&gt;
-
-  &lt;p&gt;其他端口服务器漏洞:诸如21/8080(st2)/7001/22/3389……&lt;/p&gt;
-
-  &lt;p&gt;通信安全：明文传输、token在cookie中传送……&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;漏洞验证&quot;&gt;漏洞验证&lt;/h1&gt;
-
-&lt;p&gt;通过自己经验分析可能成功利用的全部漏洞都验证一遍，结合实施环境，搭建模拟环境进行试验，利用成功后再实施在目标系统中&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;自动化验证:结合自动化扫描工具发现的结果&lt;/p&gt;
-
-  &lt;p&gt;手工验证:利用公开资源进行验证&lt;/p&gt;
-
-  &lt;p&gt;试验验证:自己搭建模拟环境进行验证&lt;/p&gt;
-
-  &lt;p&gt;登录猜测:尝试猜测登录、万能密码、注入&lt;/p&gt;
-
-  &lt;p&gt;业务漏洞验证:发现后该漏洞，进行验证&lt;/p&gt;
-
-  &lt;p&gt;公开资源利用:exploit-db/wooyun/、渗透代码网站、通用、缺省口令、厂商的漏洞告警……&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;信息分析&quot;&gt;信息分析&lt;/h1&gt;
-
-&lt;p&gt;实施渗透的准备环节&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;精准攻击:利用4&amp;gt;探测到的EXP,进行精准攻击&lt;/p&gt;
-
-  &lt;p&gt;绕过防御机制:检测是否有WAF等，绕过策略筹划&lt;/p&gt;
-
-  &lt;p&gt;定制攻击路径:最佳攻击路径、主要根据薄弱入口，高内网权限位置，最终目标等&lt;/p&gt;
-
-  &lt;p&gt;绕过检测机制：是否有检测机制，流量监控，杀毒软件，恶意代码（免杀）检测&lt;/p&gt;
-
-  &lt;p&gt;攻击代码：试验得来的代码，包括不限于xss代码,sql注入语句……&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;利用漏洞&quot;&gt;利用漏洞&lt;/h1&gt;
-
-&lt;p&gt;实施攻击:根据前几步的结果，实施精准攻击&lt;/p&gt;
-
-&lt;p&gt;获取内部信息:基础设施(网络连接、vpn、路由、网络拓扑、内网IT资产……)&lt;/p&gt;
-
-&lt;p&gt;横向渗透:内网入侵、敏感目标&lt;/p&gt;
-
-&lt;p&gt;持续性存在:一般情况，甲方不需要，rookit、后门、添加管理员账号、驻扎手法等&lt;/p&gt;
-
-&lt;p&gt;清除痕迹:清理渗透相关日志（访问、操作），漏扫，上传文件等&lt;/p&gt;
-
-&lt;h1 id=&quot;信息整理&quot;&gt;信息整理&lt;/h1&gt;
-
-&lt;p&gt;整理渗透工具：整理渗透中使用的代码、POC、EXP等。&lt;/p&gt;
-
-&lt;p&gt;整理收集信息：整个渗透过程中收集的一切信息。&lt;/p&gt;
-
-&lt;p&gt;整理漏洞信息：整个渗透过程中利用成功的所有漏洞，各种脆弱位置信息，为书写渗透报告做准备。&lt;/p&gt;
-
-&lt;h1 id=&quot;形成报告&quot;&gt;形成报告&lt;/h1&gt;
-
-&lt;p&gt;按需整理：按照之前第一步跟甲方确认的范围、需求来整理资料，技术细节尽可能的详细，形成报告进行交付。&lt;/p&gt;
-
-&lt;p&gt;补充介绍：需对漏洞成因，验证过程中带来的危害进行分析&lt;/p&gt;
-
-&lt;p&gt;修补建议：给开发或运维人员提出合理高效安全的解决方案&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>
+&lt;p&gt;实际开发中可以灵活根据需求选择最适合的线程通信方式。&lt;/p&gt;</content><author><name></name></author><category term="JAVA" /><summary type="html">[toc]</summary></entry></feed>
