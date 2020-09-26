@@ -203,4 +203,6 @@ public class test4 {
 
 # 反射链
 
-我们的目标是通过反序列化运行`Runtime.getRuntime().exec(new String[]{"gnome-calculator"})`，没有任何类可以直接提供运行条件
+我们的目标是通过反序列化运行`Runtime.getRuntime().exec(new String[]{"gnome-calculator"})`，没有任何类可以直接提供运行条件.
+
+[参考文章](https://www.freebuf.com/news/150872.html)

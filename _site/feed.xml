@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-25T07:12:26-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-25T23:33:19-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -211,7 +211,9 @@ public class test4 {
 
 &lt;h1 id=&quot;反射链&quot;&gt;反射链&lt;/h1&gt;
 
-&lt;p&gt;我们的目标是通过反序列化运行&lt;code&gt;Runtime.getRuntime().exec(new String[]{&quot;gnome-calculator&quot;})&lt;/code&gt;，没有任何类可以直接提供运行条件&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">DVWA</title><link href="http://localhost:4000/_posts/2020-09-24-DVWA/" rel="alternate" type="text/html" title="DVWA" /><published>2020-09-24T00:00:00-04:00</published><updated>2020-09-24T00:00:00-04:00</updated><id>http://localhost:4000/_posts/DVWA</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-24-DVWA/">&lt;h1 id=&quot;security-level&quot;&gt;Security Level&lt;/h1&gt;
+&lt;p&gt;我们的目标是通过反序列化运行&lt;code&gt;Runtime.getRuntime().exec(new String[]{&quot;gnome-calculator&quot;})&lt;/code&gt;，没有任何类可以直接提供运行条件.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.freebuf.com/news/150872.html&quot;&gt;参考文章&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">DVWA</title><link href="http://localhost:4000/_posts/2020-09-24-DVWA/" rel="alternate" type="text/html" title="DVWA" /><published>2020-09-24T00:00:00-04:00</published><updated>2020-09-24T00:00:00-04:00</updated><id>http://localhost:4000/_posts/DVWA</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-24-DVWA/">&lt;h1 id=&quot;security-level&quot;&gt;Security Level&lt;/h1&gt;
 
 &lt;h2 id=&quot;low&quot;&gt;&lt;em&gt;low&lt;/em&gt;&lt;/h2&gt;
 
