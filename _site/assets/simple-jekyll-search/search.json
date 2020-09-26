@@ -11,6 +11,15 @@
     } ,
   
     {
+      "title"    : "CSRF",
+      "category" : "",
+      "tags"     : "安全",
+      "date"     : "2020-09-26 00:00:00 -0400",
+      
+      "url"      : "/_posts/2020-09-26-CSRF/"
+    } ,
+  
+    {
       "title"    : "ApacheCommonsCollections反序列化漏洞",
       "category" : "",
       "tags"     : "安全",

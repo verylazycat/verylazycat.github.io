@@ -4,17 +4,19 @@
 <head>
   
   <!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>标签 | lazycat</title>
+<title>CSRF | lazycat</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="标签" />
+<meta property="og:title" content="CSRF" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="lazycat" />
-<meta property="og:description" content="lazycat" />
-<link rel="canonical" href="http://localhost:4000/tags/" />
-<meta property="og:url" content="http://localhost:4000/tags/" />
+<meta name="description" content="[toc]" />
+<meta property="og:description" content="[toc]" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-09-26-CSRF/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-09-26-CSRF/" />
 <meta property="og:site_name" content="lazycat" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-26T00:00:00-04:00" />
 <script type="application/ld+json">
-{"@type":"WebPage","url":"http://localhost:4000/tags/","headline":"标签","description":"lazycat","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-09-26-CSRF/","headline":"CSRF","dateModified":"2020-09-26T00:00:00-04:00","datePublished":"2020-09-26T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-09-26-CSRF/"},"description":"[toc]","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -264,7 +266,7 @@
         <i class="fas fa-comments fa-fw"></i> 留言
       </a>
       
-      <a class="sidebar-nav-item active" href="/tags/">
+      <a class="sidebar-nav-item" href="/tags/">
         <i class="fas fa-tags fa-fw"></i> 标签
       </a>
       
@@ -322,20 +324,10 @@
 </style>
 
       <ol id="toc">
-  <li><a href="#%25E5%25AE%2589%25E5%2585%25A8">      24    安全</a></li>
-  <li><a href="#%25E6%259C%25BA%25E5%2599%25A8%25E5%25AD%25A6%25E4%25B9%25A0">      2    机器学习</a></li>
-  <li><a href="#linux">      16    linux</a></li>
-  <li><a href="#%25E6%2593%258D%25E4%25BD%259C%25E7%25B3%25BB%25E7%25BB%259F">      4    操作系统</a></li>
-  <li><a href="#JAVA">      8    JAVA</a></li>
-  <li><a href="#sql">      5    sql</a></li>
-  <li><a href="#%25E6%2595%25B0%25E6%258D%25AE%25E7%25BB%2593%25E6%259E%2584">      2    数据结构</a></li>
-  <li><a href="#%25E7%25AE%2597%25E6%25B3%2595">      3    算法</a></li>
-  <li><a href="#%25E6%2595%25B0%25E6%258D%25AE%25E5%258F%25AF%25E8%25A7%2586%25E5%258C%2596">      1    数据可视化</a></li>
-  <li><a href="#git">      1    git</a></li>
-  <li><a href="#JVM">      1    JVM</a></li>
-  <li><a href="#%25E7%2594%259F%25E6%25B4%25BB">      1    生活</a></li>
-  <li><a href="#%25E8%25AE%25A1%25E7%25AE%2597%25E6%259C%25BA%25E7%25BD%2591%25E7%25BB%259C">      7    计算机网络</a></li>
-  <li><a href="#jvm">      1    jvm</a></li>
+  <li><a href="#csrf%E6%94%BB%E5%87%BB%E7%9A%84%E5%8E%9F%E7%90%86">CSRF攻击的原理</a></li>
+  <li><a href="#csrf%E7%9A%84%E9%98%B2%E5%BE%A1">CSRF的防御</a></li>
+  <li><a href="#%E5%90%8E%E7%AB%AF%E9%98%B2%E5%BE%A1csrf">后端防御CSRF</a></li>
+  <li><a href="#%E5%89%8D%E7%AB%AF%E9%98%B2%E5%BE%A1csrf">前端防御CSRF</a></li>
 </ol>
       
       
@@ -584,7 +576,7 @@
 <div class="masthead">
   <h3 class="container masthead-title">
     
-    标签
+    CSRF
     <a href="/" title="Home">
       <small>
         lazycat
@@ -595,577 +587,214 @@
 </div>
 
 <div class="container content">
-  <p>文章标签分类较多，可在侧边栏的目录中快速定位~</p>
+  <div class="post">
+  <span class="post-date">
+    
+    <i class="fas fa-calendar-day fa-fw"></i>
+    26 Sep 2020
+    
+    
+    <i class="fas fa-file-word fa-fw"></i>
+    3694字
+    
+    
+    <i class="fas fa-clock fa-fw"></i>
+    13分
+    
+    
+    <span class="leancloud-visitors" id="/_posts/2020-09-26-CSRF/" data-xid="/_posts/2020-09-26-CSRF/" data-flag-title="CSRF">
+      <i class="fas fa-book-reader fa-fw"></i>
+      <span class="leancloud-visitors-count">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </span>次
+    </span>
+    
+    
+    
+    <i class="fas fa-tag fa-fw"></i>
+    安全
+    
+    
+    <br/>
+<i class="fas fa-coffee fa-fw"></i>
+<a href="/merger/">如果这篇博客帮助到你，可以请我喝一杯咖啡~</a>
+<br/>
+<i class="fab fa-creative-commons-by fa-fw"></i>
+<a
+  href="https://creativecommons.org/licenses/by/4.0/deed.zh"
+  rel="license">
+  CC BY 4.0
+</a>
+（除特别声明或转载文章外）
 
+    
+  </span>
+  <p>[toc]</p>
 
-<div class="mermaid">
-  pie
-  
-  
-  "安全" : 24
-  
-  "机器学习" : 2
-  
-  "linux" : 16
-  
-  "操作系统" : 4
-  
-  "JAVA" : 8
-  
-  "sql" : 5
-  
-  "数据结构" : 2
-  
-  "算法" : 3
-  
-  "数据可视化" : 1
-  
-  "git" : 1
-  
-  "JVM" : 1
-  
-  "生活" : 1
-  
-  "计算机网络" : 7
-  
-  "jvm" : 1
-  
+<blockquote>
+  <p><strong>CSRF</strong>是<strong>Cross Site Request Forgery</strong>的缩写，中文翻译过来是<strong>跨站请求伪造</strong>。这个漏洞往往能给用户带来巨大的损失，<strong>CSRF</strong>在等保安全检测中，也是一个非常重要的检测项</p>
+</blockquote>
+
+<h1 id="csrf攻击的原理">CSRF攻击的原理</h1>
+
+<p>要想理解CSRF攻击的原理，我们从一个经典的案例出发，看看它是如何进行攻击的。假设你的银行网站的域名是<code>www.a-bank.com</code>，这个银行网站提供了一个转账的功能，在这个功能页面中，有一个表单，表单中有两个输入框，一个是转账金额，另一个是对方账号，还有一个提交按钮。当你登录了你的银行网站，输入转账金额，对方账号，点击提交按钮，就会进行转账。</p>
+
+<p>这个转账的表单项，如下所示：</p>
+
+<pre><code class="language-html">&lt;form method="post" action="/transfer"&gt;
+    &lt;input type="text" name="amount"/&gt;
+    &lt;input type="text" name="account"/&gt;
+    &lt;input type="submit" value="Transfer"/&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>当我们输入金额和账号，点击提交按钮，表单就会提交，给后端的银行网站服务发送请求。请求的内容如下：</p>
+
+<pre><code class="language-http">POST /transfer HTTP/1.1
+Host: www.a-bank.com
+Cookie: JSESSIONID=randomid
+Content-Type: application/x-www-form-urlencoded
+amount=100.00&amp;account=9876
+</code></pre>
+
+<p>请求成功后，你输入的转账金额100元，将转账到9876这个账户当中。假如你完成转账操作后，并没有退出登录，而是访问了一个恶意网站，这时，你的银行网站<code>www.a-bank.com</code>还是处于登录状态，而这个恶意网站中，出现了一个带有”赢钱“字样的按钮，这个”赢钱“字样的按钮后面是一个form表单，表单如下：</p>
+
+<pre><code class="language-html">&lt;form method="post" action="https://www.a-bank.com/transfer"&gt;
+    &lt;input type="hidden" name="amount" value="100.00"/&gt;
+    &lt;input type="hidden" name="account" value="黑客的银行账户"/&gt;
+    &lt;input type="submit" value="赢钱!"/&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>我们可以看到这个表单中，金额和账户都是隐藏的，在网页上只看到了一个赢钱按钮。这时，你忍不住冲动，点了一个”赢钱“按钮，这时，将会发生什么操作呢？我们仔细看一下上面表单中的<code>action</code>写的是什么？<code>action</code>写的是你的银行网站的转账请求接口。你点了一下赢钱按钮，在这个不正规的网站中，将会发送<code>https://www.a-bank.com/transfer</code>这个请求，在发送这个请求的时候，会自动带上<code>www.a-bank.com</code>的cookie，<strong>不要问我为什么是这样，这是浏览器的标准，标准就是这样规定的。</strong>银行后台接到这个请求后，首先要判断用户是否登录，由于携带了cookie，是登录的，会继续执行后面的转账流程，最后转账成功。你点了一下”赢钱“按钮，自己没有赚到钱，而是给黑客转账了100元。</p>
+
+<p><em>这就是CSRF攻击的原理，在其他的网站向你的网站发送请求，如果你的网站中的用户没有退出登录，而发送的请求又是一些敏感的操作请求，比如：转账，那么将会给你的网站的用户带来巨大的损失。</em></p>
+
+<h1 id="csrf的防御">CSRF的防御</h1>
+
+<p>我们知道了CSRF攻击的原理，就可以做针对性的防御了。CSRF的防御可以从两个方面考虑，一个是后台接口层做防御；另一个则是在前端做防御，这种不同源的请求，不可以带cookie。</p>
+
+<h1 id="后端防御csrf">后端防御CSRF</h1>
+
+<p>我们先聊聊后端的防御，后端防御主要是区分<strong>哪些请求是恶意请求，哪些请求是自己网站的请求。</strong>区分恶意请求的方式有很多，在这里给大家介绍两种吧。</p>
+
+<p>第一种，CSRF Token的方式。这种方式是<strong>在表单页面生成一个随机数，这个随机数一定要后端生成，并且对这个随机数进行存储。</strong>在前端页面中，对这个Token表单项进行隐藏。代码如下：</p>
+
+<pre><code class="language-html">&lt;form method="post" action="/transfer"&gt;
+    &lt;input type="hidden" name="_csrf" value="4bfd1575-3ad1-4d21-96c7-4ef2d9f86721"/&gt;
+    &lt;input type="text" name="amount"/&gt;
+    &lt;input type="hidden" name="account"/&gt;
+    &lt;input type="submit" value="Transfer"/&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p><code>_csrf</code>就是CSRF Token。我们看到他的value是一个UUID，这个UUID是后台生成的。当用户点击转账按钮时，会给银行的后台发送请求，请求中包含<code>_csrf</code>参数，如下：</p>
+
+<pre><code class="language-http">POST /transfer HTTP/1.1
+Host: www.a-bank.com
+Cookie: JSESSIONID=randomid
+Content-Type: application/x-www-form-urlencoded
+amount=100.00&amp;account=9876&amp;_csrf=4bfd1575-3ad1-4d21-96c7-4ef2d9f86721
+</code></pre>
+
+<p>银行后台接收到这个请求后，判断<code>_csrf</code>的值是否存在，如果存在则是自己网站的请求，进行后续的流程；如果不存在，则是恶意网站的请求，直接忽略。</p>
+
+<p>第二种，通过请求头中的<code>referer</code>字段判断请求的来源。每一个发送给后端的请求，在请求头中都会包含一个<code>referer</code>字段，这个字段标识着请求的来源。如果请求是从银行网站发出的，这个字段会是银行网站转账页的链接，比如：<code>https://www.a-bank.com/transfer-view</code>；如果是从恶意网站发出的，那么<code>referer</code>字段一定不会是银行网站。我们在做后端防御时，可以先取出每个请求的请求头中的<code>referer</code>字段，判断是不是以自己网站的域名开头，在咱们的示例中，如果<code>referer</code>字段是以<code>https://www.a-bank.com/</code>开头的，则继续执行转账操作；如果不是，则直接忽略掉这个请求。</p>
+
+<p>以上就是后端防御CSRF攻击的两种方式，都需要在后端做特殊的处理。当然也可以在前端做处理，怎么做呢？我们接着往下看。</p>
+
+<h1 id="前端防御csrf">前端防御CSRF</h1>
+
+<p>既然CSRF攻击的危害这么大，为什么不能在前端禁止这种请求呢？各大浏览器厂商似乎也注意到了这个问题，谷歌提出了same-site cookies概念，same-site cookies 是基于 Chrome 和 Mozilla 开发者花了三年多时间制定的 IETF  标准。它是在原有的Cookie中，新添加了一个<code>SameSite</code>属性，它标识着在非同源的请求中，是否可以带上Cookie，它可以设置为3个值，分别为：</p>
+
+<ul>
+  <li>Strict</li>
+  <li>Lax</li>
+  <li>None</li>
+</ul>
+
+<p>Cookie中的内容为：</p>
+
+<pre><code class="language-http">POST /transfer HTTP/1.1
+Host: www.a-bank.com
+Cookie: JSESSIONID=randomid;SameSite=Strict;
+</code></pre>
+
+<p><code>Strict</code>是最严格的，它完全禁止在跨站情况下，发送Cookie。只有在自己的网站内部发送请求，才会带上Cookie。不过这个规则过于严格，会影响用户的体验。比如在一个网站中有一个链接，这个链接连接到了GitHub上，由于SameSite设置为Strict，跳转到GitHub后，GitHub总是未登录状态。</p>
+
+<p><code>Lax</code>的规则稍稍放宽了些，大部分跨站的请求也不会带上Cookie，但是一些导航的Get请求会带上Cookie，如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>请求类型</th>
+      <th>示例</th>
+      <th>Lax情况</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>链接</td>
+      <td><code>&lt;a href="..."&gt;&lt;/a&gt;</code></td>
+      <td>发送 Cookie</td>
+    </tr>
+    <tr>
+      <td>预加载</td>
+      <td><code>&lt;link rel="prerender" href="..."/&gt;</code></td>
+      <td>发送 Cookie</td>
+    </tr>
+    <tr>
+      <td>GET 表单</td>
+      <td><code>&lt;form method="GET" action="..."&gt;</code></td>
+      <td>发送 Cookie</td>
+    </tr>
+    <tr>
+      <td>POST 表单</td>
+      <td><code>&lt;form method="POST" action="..."&gt;</code></td>
+      <td>不发送</td>
+    </tr>
+    <tr>
+      <td>iframe</td>
+      <td><code>frameLabelStart--frameLabelEnd </code></td>
+      <td>不发送</td>
+    </tr>
+    <tr>
+      <td>AJAX</td>
+      <td><code>$.get("...")</code></td>
+      <td>不发送</td>
+    </tr>
+    <tr>
+      <td>Image</td>
+      <td><code>&lt;img src="..."&gt;</code></td>
+      <td>不发送</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>上面的表格就是SameSite设置为Lax的时候，Cookie的发送情况。</p>
+
+<p>None就是关闭SameSite属性，所有的情况下都发送Cookie。不过SameSite设置None，还要同时设置Cookie的Secure属性，否则是不生效的。</p>
+
+<p>以上就是在前端通过Cookie的SameSite属性防御CSRF攻击，<strong>不过大家在使用SameSite属性时，要注意浏览器是否支持SameSite属性。</strong></p>
+
 </div>
-
-
-<h2 id="%E5%AE%89%E5%85%A8">
-  <i class="fas fa-tag"></i>
-  
-  <small>24</small>
-  
-  安全
-</h2>
-<ul>
-  
-  <li>
-    <small>26 Sep 2020</small>
-    <a href="/_posts/2020-09-26-js%E7%BC%96%E7%A0%81/">js编码</a>
-  </li>
-  
-  <li>
-    <small>26 Sep 2020</small>
-    <a href="/_posts/2020-09-26-CSRF/">CSRF</a>
-  </li>
-  
-  <li>
-    <small>25 Sep 2020</small>
-    <a href="/_posts/2020-09-25-ApacheCommonsCollections%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">ApacheCommonsCollections反序列化漏洞</a>
-  </li>
-  
-  <li>
-    <small>24 Sep 2020</small>
-    <a href="/_posts/2020-09-24-DVWA/">DVWA</a>
-  </li>
-  
-  <li>
-    <small>20 Sep 2020</small>
-    <a href="/_posts/2020-09-20-%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">常用工具</a>
-  </li>
-  
-  <li>
-    <small>17 Sep 2020</small>
-    <a href="/_posts/2020-09-17-CVE-2020-11107/">CVE-2020-11107</a>
-  </li>
-  
-  <li>
-    <small>06 Aug 2020</small>
-    <a href="/_posts/2020-08-06-%E9%A3%8E%E9%99%A9%E8%AF%84%E4%BC%B0/">风险评估</a>
-  </li>
-  
-  <li>
-    <small>06 Aug 2020</small>
-    <a href="/_posts/2020-08-06-%E7%AB%AF%E5%8F%A3/">端口</a>
-  </li>
-  
-  <li>
-    <small>29 Jul 2020</small>
-    <a href="/_posts/2020-07-29-%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%80%83%E9%80%B8/">虚拟机逃逸</a>
-  </li>
-  
-  <li>
-    <small>29 Jul 2020</small>
-    <a href="/_posts/2020-07-29-%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B/">渗透测试流程</a>
-  </li>
-  
-  <li>
-    <small>27 Jul 2020</small>
-    <a href="/_posts/2020-07-27-linux&win%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1/">linux&win计划任务</a>
-  </li>
-  
-  <li>
-    <small>26 Jul 2020</small>
-    <a href="/_posts/2020-07-26-IIS%E6%BC%8F%E6%B4%9E/">IIS漏洞</a>
-  </li>
-  
-  <li>
-    <small>25 Jul 2020</small>
-    <a href="/_posts/2020-07-25-GPC&%E7%BB%95%E8%BF%87/">GPC&绕过</a>
-  </li>
-  
-  <li>
-    <small>19 Jul 2020</small>
-    <a href="/_posts/2020-07-19-%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/">密码学基础总结</a>
-  </li>
-  
-  <li>
-    <small>16 Jul 2020</small>
-    <a href="/_posts/2020-07-16-sql%E6%B3%A8%E5%85%A5/">sql注入</a>
-  </li>
-  
-  <li>
-    <small>12 Jul 2020</small>
-    <a href="/_posts/2020-07-12-nmap/">nmap</a>
-  </li>
-  
-  <li>
-    <small>11 Jul 2020</small>
-    <a href="/_posts/2020-07-11-xss/">xss</a>
-  </li>
-  
-  <li>
-    <small>06 Jul 2020</small>
-    <a href="/_posts/2020-07-06-cve-2020-5902/">cve-2020-5902</a>
-  </li>
-  
-  <li>
-    <small>27 Jun 2020</small>
-    <a href="/_posts/2020-06-27-metasploit%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">metasploit使用总结</a>
-  </li>
-  
-  <li>
-    <small>22 Jun 2020</small>
-    <a href="/_posts/2020-06-22-John_the_Ripper/">John_the_Ripper</a>
-  </li>
-  
-  <li>
-    <small>20 Jun 2020</small>
-    <a href="/_posts/2020-06-20-%E6%81%B6%E6%84%8F%E8%84%9A%E6%9C%AC%E5%88%86%E6%9E%90/">恶意脚本分析</a>
-  </li>
-  
-  <li>
-    <small>15 Jun 2020</small>
-    <a href="/_posts/2020-06-15-%E6%BB%91%E5%8A%A8%E9%AA%8C%E8%AF%81%E7%A0%81%E9%BB%91%E4%BA%A7/">滑动验证码黑产</a>
-  </li>
-  
-  <li>
-    <small>15 Jun 2020</small>
-    <a href="/_posts/2020-06-15-ARP%E5%AE%89%E5%85%A8/">ARP安全</a>
-  </li>
-  
-  <li>
-    <small>13 Mar 2019</small>
-    <a href="/_posts/2019-03-13-Hydra/">Hydra</a>
-  </li>
-  
-</ul>
-
-<h2 id="%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">
-  <i class="fas fa-tag"></i>
-  
-  <small>2</small>
-  
-  机器学习
-</h2>
-<ul>
-  
-  <li>
-    <small>01 Jul 2020</small>
-    <a href="/_posts/2020-07-01-%E8%BD%A6%E9%81%93%E4%BF%9D%E6%8C%81&%E7%96%B2%E5%8A%B3%E9%A9%BE%E9%A9%B6%E6%A3%80%E6%B5%8B/">车道保持&疲劳驾驶检测</a>
-  </li>
-  
-  <li>
-    <small>13 May 2019</small>
-    <a href="/_posts/2019-05-13-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">机器学习笔记</a>
-  </li>
-  
-</ul>
-
-<h2 id="linux">
-  <i class="fas fa-tag"></i>
-  
-  <small>16</small>
-  
-  linux
-</h2>
-<ul>
-  
-  <li>
-    <small>20 Sep 2020</small>
-    <a href="/_posts/2020-09-20-appimage%E6%89%93%E5%8C%85/">appimage打包程序</a>
-  </li>
-  
-  <li>
-    <small>26 Aug 2020</small>
-    <a href="/_posts/2020-08-26-iptables/">iptables</a>
-  </li>
-  
-  <li>
-    <small>10 Jul 2020</small>
-    <a href="/_posts/2020-07-10-passwd&shadow%E6%96%87%E4%BB%B6/">passwd&shadow文件</a>
-  </li>
-  
-  <li>
-    <small>08 Jul 2020</small>
-    <a href="/_posts/2020-07-08-ubuntu%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E5%8F%8A%E5%90%8E%E7%BB%AD%E9%85%8D%E7%BD%AE/">ubuntu安装问题及后续配置</a>
-  </li>
-  
-  <li>
-    <small>09 Jun 2020</small>
-    <a href="/_posts/2020-06-09-linux%E7%BC%96%E7%A8%8B-%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">linux编程-进程间通信</a>
-  </li>
-  
-  <li>
-    <small>06 Jun 2020</small>
-    <a href="/_posts/2020-06-06-linux%E7%BC%96%E7%A8%8B-%E9%AB%98%E7%BA%A7IO/">linux编程-高级IO</a>
-  </li>
-  
-  <li>
-    <small>30 May 2020</small>
-    <a href="/_posts/2020-05-30-linux%E7%BC%96%E7%A8%8B-%E5%B9%B6%E5%8F%91/">linux编程-并发</a>
-  </li>
-  
-  <li>
-    <small>25 May 2020</small>
-    <a href="/_posts/2020-05-25-linux%E7%BC%96%E7%A8%8B-%E8%BF%9B%E7%A8%8B%E5%9F%BA%E7%A1%80/">linux编程-进程基础</a>
-  </li>
-  
-  <li>
-    <small>22 May 2020</small>
-    <a href="/_posts/2020-05-22-linux%E7%BC%96%E7%A8%8B-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">linux编程-文件系统</a>
-  </li>
-  
-  <li>
-    <small>20 May 2020</small>
-    <a href="/_posts/2020-05-20-linux%E7%BC%96%E7%A8%8B-IO/">linux编程-IO</a>
-  </li>
-  
-  <li>
-    <small>15 May 2020</small>
-    <a href="/_posts/2020-05-15-Docker%E7%AC%94%E8%AE%B0/">Docker笔记</a>
-  </li>
-  
-  <li>
-    <small>12 May 2020</small>
-    <a href="/_posts/2020-05-12-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E5%8E%9F%E7%90%86/">删除文件原理</a>
-  </li>
-  
-  <li>
-    <small>09 May 2020</small>
-    <a href="/_posts/2020-05-09-linux%E7%AC%94%E8%AE%B0/">linux笔记</a>
-  </li>
-  
-  <li>
-    <small>12 Mar 2020</small>
-    <a href="/_posts/2020-03-12-CPU%E6%A8%A1%E5%BC%8F/">CPU模式</a>
-  </li>
-  
-  <li>
-    <small>09 Feb 2020</small>
-    <a href="/_posts/2020-02-09-makefile%E7%AC%94%E8%AE%B0/">makefile笔记</a>
-  </li>
-  
-  <li>
-    <small>07 Jan 2020</small>
-    <a href="/_posts/2020-01-07-linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">linux常用命令</a>
-  </li>
-  
-</ul>
-
-<h2 id="%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F">
-  <i class="fas fa-tag"></i>
-  
-  <small>4</small>
-  
-  操作系统
-</h2>
-<ul>
-  
-  <li>
-    <small>27 Aug 2020</small>
-    <a href="/_posts/2020-08-27-Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">Linux文件系统</a>
-  </li>
-  
-  <li>
-    <small>08 Jun 2020</small>
-    <a href="/_posts/2020-06-08-%E8%BF%9B%E7%A8%8B%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E5%8C%BA%E5%9F%9F%E5%88%92%E5%88%86/">进程虚拟地址空间区域划分</a>
-  </li>
-  
-  <li>
-    <small>08 Jun 2020</small>
-    <a href="/_posts/2020-06-08-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/">虚拟内存</a>
-  </li>
-  
-  <li>
-    <small>08 Apr 2020</small>
-    <a href="/_posts/2020-04-08-MakeMyOs/">MakeMyOs</a>
-  </li>
-  
-</ul>
-
-<h2 id="JAVA">
-  <i class="fas fa-tag"></i>
-  
-  <small>8</small>
-  
-  JAVA
-</h2>
-<ul>
-  
-  <li>
-    <small>31 Jul 2020</small>
-    <a href="/_posts/2020-07-31-JAVA%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">JAVA多线程常见问题</a>
-  </li>
-  
-  <li>
-    <small>02 Jul 2020</small>
-    <a href="/_posts/2020-07-02-JAVA%E7%BA%BF%E7%A8%8B%E6%B1%A0/">JAVA线程池</a>
-  </li>
-  
-  <li>
-    <small>01 Jul 2020</small>
-    <a href="/_posts/2020-07-01-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-  </li>
-  
-  <li>
-    <small>25 Jun 2020</small>
-    <a href="/_posts/2020-06-25-web%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">web压力测试程序开发</a>
-  </li>
-  
-  <li>
-    <small>21 May 2020</small>
-    <a href="/_posts/2020-05-21-HashMap%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">HashMap实现原理</a>
-  </li>
-  
-  <li>
-    <small>11 May 2020</small>
-    <a href="/_posts/2020-05-11-JAVA%E9%9B%86%E5%90%88/">JAVA集合</a>
-  </li>
-  
-  <li>
-    <small>08 May 2020</small>
-    <a href="/_posts/2020-05-08-BIO&NIO&AIO/">BIO&NIO&AIO</a>
-  </li>
-  
-  <li>
-    <small>02 May 2020</small>
-    <a href="/_posts/2020-05-02-jdbc%E7%AC%94%E8%AE%B0/">jdbc笔记</a>
-  </li>
-  
-</ul>
-
-<h2 id="sql">
-  <i class="fas fa-tag"></i>
-  
-  <small>5</small>
-  
-  sql
-</h2>
-<ul>
-  
-  <li>
-    <small>22 Jul 2020</small>
-    <a href="/_posts/2020-07-22-MySql%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/">MySql存储引擎</a>
-  </li>
-  
-  <li>
-    <small>24 Jun 2020</small>
-    <a href="/_posts/2020-06-24-sql-server%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">sql-server期末复习</a>
-  </li>
-  
-  <li>
-    <small>12 May 2020</small>
-    <a href="/_posts/2020-05-12-sql-server%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/">sql-server常用命令总结</a>
-  </li>
-  
-  <li>
-    <small>10 May 2020</small>
-    <a href="/_posts/2020-05-10-sql-server%E5%A4%8D%E4%B9%A0%E4%BA%8C/">sql-server复习二</a>
-  </li>
-  
-  <li>
-    <small>02 May 2020</small>
-    <a href="/_posts/2020-05-02-sql-server%E5%A4%8D%E4%B9%A0%E4%B8%80/">sql-server复习一</a>
-  </li>
-  
-</ul>
-
-<h2 id="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">
-  <i class="fas fa-tag"></i>
-  
-  <small>2</small>
-  
-  数据结构
-</h2>
-<ul>
-  
-  <li>
-    <small>05 May 2020</small>
-    <a href="/_posts/2020-05-05-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/">数据结构－二叉树</a>
-  </li>
-  
-  <li>
-    <small>04 May 2020</small>
-    <a href="/_posts/2020-05-04-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E6%80%A7%E8%A1%A8/">数据结构－线性表</a>
-  </li>
-  
-</ul>
-
-<h2 id="%E7%AE%97%E6%B3%95">
-  <i class="fas fa-tag"></i>
-  
-  <small>3</small>
-  
-  算法
-</h2>
-<ul>
-  
-  <li>
-    <small>06 Jun 2020</small>
-    <a href="/_posts/2020-06-06-%E6%8E%92%E5%BA%8F/">排序算法</a>
-  </li>
-  
-  <li>
-    <small>26 May 2020</small>
-    <a href="/_posts/2020-05-26-KMP%E7%AE%97%E6%B3%95/">KMP算法</a>
-  </li>
-  
-  <li>
-    <small>06 May 2020</small>
-    <a href="/_posts/2020-05-06-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">数据结构－二分查找</a>
-  </li>
-  
-</ul>
-
-<h2 id="%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96">
-  <i class="fas fa-tag"></i>
-  
-  <small>1</small>
-  
-  数据可视化
-</h2>
-<ul>
-  
-  <li>
-    <small>06 May 2020</small>
-    <a href="/_posts/2020-05-06-%E6%96%B0%E5%9E%8B%E5%86%A0%E7%8A%B6%E8%82%BA%E7%82%8E%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">新型冠状肺炎数据可视化</a>
-  </li>
-  
-</ul>
-
-<h2 id="git">
-  <i class="fas fa-tag"></i>
-  
-  <small>1</small>
-  
-  git
-</h2>
-<ul>
-  
-  <li>
-    <small>08 May 2020</small>
-    <a href="/_posts/2020-05-08-git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">git常用命令</a>
-  </li>
-  
-</ul>
-
-<h2 id="JVM">
-  <i class="fas fa-tag"></i>
-  
-  <small>1</small>
-  
-  JVM
-</h2>
-<ul>
-  
-  <li>
-    <small>13 May 2020</small>
-    <a href="/_posts/2020-05-13-%E7%B1%BB%E5%8A%A0%E8%BD%BD/">类加载</a>
-  </li>
-  
-</ul>
-
-<h2 id="%E7%94%9F%E6%B4%BB">
-  <i class="fas fa-tag"></i>
-  
-  <small>1</small>
-  
-  生活
-</h2>
-<ul>
-  
-  <li>
-    <small>11 Jun 2020</small>
-    <a href="/_posts/2020-06-11-%E5%A4%A7%E4%B8%89%E4%B8%8A%E8%AE%A1%E5%88%92/">大三上计划</a>
-  </li>
-  
-</ul>
-
-<h2 id="%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C">
-  <i class="fas fa-tag"></i>
-  
-  <small>7</small>
-  
-  计算机网络
-</h2>
-<ul>
-  
-  <li>
-    <small>18 Jul 2020</small>
-    <a href="/_posts/2020-07-18-IP%E6%8A%A5%E6%96%87/">IP报文</a>
-  </li>
-  
-  <li>
-    <small>05 Jul 2020</small>
-    <a href="/_posts/2020-07-05-ICMP%E5%8D%8F%E8%AE%AE%E5%92%8Cping%E5%91%BD%E4%BB%A4/">ICMP协议和ping命令</a>
-  </li>
-  
-  <li>
-    <small>05 Jul 2020</small>
-    <a href="/_posts/2020-07-05-HTTP%E5%8D%8F%E8%AE%AE%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">HTTP请求方法</a>
-  </li>
-  
-  <li>
-    <small>04 Jul 2020</small>
-    <a href="/_posts/2020-07-04-HTTP%E5%92%8CHTTPS/">HTTP和HTTPS</a>
-  </li>
-  
-  <li>
-    <small>29 Jun 2020</small>
-    <a href="/_posts/2020-06-29-%E8%A5%BF%E5%8D%8E%E5%A4%A7%E5%AD%A6%E6%8A%A2%E8%AF%BE%E8%84%9A%E6%9C%AC/">西华大学抢课脚本</a>
-  </li>
-  
-  <li>
-    <small>13 Jun 2020</small>
-    <a href="/_posts/2020-06-13-TCP&UDP%E5%8C%BA%E5%88%AB/">TCP&UDP区别</a>
-  </li>
-  
-  <li>
-    <small>12 Jun 2020</small>
-    <a href="/_posts/2020-06-12-TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">TCP三次握手四次挥手</a>
-  </li>
-  
-</ul>
-
-<h2 id="jvm">
-  <i class="fas fa-tag"></i>
-  
-  <small>1</small>
-  
-  jvm
-</h2>
-<ul>
-  
-  <li>
-    <small>17 Jul 2020</small>
-    <a href="/_posts/2020-07-17-jvm%E6%80%BB%E7%BB%93/">jvm总结</a>
-  </li>
-  
-</ul>
+<div class="v">
+  <i class="fas fa-spinner fa-pulse"></i>
+</div>
+<script
+  src='https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js'
+  defer='defer'
+  onload='
+    new Valine({
+      "el": document.getElementsByClassName("v")[0],
+      "appId": "9hABRddSuEkTgqLrt1VSK5B1-gzGzoHsz",
+      "appKey": "NJ7RwmgrxsF7KDzlqU7YewlL",
+      "placeholder": "在这里评论吧！填写邮箱可以获得 Gravatar 头像和回复通知哦",
+      "requiredFields": ["nick","mail"],
+      "visitor": true,
+      "recordIP": true
+    })'
+></script>
 
 </div>
   </div>
