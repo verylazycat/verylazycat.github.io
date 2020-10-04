@@ -1,11 +1,578 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-26T09:56:05-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-04T03:13:39-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">CSRF</title><link href="http://localhost:4000/_posts/2020-09-26-CSRF/" rel="alternate" type="text/html" title="CSRF" /><published>2020-09-26T00:00:00-04:00</published><updated>2020-09-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/CSRF</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-26-CSRF/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">TCP粘包</title><link href="http://localhost:4000/_posts/2020-10-04-TCP%E7%B2%98%E5%8C%85/" rel="alternate" type="text/html" title="TCP粘包" /><published>2020-10-04T00:00:00-04:00</published><updated>2020-10-04T00:00:00-04:00</updated><id>http://localhost:4000/_posts/TCP%E7%B2%98%E5%8C%85</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-04-TCP%E7%B2%98%E5%8C%85/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;在socket网络编程中，都是端到端通信，由客户端端口+服务端端口+客户端IP+服务端IP+传输协议组成的五元组可以明确的标识一条连接。在TCP的socket编程中，发送端和接收端都有成对的socket。发送端为了将多个发往接收端的包，更加高效的的发给接收端，于是采用了优化算法（Nagle算法），将多次间隔较小、数据量较小的数据，合并成一个数据量大的数据块，然后进行封包。那么这样一来，接收端就必须使用高效科学的拆包机制来分辨这些数据。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;什么是tcp粘包问题&quot;&gt;什么是TCP粘包问题&lt;/h1&gt;
+
+&lt;p&gt;TCP粘包就是指发送方发送的若干包数据到达接收方时粘成了一包，从接收缓冲区来看，后一包数据的头紧接着前一包数据的尾，出现粘包的原因是多方面的，可能是来自发送方，也可能是来自接收方&lt;/p&gt;
+
+&lt;h1 id=&quot;造成tcp粘包的原因&quot;&gt;造成TCP粘包的原因&lt;/h1&gt;
+
+&lt;h2 id=&quot;发送方原因&quot;&gt;发送方原因&lt;/h2&gt;
+
+&lt;p&gt;TCP默认使用Nagle算法（主要作用：减少网络中报文段的数量），而Nagle算法主要做两件事：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;只有上一个分组得到确认，才会发送下一个分组&lt;/li&gt;
+  &lt;li&gt;收集多个小分组，在一个确认到来时一起发送&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Nagle算法造成了发送方可能会出现粘包问题&lt;/p&gt;
+
+&lt;h2 id=&quot;接收方原因&quot;&gt;接收方原因&lt;/h2&gt;
+
+&lt;p&gt;TCP接收到数据包时，并不会马上交到应用层进行处理，或者说应用层并不会立即处理。实际上，TCP将接收到的数据包保存在接收缓存里，然后应用程序主动从缓存读取收到的分组。这样一来，如果TCP接收数据包到缓存的速度大于应用程序从缓存中读取数据包的速度，多个包就会被缓存，应用程序就有可能读取到多个首尾相接粘到一起的包。&lt;/p&gt;
+
+&lt;h1 id=&quot;什么时候需要处理粘包现象&quot;&gt;什么时候需要处理粘包现象&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;如果发送方发送的多组数据本来就是同一块数据的不同部分，比如说一个文件被分成多个部分发送，这时当然不需要处理粘包现象&lt;/li&gt;
+  &lt;li&gt;如果多个分组毫不相干，甚至是并列关系，那么这个时候就一定要处理粘包现象了&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;如何处理粘包现象&quot;&gt;如何处理粘包现象&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;发送方&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;对于发送方造成的粘包问题，可以通过关闭Nagle算法来解决，使用TCP_NODELAY选项来关闭算法。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;接收方&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;接收方没有办法来处理粘包现象，只能将问题交给应用层来处理。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;应用层&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;应用层的解决办法简单可行，不仅能解决接收方的粘包问题，还可以解决发送方的粘包问题。&lt;/p&gt;
+
+&lt;p&gt;解决办法：循环处理，应用程序从接收缓存中读取分组时，读完一条数据，就应该循环读取下一条数据，直到所有数据都被处理完成，但是如何判断每条数据的长度呢？&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;格式化数据：每条数据有固定的格式（开始符，结束符），这种方法简单易行，但是选择开始符和结束符时一定要确保每条数据的内部不包含开始符和结束符。&lt;/li&gt;
+  &lt;li&gt;发送长度：发送每条数据时，将数据的长度一并发送，例如规定数据的前4位是数据的长度，应用层在处理时可以根据长度来判断每个分组的开始和结束位置。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;udp会不会产生粘包问题呢&quot;&gt;UDP会不会产生粘包问题呢&lt;/h1&gt;
+
+&lt;p&gt;TCP为了保证可靠传输并减少额外的开销（每次发包都要验证），采用了基于流的传输，基于流的传输不认为消息是一条一条的，是无保护消息边界的（保护消息边界：指传输协议把数据当做一条独立的消息在网上传输，接收端一次只能接受一条独立的消息）。&lt;/p&gt;
+
+&lt;p&gt;UDP则是面向消息传输的，是有保护消息边界的，接收方一次只接受一条独立的信息，所以不存在粘包问题。&lt;/p&gt;
+
+&lt;p&gt;举个例子：有三个数据包，大小分别为2k、4k、6k，如果采用UDP发送的话，不管接受方的接收缓存有多大，我们必须要进行至少三次以上的发送才能把数据包发送完，但是使用TCP协议发送的话，我们只需要接受方的接收缓存有12k的大小，就可以一次把这3个数据包全部发送完毕。&lt;/p&gt;</content><author><name></name></author><category term="计算机网络" /><summary type="html">[toc]</summary></entry><entry><title type="html">黑盒&amp;amp;白盒测试</title><link href="http://localhost:4000/_posts/2020-10-04-%E9%BB%91%E7%9B%92&%E7%99%BD%E7%9B%92%E6%B5%8B%E8%AF%95/" rel="alternate" type="text/html" title="黑盒&amp;白盒测试" /><published>2020-10-04T00:00:00-04:00</published><updated>2020-10-04T00:00:00-04:00</updated><id>http://localhost:4000/_posts/%E9%BB%91%E7%9B%92&amp;%E7%99%BD%E7%9B%92%E6%B5%8B%E8%AF%95</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-04-%E9%BB%91%E7%9B%92&amp;%E7%99%BD%E7%9B%92%E6%B5%8B%E8%AF%95/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;黑盒测试&quot;&gt;&lt;em&gt;黑盒测试&lt;/em&gt;&lt;/h1&gt;
+
+&lt;h2 id=&quot;等价类划分方法&quot;&gt;&lt;em&gt;等价类划分方法&lt;/em&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;定义&quot;&gt;定义&lt;/h3&gt;
+
+&lt;p&gt;是把所有可能的输入数据,即程序的输入域划分成若干部分（子集）,然后从每一个子集中选取少数具有代表性的数据作为测试用例。该方法是一种重要的,常用的黑盒测试用例设计方法。&lt;/p&gt;
+
+&lt;h3 id=&quot;划分等价类&quot;&gt;划分等价类&lt;/h3&gt;
+
+&lt;p&gt;等价类是指某个输入域的子集合。在该子集合中,各个输入数据对于揭露程序中的错误都是等效的，并合理地假定：测试某等价类的代表值就等于对这一类其它值的测试，因此,可以把全部输入数据合理划分为若干等价类,在每一个等价类中取一个数据作为测试的输入条件就可以用少量代表性的测试数据取得较好的测试结果。等价类划分可有两种不同的情况：有效等价类和无效等价类。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;有效等价类&lt;/p&gt;
+
+    &lt;p&gt;是指对于程序的规格说明来说是合理的、有意义的输入数据构成的集合。利用有效等价类可检验程序是否实现了规格说明中所规定的功能和性能。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;无效等价类&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;与有效等价类的定义恰巧相反。无效等价类指对程序的规格说明是不合理的或无意义的输入数据所构成的集合。对于具体的问题，无效等价类至少应有一个，也可能有多个。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;设计测试用例时,要同时考虑这两种等价类。因为软件不仅要能接收合理的数据,也要能经受意外的考验，这样的测试才能确保软件具有更高的可靠性。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;划分等价类的标准&quot;&gt;划分等价类的标准&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;完备测试、避免冗余;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;划分等价类重要的是：集合的划分，划分为互不相交的一组子集，而子集的并是整个集合;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;并是整个集合：完备性;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;子集互不相交：保证一种形式的无冗余性;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;同一类中标识（选择）一个测试用例，同一等价类中，往往处理相同，相同处理映射到”相同的执行路径”&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;划分等价类的方法&quot;&gt;划分等价类的方法&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;在输入条件规定了取值范围或值的个数的情况下,则可以确立一个有效等价类和两个无效等价类。如：输入值是学生成绩，范围是0～100；&lt;/li&gt;
+  &lt;li&gt;在输入条件规定了输入值的集合或者规定了”必须如何”的条件的情况下,可确立一个有效等价类和一个无效等价类；&lt;/li&gt;
+  &lt;li&gt;在输入条件是一个布尔量的情况下,可确定一个有效等价类和一个无效等价类&lt;/li&gt;
+  &lt;li&gt;在规定了输入数据的一组值（假定n个）,并且程序要对每一个输入值分别处理的情况下,可确立n个有效等价类和一个无效等价类。&lt;/li&gt;
+  &lt;li&gt;在规定了输入数据必须遵守的规则的情况下,可确立一个有效等价类（符合规则）和若干个无效等价类（从不同角度违反规则）；&lt;/li&gt;
+  &lt;li&gt;在确知已划分的等价类中各元素在程序处理中的方式不同的情况下,则应再将该等价类进一步的划分为更小的等价类。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;设计测试用例&quot;&gt;设计测试用例&lt;/h3&gt;
+
+&lt;p&gt;在确立了等价类后,可建立等价类表,列出所有划分出的等价类输入条件：有效等价类、无效等价类，然后从划分出的等价类中按以下三个原则设计测试用例：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;为每一个等价类规定一个唯一的编号；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;设计一个新的测试用例,使其尽可能多地覆盖尚未被覆盖地有效等价类,重复这一步，直到所有的有效等价类都被覆盖为止；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;设计一个新的测试用例,使其仅覆盖一个尚未被覆盖的无效等价类,重复这一步，直到所有的无效等价类都被覆盖为止。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;边界值分析方法&quot;&gt;&lt;em&gt;边界值分析方法&lt;/em&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;定义-1&quot;&gt;定义&lt;/h3&gt;
+
+&lt;p&gt;边界值分析法就是对输入或输出的边界值进行测试的一种黑盒测试方法。通常边界值分析法是作为对等价类划分法的补充，这种情况下，其测试用例来自等价类的边界。&lt;/p&gt;
+
+&lt;h3 id=&quot;与等价划分的区别&quot;&gt;与等价划分的区别&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;边界值分析不是从某等价类中随便挑一个作为代表，而是使这个等价类的每个边界都要作为测试条件。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;边界值分析不仅考虑输入条件，还要考虑输出空间产生的测试情况。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;边界值分析方法的考虑&quot;&gt;边界值分析方法的考虑&lt;/h3&gt;
+
+&lt;p&gt;长期的测试工作经验告诉我们，大量的错误是发生在输入或输出范围的边界上，而不是发生在输入输出范围的内部。因此针对各种边界情况设计测试用例，可以查出更多的错误。&lt;/p&gt;
+
+&lt;p&gt;使用边界值分析方法设计测试用例，首先应确定边界情况。通常输入和输出等价类的边界，就是应着重测试的边界情况。应当选取正好等于，刚刚大于或刚刚小于边界的值作为测试数据，而不是选取等价类中的典型值或任意值作为测试数据。&lt;/p&gt;
+
+&lt;h3 id=&quot;常见的边界值&quot;&gt;常见的边界值&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;对16-bit 的整数而言 32767 和 -32768 是边界&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;屏幕上光标在最左上、最右下位置&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;报表的第一行和最后一行&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;数组元素的第一个和最后一个&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;循环的第 0 次、第 1 次和倒数第 2 次、最后一次&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;边界值分析&quot;&gt;边界值分析&lt;/h3&gt;
+
+&lt;p&gt;边界值分析使用与等价类划分法相同的划分，只是边界值分析假定错误更多地存在于划分的边界上，因此在等价类的边界上以及两侧的情况设计测试用例。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;通常情况下，软件测试所包含的边界检验有几种类型：数字、字符、位置、重量、大小、速度、方位、尺寸、空间等。相应地，以上类型的边界值应该在：最大/最小、首位/末位、上/下、最快/最慢、最高/最低、 最短/最长、 空/满等情况下&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;内部边界值分析&quot;&gt;内部边界值分析&lt;/h3&gt;
+
+&lt;p&gt;在多数情况下，边界值条件是基于应用程序的功能设计而需要考虑的因素，可以从软件的规格说明或常识中得到，也是最终用户可以很容易发现问题的。然而，在测试用例设计过程中，某些边界值条件是不需要呈现给用户的，或者说用户是很难注意到的，但同时确实属于检验范畴内的边界条件，称为内部边界值条件或子边界值条件。&lt;/p&gt;
+
+&lt;p&gt;内部边界值条件主要有下面几种：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;数值的边界值检验：计算机是基于二进制进行工作的，因此，软件的任何数值运算都有一定的范围限制。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;项&lt;/th&gt;
+      &lt;th&gt;范围或值&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;位（bit）&lt;/td&gt;
+      &lt;td&gt;0或者1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;字节（byte）&lt;/td&gt;
+      &lt;td&gt;0——225&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;字（word）&lt;/td&gt;
+      &lt;td&gt;0~65535（单字）或 0~4294967295（双字）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;千（K）&lt;/td&gt;
+      &lt;td&gt;1024&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;兆（M）&lt;/td&gt;
+      &lt;td&gt;1048576&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;吉（G）&lt;/td&gt;
+      &lt;td&gt;1073741824&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;字符的边界值检验：在计算机软件中，字符也是很重要的表示元素，其中ASCII和Unicode是常见的编码方式。下表中列出了一些常用字符对应的ASCII码值&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;字符&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;ASCII码值&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;字符&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;ASCII码值&lt;/strong&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;空 (null)&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;A&lt;/td&gt;
+      &lt;td&gt;65&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;空格 (space)&lt;/td&gt;
+      &lt;td&gt;32&lt;/td&gt;
+      &lt;td&gt;a&lt;/td&gt;
+      &lt;td&gt;97&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;斜杠 ( / )&lt;/td&gt;
+      &lt;td&gt;47&lt;/td&gt;
+      &lt;td&gt;Z&lt;/td&gt;
+      &lt;td&gt;90&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;48&lt;/td&gt;
+      &lt;td&gt;z&lt;/td&gt;
+      &lt;td&gt;122&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;冒号 ( : )&lt;/td&gt;
+      &lt;td&gt;58&lt;/td&gt;
+      &lt;td&gt;单引号 ( ‘ )&lt;/td&gt;
+      &lt;td&gt;96&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;@&lt;/td&gt;
+      &lt;td&gt;64&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;其它边界值检验&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;基于边界值分析方法选择测试用例的原则&lt;/p&gt;
+
+&lt;p&gt;1)如果输入条件规定了值的范围,则应取刚达到这个范围的边界的值,以及刚刚超越这个范围边界的值作为测试输入数据。&lt;/p&gt;
+
+&lt;p&gt;例如，如果程序的规格说明中规定：”重量在10公斤至50公斤范围内的邮件，其邮费计算公式为……”。作为测试用例，我们应取10及50，还应取10.01,49.99,9.99及50.01等。&lt;/p&gt;
+
+&lt;p&gt;2)如果输入条件规定了值的个数,则用最大个数,最小个数,比最小个数少一,比最大个数多一的数作为测试数据。&lt;/p&gt;
+
+&lt;p&gt;比如，一个输入文件应包括1~255个记录，则测试用例可取1和255，还应取0及256等。&lt;/p&gt;
+
+&lt;p&gt;3)将规则1）和2）应用于输出条件，即设计测试用例使输出值达到边界值及其左右的值。&lt;/p&gt;
+
+&lt;p&gt;例如，某程序的规格说明要求计算出”每月保险金扣除额为0至1165.25元”，其测试用例可取0.00及1165.24、还可取一0.01及1165．26等。&lt;/p&gt;
+
+&lt;p&gt;再如一程序属于情报检索系统，要求每次”最少显示1条、最多显示4条情报摘要”，这时我们应考虑的测试用例包括1和4，还应包括0和5等。&lt;/p&gt;
+
+&lt;p&gt;4)如果程序的规格说明给出的输入域或输出域是有序集合,则应选取集合的第一个元素和最后一个元素作为测试用例。&lt;/p&gt;
+
+&lt;p&gt;5)如果程序中使用了一个内部数据结构,则应当选择这个内部数据结构的边界上的值作为测试用例。&lt;/p&gt;
+
+&lt;p&gt;6)分析规格说明,找出其它可能的边界条件。&lt;/p&gt;
+
+&lt;h2 id=&quot;错误推测方法&quot;&gt;&lt;em&gt;错误推测方法&lt;/em&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;定义-2&quot;&gt;定义&lt;/h3&gt;
+
+&lt;p&gt;基于经验和直觉推测程序中所有可能存在的各种错误, 从而有针对性的设计测试用例的方法&lt;/p&gt;
+
+&lt;h3 id=&quot;错误推测方法的基本思想&quot;&gt;错误推测方法的基本思想&lt;/h3&gt;
+
+&lt;p&gt;列举出程序中所有可能有的错误和容易发生错误的特殊情况,根据他们选择测试用例&lt;/p&gt;
+
+&lt;h2 id=&quot;因果图方法&quot;&gt;&lt;em&gt;因果图方法&lt;/em&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;定义-3&quot;&gt;定义&lt;/h3&gt;
+
+&lt;p&gt;是一种利用图解法分析输入的各种组合情况，从而设计测试用例的方法，它适合于检查程序输入条件的各种组合情况&lt;/p&gt;
+
+&lt;h3 id=&quot;因果图法产生的背景&quot;&gt;因果图法产生的背景&lt;/h3&gt;
+
+&lt;p&gt;等价类划分法和边界值分析方法都是着重考虑输入条件，但没有考虑输入条件的各种组合、输入条件之间的相互制约关系。这样虽然各种输入条件可能出错的情况已经测试到了，但多个输入条件组合起来可能出错的情况却被忽视了。&lt;/p&gt;
+
+&lt;p&gt;如果在测试时必须考虑输入条件的各种组合，则可能的组合数目将是天文数字，因此必须考虑采用一种适合于描述多种条件的组合、相应产生多个动作的形式来进行测试用例的设计，这就需要利用因果图（逻辑模型）。&lt;/p&gt;
+
+&lt;h2 id=&quot;判定表驱动分析方法&quot;&gt;&lt;em&gt;判定表驱动分析方法&lt;/em&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;定义-4&quot;&gt;定义&lt;/h3&gt;
+
+&lt;p&gt;判定表是分析和表达多逻辑条件下执行不同操作的情况的工具&lt;/p&gt;
+
+&lt;h3 id=&quot;判定表的优点&quot;&gt;判定表的优点&lt;/h3&gt;
+
+&lt;p&gt;能够将复杂的问题按照各种可能的情况全部列举出来，简明并避免遗漏。因此，利用判定表能够设计出完整的测试用例集合。&lt;/p&gt;
+
+&lt;p&gt;在一些数据处理问题当中，某些操作的实施依赖于多个逻辑条件的组合，即：针对不同逻辑条件的组合值，分别执行不同的操作。判定表很适合于处理这类问题。&lt;/p&gt;
+
+&lt;h2 id=&quot;正交实验设计方法&quot;&gt;&lt;em&gt;正交实验设计方法&lt;/em&gt;&lt;/h2&gt;
+
+&lt;h3 id=&quot;步骤&quot;&gt;步骤&lt;/h3&gt;
+
+&lt;p&gt;1.提取功能说明,构造因子–状态表&lt;/p&gt;
+
+&lt;p&gt;把影响实验指标的条件称为因子.而影响实验因子的条件叫因子的状态.利用正交实验设计方法来设计测试用例时,首先要根据被测试软件的规格说明书找出影响其功能实现的操作对象和外部因素,把他们当作因子,而把各个因子的取值当作状态.对软件需求规格说明中的功能要求进行划分,把整体的概要性的功能要求进行层层分解与展开,分解成具体的有相对独立性的基本的功能要求.这样就可以把被测试软件中所有的因子都确定下来,并为确定个因子的权值提供参考的依据.确定因子与状态是设计测试用例的关键.因此要求尽可能全面的正确的确定取值,以确保测试用例的设计作到完整与有效。&lt;/p&gt;
+
+&lt;p&gt;2.加权筛选,生成因素分析表&lt;/p&gt;
+
+&lt;p&gt;对因子与状态的选择可按其重要程度分别加权.可根据各个因子及状态的作用大小,出现频率的大小以及测试的需要,确定权值的大小。&lt;/p&gt;
+
+&lt;p&gt;3.利用正交表构造测试数据集&lt;/p&gt;
+
+&lt;p&gt;正交表的推导依据Galois理论（这里省略,需要时可查数理统计方面的教材）。&lt;/p&gt;
+
+&lt;p&gt;利用正交实验设计方法设计测试用例,比使用等价类划分,边界值分析,因果图等方法有以下优点:节省测试工作工时；可控制生成的测试用例数量；测试用例具有一定的覆盖率。&lt;/p&gt;
+
+&lt;h2 id=&quot;功能图分析方法&quot;&gt;&lt;em&gt;功能图分析方法&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;一个程序的功能说明通常由动态说明和静态说明组成.动态说明描述了输入数据的次序或转移的次序.静态说明描述了输入条件与输出条件之间的对应关系.对于较复杂的程序,由于存在大量的组合情况,因此,仅用静态说明组成的规格说明对于测试来说往往是不够的.必须用动态说明来补充功能说明.功能图方法是用功能图FD形式化地表示程序的功能说明,并机械地生成功能图的测试用例. 功能图模型由状态迁移图和逻辑功能模型构成.状态迁移图用于表示输入数据序列以及相应的输出数据.在状态迁移图中,由输入数据和当前状态决定输出数据和后续状态.逻辑功能模型用于表示在状态中输入条件和输出条件之间的对应关系.逻辑功能模型只适合于描述静态说明,输出数据仅由输入数据决定.测试用例则是由测试中经过的一系列状态和在每个状态中必须依靠输入/输出数据满足的一对条件组成.功能图方法其实是是一种黑盒白盒混合用例设计方法。&lt;/p&gt;
+
+&lt;p&gt;（功能图方法中,要用到逻辑覆盖和路径测试的概念和方法,其属白盒测试方法中 的内容.逻辑覆盖是以程序内部的逻辑结构为基础的测试用例设计方法.该方法要求测试人员对程序的逻辑结构有清楚的了解.由于覆盖测试的目标不同,逻辑覆盖可分为:语句覆盖,判定覆盖,判定-条件覆盖,条件组合覆盖及路径覆盖.下面我们指的逻辑覆盖和路径是功能或系统水平上的,以区别与白盒测试中的程序内部的.）&lt;/p&gt;
+
+&lt;p&gt;1.功能图&lt;/p&gt;
+
+&lt;p&gt;功能图由状态迁移图和布尔函数组成.状态迁移图用状态和迁移来描述.一个状态指出数据输入的位置（或时间）,而迁移则指明状态的改变.同时要依靠判定表或因果图表示的逻辑功能.例,一个简化的自动出纳机ATM的功能图。&lt;/p&gt;
+
+&lt;p&gt;2.测试用例生成方法&lt;/p&gt;
+
+&lt;p&gt;从功能图生成测试用例,得到的测试用例数是可接受的. 问题的关键的是如何从状态迁移图中选取测试用例. 若用节点代替状态,用弧线代替迁移,则状态迁移图就可转化成一个程序的控制流程图形式.问题就转化为程序的路径测试问题（如白盒测试）问题了.&lt;/p&gt;
+
+&lt;p&gt;3.测试用例生成规则&lt;/p&gt;
+
+&lt;p&gt;为了把状态迁移（测试路径）的测试用例与逻辑模型（局部测试用例）的测试用例组合起来,从功能图生成实用的测试用例,须定义下面的规则.在一个结构化的状态迁移（SST）中,定义三种形式的循环:顺序,选择和重复.但分辨一个状态迁移中的所有循环是有困难的.（其表示图形省略）。&lt;/p&gt;
+
+&lt;p&gt;4.从功能图生成测试用例的过程&lt;/p&gt;
+
+&lt;p&gt;1)生成局部测试用例:在每个状态中,从因果图生成局部测试用例.局部测试用例由原因值（输入数据）组合与对应的结果值（输出数据或状态）构成。&lt;/p&gt;
+
+&lt;p&gt;2)测试路径生成:利用上面的规则（三种）生成从初始状态到最后状态的测试路径。&lt;/p&gt;
+
+&lt;p&gt;3)测试用例合成:合成测试路径与功能图中每个状态中的局部测试用例.结果是初始状态到最后状态的一个状态序列,以及每个状态中输入数据与对应输出数据的组合。&lt;/p&gt;
+
+&lt;p&gt;5.测试用例的合成算法:采用条件构造树.&lt;/p&gt;
+
+&lt;h2 id=&quot;场景设计方法&quot;&gt;&lt;em&gt;场景设计方法&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;现在的软件几乎都是用事件触发来控制流程的，事件触发时的情景便形成了场景，而同一事件不同的触发顺序和处理结果就形成事件流。这种在软件设计方面的思想也可以引入到软件测试中，可以比较生动地描绘出事件触发时的情景，有利于测试设计者设计测试用例，同时使测试用例更容易理解和执行。&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">ThinkPHP漏洞分析与利用</title><link href="http://localhost:4000/_posts/2020-10-01-ThinkPHP%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%88%A9%E7%94%A8/" rel="alternate" type="text/html" title="ThinkPHP漏洞分析与利用" /><published>2020-10-01T00:00:00-04:00</published><updated>2020-10-01T00:00:00-04:00</updated><id>http://localhost:4000/_posts/ThinkPHP%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%88%A9%E7%94%A8</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-01-ThinkPHP%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%88%A9%E7%94%A8/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;基本信息&quot;&gt;&lt;em&gt;基本信息&lt;/em&gt;&lt;/h1&gt;
+
+&lt;p&gt;ThinkPHP是一个快速、兼容而且简单的轻量级国产PHP开发框架，遵循Apache 2开源协议发布，使用面向对象的开发结构和MVC模式，融合了Struts的思想和TagLib（标签库）、RoR的ORM映射和ActiveRecord模式。&lt;/p&gt;
+
+&lt;p&gt;ThinkPHP可以支持windows/Unix/Linux等服务器环境，正式版需要PHP 5.0以上版本，支持MySql、PgSQL、Sqlite多种数据库以及PDO扩展。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;版本介绍&quot;&gt;&lt;em&gt;版本介绍&lt;/em&gt;&lt;/h1&gt;
+
+&lt;h2 id=&quot;thinkphp-2x&quot;&gt;ThinkPHP 2.x&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;2009.10,官方停止维护&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ThinkPHP 2.0&lt;/li&gt;
+  &lt;li&gt;ThinkPHP 2.1&lt;/li&gt;
+  &lt;li&gt;ThinkPHP 22&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;thinkphp-3x&quot;&gt;ThinkPHP 3.x&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;2012.4 官方停止维护&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ThinkPHP 3.0.x&lt;/li&gt;
+  &lt;li&gt;ThinkPHP 3.1.x&lt;/li&gt;
+  &lt;li&gt;ThinkPHP 3.2.x&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;thinkphp-5x&quot;&gt;ThinkPHP 5.x&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;2015.12&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;ThinkPHP 5.0.x&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;核心系列&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ThinkPHP 5.1.x&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;非核心系列&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ThinkPHP 5.2.x&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;用量较小系列&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;thinkphp-6x&quot;&gt;ThinkPHP 6.x&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;2019.4&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;ThinkPHP 6.0.x&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;最新,支持php 7.1 以上&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;高危漏洞介绍&quot;&gt;&lt;em&gt;高危漏洞介绍&lt;/em&gt;&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;漏洞&lt;/th&gt;
+      &lt;th&gt;版本&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP 2.x/3.0 远程代码执行&lt;/td&gt;
+      &lt;td&gt;ThinkPHP 2.x ,3.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP 3.2.4 SQL注入&lt;/td&gt;
+      &lt;td&gt;&amp;lt;= 3.2.4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP 3.1.3 parameter 注入&lt;/td&gt;
+      &lt;td&gt;&amp;lt;=3.1.3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP 3.x update方法SQL注入&lt;/td&gt;
+      &lt;td&gt;&amp;lt;3.2.4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP 3.X orderby SQL注入&lt;/td&gt;
+      &lt;td&gt;&amp;lt;3.2.4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP 3.x where SQL注入&lt;/td&gt;
+      &lt;td&gt;3.2.4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP 3.x exp SQL注入&lt;/td&gt;
+      &lt;td&gt;&amp;lt;3.2.4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP 3.x bind SQL注入&lt;/td&gt;
+      &lt;td&gt;&amp;lt;3.2.4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP SQL注入-paraDATA&lt;/td&gt;
+      &lt;td&gt;5.0.13-5.0.15&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP SQL注入-paraArrayData&lt;/td&gt;
+      &lt;td&gt;5.1.6-7.1.7&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP SQL注入-paraWhereItem&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP SQL注入-paraOrder&lt;/td&gt;
+      &lt;td&gt;5.1.16-5.1.22&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP SQL注入-orderBy&lt;/td&gt;
+      &lt;td&gt;5.0.0-5.0.21 5.1.3-5.1.25&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP cacheFile文件包含&lt;/td&gt;
+      &lt;td&gt;5.0.0-5.0.18&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP cache远程代码执行&lt;/td&gt;
+      &lt;td&gt;5.0.0-5.0.18&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP 5 远程执行&lt;/td&gt;
+      &lt;td&gt;5.0.7-5.0.22 5.1.0-5.1.30&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ThinkPHP 6 任意文件操作&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">CSRF</title><link href="http://localhost:4000/_posts/2020-09-26-CSRF/" rel="alternate" type="text/html" title="CSRF" /><published>2020-09-26T00:00:00-04:00</published><updated>2020-09-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/CSRF</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-26-CSRF/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;CSRF&lt;/strong&gt;是&lt;strong&gt;Cross Site Request Forgery&lt;/strong&gt;的缩写，中文翻译过来是&lt;strong&gt;跨站请求伪造&lt;/strong&gt;。这个漏洞往往能给用户带来巨大的损失，&lt;strong&gt;CSRF&lt;/strong&gt;在等保安全检测中，也是一个非常重要的检测项&lt;/p&gt;
@@ -805,783 +1372,4 @@ net localgroup administrators low /add
 
 &lt;h3 id=&quot;触发&quot;&gt;触发&lt;/h3&gt;
 
-&lt;p&gt;管理员点击logs按钮即可触发&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">Linux文件系统</title><link href="http://localhost:4000/_posts/2020-08-27-Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="alternate" type="text/html" title="Linux文件系统" /><published>2020-08-27T00:00:00-04:00</published><updated>2020-08-27T00:00:00-04:00</updated><id>http://localhost:4000/_posts/Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F</id><content type="html" xml:base="http://localhost:4000/_posts/2020-08-27-Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;linux文件系统&quot;&gt;linux文件系统&lt;/h1&gt;
-
-&lt;h2 id=&quot;文件系统层次分析&quot;&gt;&lt;strong&gt;文件系统层次分析&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;由上而下主要分为用户层、VFS层、文件系统层、缓存层、块设备层、磁盘驱动层、磁盘物理层&lt;/p&gt;
-
-&lt;p&gt;用户层：最上面用户层就是我们日常使用的各种程序，需要的接口主要是文件的创建、删除、打开、关闭、写、读等。&lt;/p&gt;
-
-&lt;p&gt;VFS层：我们知道Linux分为用户态和内核态，用户态请求硬件资源需要调用System Call通过内核态去实现。用户的这些文件相关操作都有对应的System Call函数接口，接口调用 VFS对应的函数。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;VFS(virtual File  System)的作用就是采用标准的Unix系统调用读写位于不同物理介质上的不同文件系统,即为各类文件系统提供了一个统一的操作界面和应用编程接口。VFS是一个可以让open()、read()、write()等系统调用不用关心底层的存储介质和文件系统类型就可以工作的粘合层。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;文件系统层：不同的文件系统实现了VFS的这些函数，通过指针注册到VFS里面。所以，用户的操作通过VFS转到各种文件系统。文件系统把文件读写命令转化为对磁盘LBA的操作，起了一个翻译和磁盘管理的作用。&lt;/p&gt;
-
-&lt;p&gt;缓存层：文件系统底下有缓存，Page Cache，加速性能。对磁盘LBA的读写数据缓存到这里。&lt;/p&gt;
-
-&lt;p&gt;块设备层：块设备接口Block Device是用来访问磁盘LBA的层级，读写命令组合之后插入到命令队列，磁盘的驱动从队列读命令执行。Linux设计了电梯算法等对很多LBA的读写进行优化排序，尽量把连续地址放在一起。&lt;/p&gt;
-
-&lt;p&gt;磁盘驱动层：磁盘的驱动程序把对LBA的读写命令转化为各自的协议，比如变成ATA命令，SCSI命令，或者是自己硬件可以识别的自定义命令，发送给磁盘控制器。Host Based SSD甚至在块设备层和磁盘驱动层实现了FTL，变成对Flash芯片的操作。&lt;/p&gt;
-
-&lt;p&gt;磁盘物理层：读写物理数据到磁盘介质。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/文件系统.png&quot; alt=&quot;文件系统&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;文件系统结构与工作原理主要以ext4为例&quot;&gt;&lt;strong&gt;文件系统结构与工作原理（主要以ext4为例）&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;我们都知道，windows文件系统主要有fat、ntfs等，而linux文件系统则种类多的很，主要有VFS做了一个软件抽象层，向上提供文件操作接口，向下提供标准接口供不同文件系统对接，下面主要就以EXT4文件系统为例，讲解下文件系统结构与工作原理：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/文件系统2.png&quot; alt=&quot;文件系统2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/文件系统3.png&quot; alt=&quot;文件系统3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;上面两个图大体呈现了ext4文件系统的结构，从中也相信能够初步的领悟到文件系统读写的逻辑过程。下面对上图里边的构成元素做个简单的讲解：&lt;/p&gt;
-
-&lt;p&gt;引导块：为磁盘分区的第一个块，记录文件系统分区的一些信息，，引导加载当前分区的程序和数据被保存在这个块中。一般占用2kB，&lt;/p&gt;
-
-&lt;p&gt;超级块：&lt;/p&gt;
-
-&lt;p&gt;超级块用于存储文件系统全局的配置参数(譬如：块大小，总的块数和inode数)和动态信息(譬如：当前空闲块数和inode数)，其处于文件系统开始位置的1k处，所占大小为1k。为了系统的健壮性，最初每个块组都有超级块和组描述符表(以下将用GDT)的一个拷贝，但是当文件系统很大时，这样浪费了很多块(尤其是GDT占用的块多)，后来采用了一种稀疏的方式来存储这些拷贝，只有块组号是3, 5 ,7的幂的块组(譬如说1,3,5,7,9,25,49…)才备份这个拷贝。通常情况下，只有主拷贝(第0块块组)的超级块信息被文件系统使用，其它拷贝只有在主拷贝被破坏的情况下才使用。&lt;/p&gt;
-
-&lt;p&gt;块组描述符：&lt;/p&gt;
-
-&lt;p&gt;GDT用于存储块组描述符，其占用一个或者多个数据块，具体取决于文件系统的大小。它主要包含块位图，inode位图和inode表位置，当前空闲块数，inode数以及使用的目录数(用于平衡各个块组目录数)，具体定义可以参见ext3_fs.h文件中struct ext3_group_desc。每个块组都对应这样一个描述符，目前该结构占用32个字节，因此对于块大小为4k的文件系统来说，每个块可以存储128个块组描述符。由于GDT对于定位文件系统的元数据非常重要，因此和超级块一样，也对其进行了备份。GDT在每个块组(如果有备份)中内容都是一样的，其所占块数也是相同的。从上面的介绍可以看出块组中的元数据譬如块位图，inode位图,inode表其位置不是固定的，当然默认情况下，文件系统在创建时其位置在每个块组中都是一样的，如图2所示(假设按照稀疏方式存储，且n不是3,5,7的幂)&lt;/p&gt;
-
-&lt;p&gt;块组：&lt;/p&gt;
-
-&lt;p&gt;每个块组包含一个块位图块，一个 inode 位图块，一个或多个块用于描述 inode 表和用于存储文件数据的数据块，除此之外，还有可能包含超级块和所有块组描述符表(取决于块组号和文件系统创建时使用的参数)。下面将对这些元数据作一些简要介绍。&lt;/p&gt;
-
-&lt;p&gt;块位图：&lt;/p&gt;
-
-&lt;p&gt;块位图用于描述该块组所管理的块的分配状态。如果某个块对应的位未置位，那么代表该块未分配，可以用于存储数据；否则，代表该块已经用于存储数据或者该块不能够使用(譬如该块物理上不存在)。由于块位图仅占一个块，因此这也就决定了块组的大小。&lt;/p&gt;
-
-&lt;p&gt;Inode位图：&lt;/p&gt;
-
-&lt;p&gt;Inode位图用于描述该块组所管理的inode的分配状态。我们知道inode是用于描述文件的元数据，每个inode对应文件系统中唯一的一个号，如果inode位图中相应位置位，那么代表该inode已经分配出去；否则可以使用。由于其仅占用一个块，因此这也限制了一个块组中所能够使用的最大inode数量。&lt;/p&gt;
-
-&lt;p&gt;Inode表：&lt;/p&gt;
-
-&lt;p&gt;Inode表用于存储inode信息。它占用一个或多个块(为了有效的利用空间，多个inode存储在一个块中)，其大小取决于文件系统创建时的参数，由于inode位图的限制，决定了其最大所占用的空间。&lt;/p&gt;
-
-&lt;p&gt;以上这几个构成元素所处的磁盘块成为文件系统的元数据块，剩余的部分则用来存储真正的文件内容，称为数据块，而数据块其实也包含数据和目录。&lt;/p&gt;
-
-&lt;p&gt;了解了文件系统的结构后，接下来我们来看看操作系统是如何读取一个文件的：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/读取文件.png&quot; alt=&quot;读取文件&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;大体过程如下：&lt;/p&gt;
-
-&lt;p&gt;1、根据文件所在目录的inode信息，找到目录文件对应数据块&lt;/p&gt;
-
-&lt;p&gt;2、根据文件名从数据块中找到对应的inode节点信息&lt;/p&gt;
-
-&lt;p&gt;3、从文件inode节点信息中找到文件内容所在数据块块号&lt;/p&gt;
-
-&lt;p&gt;4、读取数据块内容&lt;/p&gt;
-
-&lt;p&gt;到这里，相信很多人会有一个疑问，我们知道一个文件只有一个Inode节点来存放它的属性信息，那么你可能会想如果一个大文件，那它的block一定是多个的，且可能不连续的，那么inode怎么来表示呢,下面的图告诉你答案:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/inode.png&quot; alt=&quot;inode&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;也就是说，如果文件内容太大，对应数据块数量过多，inode节点本身提供的存储空间不够，会使用其他的间接数据块来存储数据块位置信息，最多可以有三级寻址结构。&lt;/p&gt;
-
-&lt;p&gt;到这里，应该都已经非常清楚文件读取的过程了，那么下面再抛出两个疑问：&lt;/p&gt;
-
-&lt;p&gt;1、文件的拷贝、剪切的底层过程是怎样的？&lt;/p&gt;
-
-&lt;p&gt;2、软连接和硬连接分别是如何实现的？&lt;/p&gt;
-
-&lt;p&gt;下面来结合stat命令动手操作一下，便知真相：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/stat1.png&quot; alt=&quot;stat1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;1）拷贝文件：创建一个新的inode节点，并且拷贝数据块内容&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/stat2.png&quot; alt=&quot;stat2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2）剪切文件：同个分区里边mv，inode节点不变，只是更新目录文件对应数据块里边的文件名和inode对应关系；跨分区mv，则跟拷贝一个道理，需要创建新的inode，因为inode节点不同分区是不能共享的。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/stat3.png&quot; alt=&quot;stat3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3）软连接：创建软连接会创建一个新的inode节点，其对应数据块内容存储所链接的文件名信息，这样原文件即便删除了，重新建立一个同名的文件，软连接依然能够生效。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/stat4.png&quot; alt=&quot;stat4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;4)硬链接：创建硬链接，并不会新建inode节点，只是links加1，还有再目录文件对应数据块上增加一条文件名和inode对应关系记录；只有将硬链接和原文件都删除之后，文件才会真正删除，即links为0才真正删除。&lt;/p&gt;
-
-&lt;h2 id=&quot;文件顺序读写和随机读写&quot;&gt;&lt;strong&gt;文件顺序读写和随机读写&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;从前面文章了解了磁盘工作原理之后，也已经明白了为什么文件随机读写速度会比顺序读写差很多，这个问题在windows里边更加明显，为什么呢？究其原因主要与文件系统工作机制有关，fat和ntfs文件系统设计上，每个文件所处的位置相对连续甚至紧靠在一起，这样没有为每个文件留下足够的扩展空间，因此容易产生磁盘碎片，用过windows系统的应该也知道，windows磁盘分区特别提供了磁盘碎片整理的高级功能&lt;/p&gt;
-
-&lt;p&gt;那回过来，看看linux 文件系统ext4,都说linux不需要考虑磁盘碎片，究竟是怎么回事？&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;主要是因为Linux的文件系统会将文件分散在整个磁盘，在文件之间留有大量的自由空间，而不是像Windows那样将文件一个接一个的放置。&lt;/strong&gt;当一个文件被编辑了并且变大了，一般都会有足够的自由空间来保存文件。如果碎片真的产生了，文件系统就会尝试在日常使用中将文件移动来减少碎片，所以不需要专门的碎片整理程序。但是，如果磁盘空间占用已经快满了，那碎片是不可避免的，文件系统的设计本来就是用来满足正常情况下使用的。如果磁盘空间不够，那要么就是数据冗余了，要么就该换容量更大的磁盘。你可以使用fsck命令来检测一下一个Linux文件系统的碎片化程度，只需要在输出中查看非连续i节点个数（non-contiguous inodes）就可以了。&lt;/p&gt;</content><author><name></name></author><category term="操作系统" /><summary type="html">[toc]</summary></entry><entry><title type="html">iptables</title><link href="http://localhost:4000/_posts/2020-08-26-iptables/" rel="alternate" type="text/html" title="iptables" /><published>2020-08-26T00:00:00-04:00</published><updated>2020-08-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/iptables</id><content type="html" xml:base="http://localhost:4000/_posts/2020-08-26-iptables/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;基础概念&quot;&gt;基础概念&lt;/h1&gt;
-
-&lt;p&gt;从逻辑上讲。防火墙可以大体分为主机防火墙和网络防火墙。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;主机防火墙：针对于单个主机进行防护。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;网络防火墙：往往处于网络入口或边缘，针对于网络入口进行防护，服务于防火墙背后的本地局域网。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;网络防火墙和主机防火墙并不冲突，可以理解为，网络防火墙主外（集体）， 主机防火墙主内（个人）。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;从物理上讲，防火墙可以分为硬件防火墙和软件防火墙。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;硬件防火墙：在硬件级别实现部分防火墙功能，另一部分功能基于软件实现，性能高，成本高。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;软件防火墙：应用软件处理逻辑运行于通用硬件平台之上的防火墙，性能低，成本低。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;iptables介绍&quot;&gt;iptables介绍&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;iptables&lt;/strong&gt;其实不是真正的防火墙，我们可以把它理解成一个客户端代理，用户通过iptables这个代理，将用户的安全设定执行到对应的”安全框架”中，这个”安全框架”才是真正的防火墙，这个框架的名字叫&lt;strong&gt;netfilter&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;netfilter才是防火墙真正的安全框架（framework），netfilter位于内核空间。&lt;/p&gt;
-
-&lt;p&gt;iptables其实是一个命令行工具，位于用户空间，我们用这个工具操作真正的框架。&lt;/p&gt;
-
-&lt;p&gt;netfilter/iptables（下文中简称为iptables）组成Linux平台下的包过滤防火墙，与大多数的Linux软件一样，这个包过滤防火墙是免费的，它可以代替昂贵的商业防火墙解决方案，完成封包过滤、封包重定向和网络地址转换（NAT）等功能。&lt;/p&gt;
-
-&lt;p&gt;Netfilter是Linux操作系统核心层内部的一个数据包处理模块，它具有如下功能：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;网络地址转换(Network Address Translate)&lt;/li&gt;
-  &lt;li&gt;数据包内容修改&lt;/li&gt;
-  &lt;li&gt;数据包过滤的防火墙功能&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;iptables基础&quot;&gt;iptables基础&lt;/h1&gt;
-
-&lt;p&gt;我们知道iptables是按照规则来办事的，我们就来说说规则（rules），规则其实就是网络管理员预定义的条件，规则一般的定义为”如果数据包头符合这样的条件，就这样处理这个数据包”。规则存储在内核空间的信息包过滤表中，这些规则分别指定了源地址、目的地址、传输协议（如TCP、UDP、ICMP）和服务类型（如HTTP、FTP和SMTP）等。当数据包与规则匹配时，iptables就根据规则所定义的方法来处理这些数据包，如放行（accept）、拒绝（reject）和丢弃（drop）等。配置防火墙的主要工作就是添加、修改和删除这些规则。&lt;/p&gt;
-
-&lt;p&gt;当客户端访问服务器的web服务时，客户端发送报文到网卡，而tcp/ip协议栈是属于内核的一部分，所以，客户端的信息会通过内核的TCP协议传输到用户空间中的web服务中，而此时，客户端报文的目标终点为web服务所监听的套接字（IP：Port）上，当web服务需要响应客户端请求时，web服务发出的响应报文的目标终点则为客户端，这个时候，web服务所监听的IP与端口反而变成了原点，我们说过，netfilter才是真正的防火墙，它是内核的一部分，所以，如果我们想要防火墙能够达到”防火”的目的，则需要在内核中设置关卡，所有进出的报文都要通过这些关卡，经过检查后，符合放行条件的才能放行，符合阻拦条件的则需要被阻止，于是，就出现了input关卡和output关卡，而这些关卡在iptables中不被称为”关卡”,而被称为”链”。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/iptables1.png&quot; alt=&quot;iptables1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;其实我们上面描述的场景并不完善，因为客户端发来的报文访问的目标地址可能并不是本机，而是其他服务器，当本机的内核支持IP_FORWARD时，我们可以将报文转发给其他服务器，所以，这个时候，我们就会提到iptables中的其他”关卡”，也就是其他”链”，他们就是  “路由前”、”转发”、”路由后”，他们的英文名是&lt;/p&gt;
-
-&lt;p&gt;PREROUTING、FORWARD、POSTROUTING&lt;/p&gt;
-
-&lt;p&gt;也就是说，当我们启用了防火墙功能时，报文需要经过如下关卡，也就是说，根据实际情况的不同，报文经过”链”可能不同。如果报文需要转发，那么报文则不会经过input链发往用户空间，而是直接在内核空间中经过forward链和postrouting链转发出去的。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/iptables2.png&quot; alt=&quot;iptables2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;所以，根据上图，我们能够想象出某些常用场景中，报文的流向：&lt;/p&gt;
-
-&lt;p&gt;到本机某进程的报文：PREROUTING –&amp;gt; INPUT&lt;/p&gt;
-
-&lt;p&gt;由本机转发的报文：PREROUTING –&amp;gt; FORWARD –&amp;gt; POSTROUTING&lt;/p&gt;
-
-&lt;p&gt;由本机的某进程发出报文（通常为响应报文）：OUTPUT –&amp;gt; POSTROUTING&lt;/p&gt;
-
-&lt;h2 id=&quot;链的概念&quot;&gt;链的概念&lt;/h2&gt;
-
-&lt;p&gt;现在，我们想象一下，这些”关卡”在iptables中为什么被称作”链”呢？我们知道，防火墙的作用就在于对经过的报文匹配”规则”，然后执行对应的”动作”,所以，当报文经过这些关卡的时候，则必须匹配这个关卡上的规则，但是，这个关卡上可能不止有一条规则，而是有很多条规则，当我们把这些规则串到一个链条上的时候，就形成了”链”,所以，我们把每一个”关卡”想象成如下图中的模样  ，这样来说，把他们称为”链”更为合适，每个经过这个”关卡”的报文，都要将这条”链”上的所有规则匹配一遍，如果有符合条件的规则，则执行规则对应的动作。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/iptables3.png&quot; alt=&quot;iptables3&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;表的概念&quot;&gt;表的概念&lt;/h2&gt;
-
-&lt;p&gt;我们再想想另外一个问题，我们对每个”链”上都放置了一串规则，但是这些规则有些很相似，比如，A类规则都是对IP或者端口的过滤，B类规则是修改报文，那么这个时候，我们是不是能把实现相同功能的规则放在一起呢，必须能的。&lt;/p&gt;
-
-&lt;p&gt;我们把具有相同功能的规则的集合叫做”表”，所以说，不同功能的规则，我们可以放置在不同的表中进行管理，而iptables已经为我们定义了4种表，每种表对应了不同的功能，而我们定义的规则也都逃脱不了这4种功能的范围，所以，学习iptables之前，我们必须先搞明白每种表 的作用。&lt;/p&gt;
-
-&lt;p&gt;iptables为我们提供了如下规则的分类，或者说，iptables为我们提供了如下”表”&lt;/p&gt;
-
-&lt;p&gt;filter表：负责过滤功能，防火墙；内核模块：iptables_filter&lt;/p&gt;
-
-&lt;p&gt;nat表：network address translation，网络地址转换功能；内核模块：iptable_nat&lt;/p&gt;
-
-&lt;p&gt;mangle表：拆解报文，做出修改，并重新封装 的功能；iptable_mangle&lt;/p&gt;
-
-&lt;p&gt;raw表：关闭nat表上启用的连接追踪机制；iptable_raw&lt;/p&gt;
-
-&lt;p&gt;也就是说，我们自定义的所有规则，都是这四种分类中的规则，或者说，所有规则都存在于这4张”表”中。&lt;/p&gt;
-
-&lt;h2 id=&quot;表链关系&quot;&gt;表链关系&lt;/h2&gt;
-
-&lt;p&gt;但是我们需要注意的是，某些”链”中注定不会包含”某类规则”，就像某些”关卡”天生就不具备某些功能一样，比如，A”关卡”只负责打击陆地敌人，没有防空能力，B”关卡”只负责打击空中敌人，没有防御步兵的能力，C”关卡”可能比较NB，既能防空，也能防御陆地敌人，D”关卡”最屌，海陆空都能防。&lt;/p&gt;
-
-&lt;p&gt;那让我们来看看，每个”关卡”都有哪些能力，或者说，让我们看看每个”链”上的规则都存在于哪些”表”中。&lt;/p&gt;
-
-&lt;p&gt;我们还是以图为例，先看看prerouting”链”上的规则都存在于哪些表中。&lt;/p&gt;
-
-&lt;p&gt;注意：下图只用于说明prerouting链上的规则存在于哪些表中，并没有描述表的顺序。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/iptables4.png&quot; alt=&quot;iptables4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这幅图是什么意思呢？它的意思是说，prerouting”链”只拥有nat表、raw表和mangle表所对应的功能，所以，prerouting中的规则只能存放于nat表、raw表和mangle表中。&lt;/p&gt;
-
-&lt;p&gt;那么，根据上述思路，我们来总结一下，每个”关卡”都拥有什么功能，&lt;/p&gt;
-
-&lt;p&gt;或者说，每个”链”中的规则都存在于哪些”表”中。&lt;/p&gt;
-
-&lt;p&gt;PREROUTING    的规则可以存在于：raw表，mangle表，nat表。&lt;/p&gt;
-
-&lt;p&gt;INPUT      的规则可以存在于：mangle表，filter表，（centos7中还有nat表，centos6中没有）。&lt;/p&gt;
-
-&lt;p&gt;FORWARD     的规则可以存在于：mangle表，filter表。&lt;/p&gt;
-
-&lt;p&gt;OUTPUT     的规则可以存在于：raw表mangle表，nat表，filter表。&lt;/p&gt;
-
-&lt;p&gt;POSTROUTING    的规则可以存在于：mangle表，nat表。&lt;/p&gt;
-
-&lt;p&gt;但是，&lt;strong&gt;我们在实际的使用过程中，往往是通过”表”作为操作入&lt;/strong&gt;&lt;strong&gt;口，对规则进行定义的&lt;/strong&gt;，之所以按照上述过程介绍iptables，是因为从”关卡”的角度更容易从入门的角度理解，但是为了以便在实际使用的时候，更加顺畅的理解它们，此处我们还要将各”表”与”链”的关系罗列出来，&lt;/p&gt;
-
-&lt;p&gt;表（功能）&amp;lt;–&amp;gt;  链（钩子）：&lt;/p&gt;
-
-&lt;p&gt;raw   表中的规则可以被哪些链使用：PREROUTING，OUTPUT&lt;/p&gt;
-
-&lt;p&gt;mangle  表中的规则可以被哪些链使用：PREROUTING，INPUT，FORWARD，OUTPUT，POSTROUTING&lt;/p&gt;
-
-&lt;p&gt;nat   表中的规则可以被哪些链使用：PREROUTING，OUTPUT，POSTROUTING（centos7中还有INPUT，centos6中没有）&lt;/p&gt;
-
-&lt;p&gt;filter  表中的规则可以被哪些链使用：INPUT，FORWARD，OUTPUT&lt;/p&gt;
-
-&lt;p&gt;其实我们还需要注意一点，因为数据包经过一个”链”的时候，会将当前链的所有规则都匹配一遍，但是匹配时总归要有顺序，我们应该一条一条的去匹配，而且我们说过，相同功能类型的规则会汇聚在一张”表”中，那么，哪些”表”中的规则会放在”链”的最前面执行呢，这时候就需要有一个优先级的问题，我们还拿prerouting”链”做图示。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/iptables5.png&quot; alt=&quot;iptables5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;prerouting链中的规则存放于三张表中，而这三张表中的规则执行的优先级如下：&lt;/p&gt;
-
-&lt;p&gt;raw –&amp;gt; mangle –&amp;gt; nat&lt;/p&gt;
-
-&lt;p&gt;但是我们知道，iptables为我们定义了4张”表”,当他们处于同一条”链”时，执行的优先级如下。&lt;/p&gt;
-
-&lt;p&gt;优先级次序（由高而低）：&lt;/p&gt;
-
-&lt;p&gt;raw –&amp;gt; mangle –&amp;gt; nat –&amp;gt; filter&lt;/p&gt;
-
-&lt;p&gt;但是我们前面说过，某些链天生就不能使用某些表中的规则，所以，4张表中的规则处于同一条链的目前只有output链，它就是传说中海陆空都能防守的关卡。&lt;/p&gt;
-
-&lt;p&gt;为了更方便的管理，我们还可以在某个表里面创建自定义链，将针对某个应用程序所设置的规则放置在这个自定义链中，但是自定义链接不能直接使用，只能被某个默认的链当做动作去调用才能起作用，我们可以这样想象，自定义链就是一段比较”短”的链子，这条”短”链子上的规则都是针对某个应用程序制定的，但是这条短的链子并不能直接使用，而是需要”焊接”在iptables默认定义链子上，才能被IPtables使用，这就是为什么默认定义的”链”需要把”自定义链”当做”动作”去引用的原因。这是后话，后面再聊，在实际使用时我们即可更加的明白。&lt;/p&gt;
-
-&lt;h1 id=&quot;数据经过防火墙的流程&quot;&gt;数据经过防火墙的流程&lt;/h1&gt;
-
-&lt;p&gt;结合上述所有的描述，我们可以将数据包通过防火墙的流程总结为下图：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/iptables6.png&quot; alt=&quot;iptables6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;我们在写Iptables规则的时候，要时刻牢记这张路由次序图，灵活配置规则。&lt;/p&gt;
-
-&lt;p&gt;我们将经常用到的对应关系重新写在此处，方便对应图例查看。&lt;/p&gt;
-
-&lt;p&gt;链的规则存放于哪些表中（从链到表的对应关系）：&lt;/p&gt;
-
-&lt;p&gt;PREROUTING  的规则可以存在于：raw表，mangle表，nat表。&lt;/p&gt;
-
-&lt;p&gt;INPUT     的规则可以存在于：mangle表，filter表，（centos7中还有nat表，centos6中没有）。&lt;/p&gt;
-
-&lt;p&gt;FORWARD    的规则可以存在于：mangle表，filter表。&lt;/p&gt;
-
-&lt;p&gt;OUTPUT    的规则可以存在于：raw表mangle表，nat表，filter表。&lt;/p&gt;
-
-&lt;p&gt;POSTROUTING  的规则可以存在于：mangle表，nat表。&lt;/p&gt;
-
-&lt;p&gt;表中的规则可以被哪些链使用（从表到链的对应关系）：&lt;/p&gt;
-
-&lt;p&gt;raw   表中的规则可以被哪些链使用：PREROUTING，OUTPUT&lt;/p&gt;
-
-&lt;p&gt;mangle  表中的规则可以被哪些链使用：PREROUTING，INPUT，FORWARD，OUTPUT，POSTROUTING&lt;/p&gt;
-
-&lt;p&gt;nat   表中的规则可以被哪些链使用：PREROUTING，OUTPUT，POSTROUTING（centos7中还有INPUT，centos6中没有）&lt;/p&gt;
-
-&lt;p&gt;filter  表中的规则可以被哪些链使用：INPUT，FORWARD，OUTPUT&lt;/p&gt;
-
-&lt;p&gt;下图中nat表在centos7中的情况就不再标明。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/iptables7.png&quot; alt=&quot;iptables7&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;规则的概念&quot;&gt;规则的概念&lt;/h1&gt;
-
-&lt;p&gt;说了一圈又说回来了，在上述描述中我们一直在提规则，可是没有细说，现在说说它。&lt;/p&gt;
-
-&lt;p&gt;先说说规则的概念，然后再通俗的解释它。&lt;/p&gt;
-
-&lt;p&gt;规则：根据指定的匹配条件来尝试匹配每个流经此处的报文，一旦匹配成功，则由规则后面指定的处理动作进行处理；&lt;/p&gt;
-
-&lt;p&gt;那么我们来通俗的解释一下什么是iptables的规则，之前打过一个比方，每条”链”都是一个”关卡”，每个通过这个”关卡”的报文都要匹配这个关卡上的规则，如果匹配，则对报文进行对应的处理，比如说，你我二人此刻就好像两个”报文”，你我二人此刻都要入关，可是城主有命，只有器宇轩昂的人才能入关，不符合此条件的人不能入关，于是守关将士按照城主制定的”规则”，开始打量你我二人，最终，你顺利入关了，而我已被拒之门外，因为你符合”器宇轩昂”的标准，所以把你”放行”了，而我不符合标准，所以没有被放行，其实，”器宇轩昂”就是一种”匹配条件”，”放行”就是一种”动作”，”匹配条件”与”动作”组成了规则。&lt;/p&gt;
-
-&lt;p&gt;了解了规则的概念，那我们来聊聊规则的组成部分,此处只是大概的将规则的结构列出，后面的文章中会单独对规则进行总结。&lt;/p&gt;
-
-&lt;p&gt;规则由匹配条件和处理动作组成。&lt;/p&gt;
-
-&lt;h2 id=&quot;匹配条件&quot;&gt;匹配条件&lt;/h2&gt;
-
-&lt;p&gt;匹配条件分为基本匹配条件与扩展匹配条件&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;基本匹配条件：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;源地址Source IP，目标地址 Destination IP&lt;/p&gt;
-
-&lt;p&gt;上述内容都可以作为基本匹配条件。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;扩展匹配条件：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;除了上述的条件可以用于匹配，还有很多其他的条件可以用于匹配，这些条件泛称为扩展条件，这些扩展条件其实也是netfilter中的一部分，只是以模块的形式存在，如果想要使用这些条件，则需要依赖对应的扩展模块。&lt;/p&gt;
-
-&lt;p&gt;源端口Source Port, 目标端口Destination Port&lt;/p&gt;
-
-&lt;p&gt;上述内容都可以作为扩展匹配条件&lt;/p&gt;
-
-&lt;h2 id=&quot;处理动作&quot;&gt;&lt;strong&gt;处理动作&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;处理动作在iptables中被称为target（这样说并不准确，我们暂且这样称呼），动作也可以分为基本动作和扩展动作。&lt;/p&gt;
-
-&lt;p&gt;此处列出一些常用的动作，之后的文章会对它们进行详细的示例与总结：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;ACCEPT&lt;/strong&gt;：允许数据包通过。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;DROP&lt;/strong&gt;：直接丢弃数据包，不给任何回应信息，这时候客户端会感觉自己的请求泥牛入海了，过了超时时间才会有反应。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;REJECT&lt;/strong&gt;：拒绝数据包通过，必要时会给数据发送端一个响应的信息，客户端刚请求就会收到拒绝的信息。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;SNAT&lt;/strong&gt;：源地址转换，解决内网用户用同一个公网地址上网的问题。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;MASQUERADE&lt;/strong&gt;：是SNAT的一种特殊形式，适用于动态的、临时会变的ip上。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;DNAT&lt;/strong&gt;：目标地址转换。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;REDIRECT&lt;/strong&gt;：在本机做端口映射。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;LOG&lt;/strong&gt;：在/var/log/messages文件中记录日志信息，然后将数据包传递给下一条规则，也就是说除了记录以外不对数据包做任何其他操作，仍然让下一条规则去匹配。&lt;/p&gt;
-
-&lt;h1 id=&quot;配置&quot;&gt;配置&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;➜  ~ iptables --help
-iptables v1.6.1
-Usage: iptables -[ACD] chain rule-specification [options]
-       iptables -I chain [rulenum] rule-specification [options]
-       iptables -R chain rulenum rule-specification [options]
-       iptables -D chain rulenum [options]
-       iptables -[LS] [chain [rulenum]] [options]
-       iptables -[FZ] [chain] [options]
-       iptables -[NX] chain
-       iptables -E old-chain-name new-chain-name
-       iptables -P chain target [options]
-       iptables -h (print this help information)
-Commands:
-Either long or short options are allowed.
-  --append  -A chain		Append to chain
-  --check   -C chain		Check for the existence of a rule
-  --delete  -D chain		Delete matching rule from chain
-  --delete  -D chain rulenum
-				Delete rule rulenum (1 = first) from chain
-  --insert  -I chain [rulenum]
-				Insert in chain as rulenum (default 1=first)
-  --replace -R chain rulenum
-				Replace rule rulenum (1 = first) in chain
-  --list    -L [chain [rulenum]]
-				List the rules in a chain or all chains
-  --list-rules -S [chain [rulenum]]
-				Print the rules in a chain or all chains
-  --flush   -F [chain]		Delete all rules in  chain or all chains
-  --zero    -Z [chain [rulenum]]
-				Zero counters in chain or all chains
-  --new     -N chain		Create a new user-defined chain
-  --delete-chain
-            -X [chain]		Delete a user-defined chain
-  --policy  -P chain target
-				Change policy on chain to target
-  --rename-chain
-            -E old-chain new-chain
-				Change chain name, (moving any references)
-Options:
-    --ipv4	-4		Nothing (line is ignored by ip6tables-restore)
-    --ipv6	-6		Error (line is ignored by iptables-restore)
-[!] --protocol	-p proto	protocol: by number or name, eg. `tcp'
-[!] --source	-s address[/mask][...]
-				source specification
-[!] --destination -d address[/mask][...]
-				destination specification
-[!] --in-interface -i input name[+]
-				network interface name ([+] for wildcard)
- --jump	-j target
-				target for rule (may load target extension)
-  --goto      -g chain
-                              jump to chain with no return
-  --match	-m match
-				extended match (may load extension)
-  --numeric	-n		numeric output of addresses and ports
-[!] --out-interface -o output name[+]
-				network interface name ([+] for wildcard)
-  --table	-t table	table to manipulate (default: `filter')
-  --verbose	-v		verbose mode
-  --wait	-w [seconds]	maximum wait to acquire xtables lock before give up
-  --wait-interval -W [usecs]	wait time to try to acquire xtables lock
-				default is 1 second
-  --line-numbers		print line numbers when listing
-  --exact	-x		expand numbers (display exact values)
-[!] --fragment	-f		match second or further fragments only
-  --modprobe=&amp;lt;command&amp;gt;		try to insert modules using this command
-  --set-counters PKTS BYTES	set the counter during insert/append
-[!] --version	-V		print package version.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;常用命令&quot;&gt;常用命令&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;iptables -A 将一个规则添加到链末尾&lt;/li&gt;
-  &lt;li&gt;iptables -D 将指定的链中删除规则&lt;/li&gt;
-  &lt;li&gt;iptables -F 将指定的链中删除所有规则&lt;/li&gt;
-  &lt;li&gt;iptables -I 将在指定链的指定编号位置插入一个规则&lt;/li&gt;
-  &lt;li&gt;iptables -L 列出指定链中所有规则&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;iptables -t nat -L 列出所有NAT链中所有规则&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;iptables -N 建立用户定义链&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;iptables -X 删除用户定义链&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;iptables -P 修改链的默认设置，如将iptables -P INPUT DROP (将INPUT链设置为DROP)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;常见设置参数&quot;&gt;常见设置参数&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;–dport 指定目标TCP/IP端口 如 –dport 80&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;–sport 指定源TCP/IP端口 如 –sport 80&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;-p tcp 指定协议为tcp&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;-p icmp 指定协议为ICMP&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;-p udp 指定协议为UDP&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;-j DROP 拒绝&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;-j ACCEPT 允许&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;-j REJECT 拒绝并向发出消息的计算机发一个消息&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;-j LOG 在/var/log/messages中登记分组匹配的记录&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;-m mac –mac 绑定MAC地址&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;-m limit –limit 1/s 1/m 设置时间策列&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;-s 10.10.0.0或10.10.0.0/16 指定源地址或地址段&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;-d 10.10.0.0或10.10.0.0/16 指定目标地址或地址段&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;-s ! 10.10.0.0 指定源地址以外的&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;iptables配置文件&quot;&gt;&lt;strong&gt;iptables配置文件&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;配置文件位置： &lt;code&gt;/etc/sysconfig/iptables&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;iptables服务命令w&quot;&gt;&lt;strong&gt;iptables服务命令&lt;/strong&gt;w&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;-- 启动服务
-# /etc/init.d/iptables start 
-# service iptables start
-
--- 停止服务
-# /etc/init.d/iptables stop
-# service iptables stop
-
--- 重启服务
-# /etc/init.d/iptables restart
-# service iptables restart
-
--- 保存设置
-# /etc/init.d/iptables save
-# service iptables save
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;配置filter表防火墙&quot;&gt;配置Filter表防火墙&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;查看iptables的配置信息&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;iptables -L -n
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;清除原有防火墙规则&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;iptables -F
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;清除预设表filter中使用者自定链中的规则&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;iptables  -X
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;保存防火墙设置&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;service iptables save
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;设定预设规则&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;-- 请求接入包丢弃
-iptables -p INPUT DROP
--- 接受响应数据包
-iptables -p OUTPUT ACCEPT
--- 转发数据包丢弃 
- iptables -p FORWARD DROP
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;添加防火墙规则&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;首先添加INPUT链,INPUT链的默认规则是DROP,所以我们就写需要ACCETP(通过)的链&lt;/p&gt;
-
-&lt;h2 id=&quot;开启ssh服务端口&quot;&gt;&lt;strong&gt;开启SSH服务端口&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bashcsharp&quot;&gt;[root@tp ~]# iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-[root@tp ~]# iptables -A OUTPUT -p tcp --sport 22 -j ACCEPT 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;注:如果在预设设置把OUTPUT设置成DROP策略的话，就需要设置OUTPUT规则，否则无法进行SSH连接。&lt;/p&gt;
-
-&lt;h2 id=&quot;开启web服务端口&quot;&gt;&lt;strong&gt;开启Web服务端口&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bashcsharp&quot;&gt;[root@tp ~]# iptables -A OUTPUT -p tcp --sport 80 -j ACCEPT
-[root@tp ~]# iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;开启邮件服务的25110端口&quot;&gt;&lt;strong&gt;开启邮件服务的25、110端口&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]# iptables -A INPUT -p tcp --dport 110 -j ACCEPT
-[root@tp ~]# iptables -A INPUT -p tcp --dport 25 -j ACCEPT
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;开启ftp服务的21端口&quot;&gt;&lt;strong&gt;开启FTP服务的21端口&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]# iptables -A INPUT -p tcp --dport 21 -j ACCEPT
-[root@tp ~]# iptables -A INPUT -p tcp --dport 20 -j ACCEPT
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;开启dns服务的53端口&quot;&gt;&lt;strong&gt;开启DNS服务的53端口&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]# iptables -A INPUT -p tcp --dport 53 -j ACCEPT
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;设置icmp服务&quot;&gt;&lt;strong&gt;设置icmp服务&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]# iptables -A OUTPUT -p icmp -j ACCEPT (OUTPUT设置成DROP的话)
-[root@tp ~]# iptables -A INPUT -p icmp -j ACCEPT    (INPUT设置成DROP的话)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;允许loopback&quot;&gt;&lt;strong&gt;允许loopback&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;不然会导致DNS无法正常关闭等问题&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]# IPTABLES -A INPUT -i lo -p all -j ACCEPT 
-(如果是INPUT DROP)
-[root@tp ~]# IPTABLES -A OUTPUT -o lo -p all -j ACCEPT
-(如果是OUTPUT DROP)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;减少不安全的端口连接&quot;&gt;&lt;strong&gt;减少不安全的端口连接&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]# iptables -A OUTPUT -p tcp --sport 31337 -j DROP
-[root@tp ~]# iptables -A OUTPUT -p tcp --dport 31337 -j DROP
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;说明：有些特洛伊木马会扫描端口31337到31340(即黑客语言中的 elite 端口)上的服务。既然合法服务都不使用这些非标准端口来通信,阻塞这些端口能够有效地减少你的网络上可能被感染的机器和它们的远程主服务器进行独立通信的机会。此外，其他端口也一样,像:31335、27444、27665、20034 NetBus、9704、137-139（smb）,2049(NFS)端口也应被禁止。&lt;/p&gt;
-
-&lt;h2 id=&quot;只允许某台主机或某个网段进行ssh连接&quot;&gt;&lt;strong&gt;只允许某台主机或某个网段进行SSH连接&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;只允许192.168.0.3的机器进行SSH连接&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-css&quot;&gt;[root@tp ~]# iptables -A INPUT -s 192.168.0.3 -p tcp --dport 22 -j ACCEPT
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果允许或限制一段IP地址可用&lt;code&gt;192.168.0.0/24&lt;/code&gt;表示192.168.0.1-255端的所有IP, 24表示子网掩码数。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]# iptables -A INPUT -s 192.168.0.0/24 -p tcp --dport 22 -j ACCEPT
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;注意：指定某个主机或者某个网段进行SSH连接，需要在iptables配置文件中的&lt;code&gt;-A INPUT -p tcp -m tcp --dport 22 -j ACCEPT&lt;/code&gt;
- 删除，因为它表示所有地址都可以登陆.&lt;/p&gt;
-
-&lt;p&gt;如果只允许除了192.168.0.3的主机外都能进行SSH连接&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-css&quot;&gt;[root@tp ~]# iptables -A INPUT -s ! 192.168.0.3 -p tcp --dport 22 -j ACCEPT
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;开启转发功能&quot;&gt;&lt;strong&gt;开启转发功能&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;在做NAT网络配置时,FORWARD默认规则是DROP时,必须开启数据包转发功能&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]# iptables -A FORWARD -i eth0 -o eth1 -m state --state RELATED,ESTABLISHED -j ACCEPT
-[root@tp ~]# iptables -A FORWARD -i eth1 -o eh0 -j ACCEPT
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;丢弃坏的tcp包&quot;&gt;&lt;strong&gt;丢弃坏的TCP包&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]#iptables -A FORWARD -p TCP ! --syn -m state --state NEW -j DROP
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;处理ip碎片数量防止ddos攻击允许每秒100个&quot;&gt;&lt;strong&gt;处理IP碎片数量，防止DDOS攻击，允许每秒100个&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]#iptables -A FORWARD -f -m limit --limit 100/s --limit-burst 100 -j ACCEPT
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;设置icmp包过滤-允许每秒1个包-限制触发条件是10个包&quot;&gt;&lt;strong&gt;设置ICMP包过滤, 允许每秒1个包, 限制触发条件是10个包&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]#iptables -A FORWARD -p icmp -m limit --limit 1/s --limit-burst 10 -j ACCEPT
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;drop非法连接&quot;&gt;&lt;strong&gt;DROP非法连接&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]# iptables -A INPUT   -m state --state INVALID -j DROP
-[root@tp ~]# iptables -A OUTPUT  -m state --state INVALID -j DROP
-[root@tp ~]# iptables -A FORWARD -m state --state INVALID -j DROP
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;允许所有已经建立的和相关的连接&quot;&gt;&lt;strong&gt;允许所有已经建立的和相关的连接&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]# iptables-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-[root@tp ~]# iptables-A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-[root@tp ~]# /etc/rc.d/init.d/iptables save
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;配置nat表防火墙&quot;&gt;配置NAT表防火墙&lt;/h2&gt;
-
-&lt;h3 id=&quot;查看本机关于nat的设置情况&quot;&gt;查看本机关于NAT的设置情况&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp rc.d]# iptables -t nat -L
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;清除nat规则&quot;&gt;清除NAT规则&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]# iptables -F -t nat
-[root@tp ~]# iptables -X -t nat
-[root@tp ~]# iptables -Z -t nat
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;添加规则&quot;&gt;添加规则&lt;/h3&gt;
-
-&lt;p&gt;添加基本的NAT地址转换，添加规则时，我们只添加DROP链，因为默认链全是ACCEPT。&lt;/p&gt;
-
-&lt;h3 id=&quot;防止外网用内网ip欺骗&quot;&gt;&lt;strong&gt;防止外网用内网IP欺骗&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp sysconfig]# iptables -t nat -A PREROUTING -i eth0 -s 10.0.0.0/8 -j DROP
-[root@tp sysconfig]# iptables -t nat -A PREROUTING -i eth0 -s 172.16.0.0/12 -j DROP
-[root@tp sysconfig]# iptables -t nat -A PREROUTING -i eth0 -s 192.168.0.0/16 -j DROP
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;禁止与21110146253的所有连接&quot;&gt;&lt;strong&gt;禁止与211.101.46.253的所有连接&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-css&quot;&gt;[root@tp ~]# iptables -t nat -A PREROUTING -d 211.101.46.253 -j DROP
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;禁用ftp21端口&quot;&gt;&lt;strong&gt;禁用FTP(21)端口&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-csharp&quot;&gt;[root@tp ~]# iptables -t nat -A PREROUTING -p tcp --dport 21 -j DROP
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;只禁用211.101.46.253地址的FTP连接,其他连接可以进行。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-css&quot;&gt;[root@tp ~]# iptables -t nat -A PREROUTING -p tcp --dport 21 -d 211.101.46.253 -j DROP
-&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry><entry><title type="html">端口</title><link href="http://localhost:4000/_posts/2020-08-06-%E7%AB%AF%E5%8F%A3/" rel="alternate" type="text/html" title="端口" /><published>2020-08-06T00:00:00-04:00</published><updated>2020-08-06T00:00:00-04:00</updated><id>http://localhost:4000/_posts/%E7%AB%AF%E5%8F%A3</id><content type="html" xml:base="http://localhost:4000/_posts/2020-08-06-%E7%AB%AF%E5%8F%A3/">&lt;blockquote&gt;
-  &lt;p&gt;一般用hydra爆破密码,用法&lt;a href=&quot;/_posts/2019-03-13-Hydra&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;端口&lt;/th&gt;
-      &lt;th&gt;服务&lt;/th&gt;
-      &lt;th&gt;漏洞&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;21&lt;/td&gt;
-      &lt;td&gt;FTP&lt;/td&gt;
-      &lt;td&gt;匿名访问,弱口令&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;22&lt;/td&gt;
-      &lt;td&gt;SSH&lt;/td&gt;
-      &lt;td&gt;弱口令&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;23&lt;/td&gt;
-      &lt;td&gt;Telnet&lt;/td&gt;
-      &lt;td&gt;弱口令&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;80&lt;/td&gt;
-      &lt;td&gt;Web&lt;/td&gt;
-      &lt;td&gt;常见Web漏洞或后台登录弱口令&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;161&lt;/td&gt;
-      &lt;td&gt;SNMP&lt;/td&gt;
-      &lt;td&gt;public弱口令&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;389&lt;/td&gt;
-      &lt;td&gt;LDAP&lt;/td&gt;
-      &lt;td&gt;匿名访问&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;443&lt;/td&gt;
-      &lt;td&gt;openssl&lt;/td&gt;
-      &lt;td&gt;心脏滴血等&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;445&lt;/td&gt;
-      &lt;td&gt;smb&lt;/td&gt;
-      &lt;td&gt;操作系统溢出漏洞&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;873&lt;/td&gt;
-      &lt;td&gt;rsync&lt;/td&gt;
-      &lt;td&gt;匿名访问，弱口令&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;</content><author><name></name></author><category term="安全" /><summary type="html">一般用hydra爆破密码,用法参考</summary></entry></feed>
+&lt;p&gt;管理员点击logs按钮即可触发&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>

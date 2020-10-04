@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>黑盒&amp;白盒测试 | lazycat</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="黑盒&amp;白盒测试" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="[toc]" />
+<meta property="og:description" content="[toc]" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-10-04-%E9%BB%91%E7%9B%92&%E7%99%BD%E7%9B%92%E6%B5%8B%E8%AF%95/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-10-04-%E9%BB%91%E7%9B%92&%E7%99%BD%E7%9B%92%E6%B5%8B%E8%AF%95/" />
+<meta property="og:site_name" content="lazycat" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-04T00:00:00-04:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-10-04-%E9%BB%91%E7%9B%92&%E7%99%BD%E7%9B%92%E6%B5%8B%E8%AF%95/","headline":"黑盒&amp;白盒测试","dateModified":"2020-10-04T00:00:00-04:00","datePublished":"2020-10-04T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-10-04-%E9%BB%91%E7%9B%92&%E7%99%BD%E7%9B%92%E6%B5%8B%E8%AF%95/"},"description":"[toc]","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1"
+/>
+<meta
+  http-equiv="content-type"
+  content="text/html; charset=utf-8"
+/>
+<link
+  rel="alternate"
+  href="/feed.xml"
+  title="RSS"
+  type="application/rss+xml"
+/>
+
+  
+  <link
+  rel="apple-touch-icon-precomposed"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+<link
+  rel="shortcut
+  icon"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/gh/poole/lanyon@v1.1.0/public/css/poole.min.css,gh/poole/lanyon@v1.1.0/public/css/lanyon.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/Dreamer-Paul/Pio@2.4/static/pio.min.css"
+/>
+<script
+  async="async"
+  src="https://cdn.jsdelivr.net/combine/gh/Dreamer-Paul/Pio@2.4/static/l2d.min.js,gh/Dreamer-Paul/Pio@2.4/static/pio.min.js"
+  onload='
+      let pio_container = document.createElement("div");
+      pio_container.classList.add("pio-container");
+      pio_container.classList.add("right");
+      pio_container.style.bottom = "-2rem";
+      pio_container.style.zIndex = "1";
+      document.body.insertAdjacentElement("beforeend", pio_container);
+      let pio_action = document.createElement("div");
+      pio_action.classList.add("pio-action");
+      pio_container.insertAdjacentElement("beforeend", pio_action);
+      let pio_canvas = document.createElement("canvas");
+      pio_canvas.id = "pio";
+      pio_canvas.style.width = "14rem";
+      pio_canvas.width = "600";
+      pio_canvas.height = "800";
+      pio_container.insertAdjacentElement("beforeend", pio_canvas);
+      let pio = new Paul_Pio({
+        "mode": "fixed",
+        "hidden": true,
+        "night": "for(let i=7; i<16; ++i) if(document.body.classList.contains(`theme-base-0`+i.toString(16))) { document.body.classList.remove(`theme-base-0`+i.toString(16)); document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16)); break; }",
+        "content": {
+          "link": ["https://jekyll-theme-WuK.wu-kan.cn"],
+          "skin": ["要换成我的朋友吗？", "让她放个假吧~"],
+          "hidden": true,
+          "custom": [{
+            "selector": "a",
+            "type": "link",
+          }, {
+            "selector": ".sidebar-toggle",
+            "text": "打开侧边栏叭~"
+          }, {
+            "selector": ".effect-info",
+            "text": "哇，你发现了什么！"
+          }, {
+            "selector": "#sidebar-search-input",
+            "text": "想搜索什么呢？很多干货哦！"
+          }, {
+            "selector": "#toc",
+            "text": "这是目录~"
+          }, {
+            "selector": ".page-title",
+            "text": "这是标题~"
+          }, {
+            "selector": ".v",
+            "text": "评论没有审核，要对自己的发言负责哦~"
+          }]
+        },
+        "model": [
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Violet/14.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"]
+      });'
+></script>
+
+  
+  <script
+  src='https://zz.bdstatic.com/linksubmit/push.js'
+  async="async"
+></script>
+
+  
+  <script
+  async="async"
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163543967-1"
+  onload="
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-163543967-1');"
+></script>
+
+  
+  <style>
+  .wrap {
+    transition-property: width,background-size,transform;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    min-height: 100%;
+    display: inline-block;
+    background-size: 100% auto;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+  }
+  @media (min-aspect-ratio: 2400/1850) {
+    .wrap {
+      background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+    }
+  }
+  .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    width: calc(100% - 14rem);
+    background-size: calc(100% - 14rem) auto;
+    transform: translateX(14rem);
+  }
+  .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    transform: translateX(0);
+  }
+</style>
+
+  
+  <style>
+  .sidebar,
+  html,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: PingFang SC, Menlo, Monaco, "Courier New", Microsoft JhengHei, monospace;
+  }
+</style>
+
+  
+  <style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+  }
+</style>
+
+  
+  <style>
+  img {
+    display: inline-block;
+    margin: 0;
+  }
+</style>
+
+  
+  <style>
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, Cyan 0%, Magenta 50%, Yellow 100%);
+  }
+</style>
+
+  
+  <style>
+  ::selection {
+    color: White;
+    background: Black;
+  }
+</style>
+
+  
+</head>
+
+<body
+  class="theme-base-07 sidebar-overlay">
+  
+  
+  
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+  <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"
+     />
+  <!-- Toggleable sidebar -->
+  <div class="sidebar" id="sidebar">
+    
+    <div class="sidebar-item">
+      <div class="effect effect-right_to_left">
+        <img class="effect-img" src="https://pic.cr173.com/up/2017-8/2017841818322084.jpg" alt="img" />
+        <div class="effect-info">
+          lazycat<br/>
+<a href="mailto:verylazycat@outlook.com">
+  <i class="fas fa-envelope"></i>
+</a>
+<a href="https://github.com/verylazycat">
+  <i class="fab fa-github"></i>
+</a>
+
+        </div>
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+      
+      <a class="sidebar-nav-item" href="/">
+        <i class="fas fa-home fa-fw"></i> 首页
+      </a>
+      
+      <a class="sidebar-nav-item" href="/comments/">
+        <i class="fas fa-comments fa-fw"></i> 留言
+      </a>
+      
+      <a class="sidebar-nav-item" href="/tags/">
+        <i class="fas fa-tags fa-fw"></i> 标签
+      </a>
+      
+      <a class="sidebar-nav-item" href="/archive/">
+        <i class="fas fa-archive fa-fw"></i> 归档
+      </a>
+      
+      <a class="sidebar-nav-item" href="/merger/">
+        <i class="fas fa-coffee fa-fw"></i> 打赏
+      </a>
+      
+    </nav>
+    <div class="sidebar-item">
+      
+      <style>
+  #sidebar-search-input {
+    background: none;
+    border: none;
+    color: White;
+    width: 100%;
+  }
+  #sidebar-search-results-container {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+<input
+  id="sidebar-search-input"
+  placeholder="搜索博文"
+/>
+<ol
+  id="sidebar-search-results-container"
+></ol>
+<script
+  src='https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.7/dest/simple-jekyll-search.min.js'
+  async='async'
+  onload='
+    SimpleJekyllSearch({
+      json: "/assets/simple-jekyll-search/search.json",
+      searchInput: document.getElementById("sidebar-search-input"),
+      resultsContainer: document.getElementById("sidebar-search-results-container"),
+      searchResultTemplate: `<li><a href="{url}">{title}</a></li>`,
+      limit: 999,
+      fuzzy: true
+    })'
+></script>
+
+      
+      
+      <style>
+  #toc {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+
+      <ol id="toc">
+  <li><a href="#%E9%BB%91%E7%9B%92%E6%B5%8B%E8%AF%95">黑盒测试</a>
+    <ol>
+      <li><a href="#%E7%AD%89%E4%BB%B7%E7%B1%BB%E5%88%92%E5%88%86%E6%96%B9%E6%B3%95">等价类划分方法</a>
+        <ol>
+          <li><a href="#%E5%AE%9A%E4%B9%89">定义</a></li>
+          <li><a href="#%E5%88%92%E5%88%86%E7%AD%89%E4%BB%B7%E7%B1%BB">划分等价类</a></li>
+          <li><a href="#%E5%88%92%E5%88%86%E7%AD%89%E4%BB%B7%E7%B1%BB%E7%9A%84%E6%A0%87%E5%87%86">划分等价类的标准</a></li>
+          <li><a href="#%E5%88%92%E5%88%86%E7%AD%89%E4%BB%B7%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95">划分等价类的方法</a></li>
+          <li><a href="#%E8%AE%BE%E8%AE%A1%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B">设计测试用例</a></li>
+        </ol>
+      </li>
+      <li><a href="#%E8%BE%B9%E7%95%8C%E5%80%BC%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95">边界值分析方法</a>
+        <ol>
+          <li><a href="#%E5%AE%9A%E4%B9%89-1">定义</a></li>
+          <li><a href="#%E4%B8%8E%E7%AD%89%E4%BB%B7%E5%88%92%E5%88%86%E7%9A%84%E5%8C%BA%E5%88%AB">与等价划分的区别</a></li>
+          <li><a href="#%E8%BE%B9%E7%95%8C%E5%80%BC%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95%E7%9A%84%E8%80%83%E8%99%91">边界值分析方法的考虑</a></li>
+          <li><a href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E8%BE%B9%E7%95%8C%E5%80%BC">常见的边界值</a></li>
+          <li><a href="#%E8%BE%B9%E7%95%8C%E5%80%BC%E5%88%86%E6%9E%90">边界值分析</a></li>
+          <li><a href="#%E5%86%85%E9%83%A8%E8%BE%B9%E7%95%8C%E5%80%BC%E5%88%86%E6%9E%90">内部边界值分析</a></li>
+        </ol>
+      </li>
+      <li><a href="#%E9%94%99%E8%AF%AF%E6%8E%A8%E6%B5%8B%E6%96%B9%E6%B3%95">错误推测方法</a>
+        <ol>
+          <li><a href="#%E5%AE%9A%E4%B9%89-2">定义</a></li>
+          <li><a href="#%E9%94%99%E8%AF%AF%E6%8E%A8%E6%B5%8B%E6%96%B9%E6%B3%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3">错误推测方法的基本思想</a></li>
+        </ol>
+      </li>
+      <li><a href="#%E5%9B%A0%E6%9E%9C%E5%9B%BE%E6%96%B9%E6%B3%95">因果图方法</a>
+        <ol>
+          <li><a href="#%E5%AE%9A%E4%B9%89-3">定义</a></li>
+          <li><a href="#%E5%9B%A0%E6%9E%9C%E5%9B%BE%E6%B3%95%E4%BA%A7%E7%94%9F%E7%9A%84%E8%83%8C%E6%99%AF">因果图法产生的背景</a></li>
+        </ol>
+      </li>
+      <li><a href="#%E5%88%A4%E5%AE%9A%E8%A1%A8%E9%A9%B1%E5%8A%A8%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95">判定表驱动分析方法</a>
+        <ol>
+          <li><a href="#%E5%AE%9A%E4%B9%89-4">定义</a></li>
+          <li><a href="#%E5%88%A4%E5%AE%9A%E8%A1%A8%E7%9A%84%E4%BC%98%E7%82%B9">判定表的优点</a></li>
+        </ol>
+      </li>
+      <li><a href="#%E6%AD%A3%E4%BA%A4%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95">正交实验设计方法</a>
+        <ol>
+          <li><a href="#%E6%AD%A5%E9%AA%A4">步骤</a></li>
+        </ol>
+      </li>
+      <li><a href="#%E5%8A%9F%E8%83%BD%E5%9B%BE%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95">功能图分析方法</a></li>
+      <li><a href="#%E5%9C%BA%E6%99%AF%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95">场景设计方法</a></li>
+    </ol>
+  </li>
+</ol>
+      
+      
+      <style>
+  .sidebar-checkbox {
+    display: none;
+  }
+  .sidebar-toggle {
+    position: fixed;
+  }
+</style>
+
+      
+      <style>
+  .effect {
+    margin: 1rem;
+    perspective: 900px;
+  }
+  .effect-info {
+    text-align: center;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    transform-style: preserve-3d;
+  }
+  .effect-img {
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+  }
+  .effect-img:before {
+    position: absolute;
+    display: block;
+  }
+  .effect-right_to_left .effect-img {
+    transform-origin: 0% 50%;
+  }
+  .effect-right_to_left:hover .effect-img {
+    transform: rotate3d(0, 1, 0, -180deg);
+  }
+</style>
+
+      
+      <div>
+  <i class="fas fa-cog fa-spin fa-fw"></i>
+  <span id="run_time_day">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>天
+  <span id="run_time_hour">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>时
+  <span id="run_time_minute">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>分
+  <span id="run_time_second">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>秒
+  <script>
+    setInterval(function (d,h,m,s,b) {
+      function setzero(i) {
+        return i < 10 ? "0" + i : i;
+      }
+      let BirthDay = new Date(b);
+      let today = new Date();
+      let timeold = (today.getTime() - BirthDay.getTime());
+      let sectimeold = timeold / 1000;
+      let secondsold = Math.floor(sectimeold);
+      let msPerDay = 24 * 60 * 60 * 1000;
+      let e_daysold = timeold / msPerDay;
+      let daysold = Math.floor(e_daysold);
+      let e_hrsold = (e_daysold - daysold) * 24;
+      let hrsold = Math.floor(e_hrsold);
+      let e_minsold = (e_hrsold - hrsold) * 60;
+      let minsold = Math.floor((e_hrsold - hrsold) * 60);
+      let seconds = Math.floor((e_minsold - minsold) * 60);
+      d.textContent = daysold;
+      h.textContent = setzero(hrsold);
+      m.textContent = setzero(minsold);
+      s.textContent = setzero(seconds);
+    },
+    1000,
+    document.getElementById("run_time_day"),
+    document.getElementById("run_time_hour"),
+    document.getElementById("run_time_minute"),
+    document.getElementById("run_time_second"),
+    "05/02/2020 11:03:56")// 这是我第一篇博客的时间
+  </script>
+</div>
+
+      
+      <div>
+  <div>
+    <i class="fas fa-eye fa-fw"></i>
+    <span id="busuanzi_value_page_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>次
+  </div>
+  <div>
+    <i class="fas fa-paw fa-fw"></i>
+    <span id="busuanzi_value_site_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>枚
+  </div>
+  <div>
+    <i class="fas fa-user-friends fa-fw"></i>
+    <span id="busuanzi_value_site_uv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>人
+  </div>
+  <script
+    src='https://cdn.jsdelivr.net/npm/busuanzi@2.3.0'
+    async='async'
+  ></script>
+</div>
+
+      
+      <div>
+  <i class="fas fa-copyright fa-fw"></i>
+  2020-2022 lazycat
+</div>
+
+      
+      <div>
+  <i class="fas fa-info-circle fa-fw"></i>
+  <a href="http://beian.miit.gov.cn">
+    蜀ICP备20011774号
+  </a>
+</div>
+
+      
+      
+    </div>
+  </div>
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the content to avoid any CSS collisions with our real content. -->
+  
+  <div class="wrap">
+    
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/katex@0.11.1/dist/katex.min.js,npm/katex@0.11.1/dist/contrib/mathtex-script-type.min.js,npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  defer="defer"
+  onload='renderMathInElement(document.body, { delimiters: [{ left: "$", right: "$", display: false }] })'
+></script>
+
+
+
+<style>
+  pre.language-mermaid,
+  code.language-mermaid {
+    display: none;
+  }
+</style>
+<script
+  src="https://cdn.jsdelivr.net/npm/mermaid@8.5.1/dist/mermaid.min.js"
+  defer="defer"
+  onload='
+    for(let x of document.getElementsByClassName("language-mermaid"))
+      if(x.nodeName=="CODE")
+      {
+        let m = document.createElement("div");
+        m.classList.add("mermaid");
+        m.textContent = x.textContent;
+        x.parentNode.insertAdjacentElement("beforebegin", m);
+      }'
+></script>
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.css,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.css,gh/PrismJS/prism-themes@1955cfef6953b3a59e66016e8a1e016b45d6cc79/themes/prism-nord.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/components/prism-core.min.js,npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js,npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.js,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.js"
+  defer="defer"
+  onload='
+    Prism.plugins.autoloader.languages_path = "https:\/\/cdn.jsdelivr.net/npm/prismjs/components/";
+    for(let x of document.getElementsByTagName("pre"))
+      x.classList.add("line-numbers");
+    Prism.plugins.toolbar.registerButton("select-code", function (env) {
+      let button = document.createElement("button");
+      button.textContent = "select this " + env.language;
+      button.addEventListener("click", function () {
+        if (document.body.createTextRange) {
+          let range = document.body.createTextRange();
+          range.moveToElementText(env.element);
+          range.select();
+        } else if (window.getSelection) {
+          let selection = window.getSelection();
+          let range = document.createRange();
+          range.selectNodeContents(env.element);
+          selection.removeAllRanges();
+            selection.addRange(range);
+        }
+      });
+      return button;
+    })'
+></script>
+
+
+
+<style>
+  pre {
+    max-height: 50vh;
+    overflow: auto;
+  }
+</style>
+
+
+<style>
+  @media (min-width: 56em) {
+    .container {
+      max-width: 66.6%;
+    }
+  }
+</style>
+
+
+<style>
+  .masthead,
+  .container.content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 .75rem rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    animation-duration: 2s;
+    animation-name: fadeIn;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+
+
+<div class="masthead">
+  <h3 class="container masthead-title">
+    
+    黑盒&白盒测试
+    <a href="/" title="Home">
+      <small>
+        lazycat
+      </small>
+    </a>
+    
+  </h3>
+</div>
+
+<div class="container content">
+  <div class="post">
+  <span class="post-date">
+    
+    <i class="fas fa-calendar-day fa-fw"></i>
+    04 Oct 2020
+    
+    
+    <i class="fas fa-file-word fa-fw"></i>
+    5165字
+    
+    
+    <i class="fas fa-clock fa-fw"></i>
+    18分
+    
+    
+    <span class="leancloud-visitors" id="/_posts/2020-10-04-%E9%BB%91%E7%9B%92&%E7%99%BD%E7%9B%92%E6%B5%8B%E8%AF%95/" data-xid="/_posts/2020-10-04-%E9%BB%91%E7%9B%92&%E7%99%BD%E7%9B%92%E6%B5%8B%E8%AF%95/" data-flag-title="黑盒&白盒测试">
+      <i class="fas fa-book-reader fa-fw"></i>
+      <span class="leancloud-visitors-count">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </span>次
+    </span>
+    
+    
+    
+    <i class="fas fa-tag fa-fw"></i>
+    安全
+    
+    
+    <br/>
+<i class="fas fa-coffee fa-fw"></i>
+<a href="/merger/">如果这篇博客帮助到你，可以请我喝一杯咖啡~</a>
+<br/>
+<i class="fab fa-creative-commons-by fa-fw"></i>
+<a
+  href="https://creativecommons.org/licenses/by/4.0/deed.zh"
+  rel="license">
+  CC BY 4.0
+</a>
+（除特别声明或转载文章外）
+
+    
+  </span>
+  <p>[toc]</p>
+
+<p>[toc]</p>
+
+<h1 id="黑盒测试"><em>黑盒测试</em></h1>
+
+<h2 id="等价类划分方法"><em>等价类划分方法</em></h2>
+
+<h3 id="定义">定义</h3>
+
+<p>是把所有可能的输入数据,即程序的输入域划分成若干部分（子集）,然后从每一个子集中选取少数具有代表性的数据作为测试用例。该方法是一种重要的,常用的黑盒测试用例设计方法。</p>
+
+<h3 id="划分等价类">划分等价类</h3>
+
+<p>等价类是指某个输入域的子集合。在该子集合中,各个输入数据对于揭露程序中的错误都是等效的，并合理地假定：测试某等价类的代表值就等于对这一类其它值的测试，因此,可以把全部输入数据合理划分为若干等价类,在每一个等价类中取一个数据作为测试的输入条件就可以用少量代表性的测试数据取得较好的测试结果。等价类划分可有两种不同的情况：有效等价类和无效等价类。</p>
+
+<ul>
+  <li>
+    <p>有效等价类</p>
+
+    <p>是指对于程序的规格说明来说是合理的、有意义的输入数据构成的集合。利用有效等价类可检验程序是否实现了规格说明中所规定的功能和性能。</p>
+  </li>
+  <li>
+    <p>无效等价类</p>
+  </li>
+</ul>
+
+<p>与有效等价类的定义恰巧相反。无效等价类指对程序的规格说明是不合理的或无意义的输入数据所构成的集合。对于具体的问题，无效等价类至少应有一个，也可能有多个。</p>
+
+<blockquote>
+  <p>设计测试用例时,要同时考虑这两种等价类。因为软件不仅要能接收合理的数据,也要能经受意外的考验，这样的测试才能确保软件具有更高的可靠性。</p>
+</blockquote>
+
+<h3 id="划分等价类的标准">划分等价类的标准</h3>
+
+<ul>
+  <li>
+    <p>完备测试、避免冗余;</p>
+  </li>
+  <li>
+    <p>划分等价类重要的是：集合的划分，划分为互不相交的一组子集，而子集的并是整个集合;</p>
+  </li>
+  <li>
+    <p>并是整个集合：完备性;</p>
+  </li>
+  <li>
+    <p>子集互不相交：保证一种形式的无冗余性;</p>
+  </li>
+  <li>
+    <p>同一类中标识（选择）一个测试用例，同一等价类中，往往处理相同，相同处理映射到”相同的执行路径”</p>
+  </li>
+</ul>
+
+<h3 id="划分等价类的方法">划分等价类的方法</h3>
+
+<ol>
+  <li>在输入条件规定了取值范围或值的个数的情况下,则可以确立一个有效等价类和两个无效等价类。如：输入值是学生成绩，范围是0～100；</li>
+  <li>在输入条件规定了输入值的集合或者规定了”必须如何”的条件的情况下,可确立一个有效等价类和一个无效等价类；</li>
+  <li>在输入条件是一个布尔量的情况下,可确定一个有效等价类和一个无效等价类</li>
+  <li>在规定了输入数据的一组值（假定n个）,并且程序要对每一个输入值分别处理的情况下,可确立n个有效等价类和一个无效等价类。</li>
+  <li>在规定了输入数据必须遵守的规则的情况下,可确立一个有效等价类（符合规则）和若干个无效等价类（从不同角度违反规则）；</li>
+  <li>在确知已划分的等价类中各元素在程序处理中的方式不同的情况下,则应再将该等价类进一步的划分为更小的等价类。</li>
+</ol>
+
+<h3 id="设计测试用例">设计测试用例</h3>
+
+<p>在确立了等价类后,可建立等价类表,列出所有划分出的等价类输入条件：有效等价类、无效等价类，然后从划分出的等价类中按以下三个原则设计测试用例：</p>
+
+<ul>
+  <li>
+    <p>为每一个等价类规定一个唯一的编号；</p>
+  </li>
+  <li>
+    <p>设计一个新的测试用例,使其尽可能多地覆盖尚未被覆盖地有效等价类,重复这一步，直到所有的有效等价类都被覆盖为止；</p>
+  </li>
+  <li>
+    <p>设计一个新的测试用例,使其仅覆盖一个尚未被覆盖的无效等价类,重复这一步，直到所有的无效等价类都被覆盖为止。</p>
+  </li>
+</ul>
+
+<h2 id="边界值分析方法"><em>边界值分析方法</em></h2>
+
+<h3 id="定义-1">定义</h3>
+
+<p>边界值分析法就是对输入或输出的边界值进行测试的一种黑盒测试方法。通常边界值分析法是作为对等价类划分法的补充，这种情况下，其测试用例来自等价类的边界。</p>
+
+<h3 id="与等价划分的区别">与等价划分的区别</h3>
+
+<ul>
+  <li>
+    <p>边界值分析不是从某等价类中随便挑一个作为代表，而是使这个等价类的每个边界都要作为测试条件。</p>
+  </li>
+  <li>
+    <p>边界值分析不仅考虑输入条件，还要考虑输出空间产生的测试情况。</p>
+  </li>
+</ul>
+
+<h3 id="边界值分析方法的考虑">边界值分析方法的考虑</h3>
+
+<p>长期的测试工作经验告诉我们，大量的错误是发生在输入或输出范围的边界上，而不是发生在输入输出范围的内部。因此针对各种边界情况设计测试用例，可以查出更多的错误。</p>
+
+<p>使用边界值分析方法设计测试用例，首先应确定边界情况。通常输入和输出等价类的边界，就是应着重测试的边界情况。应当选取正好等于，刚刚大于或刚刚小于边界的值作为测试数据，而不是选取等价类中的典型值或任意值作为测试数据。</p>
+
+<h3 id="常见的边界值">常见的边界值</h3>
+
+<ul>
+  <li>
+    <p>对16-bit 的整数而言 32767 和 -32768 是边界</p>
+  </li>
+  <li>
+    <p>屏幕上光标在最左上、最右下位置</p>
+  </li>
+  <li>
+    <p>报表的第一行和最后一行</p>
+  </li>
+  <li>
+    <p>数组元素的第一个和最后一个</p>
+  </li>
+  <li>
+    <p>循环的第 0 次、第 1 次和倒数第 2 次、最后一次</p>
+  </li>
+</ul>
+
+<h3 id="边界值分析">边界值分析</h3>
+
+<p>边界值分析使用与等价类划分法相同的划分，只是边界值分析假定错误更多地存在于划分的边界上，因此在等价类的边界上以及两侧的情况设计测试用例。</p>
+
+<blockquote>
+  <p>通常情况下，软件测试所包含的边界检验有几种类型：数字、字符、位置、重量、大小、速度、方位、尺寸、空间等。相应地，以上类型的边界值应该在：最大/最小、首位/末位、上/下、最快/最慢、最高/最低、 最短/最长、 空/满等情况下</p>
+</blockquote>
+
+<h3 id="内部边界值分析">内部边界值分析</h3>
+
+<p>在多数情况下，边界值条件是基于应用程序的功能设计而需要考虑的因素，可以从软件的规格说明或常识中得到，也是最终用户可以很容易发现问题的。然而，在测试用例设计过程中，某些边界值条件是不需要呈现给用户的，或者说用户是很难注意到的，但同时确实属于检验范畴内的边界条件，称为内部边界值条件或子边界值条件。</p>
+
+<p>内部边界值条件主要有下面几种：</p>
+
+<ul>
+  <li>数值的边界值检验：计算机是基于二进制进行工作的，因此，软件的任何数值运算都有一定的范围限制。</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>项</th>
+      <th>范围或值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>位（bit）</td>
+      <td>0或者1</td>
+    </tr>
+    <tr>
+      <td>字节（byte）</td>
+      <td>0——225</td>
+    </tr>
+    <tr>
+      <td>字（word）</td>
+      <td>0~65535（单字）或 0~4294967295（双字）</td>
+    </tr>
+    <tr>
+      <td>千（K）</td>
+      <td>1024</td>
+    </tr>
+    <tr>
+      <td>兆（M）</td>
+      <td>1048576</td>
+    </tr>
+    <tr>
+      <td>吉（G）</td>
+      <td>1073741824</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>字符的边界值检验：在计算机软件中，字符也是很重要的表示元素，其中ASCII和Unicode是常见的编码方式。下表中列出了一些常用字符对应的ASCII码值</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>字符</th>
+      <th><strong>ASCII码值</strong></th>
+      <th>字符</th>
+      <th><strong>ASCII码值</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>空 (null)</td>
+      <td>0</td>
+      <td>A</td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <td>空格 (space)</td>
+      <td>32</td>
+      <td>a</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <td>斜杠 ( / )</td>
+      <td>47</td>
+      <td>Z</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>48</td>
+      <td>z</td>
+      <td>122</td>
+    </tr>
+    <tr>
+      <td>冒号 ( : )</td>
+      <td>58</td>
+      <td>单引号 ( ‘ )</td>
+      <td>96</td>
+    </tr>
+    <tr>
+      <td>@</td>
+      <td>64</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>其它边界值检验</li>
+</ul>
+
+<p>基于边界值分析方法选择测试用例的原则</p>
+
+<p>1)如果输入条件规定了值的范围,则应取刚达到这个范围的边界的值,以及刚刚超越这个范围边界的值作为测试输入数据。</p>
+
+<p>例如，如果程序的规格说明中规定：”重量在10公斤至50公斤范围内的邮件，其邮费计算公式为……”。作为测试用例，我们应取10及50，还应取10.01,49.99,9.99及50.01等。</p>
+
+<p>2)如果输入条件规定了值的个数,则用最大个数,最小个数,比最小个数少一,比最大个数多一的数作为测试数据。</p>
+
+<p>比如，一个输入文件应包括1~255个记录，则测试用例可取1和255，还应取0及256等。</p>
+
+<p>3)将规则1）和2）应用于输出条件，即设计测试用例使输出值达到边界值及其左右的值。</p>
+
+<p>例如，某程序的规格说明要求计算出”每月保险金扣除额为0至1165.25元”，其测试用例可取0.00及1165.24、还可取一0.01及1165．26等。</p>
+
+<p>再如一程序属于情报检索系统，要求每次”最少显示1条、最多显示4条情报摘要”，这时我们应考虑的测试用例包括1和4，还应包括0和5等。</p>
+
+<p>4)如果程序的规格说明给出的输入域或输出域是有序集合,则应选取集合的第一个元素和最后一个元素作为测试用例。</p>
+
+<p>5)如果程序中使用了一个内部数据结构,则应当选择这个内部数据结构的边界上的值作为测试用例。</p>
+
+<p>6)分析规格说明,找出其它可能的边界条件。</p>
+
+<h2 id="错误推测方法"><em>错误推测方法</em></h2>
+
+<h3 id="定义-2">定义</h3>
+
+<p>基于经验和直觉推测程序中所有可能存在的各种错误, 从而有针对性的设计测试用例的方法</p>
+
+<h3 id="错误推测方法的基本思想">错误推测方法的基本思想</h3>
+
+<p>列举出程序中所有可能有的错误和容易发生错误的特殊情况,根据他们选择测试用例</p>
+
+<h2 id="因果图方法"><em>因果图方法</em></h2>
+
+<h3 id="定义-3">定义</h3>
+
+<p>是一种利用图解法分析输入的各种组合情况，从而设计测试用例的方法，它适合于检查程序输入条件的各种组合情况</p>
+
+<h3 id="因果图法产生的背景">因果图法产生的背景</h3>
+
+<p>等价类划分法和边界值分析方法都是着重考虑输入条件，但没有考虑输入条件的各种组合、输入条件之间的相互制约关系。这样虽然各种输入条件可能出错的情况已经测试到了，但多个输入条件组合起来可能出错的情况却被忽视了。</p>
+
+<p>如果在测试时必须考虑输入条件的各种组合，则可能的组合数目将是天文数字，因此必须考虑采用一种适合于描述多种条件的组合、相应产生多个动作的形式来进行测试用例的设计，这就需要利用因果图（逻辑模型）。</p>
+
+<h2 id="判定表驱动分析方法"><em>判定表驱动分析方法</em></h2>
+
+<h3 id="定义-4">定义</h3>
+
+<p>判定表是分析和表达多逻辑条件下执行不同操作的情况的工具</p>
+
+<h3 id="判定表的优点">判定表的优点</h3>
+
+<p>能够将复杂的问题按照各种可能的情况全部列举出来，简明并避免遗漏。因此，利用判定表能够设计出完整的测试用例集合。</p>
+
+<p>在一些数据处理问题当中，某些操作的实施依赖于多个逻辑条件的组合，即：针对不同逻辑条件的组合值，分别执行不同的操作。判定表很适合于处理这类问题。</p>
+
+<h2 id="正交实验设计方法"><em>正交实验设计方法</em></h2>
+
+<h3 id="步骤">步骤</h3>
+
+<p>1.提取功能说明,构造因子–状态表</p>
+
+<p>把影响实验指标的条件称为因子.而影响实验因子的条件叫因子的状态.利用正交实验设计方法来设计测试用例时,首先要根据被测试软件的规格说明书找出影响其功能实现的操作对象和外部因素,把他们当作因子,而把各个因子的取值当作状态.对软件需求规格说明中的功能要求进行划分,把整体的概要性的功能要求进行层层分解与展开,分解成具体的有相对独立性的基本的功能要求.这样就可以把被测试软件中所有的因子都确定下来,并为确定个因子的权值提供参考的依据.确定因子与状态是设计测试用例的关键.因此要求尽可能全面的正确的确定取值,以确保测试用例的设计作到完整与有效。</p>
+
+<p>2.加权筛选,生成因素分析表</p>
+
+<p>对因子与状态的选择可按其重要程度分别加权.可根据各个因子及状态的作用大小,出现频率的大小以及测试的需要,确定权值的大小。</p>
+
+<p>3.利用正交表构造测试数据集</p>
+
+<p>正交表的推导依据Galois理论（这里省略,需要时可查数理统计方面的教材）。</p>
+
+<p>利用正交实验设计方法设计测试用例,比使用等价类划分,边界值分析,因果图等方法有以下优点:节省测试工作工时；可控制生成的测试用例数量；测试用例具有一定的覆盖率。</p>
+
+<h2 id="功能图分析方法"><em>功能图分析方法</em></h2>
+
+<p>一个程序的功能说明通常由动态说明和静态说明组成.动态说明描述了输入数据的次序或转移的次序.静态说明描述了输入条件与输出条件之间的对应关系.对于较复杂的程序,由于存在大量的组合情况,因此,仅用静态说明组成的规格说明对于测试来说往往是不够的.必须用动态说明来补充功能说明.功能图方法是用功能图FD形式化地表示程序的功能说明,并机械地生成功能图的测试用例. 功能图模型由状态迁移图和逻辑功能模型构成.状态迁移图用于表示输入数据序列以及相应的输出数据.在状态迁移图中,由输入数据和当前状态决定输出数据和后续状态.逻辑功能模型用于表示在状态中输入条件和输出条件之间的对应关系.逻辑功能模型只适合于描述静态说明,输出数据仅由输入数据决定.测试用例则是由测试中经过的一系列状态和在每个状态中必须依靠输入/输出数据满足的一对条件组成.功能图方法其实是是一种黑盒白盒混合用例设计方法。</p>
+
+<p>（功能图方法中,要用到逻辑覆盖和路径测试的概念和方法,其属白盒测试方法中 的内容.逻辑覆盖是以程序内部的逻辑结构为基础的测试用例设计方法.该方法要求测试人员对程序的逻辑结构有清楚的了解.由于覆盖测试的目标不同,逻辑覆盖可分为:语句覆盖,判定覆盖,判定-条件覆盖,条件组合覆盖及路径覆盖.下面我们指的逻辑覆盖和路径是功能或系统水平上的,以区别与白盒测试中的程序内部的.）</p>
+
+<p>1.功能图</p>
+
+<p>功能图由状态迁移图和布尔函数组成.状态迁移图用状态和迁移来描述.一个状态指出数据输入的位置（或时间）,而迁移则指明状态的改变.同时要依靠判定表或因果图表示的逻辑功能.例,一个简化的自动出纳机ATM的功能图。</p>
+
+<p>2.测试用例生成方法</p>
+
+<p>从功能图生成测试用例,得到的测试用例数是可接受的. 问题的关键的是如何从状态迁移图中选取测试用例. 若用节点代替状态,用弧线代替迁移,则状态迁移图就可转化成一个程序的控制流程图形式.问题就转化为程序的路径测试问题（如白盒测试）问题了.</p>
+
+<p>3.测试用例生成规则</p>
+
+<p>为了把状态迁移（测试路径）的测试用例与逻辑模型（局部测试用例）的测试用例组合起来,从功能图生成实用的测试用例,须定义下面的规则.在一个结构化的状态迁移（SST）中,定义三种形式的循环:顺序,选择和重复.但分辨一个状态迁移中的所有循环是有困难的.（其表示图形省略）。</p>
+
+<p>4.从功能图生成测试用例的过程</p>
+
+<p>1)生成局部测试用例:在每个状态中,从因果图生成局部测试用例.局部测试用例由原因值（输入数据）组合与对应的结果值（输出数据或状态）构成。</p>
+
+<p>2)测试路径生成:利用上面的规则（三种）生成从初始状态到最后状态的测试路径。</p>
+
+<p>3)测试用例合成:合成测试路径与功能图中每个状态中的局部测试用例.结果是初始状态到最后状态的一个状态序列,以及每个状态中输入数据与对应输出数据的组合。</p>
+
+<p>5.测试用例的合成算法:采用条件构造树.</p>
+
+<h2 id="场景设计方法"><em>场景设计方法</em></h2>
+
+<p>现在的软件几乎都是用事件触发来控制流程的，事件触发时的情景便形成了场景，而同一事件不同的触发顺序和处理结果就形成事件流。这种在软件设计方面的思想也可以引入到软件测试中，可以比较生动地描绘出事件触发时的情景，有利于测试设计者设计测试用例，同时使测试用例更容易理解和执行。</p>
+
+
+</div>
+<div class="v">
+  <i class="fas fa-spinner fa-pulse"></i>
+</div>
+<script
+  src='https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js'
+  defer='defer'
+  onload='
+    new Valine({
+      "el": document.getElementsByClassName("v")[0],
+      "appId": "9hABRddSuEkTgqLrt1VSK5B1-gzGzoHsz",
+      "appKey": "NJ7RwmgrxsF7KDzlqU7YewlL",
+      "placeholder": "在这里评论吧！填写邮箱可以获得 Gravatar 头像和回复通知哦",
+      "requiredFields": ["nick","mail"],
+      "visitor": true,
+      "recordIP": true
+    })'
+></script>
+
+</div>
+  </div>
+  
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  
+</body>
+
+</html>
