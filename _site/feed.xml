@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-17T05:08:09-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-17T05:11:04-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -48,16 +48,21 @@ sudo systemd-resolve --flush-caches
 &lt;h1 id=&quot;tcp连接&quot;&gt;TCP连接&lt;/h1&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;/_posts/2020-06-12-TCP三次握手四次挥手.md&quot;&gt;TCP三次握手四次挥手&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/_posts/2020-06-13-TCP&amp;amp;UDP区别.md&quot;&gt;TCP&amp;amp;UDP区别&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/_posts/2020-10-04-TCP粘包.md&quot;&gt;TCP粘包&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/_posts/2020-06-12-TCP三次握手四次挥手&quot;&gt;TCP三次握手四次挥手&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/_posts/2020-06-13-TCP&amp;amp;UDP区别&quot;&gt;TCP&amp;amp;UDP区别&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/_posts/2020-10-04-TCP粘包&quot;&gt;TCP粘包&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&quot;http请求&quot;&gt;HTTP请求&lt;/h1&gt;
 
-&lt;p&gt;&lt;a href=&quot;/_posts/2020-07-05-HTTP协议请求方法.md&quot;&gt;HTTP协议请求方法&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/_posts/2020-07-04-HTTP和HTTPS.md&quot;&gt;HTTP和HTTPS&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;/_posts/2020-07-05-HTTP协议请求方法&quot;&gt;HTTP协议请求方法&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;/_posts/2020-07-04-HTTP和HTTPS&quot;&gt;HTTP和HTTPS&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h1 id=&quot;接受相应结果&quot;&gt;接受相应结果&lt;/h1&gt;
 
