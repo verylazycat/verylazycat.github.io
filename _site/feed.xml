@@ -1,11 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-18T10:22:44-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-24T04:24:24-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">输入URL后发生什么</title><link href="http://localhost:4000/_posts/2020-10-17-%E8%BE%93%E5%85%A5URL%E5%90%8E%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88/" rel="alternate" type="text/html" title="输入URL后发生什么" /><published>2020-10-17T00:00:00-04:00</published><updated>2020-10-17T00:00:00-04:00</updated><id>http://localhost:4000/_posts/%E8%BE%93%E5%85%A5URL%E5%90%8E%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-17-%E8%BE%93%E5%85%A5URL%E5%90%8E%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">STL学习笔记</title><link href="http://localhost:4000/_posts/2020-10-22-STL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="STL学习笔记" /><published>2020-10-22T00:00:00-04:00</published><updated>2020-10-22T00:00:00-04:00</updated><id>http://localhost:4000/_posts/STL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-22-STL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;stl基础&quot;&gt;STL基础&lt;/h1&gt;</content><author><name></name></author><category term="数据结构" /><summary type="html">[toc]</summary></entry><entry><title type="html">数据结构</title><link href="http://localhost:4000/_posts/2020-10-21-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="alternate" type="text/html" title="数据结构" /><published>2020-10-21T00:00:00-04:00</published><updated>2020-10-21T00:00:00-04:00</updated><id>http://localhost:4000/_posts/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-21-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;链表&quot;&gt;链表&lt;/h1&gt;
+
+&lt;h1 id=&quot;排序&quot;&gt;排序&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c&quot;&gt;#include &amp;lt;stdio.h&amp;gt;
+//冒泡
+//Display
+void DisplayArray(const int array[],const int size)
+{
+    for(int i = 0;i &amp;lt; size;i++)
+    {
+        fprintf(stdout,&quot;%d\t&quot;,array[i]);
+    }
+}
+void BubbleSort(int array[],const int size)
+{
+    for(int i = 0;i &amp;lt; size - 1;i++)
+    {
+        for(int j = 0;j &amp;lt; size-i-1;j++)
+        {
+            if(array[j] &amp;gt; array[j+1])
+            {
+                int temp = array[j];
+                array[j] = array[j+1];
+                array[j+1] = temp;
+            }
+        }
+    }
+}
+int main()
+{
+    int array[10] = {10,2,4,4,56,6,89,12,3,4};
+    BubbleSort(array,10);
+    DisplayArray(array,10);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="数据结构" /><summary type="html">[toc]</summary></entry><entry><title type="html">输入URL后发生什么</title><link href="http://localhost:4000/_posts/2020-10-17-%E8%BE%93%E5%85%A5URL%E5%90%8E%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88/" rel="alternate" type="text/html" title="输入URL后发生什么" /><published>2020-10-17T00:00:00-04:00</published><updated>2020-10-17T00:00:00-04:00</updated><id>http://localhost:4000/_posts/%E8%BE%93%E5%85%A5URL%E5%90%8E%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-17-%E8%BE%93%E5%85%A5URL%E5%90%8E%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;dns解析&quot;&gt;DNS解析&lt;/h1&gt;
 
@@ -1270,154 +1310,4 @@ $file = $_GET[ 'page' ];
 
     &lt;p&gt;php配置中开启的远程包含&lt;code&gt;Allow_url_include = on&lt;/code&gt;,扩展名为：jpg、rar、txt 进行测试都可以被php解析（只要符合 php代码规范），如若包含非 php 语法规范的源文件，将会暴露其代码&lt;/p&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="安全" /><summary type="html">Security Level</summary></entry><entry><title type="html">appimage打包程序</title><link href="http://localhost:4000/_posts/2020-09-20-appimage%E6%89%93%E5%8C%85/" rel="alternate" type="text/html" title="appimage打包程序" /><published>2020-09-20T00:00:00-04:00</published><updated>2020-09-20T00:00:00-04:00</updated><id>http://localhost:4000/_posts/appimage%E6%89%93%E5%8C%85</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-20-appimage%E6%89%93%E5%8C%85/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;打包工具&quot;&gt;打包工具&lt;/h1&gt;
-
-&lt;h2 id=&quot;linuxdeployqt&quot;&gt;linuxdeployqt&lt;/h2&gt;
-
-&lt;p&gt;下载地址：https://github.com/probonopd/linuxdeployqt/releases&lt;/p&gt;
-
-&lt;p&gt;点击点击下载linuxdeploy-continuous-x86_64.AppImage&lt;/p&gt;
-
-&lt;p&gt;改名字为linuxdeployqt, 移动到 /usr/local/bin目录下&lt;/p&gt;
-
-&lt;h2 id=&quot;patchelf&quot;&gt;patchelf&lt;/h2&gt;
-
-&lt;p&gt;下载地址：https://nixos.org/releases/patchelf/patchelf-0.9/patchelf-0.9.tar.gz&lt;/p&gt;
-
-&lt;p&gt;下载并且解压文件夹，进入patchelf解压的文件夹后执行如下命令&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;./configure
-make
-sudo make install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;打包&quot;&gt;打包&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;linuxdeployqt 程序名 -appimage
-&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry><entry><title type="html">常用工具</title><link href="http://localhost:4000/_posts/2020-09-20-%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" rel="alternate" type="text/html" title="常用工具" /><published>2020-09-20T00:00:00-04:00</published><updated>2020-09-20T00:00:00-04:00</updated><id>http://localhost:4000/_posts/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-20-%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;信息收集&quot;&gt;信息收集&lt;/h1&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;name&lt;/th&gt;
-      &lt;th&gt;info&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;nmap&lt;/td&gt;
-      &lt;td&gt;https://nmap.org&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Findomain&lt;/td&gt;
-      &lt;td&gt;https://github.com/Findomain/Findomain&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;wappalyzer&lt;/td&gt;
-      &lt;td&gt;https://www.wappalyzer.com/&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;SSL证书查询&lt;/td&gt;
-      &lt;td&gt;https://crt.sh/&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;censys&lt;/td&gt;
-      &lt;td&gt;https://censys.io/&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;burpsuite&lt;/td&gt;
-      &lt;td&gt;https://portswigger.net/burp&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ARL&lt;/td&gt;
-      &lt;td&gt;https://github.com/TophantTechnology/ARL&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h1 id=&quot;漏洞扫描&quot;&gt;漏洞扫描&lt;/h1&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;name&lt;/th&gt;
-      &lt;th&gt;info&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;NIKTO&lt;/td&gt;
-      &lt;td&gt;https://tools.kali.org/information-gathering/nikto&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Acunetix&lt;/td&gt;
-      &lt;td&gt;https://www.acunetix.com/&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;sn1per&lt;/td&gt;
-      &lt;td&gt;https://github.com/1N3/Sn1per&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h1 id=&quot;社会工程学&quot;&gt;社会工程学&lt;/h1&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;name&lt;/th&gt;
-      &lt;th&gt;info&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Maltego&lt;/td&gt;
-      &lt;td&gt;https://www.maltego.com&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h1 id=&quot;渗透利用&quot;&gt;渗透利用&lt;/h1&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;name&lt;/th&gt;
-      &lt;th&gt;info&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;metasploit&lt;/td&gt;
-      &lt;td&gt;https://www.metasploit.com/&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>
+&lt;/ul&gt;</content><author><name></name></author><category term="安全" /><summary type="html">Security Level</summary></entry></feed>
