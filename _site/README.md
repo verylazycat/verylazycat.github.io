@@ -66,7 +66,6 @@
 
 - markdown
 
-  [出入](login.html)
 
 <!-- slide vertical=true -->
 
