@@ -1,11 +1,222 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-25T07:35:54-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-29T01:34:13-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">STL学习笔记</title><link href="http://localhost:4000/_posts/2020-10-22-STL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="STL学习笔记" /><published>2020-10-22T00:00:00-04:00</published><updated>2020-10-22T00:00:00-04:00</updated><id>http://localhost:4000/_posts/STL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-22-STL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">Syn_Flood</title><link href="http://localhost:4000/_posts/2020-10-26-Syn_Flood/" rel="alternate" type="text/html" title="Syn_Flood" /><published>2020-10-26T00:00:00-04:00</published><updated>2020-10-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/Syn_Flood</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-26-Syn_Flood/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;syn_flood概述&quot;&gt;&lt;strong&gt;Syn_Flood概述&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;Syn-Flood攻击是当前网络上最为常见的DDoS攻击，也是最为经典的拒绝服务攻击，它利用了TCP协议实现上的一个缺陷，通过向网络服务所在端口发送大量的伪造源地址的攻击报文，就可能造成目标服务器中的半开连接队列被占满，从而阻止其他合法用户进行访问。&lt;/p&gt;
+
+&lt;p&gt;这种攻击早在1996年就被发现，但至今仍然显示出强大的生命力。很多操作系统，甚至防火墙、路由器都无法有效地防御这种攻击，而且由于它可以方便地伪造源地址，追查起来非常困难。它的数据包特征通常是，源发送了大量的SYN包，并且缺少三次握手的最后一步握手ACK回复。&lt;/p&gt;
+
+&lt;p&gt;Syn-Flood攻击属于TCP攻击中的一种，Flood类攻击中最常见，危害最大的是Syn-Flood攻击，也是历史最悠久的攻击之一，在了解Syn-Flood攻击之前，可以先看看&lt;a href=&quot;https://blog.csdn.net/qq_34777600/article/details/81945594&quot;&gt;TCP攻击详解。&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;syn_flood攻击原理&quot;&gt;&lt;strong&gt;Syn_Flood攻击原理&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;攻击者首先伪造地址对服务器发起SYN请求（我可以建立连接吗？），服务器就会回应一个ACK+SYN（可以+请确认）。而真实的IP会认为，我没有发送请求，不作回应。服务器没有收到回应，会重试3-5次并且等待一个SYN Time（一般30秒-2分钟）后，丢弃这个连接。&lt;/p&gt;
+
+&lt;p&gt;如果攻击者大量发送这种伪造源地址的SYN请求，服务器端将会消耗非常多的资源来处理这种半连接，保存遍历会消耗非常多的CPU时间和内存，何况还要不断对这个列表中的IP进行SYN+ACK的重试。TCP是可靠协议，这时就会重传报文，默认重试次数为5次，重试的间隔时间从1s开始每次都番倍，分别为1s + 2s + 4s + 8s +16s = 31s,第5次发出后还要等32s才知道第5次也超时了，所以一共是31 + 32 = 63s。&lt;/p&gt;
+
+&lt;p&gt;也就是说一共假的syn报文，会占用TCP准备队列63s之久，而半连接队列默认为1024，系统默认不同，可 cat  /proc/sys/net/ipv4/tcp_max_syn_backlog  c查看。也就是说在没有任何防护的情况下，每秒发送200个伪造syn包，就足够撑爆半连接队列，从而使真正的连接无法建立，无法响应正常请求。  最后的结果是服务器无暇理睬正常的连接请求—拒绝服务。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;攻击细节：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;为了提高发送效率在服务端产生更多的SYN等待队列，攻击程序在填充包头时，IP首部和TCP首部都不填充可选的字段，因此IP首部长度恰好是20字节，TCP首部也是20字节，共40字节。&lt;/p&gt;
+
+&lt;p&gt;对于以太网来说，最小的包长度数据段必须达到46字节，而攻击报文只有40字节，因此，网卡在发送时，会做一些处理，在TCP首部的末尾，填充6个0来满足最小包的长度要求。这个时候，整个数据包的长度为14字节的以太网头，20字节的IP头，20字节的TCP头，再加上因为最小包长度要求而填充的6个字节的0，一共是60字节。&lt;/p&gt;
+
+&lt;p&gt;但这还没有结束。以太网在传输数据时，还有CRC检验的要求。网卡会在发送数据之前对数据包进行CRC检验，将4字节的CRC值附加到包头的最后面。这个时候，数据包长度已不再是40字节，而是变成64字节了，这就是常说的SYN小包攻击，数据包结构如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;|14字节以太网头部|20字节IP头部|20字节TCP|6字节填充|4字节检验|
+|目的MAC|源MAC|协议类型| IP头 |TCP头|以太网填充 | CRC检验 |
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;到64字节时，SYN数据包已经填充完成，准备开始传输了。攻击数据包很小，远远不够最大传输单元(MTU)的1500字节，因此不会被分片。那么这些数据包就像生产流水线上的罐头一样，一个包连着一个包紧密地挤在一起传输吗?事实上不是这样的。&lt;/p&gt;
+
+&lt;p&gt;以太网在传输时，还有前导码(preamble)和帧间距(inter-frame  gap)。其中前导码占8字节(byte)，即64比特位。前导码前面的7字节都是10101010，1和0间隔而成。但第八个字节就变成了10101011，当主机监测到连续的两个1时，就知道后面开始是数据了。在网络传输时，数据的结构如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;|8字节前导码|6字节目的MAC地址|6字节源MAC地址|2字节上层协议类型|20字节IP头|20字节TCP头|6字节以太网填充|4字节CRC检验|12字节帧间距|
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;也就是说，一个本来只有40字节的SYN包，在网络上传输时占的带宽，其实是84字节。&lt;/p&gt;
+
+&lt;h1 id=&quot;syn_flood防御&quot;&gt;Syn_Flood防御&lt;/h1&gt;
+
+&lt;h2 id=&quot;cookie源认证&quot;&gt;&lt;strong&gt;cookie源认证：&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;原理是syn报文首先由DDOS防护系统来响应syn_ack。带上特定的sequence number  （记为cookie）。真实的客户端会返回一个ack 并且Acknowledgment number 为cookie+1。  而伪造的客户端，将不会作出响应。这样我们就可以知道那些IP对应的客户端是真实的，将真实客户端IP加入白名单。下次访问直接通过，而其他伪造的syn报文就被拦截。下面为防护示意图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/cookie认证.png&quot; alt=&quot;cookie认证&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;reset认证&quot;&gt;&lt;strong&gt;reset认证：&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Reset认证利用的是TCP协议的可靠性，也是首先由DDOS防护系统来响应syn。防护设备收到syn后响应syn_ack,将Acknowledgement number  (确认号)设为特定值（记为cookie）。当真实客户端收到这个报文时，发现确认号不正确，将发送reset报文，并且sequence number 为cookie + 1。 而伪造的源，将不会有任何回应。这样我们就可以将真实的客户端IP加入白名单。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/reset认证.png&quot; alt=&quot;reset认证&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;tcp首包丢弃&quot;&gt;TCP首包丢弃&lt;/h2&gt;
+
+&lt;p&gt;该算法利用了TCP/IP协议的重传特性，来自某个源IP的第一个syn包到达时被直接丢弃并记录状态(五元组)，在该源IP的第2个syn包到达时进行验证，然后放行。&lt;/p&gt;
+
+&lt;p&gt;当防御设备接到一个IP地址的SYN报文后:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;接受到syn报文   -&amp;gt; 简单比对该IP是否存在于白名单中:  存在则转发到后端，否则进行第2步&lt;/li&gt;
+  &lt;li&gt;不存在于白名单中 -&amp;gt; 检查是否是该IP在一定时间段内的首次SYN报文： 不是则进行第3步，是则进行第5步&lt;/li&gt;
+  &lt;li&gt;不是首次SYN报文 -&amp;gt; 检查是否重传报文： 是重传则转发并加入白名单，不是则丢弃并加入黑名单&lt;/li&gt;
+  &lt;li&gt;是首次SYN报文  -&amp;gt; 丢弃并等待一段时间以试图接受该IP的SYN重传报文，等待超时则判定为攻击报文加入黑名单&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;首包丢弃方案对用户体验会略有影响，因为丢弃首包重传会增大业务的响应时间，有鉴于此发展出了一种更优的TCP  Proxy方案。所有的SYN数据报文由清洗设备接受，按照SYN  Cookie方案处理。和设备成功建立了TCP三次握手的IP地址被判定为合法用户加入白名单，由设备伪装真实客户端IP地址再与真实服务器完成三次握手，随后转发数据。而指定时间内没有和设备完成三次握手的IP地址，被判定为恶意IP地址屏蔽一定时间。除了SYN Cookie结合TCP  Proxy外，清洗设备还具备多种畸形TCP标志位数据包探测的能力，通过对SYN报文返回非预期应答测试客户端反应的方式来鉴别正常访问和恶意行为。&lt;/p&gt;
+
+&lt;p&gt;清洗设备的硬件具有特殊的网络处理器芯片和特别优化的操作系统、TCP/IP协议栈，可以处理非常巨大的流量和SYN队列。&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">TCP半连接队列和全连接队列</title><link href="http://localhost:4000/_posts/2020-10-26-TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E5%92%8C%E5%85%A8%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97/" rel="alternate" type="text/html" title="TCP半连接队列和全连接队列" /><published>2020-10-26T00:00:00-04:00</published><updated>2020-10-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E5%92%8C%E5%85%A8%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-26-TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E5%92%8C%E5%85%A8%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;简单的tcp建连流程&quot;&gt;简单的TCP建连流程&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/TCP.png&quot; alt=&quot;TCP&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;client端使用connect()向server端发起连接请求(发送syn包)，此时client端的TCP的状态为SYN_SENT&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;server端在收到SYN包后，将TCP相关信息放到syn queue(半连接队列)中，同时向client发送syn+ack。server端TCP的状态为SYN_RCVD&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;client端收到server端的syn+ack后，向server端发送ack，此时client端的TCP的状态为ESTABLISHED。Server端收到ack确认后，从syn queue里将TCP信息取出，并放到accept quee(全连接队列)中，此时server端的TCP的状态为ESTABLISHED。&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;经过以上三个过程，client端和server端建立了连接，即所有三次握手的过程&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;半连接状态与全连接状态&quot;&gt;半连接状态与全连接状态&lt;/h1&gt;
+
+&lt;p&gt;通过上图和上述流程中可以看到TCP有两个队列:半连接队列(SYN queue)与全连接队列(accept queue)，分别用来存放半连接状态和全连接状态信息。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/连接状态.png&quot; alt=&quot;连接状态&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;半连接状态:指TCP状态为SYN_RCVD的状态。服务器处于Listen状态时收到客户端SYN报文时放入半连接队列中，即SYN queue。&lt;/p&gt;
+
+&lt;p&gt;全连接状态:指TCP状态为的状态ESTABLISHED。TCP的连接状态从服务器(SYN+ACK)响应客户端后，到客户端的ACK报文到达服务器之前，&lt;/p&gt;
+
+&lt;p&gt;则一直保留在半连接状态中;当服务器接收到客户端的ACK报文后，该条目将从半连接队列移到全连接队列尾部，即 accept queue。&lt;/p&gt;
+
+&lt;p&gt;从linux内核2.2开始，系统分离成两个backlog分别限制半连接(SYN_RCVD状态)队列大小和全连接(ESTABLISHED状态)队列大小。&lt;/p&gt;
+
+&lt;h1 id=&quot;半连接队列syn-queue&quot;&gt;半连接队列(SYN queue)&lt;/h1&gt;
+
+&lt;p&gt;SYN queue 队列长度由 net.ipv4.tcp_max_syn_backlog 指定，默认值是根据内存大小而定，如果系统内存超过128MB，默认值为1024，低于128MB时为128。&lt;/p&gt;
+
+&lt;p&gt;当 SYN queue满了，系统还在不断的收到 SYN 包时，系统怎么处理的?系统会根据内核参数net.ipv4.tcp_syncookies的值来处理请求。&lt;/p&gt;
+
+&lt;p&gt;tcp_syncookies是用来防止SYN flood攻击，其原理是在半连接队列满时，SYN cookies并不丢弃SYN请求，而是将源目的IP、源目的端口号、接收到的client端初始序列号以及其他一些安全数值等信息进行hash运算，并加密后得到server端的初始序列号，称之为cookie。server端在发送初始序列号为cookie的SYN+ACK包后，会将分配的连接请求块释放。如果接收到client端的ACK包，server端将client端的ACK序列号减1得到的值，与上述要素hash运算得到的值比较，如果相等，直接完成三次握手，构建新的连接。SYN cookies机制的核心就是避免攻击造成的大量构造无用的连接请求块，导致内存耗尽，而无法处理正常的连接请求。&lt;/p&gt;
+
+&lt;p&gt;当syn queue满了，在Server端没有开启syncookies的时候，即syncookies=0，server端会丢弃新来的SYN包，而client端在多次重发SYN包得不到响应而返回connection time out错误。但是，当Server端开启了syncookies,即syncookies=1，那么SYN queue就在逻辑上的没有最大值了，而是忽略内核参数net.ipv4.tcp_max_syn_backlog设置的值。Client端在多次重发SYN包得不到响应而返回connection time out错误注意，即使开启该机制并不意味着所有的连接都是用SYN cookies机制来完成连接的建立，只有在SYN queue已满的情况下才会触发SYN cookies&lt;/p&gt;
+
+&lt;p&gt;机制。由于SYN cookies机制严重违背TCP协议，不允许使用TCP扩展，可能对某些服务造成严重的性能影响(如SMTP转发)，对于防御SYNflood攻击的确有效。对于没有收到攻击的高负载服务器，不要开启此选项，可以通过修改tcp_max_syn_backlog、tcp_synack_retries和tcp_abort_on_overflow系统参数来调节。&lt;/p&gt;
+
+&lt;p&gt;查看系统最大半队列大小可以使用下面两种方面查看系统最大半队列大小:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sysctl -a |grep max_synnet.ipv4.tcp_max_syn_backlog = 65536
+cat /proc/sys/net/ipv4/tcp_max_syn_backlog65536
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;查看系统当前半队列大小&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;ss -s
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;全连接队列accept-queue&quot;&gt;全连接队列(Accept queue)&lt;/h1&gt;
+
+&lt;p&gt;在第三次握手时，当server端接收到ACK 报之后， 会进入一个叫accept queue，Accept queue 队列长度由 net.core.somaxconn 和应用程序使用listen函数时传入的参数，二者取最小值。默认为128，表示最多有 129 的 ESTABLISHED的连接等待 accept()。当Accept queue满了以后，即使client端继续向server端发送ACK的包，也会不被响应，此时ListenOverflows+1，系统会根据net.ipv4,tcp_abort_on_overflow参数的值来决定如何返回。值为0表示直接丢弃该ACK，但不会从连接信息从SYN queue队列中移除。当系统丢弃了最后阶段的 ACK，系统会根据参数net.ipv4.tcp_synack_retries的设置重新向client端发送 SYN+ACK 包。而client端在收到多个 SYN+ACK 包，会认为之前的ACK丢包了，于是client端又重新向server端发送ACK包。当在 accept queue有空闲的时候最终完成连接。如果accept queue始终满员，则最终client将收到RST包。&lt;/p&gt;
+
+&lt;p&gt;如果net.ipv4.tcp_abort_on_overflow参数值为1表示server端发送RST通知client;与此同时，client则会分别返回read timeout 或者connection reset by peer。&lt;/p&gt;
+
+&lt;p&gt;可以通过ss/netstat查看全队列的长度:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;ss –ln
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;TCP状态为LISTEN状态的Send-Q字段的值为全队列最大长度，即min(backlog, somaxconn) 的值，Recv-Q字段的值，表示当前等待服务端调用accept 完成三次握手的 listen backlog 数值，即当前全队列已用长度。&lt;/p&gt;
+
+&lt;p&gt;非 LISTEN 状态中Recv-Q 表示 receive queue 中的 bytes 数量;Send-Q 表示 send queue 中的 bytes 数值。查看Accept queue 是否有溢出&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt; netstat -s | grep TCPBacklogDrop
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="计算机网络" /><summary type="html">[toc]</summary></entry><entry><title type="html">TCP可靠性保证</title><link href="http://localhost:4000/_posts/2020-10-26-TCP%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BF%9D%E8%AF%81/" rel="alternate" type="text/html" title="TCP可靠性保证" /><published>2020-10-26T00:00:00-04:00</published><updated>2020-10-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/TCP%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BF%9D%E8%AF%81</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-26-TCP%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BF%9D%E8%AF%81/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;系统总结TCP连接中，它是如何保证数据的传输&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;保证数据安全的方法&quot;&gt;保证数据安全的方法&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;检验和&lt;/li&gt;
+  &lt;li&gt;序列号/确认应答&lt;/li&gt;
+  &lt;li&gt;超时重传&lt;/li&gt;
+  &lt;li&gt;最大消息长度&lt;/li&gt;
+  &lt;li&gt;滑动窗口控制&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;检验和&quot;&gt;&lt;strong&gt;检验和&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;通过检验和的方式，接收端可以检测出来数据是否有差错和异常，假如有差错就会直接丢弃TCP段，重新发送。TCP在计算检验和时，会在TCP首部加上一个12字节的伪首部。检验和总共计算3部分：TCP首部、TCP数据、TCP伪首部&lt;/p&gt;
+
+&lt;h1 id=&quot;序列号确认应答&quot;&gt;&lt;strong&gt;序列号/确认应答&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;这个机制类似于问答的形式。比如在课堂上老师会问你“明白了吗？”，假如你没有隔一段时间没有回应或者你说不明白，那么老师就会重新讲一遍。其实计算机的确认应答机制也是一样的，发送端发送信息给接收端，接收端会回应一个包，这个包就是应答包。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/序列号.png&quot; alt=&quot;序列号&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上述过程中，只要发送端有一个包传输，接收端没有回应确认包（ACK包），都会重发。或者接收端的应答包，发送端没有收到也会重发数据。这就可以保证数据的完整性。&lt;/p&gt;
+
+&lt;h1 id=&quot;超时重传&quot;&gt;&lt;strong&gt;超时重传&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;超时重传是指发送出去的数据包到接收到确认包之间的时间，如果超过了这个时间会被认为是丢包了，需要重传。那么我们该如何确认这个时间值呢？&lt;/p&gt;
+
+&lt;p&gt;我们知道，一来一回的时间总是差不多的，都会有一个类似于平均值的概念。比如发送一个包到接收端收到这个包一共是0.5s，然后接收端回发一个确认包给发送端也要0.5s，这样的两个时间就是RTT（往返时间）。然后可能由于网络原因的问题，时间会有偏差，称为抖动（方差）。&lt;/p&gt;
+
+&lt;p&gt;从上面的介绍来看，超时重传的时间大概是比往返时间+抖动值还要稍大的时间。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/超时重传.png&quot; alt=&quot;超时重传&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;但是在重发的过程中，假如一个包经过多次的重发也没有收到对端的确认包，那么就会认为接收端异常，强制关闭连接。并且通知应用通信异常强行终止。&lt;/p&gt;
+
+&lt;h1 id=&quot;最大消息长度&quot;&gt;&lt;strong&gt;最大消息长度&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;在建立TCP连接的时候，双方约定一个最大的长度（MSS）作为发送的单位，重传的时候也是以这个单位来进行重传。理想的情况下是该长度的数据刚好不被网络层分块。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/最大消息长度.png&quot; alt=&quot;最大消息长度&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;滑动窗口控制&quot;&gt;&lt;strong&gt;滑动窗口控制&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;我们上面提到的超时重传的机制存在效率低下的问题，发送一个包到发送下一个包要经过一段时间才可以。所以我们就想着能不能不用等待确认包就发送下一个数据包呢？这就提出了一个滑动窗口的概念。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/滑动窗口控制.png&quot; alt=&quot;滑动窗口控制&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;窗口的大小就是在无需等待确认包的情况下，发送端还能发送的最大数据量。这个机制的实现就是使用了大量的缓冲区，通过对多个段进行确认应答的功能。通过下一次的确认包可以判断接收端是否已经接收到了数据，如果已经接收了就从缓冲区里面删除数据。&lt;/p&gt;
+
+&lt;p&gt;在窗口之外的数据就是还未发送的和对端已经收到的数据。那么发送端是怎么样判断接收端有没有接收到数据呢？或者怎么知道需要重发的数据有哪些呢？通过下面这个图就知道了。&lt;img src=&quot;/home/admin233/Documents/verylazycat.github.io/img/滑动窗口控制2.png&quot; alt=&quot;滑动窗口控制2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如上图，接收端在没有收到自己所期望的序列号数据之前，会对之前的数据进行重复确认。发送端在收到某个应答包之后，又连续3次收到同样的应答包，则数据已经丢失了，需要重发。&lt;/p&gt;
+
+&lt;h1 id=&quot;拥塞控制&quot;&gt;&lt;strong&gt;拥塞控制&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;窗口控制解决了  两台主机之间因传送速率而可能引起的丢包问题，在一方面保证了TCP数据传送的可靠性。然而如果网络非常拥堵，此时再发送数据就会加重网络负担，那么发送的数据段很可能超过了最大生存时间也没有到达接收方，就会产生丢包问题。为此TCP引入慢启动机制，先发出少量数据，就像探路一样，先摸清当前的网络拥堵状态后，再决定按照多大的速度传送数据。&lt;/p&gt;
+
+&lt;p&gt;此处引入一个拥塞窗口：&lt;/p&gt;
+
+&lt;p&gt;发送开始时定义拥塞窗口大小为1；每次收到一个ACK应答，拥塞窗口加1；而在每次发送数据时，发送窗口取拥塞窗口与接送段接收窗口最小者。&lt;/p&gt;
+
+&lt;p&gt;慢启动：在启动初期以指数增长方式增长；设置一个慢启动的阈值，当以指数增长达到阈值时就停止指数增长，按照线性增长方式增加至拥塞窗口；线性增长达到网络拥塞时立即把拥塞窗口置回1，进行新一轮的“慢启动”，同时新一轮的阈值变为原来的一半。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/拥塞控制.png&quot; alt=&quot;拥塞控制&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="计算机网络" /><summary type="html">[toc]</summary></entry><entry><title type="html">STL学习笔记</title><link href="http://localhost:4000/_posts/2020-10-22-STL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="STL学习笔记" /><published>2020-10-22T00:00:00-04:00</published><updated>2020-10-22T00:00:00-04:00</updated><id>http://localhost:4000/_posts/STL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-22-STL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;stl基础&quot;&gt;STL基础&lt;/h1&gt;</content><author><name></name></author><category term="数据结构" /><summary type="html">[toc]</summary></entry><entry><title type="html">数据结构</title><link href="http://localhost:4000/_posts/2020-10-21-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="alternate" type="text/html" title="数据结构" /><published>2020-10-21T00:00:00-04:00</published><updated>2020-10-21T00:00:00-04:00</updated><id>http://localhost:4000/_posts/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-21-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">&lt;p&gt;[toc]&lt;/p&gt;
 
@@ -862,452 +1073,4 @@ Cookie: JSESSIONID=randomid;SameSite=Strict;
 
 &lt;p&gt;None就是关闭SameSite属性，所有的情况下都发送Cookie。不过SameSite设置None，还要同时设置Cookie的Secure属性，否则是不生效的。&lt;/p&gt;
 
-&lt;p&gt;以上就是在前端通过Cookie的SameSite属性防御CSRF攻击，&lt;strong&gt;不过大家在使用SameSite属性时，要注意浏览器是否支持SameSite属性。&lt;/strong&gt;&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">js编码</title><link href="http://localhost:4000/_posts/2020-09-26-js%E7%BC%96%E7%A0%81/" rel="alternate" type="text/html" title="js编码" /><published>2020-09-26T00:00:00-04:00</published><updated>2020-09-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/js%E7%BC%96%E7%A0%81</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-26-js%E7%BC%96%E7%A0%81/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;escape&quot;&gt;&lt;em&gt;escape&lt;/em&gt;&lt;/h1&gt;
-
-&lt;h2 id=&quot;定义用法&quot;&gt;定义&amp;amp;用法&lt;/h2&gt;
-
-&lt;p&gt;escape() 函数可对字符串进行编码，这样就可以在所有的计算机上读取该字符串。&lt;/p&gt;
-
-&lt;h2 id=&quot;语法&quot;&gt;语法&lt;/h2&gt;
-
-&lt;p&gt;escape(string)&lt;/p&gt;
-
-&lt;h2 id=&quot;返回值&quot;&gt;返回值&lt;/h2&gt;
-
-&lt;p&gt;已编码的 string 的副本。其中某些字符被替换成了十六进制的转义序列。&lt;/p&gt;
-
-&lt;h2 id=&quot;说明&quot;&gt;说明&lt;/h2&gt;
-
-&lt;p&gt;该方法不会对 ASCII 字母和数字进行编码，也不会对下面这些 ASCII 标点符号进行编码： - _ . ! ~ * ‘ ( ) 。其他所有的字符都会被转义序列替换。&lt;/p&gt;
-
-&lt;h1 id=&quot;encodeuri&quot;&gt;&lt;em&gt;encodeURI()&lt;/em&gt;&lt;/h1&gt;
-
-&lt;h2 id=&quot;定义和用法&quot;&gt;定义和用法&lt;/h2&gt;
-
-&lt;p&gt;encodeURI() 函数可把字符串作为 URI 进行编码&lt;/p&gt;
-
-&lt;h2 id=&quot;语法-1&quot;&gt;语法&lt;/h2&gt;
-
-&lt;p&gt;encodeURI(URIstring)&lt;/p&gt;
-
-&lt;h2 id=&quot;参数-描述&quot;&gt;参数 描述&lt;/h2&gt;
-
-&lt;p&gt;URIstring 必需。一个字符串，含有 URI 或其他要编码的文本。&lt;/p&gt;
-
-&lt;h2 id=&quot;返回值-1&quot;&gt;返回值&lt;/h2&gt;
-
-&lt;p&gt;URIstring 的副本，其中的某些字符将被十六进制的转义序列进行替换。&lt;/p&gt;
-
-&lt;h2 id=&quot;说明-1&quot;&gt;说明&lt;/h2&gt;
-
-&lt;p&gt;该方法不会对 ASCII 字母和数字进行编码，也不会对这些 ASCII 标点符号进行编码： - _ . ! ~ * ‘ ( ) 。&lt;/p&gt;
-
-&lt;p&gt;该方法的目的是对 URI 进行完整的编码，因此对以下在 URI 中具有特殊含义的 ASCII 标点符号，encodeURI() 函数是不会进行转义的：;/?:@&amp;amp;=+$,#&lt;/p&gt;
-
-&lt;h1 id=&quot;encodeuricomponent&quot;&gt;&lt;em&gt;encodeURIComponent()&lt;/em&gt;&lt;/h1&gt;
-
-&lt;h2 id=&quot;定义和用法-1&quot;&gt;定义和用法&lt;/h2&gt;
-
-&lt;p&gt;encodeURIComponent() 函数可把字符串作为 URI 组件进行编码。&lt;/p&gt;
-
-&lt;h2 id=&quot;语法-2&quot;&gt;语法&lt;/h2&gt;
-
-&lt;p&gt;encodeURIComponent(URIstring)&lt;/p&gt;
-
-&lt;h2 id=&quot;参数-描述-1&quot;&gt;参数 描述&lt;/h2&gt;
-
-&lt;p&gt;URIstring 必需。一个字符串，含有 URI 组件或其他要编码的文本。&lt;/p&gt;
-
-&lt;h2 id=&quot;返回值-2&quot;&gt;返回值&lt;/h2&gt;
-
-&lt;p&gt;URIstring 的副本，其中的某些字符将被十六进制的转义序列进行替换。&lt;/p&gt;
-
-&lt;h2 id=&quot;说明-2&quot;&gt;说明&lt;/h2&gt;
-
-&lt;p&gt;该方法不会对 ASCII 字母和数字进行编码，也不会对这些 ASCII 标点符号进行编码： - _ . ! ~ * ‘ ( ) 。&lt;/p&gt;
-
-&lt;p&gt;其他字符（比如 ：;/?:@&amp;amp;=+$,# 这些用于分隔 URI 组件的标点符号），都是由一个或多个十六进制的转义序列替换的。&lt;/p&gt;
-
-&lt;h2 id=&quot;提示和注释&quot;&gt;提示和注释&lt;/h2&gt;
-
-&lt;p&gt;提示：请注意 encodeURIComponent() 函数 与 encodeURI()  函数的区别之处，前者假定它的参数是 URI 的一部分（比如协议、主机名、路径或查询字符串）。因此 encodeURIComponent()  函数将转义用于分隔 URI 各个部分的标点符号。&lt;/p&gt;
-
-&lt;h1 id=&quot;总结&quot;&gt;&lt;em&gt;总结&lt;/em&gt;&lt;/h1&gt;
-
-&lt;p&gt;通过对三个函数的分析，我们可以知道：escape()除了 ASCII  字母、数字和特定的符号外，对传进来的字符串全部进行转义编码，因此如果想对URL编码，最好不要使用此方法。而encodeURI()  用于编码整个URI,因为URI中的合法字符都不会被编码转换。encodeURIComponent方法在编码单个URIComponent（指请求参数）应当是最常用的，它可以讲参数中的中文、特殊字符进行转义，而不会影响整个URL。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;传递参数时需要使用encodeURIComponent，这样组合的url才不会被#等特殊字符截断&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;例如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&amp;lt;script language=&quot;javascript&quot;&amp;gt;document.write('&amp;lt;a  href=&quot;http://passport.baidu.com/?logout&amp;amp;aid=7&amp;amp;u='+encodeURIComponent(&quot;http://cang.baidu.com/bruce42&quot;)+'&quot;&amp;gt;退出&amp;lt;/a&amp;amp;gt;');&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;进行url跳转时可以整体使用encodeURI&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;Location.href=encodeURI(&quot;http://cang.baidu.com/do/s?word=百度&amp;amp;ct=21&quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;js使用数据时可以使用escape&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;搜藏中history纪录&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;escape对0-255以外的unicode值进行编码时输出%u&lt;em&gt;**&lt;/em&gt;格式，其它情况下escape，encodeURI，encodeURIComponent编码结果相同&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;最多使用的应为encodeURIComponent，它是将中文、韩文等特殊字符转换成utf-8格式的url编码，所以如果给后台传递参数需要使用encodeURIComponent时需要后台解码对utf-8支持（form中的编码方式和当前页面编码方式相同）&lt;/p&gt;
-
-&lt;p&gt;escape不编码字符有69个：*，+，-，.，/，@，_，0-9，a-z，A-Z&lt;/p&gt;
-
-&lt;p&gt;encodeURI不编码字符有82个：!，#，$，&amp;amp;，’，(，)，*，+，,，-，.，/，:，;，=，?，@，_，~，0-9，a-z，A-Z&lt;/p&gt;
-
-&lt;p&gt;encodeURIComponent不编码字符有71个：!， ‘，(，)，*，-，.，_，~，0-9，a-z，A-Z&lt;/p&gt;
-
-&lt;h1 id=&quot;示例&quot;&gt;&lt;em&gt;示例&lt;/em&gt;&lt;/h1&gt;
-
-&lt;h2 id=&quot;escape-1&quot;&gt;&lt;strong&gt;escape()&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt; &amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
-document.write(escape(&quot;Visit W3School!&quot;) + &quot;&amp;lt;br /&amp;gt;&quot;)
-document.write(escape(&quot;?!=()#%&amp;amp;&quot;))
-&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;输出结果：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Visit%20W3School%21
-%3F%21%3D%28%29%23%25%26&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;encodeuri-1&quot;&gt;&lt;em&gt;encodeURI()&lt;/em&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;&amp;lt;html&amp;gt;
-&amp;lt;body&amp;gt;
-&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
-document.write(encodeURI(&quot;http://www.w3school.com.cn&quot;)+ &quot;&amp;lt;br /&amp;gt;&quot;)
-document.write(encodeURI(&quot;http://www.w3school.com.cn/My first/&quot;)+ &quot;&amp;lt;br /&amp;gt;&quot;)
-document.write(encodeURI(&quot;,/?:@&amp;amp;=+$#&quot;))
-&amp;lt;/script&amp;gt;
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;输出结果：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;http://www.w3school.com.cn
-http://www.w3school.com.cn/My%20first/
-,/?:@&amp;amp;=+$#&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;对整个URL进行编码，而URL的特定标识符不会被转码。&lt;/p&gt;
-
-&lt;h2 id=&quot;encodeuricomponent-1&quot;&gt;&lt;em&gt;encodeURIComponent()&lt;/em&gt;&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
-document.write(encodeURIComponent(&quot;http://www.w3school.com.cn&quot;))
-document.write(&quot;&amp;lt;br /&amp;gt;&quot;)
-document.write(encodeURIComponent(&quot;http://www.w3school.com.cn/p 1/&quot;))
-document.write(&quot;&amp;lt;br /&amp;gt;&quot;)
-document.write(encodeURIComponent(&quot;,/?:@&amp;amp;=+$#&quot;))
-&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;输出结果：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;http%3A%2F%2Fwww.w3school.com.cn
-http%3A%2F%2Fwww.w3school.com.cn%2Fp%201%2F
-%2C%2F%3F%3A%40%26%3D%2B%24%23&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;对URL中的参数进行编码，因为参数也是一个URL，如果不编码会影响整个URL的跳转。&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">ApacheCommonsCollections反序列化漏洞</title><link href="http://localhost:4000/_posts/2020-09-25-ApacheCommonsCollections%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" rel="alternate" type="text/html" title="ApacheCommonsCollections反序列化漏洞" /><published>2020-09-25T00:00:00-04:00</published><updated>2020-09-25T00:00:00-04:00</updated><id>http://localhost:4000/_posts/ApacheCommonsCollections%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-25-ApacheCommonsCollections%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;简述&quot;&gt;简述&lt;/h1&gt;
-
-&lt;p&gt;Apache Commons  Collections反序列化漏洞必然是2015年影响重大的漏洞之一，同时也开启了各类java反序列漏洞的大门，这几年大量各类java反序列化漏洞不断出现。java反序列化漏洞基本一出必高危，风险程度极大，最近研究了一些反序列化漏洞，本篇记录apache commons collections反序列化漏洞。&lt;/p&gt;
-
-&lt;h1 id=&quot;序列化与反序列化&quot;&gt;序列化与反序列化&lt;/h1&gt;
-
-&lt;p&gt;java程序在运行时，会产生大量的数据。有些时候，我们需要将内存中的对象信息存储到磁盘或者通过网络发送给第三者，此时，就需要对对象进行序列化操作。当我们需要从磁盘或网络读取存储的信息时，即为反序列化。简单理解，序列化即将内存中的对象信息转换为字节流并存储在磁盘或通过网络发送。反序列化，即从磁盘或网络读取信息，直接转换为内存对象。&lt;/p&gt;
-
-&lt;p&gt;如果一个对象需要进行序列化，需要注意一下两点：&lt;/p&gt;
-
-&lt;p&gt;​    1.必须实现Serializable接口&lt;/p&gt;
-
-&lt;p&gt;​    2.序列化的是实例对象，故static修饰的属性不会序列化。transient修饰的属性也不会被序列化&lt;/p&gt;
-
-&lt;h2 id=&quot;例子&quot;&gt;例子&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Person类&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.io.*;
-
-public class Person implements Serializable {
-    private  static final long serialVersionUID = 2484848939485859L;
-    private String name;
-    private String sex;
-    private Integer age;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return &quot;Person{&quot; +
-                &quot;name='&quot; + name + '\'' +
-                &quot;, sex='&quot; + sex + '\'' +
-                &quot;, age=&quot; + age +
-                '}';
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;test1&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.io.*;
-
-public class test1 {
-    public static void main(String[] args) throws IOException {
-        Person person = new Person();
-        person.setName(&quot;abc&quot;);
-        person.setAge(12);
-        person.setSex(&quot;男&quot;);
-        ObjectOutputStream oo = new ObjectOutputStream(new FileOutputStream(new File(&quot;/home/admin233/IdeaProjects/test/123.txt&quot;)));
-        oo.writeObject(person);
-        System.out.println(&quot;Person对象序列化成功&quot;);
-        oo.close();
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;用16进制编辑器查看123.txt文件,可以看到序列化，即是将对象通过ObejctOutPutStream类的writeObject()方法写入文件即可&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;test2&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.io.*;
-
-public class test2 {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(&quot;/home/admin233/IdeaProjects/test/123.txt&quot;)));
-        Person person  = (Person) ois.readObject();
-        System.out.println(&quot;Person对象反序列化成功&quot;);
-        System.out.println(person.toString());
-        ois.close();
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;反序列化即通过ObjectInputStream类中的readObject()方法读取文件流，即可直接在内存中还原序列化的对象，包括其中的属性值&lt;/p&gt;
-
-&lt;h1 id=&quot;readobject方法&quot;&gt;readObject方法&lt;/h1&gt;
-
-&lt;p&gt;反序列化过程中关键的就是readObject方法，通过readObject将文件流转换为内存对象。因此，反序列化漏洞的关键就是在readObject()方法。在序列化后的文件中，可以看到是哪个对象被序列化到文件中的。在反序列化过程中如果该对象的类中重写的readObject()方法，在反序列化中会调用该类中的readObject()方法&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;person2&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
-
-public class Person2 implements Serializable {
-    private static final long serialVersionUID = 248484898547362356L;
-    private String name;
-    private String sex;
-    private Integer age;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    private void readObject(ObjectInputStream in) throws ClassNotFoundException, IOException {
-        Runtime.getRuntime().exec(&quot;gnome-calculator&quot;);
-    }
-
-    @Override
-    public String toString() {
-        return &quot;Person2{&quot; +
-                &quot;name='&quot; + name + '\'' +
-                &quot;, sex='&quot; + sex + '\'' +
-                &quot;, age=&quot; + age +
-                '}';
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;test3&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.io.*;
-
-public class test3 {
-    public static void main(String[] args) throws IOException {
-        Person2 person2 = new Person2();
-        person2.setName(&quot;abc&quot;);
-        person2.setAge(12);
-        person2.setSex(&quot;男&quot;);
-        ObjectOutputStream oo = new ObjectOutputStream(new FileOutputStream(new File(&quot;/home/admin233/IdeaProjects/test/123.txt&quot;)));
-        oo.writeObject(person2);
-        System.out.println(&quot;Person对象序列化成功&quot;);
-        oo.close();
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;test4&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.io.*;
-
-public class test4 {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(&quot;/home/admin233/IdeaProjects/test/123.txt&quot;)));
-        Person2 person2 = (Person2) ois.readObject();
-        System.out.println(&quot;Person对象反序列化成功&quot;);
-        System.out.println(person2.toString());
-        ois.close();
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/反序列化.png&quot; alt=&quot;反序列化&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;通过以上分析，如果我们能够控制重写反序列化类的readObject方法，就可以制造反序列化漏洞，从而达到攻击效果。&lt;code&gt;然而，我们自己写个类，随后进行序列化，再发送给远程服务器，服务器反序列化的时候也是不成功的，因为服务器端根本没有我们自己写的类&lt;/code&gt;。只能考虑，如果服务器已经存在的某个库中的某个类，类本身就重写了readObject方法，是否能通过构造该类的序列化对象，以达到在反序列化时，触发特定操作，实现攻击,满足重写readObject方法的类有非常多AnnotationInvocationHandler、BadAttributeValueExpException等类均满足条件&lt;/p&gt;
-
-&lt;h1 id=&quot;反射链&quot;&gt;反射链&lt;/h1&gt;
-
-&lt;p&gt;我们的目标是通过反序列化运行&lt;code&gt;Runtime.getRuntime().exec(new String[]{&quot;gnome-calculator&quot;})&lt;/code&gt;，没有任何类可以直接提供运行条件.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.freebuf.com/news/150872.html&quot;&gt;参考文章&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">DVWA</title><link href="http://localhost:4000/_posts/2020-09-24-DVWA/" rel="alternate" type="text/html" title="DVWA" /><published>2020-09-24T00:00:00-04:00</published><updated>2020-09-24T00:00:00-04:00</updated><id>http://localhost:4000/_posts/DVWA</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-24-DVWA/">&lt;h1 id=&quot;security-level&quot;&gt;Security Level&lt;/h1&gt;
-
-&lt;h2 id=&quot;low&quot;&gt;&lt;em&gt;low&lt;/em&gt;&lt;/h2&gt;
-
-&lt;h3 id=&quot;brute-force&quot;&gt;Brute Force&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;尝试登录&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Username:admin&lt;/p&gt;
-
-&lt;p&gt;Password:test&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;burpsuite抓包,转移到&lt;code&gt;Intruder&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;对admin和test添加$,选择Cluster bomb攻击方式&lt;/li&gt;
-  &lt;li&gt;对payload set1 和怕payload set2 添加字典&lt;/li&gt;
-  &lt;li&gt;点击start attack ,根据返回的length判断用户名为admin密码为password&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;command-injection&quot;&gt;Command Injection&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;输入ip 返回ping命令的返回值,猜测为程序为&lt;code&gt;exec ping + 输入ip&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;测试,输入ip &amp;amp;&amp;amp; ipconfig,成功执行后续的命令&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;原因&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-php&quot;&gt;if( stristr( php_uname( 's' ), 'Windows NT' ) ) {
-        // Windows
-        $cmd = shell_exec( 'ping  ' . $target );
-    }
-    else {
-        // *nix
-        $cmd = shell_exec( 'ping  -c 4 ' . $target );
-    } 
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;p&gt;未对&lt;code&gt;$target&lt;/code&gt;做过滤&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;file-inclusion&quot;&gt;File Inclusion&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;分别点击file123返回不同的内容,尝试测试&lt;code&gt;ip/DVWA/vulnerabilities/fi/?page=file4.php&lt;/code&gt;,成功执行&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;再次验证&lt;code&gt;ip/DVWA/vulnerabilities/fi/?page=../../CHANGELOG.md&lt;/code&gt;成功返回内容&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;原因&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-php&quot;&gt;&amp;lt;?php
-// The page we wish to display
-$file = $_GET[ 'page' ];
-?&amp;gt; 
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;p&gt;没对&lt;code&gt;page&lt;/code&gt;做过滤&lt;/p&gt;
-
-    &lt;p&gt;php配置中开启的远程包含&lt;code&gt;Allow_url_include = on&lt;/code&gt;,扩展名为：jpg、rar、txt 进行测试都可以被php解析（只要符合 php代码规范），如若包含非 php 语法规范的源文件，将会暴露其代码&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="安全" /><summary type="html">Security Level</summary></entry></feed>
+&lt;p&gt;以上就是在前端通过Cookie的SameSite属性防御CSRF攻击，&lt;strong&gt;不过大家在使用SameSite属性时，要注意浏览器是否支持SameSite属性。&lt;/strong&gt;&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>
