@@ -1,11 +1,140 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-29T11:12:09-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-01T02:17:12-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">Syn_Flood</title><link href="http://localhost:4000/_posts/2020-10-26-Syn_Flood/" rel="alternate" type="text/html" title="Syn_Flood" /><published>2020-10-26T00:00:00-04:00</published><updated>2020-10-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/Syn_Flood</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-26-Syn_Flood/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">inline和define</title><link href="http://localhost:4000/_posts/2020-11-01-inline%E5%92%8Cdefine/" rel="alternate" type="text/html" title="inline和define" /><published>2020-11-01T00:00:00-04:00</published><updated>2020-11-01T00:00:00-04:00</updated><id>http://localhost:4000/_posts/inline%E5%92%8Cdefine</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-01-inline%E5%92%8Cdefine/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;inline与define&quot;&gt;inline与define&lt;/h1&gt;
+
+&lt;p&gt;内联函数是代码被插入到调用者代码处的函数。如同 #define 宏，内联函数通过避免被调用的开销来提高执行效率，尤其是它能够通过调用（“过程化集成”）被编译器优化。&lt;/p&gt;
+
+&lt;h1 id=&quot;区别&quot;&gt;区别&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;内联函数在编译时展开，而宏是由预处理器对宏进行展开&lt;/li&gt;
+  &lt;li&gt;内联函数会检查参数类型，宏定义不检查函数参数 ，所以内联函数更安全。&lt;/li&gt;
+  &lt;li&gt;宏不是函数，而inline函数是函数&lt;/li&gt;
+  &lt;li&gt;宏在定义时要小心处理宏参数，（一般情况是把参数用括弧括起来）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;inline的使用&quot;&gt;inline的使用&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在C++中，在类的内部定义了函数体的函数，被默认为是内联函数。而不管你是否有inline关键字&lt;/li&gt;
+  &lt;li&gt;在内联函数内不允许用循环语句、开关语句和递归调用等，且函数体不宜过长,否则作为普通函数处理&lt;/li&gt;
+  &lt;li&gt;在你调用一个内联函数之前，这个函数一定要在之前有声明或已定义为inline,如果在前面声明为普通函数，而在调用代码后面才定义为一个inline函数，程序可以通过编译，但该函数没有实现inline&lt;/li&gt;
+  &lt;li&gt;如果一个inline函数会在多个源文件中被用到，那么必须把它定义在头文件中。解析：如果内联函数fun()定义在某个编译单元A中，那么其他编译单元中调用fun()的地方时，可以编译通过（此时并没有展开，结合第三条，此时虽然头文件声明了该inline函数，但此时调用时，还没定义，所以作为普通函数处理）。当链接时将无法解析该符号，出现链接错误。 因为inline函数是作为内部连接存在的，只能够被本模块访问。&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">new&amp;amp;malloc&amp;amp;delete&amp;amp;free</title><link href="http://localhost:4000/_posts/2020-11-01-new&malloc&delete&free/" rel="alternate" type="text/html" title="new&amp;malloc&amp;delete&amp;free" /><published>2020-11-01T00:00:00-04:00</published><updated>2020-11-01T00:00:00-04:00</updated><id>http://localhost:4000/_posts/new&amp;malloc&amp;delete&amp;free</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-01-new&amp;malloc&amp;delete&amp;free/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;mallocfree和newdelete的区别&quot;&gt;malloc/free和new/delete的区别&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;malloc/free是C/C++标准库的函数；new/delete是C++操作符。&lt;/li&gt;
+  &lt;li&gt;malloc/free只是动态分配内存空间/释放空间；new/delete除了分配空间还会调用构造函数和析构函数进行初始化与清理资源。&lt;/li&gt;
+  &lt;li&gt;malloc/free需要手动计算类型大小且返回值类型为void* ；new/delete可自动计算类型的大小，返回对应类型的指针。&lt;/li&gt;
+  &lt;li&gt;malloc/free管理内存失败会返回0；new/delete等的方式管理内存失败会抛出异常。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在C++ Primer书中有提到说： new/delete的表达式与标准库函数同名了，所以系统并没有重载new或delete表达式。new/delete真正的实现其实是依赖下面这几个内存管理接口的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;void *operator new(size_t);     //allocate an objectvoid *operator
+delete(void *);    //free an objectvoid *operator
+new[](size_t);     //allocate an arrayvoid *operator
+delete[](void *);    //free an array
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;mallocfree和newdelete的底层实现&quot;&gt;malloc/free和new/delete的底层实现&lt;/h1&gt;
+
+&lt;h2 id=&quot;new的底层实现&quot;&gt;new的底层实现&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;// new.cpp
+#include &amp;lt;cstdlib&amp;gt;
+#include &amp;lt;new&amp;gt;
+_C_LIB_DECLint __cdecl _callnewh(size_t size) _THROW1(_STD bad_alloc);
+_END_C_LIB_DECLvoid *__CRTDECL operator new(size_t size) _THROW1(_STD bad_alloc)
+{       // try to allocate size bytes      
+       void *p;        
+       while ((p = malloc(size)) == 0)
+       if (_callnewh(size) == 0) 
+       {       // report no memory                     
+       _THROW_NCEE(_XSTD bad_alloc, );  
+       }       
+       return (p);  
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;delete的底层实现&quot;&gt;delete的底层实现&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;cruntime.h&amp;gt;
+#include &amp;lt;malloc.h&amp;gt;
+#include &amp;lt;new.h&amp;gt;
+#include &amp;lt;windows.h&amp;gt;
+#include &amp;lt;rtcsup.h&amp;gt;
+void operator delete( void * p )
+{ 
+    RTCCALLBACK(_RTC_Free_hook, (p, 0));
+    free( p );
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;new的底层实现-1&quot;&gt;new[]的底层实现&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;new&amp;gt;
+void *__CRTDECL operator new[](size_t count) _THROW1(std::bad_alloc)
+{	// try to allocate count bytes for an array
+    return (operator new(count));
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;delete的底层实现-1&quot;&gt;delete[]的底层实现&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#ifdef CRTDLL
+#undef CRTDLL
+#endif
+#ifdef MRTDLL
+#undef MRTDLL
+#endif
+#define _USE_ANSI_CPP 
+// suppress defaultlib directive for Std C++ Lib
+#include &amp;lt;new&amp;gt;
+extern void __CRTDECL operator delete[](void *ptr) _THROW0();
+void __CRTDECL operator delete[](void *ptr,	const std::nothrow_t&amp;amp;) _THROW0()
+{	// free an allocated object operator 
+    delete[](ptr);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;mallocfree和newdelete的执行过程&quot;&gt;malloc/free和new/delete的执行过程&lt;/h1&gt;
+
+&lt;h2 id=&quot;new的执行过程&quot;&gt;new的执行过程&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;new(int size) --&amp;gt; operator new() --&amp;gt; malloc() --&amp;gt; constructor function --&amp;gt; return ptr
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;delete的执行过程&quot;&gt;delete的执行过程&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;delete ptr --&amp;gt; destructor function --&amp;gt; operator delete() --&amp;gt; free
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;new的执行过程-1&quot;&gt;new[]的执行过程&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;new[count] --&amp;gt; operator new[]() --&amp;gt; operator new() --&amp;gt; malloc() --&amp;gt; constructor function --&amp;gt; return ptr
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;delete的执行过程-1&quot;&gt;delete[]的执行过程&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;delete[] ptr --&amp;gt; destructor function --&amp;gt; operator delete[]() --&amp;gt; operator delete() --&amp;gt; free
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;依次调用指针指向对象数组中每个对象的析构函数&lt;/li&gt;
+  &lt;li&gt;调用&lt;code&gt;operator delete[]()&lt;/code&gt;，&lt;code&gt;operator delete[]()&lt;/code&gt;再调用&lt;code&gt;operator delete&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;底层用free执行&lt;code&gt;operator delete&lt;/code&gt;表达式，依次释放内存&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;operator delete[]()&lt;/code&gt;数组的个数存放在指针的前4位&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">Syn_Flood</title><link href="http://localhost:4000/_posts/2020-10-26-Syn_Flood/" rel="alternate" type="text/html" title="Syn_Flood" /><published>2020-10-26T00:00:00-04:00</published><updated>2020-10-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/Syn_Flood</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-26-Syn_Flood/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;syn_flood概述&quot;&gt;&lt;strong&gt;Syn_Flood概述&lt;/strong&gt;&lt;/h1&gt;
 
@@ -764,313 +893,4 @@ sudo systemd-resolve --flush-caches
 
 &lt;h2 id=&quot;场景设计方法&quot;&gt;&lt;em&gt;场景设计方法&lt;/em&gt;&lt;/h2&gt;
 
-&lt;p&gt;现在的软件几乎都是用事件触发来控制流程的，事件触发时的情景便形成了场景，而同一事件不同的触发顺序和处理结果就形成事件流。这种在软件设计方面的思想也可以引入到软件测试中，可以比较生动地描绘出事件触发时的情景，有利于测试设计者设计测试用例，同时使测试用例更容易理解和执行。&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">ThinkPHP漏洞分析与利用</title><link href="http://localhost:4000/_posts/2020-10-01-ThinkPHP%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%88%A9%E7%94%A8/" rel="alternate" type="text/html" title="ThinkPHP漏洞分析与利用" /><published>2020-10-01T00:00:00-04:00</published><updated>2020-10-01T00:00:00-04:00</updated><id>http://localhost:4000/_posts/ThinkPHP%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%88%A9%E7%94%A8</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-01-ThinkPHP%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B8%8E%E5%88%A9%E7%94%A8/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;基本信息&quot;&gt;&lt;em&gt;基本信息&lt;/em&gt;&lt;/h1&gt;
-
-&lt;p&gt;ThinkPHP是一个快速、兼容而且简单的轻量级国产PHP开发框架，遵循Apache 2开源协议发布，使用面向对象的开发结构和MVC模式，融合了Struts的思想和TagLib（标签库）、RoR的ORM映射和ActiveRecord模式。&lt;/p&gt;
-
-&lt;p&gt;ThinkPHP可以支持windows/Unix/Linux等服务器环境，正式版需要PHP 5.0以上版本，支持MySql、PgSQL、Sqlite多种数据库以及PDO扩展。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;版本介绍&quot;&gt;&lt;em&gt;版本介绍&lt;/em&gt;&lt;/h1&gt;
-
-&lt;h2 id=&quot;thinkphp-2x&quot;&gt;ThinkPHP 2.x&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;2009.10,官方停止维护&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;ThinkPHP 2.0&lt;/li&gt;
-  &lt;li&gt;ThinkPHP 2.1&lt;/li&gt;
-  &lt;li&gt;ThinkPHP 22&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;thinkphp-3x&quot;&gt;ThinkPHP 3.x&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;2012.4 官方停止维护&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;ThinkPHP 3.0.x&lt;/li&gt;
-  &lt;li&gt;ThinkPHP 3.1.x&lt;/li&gt;
-  &lt;li&gt;ThinkPHP 3.2.x&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;thinkphp-5x&quot;&gt;ThinkPHP 5.x&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;2015.12&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;ThinkPHP 5.0.x&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;核心系列&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;ThinkPHP 5.1.x&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;非核心系列&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;ThinkPHP 5.2.x&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;用量较小系列&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;thinkphp-6x&quot;&gt;ThinkPHP 6.x&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;2019.4&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;ThinkPHP 6.0.x&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;最新,支持php 7.1 以上&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;高危漏洞介绍&quot;&gt;&lt;em&gt;高危漏洞介绍&lt;/em&gt;&lt;/h1&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;漏洞&lt;/th&gt;
-      &lt;th&gt;版本&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP 2.x/3.0 远程代码执行&lt;/td&gt;
-      &lt;td&gt;ThinkPHP 2.x ,3.0&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP 3.2.4 SQL注入&lt;/td&gt;
-      &lt;td&gt;&amp;lt;= 3.2.4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP 3.1.3 parameter 注入&lt;/td&gt;
-      &lt;td&gt;&amp;lt;=3.1.3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP 3.x update方法SQL注入&lt;/td&gt;
-      &lt;td&gt;&amp;lt;3.2.4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP 3.X orderby SQL注入&lt;/td&gt;
-      &lt;td&gt;&amp;lt;3.2.4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP 3.x where SQL注入&lt;/td&gt;
-      &lt;td&gt;3.2.4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP 3.x exp SQL注入&lt;/td&gt;
-      &lt;td&gt;&amp;lt;3.2.4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP 3.x bind SQL注入&lt;/td&gt;
-      &lt;td&gt;&amp;lt;3.2.4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP SQL注入-paraDATA&lt;/td&gt;
-      &lt;td&gt;5.0.13-5.0.15&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP SQL注入-paraArrayData&lt;/td&gt;
-      &lt;td&gt;5.1.6-7.1.7&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP SQL注入-paraWhereItem&lt;/td&gt;
-      &lt;td&gt;5&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP SQL注入-paraOrder&lt;/td&gt;
-      &lt;td&gt;5.1.16-5.1.22&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP SQL注入-orderBy&lt;/td&gt;
-      &lt;td&gt;5.0.0-5.0.21 5.1.3-5.1.25&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP cacheFile文件包含&lt;/td&gt;
-      &lt;td&gt;5.0.0-5.0.18&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP cache远程代码执行&lt;/td&gt;
-      &lt;td&gt;5.0.0-5.0.18&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP 5 远程执行&lt;/td&gt;
-      &lt;td&gt;5.0.7-5.0.22 5.1.0-5.1.30&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ThinkPHP 6 任意文件操作&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">CSRF</title><link href="http://localhost:4000/_posts/2020-09-26-CSRF/" rel="alternate" type="text/html" title="CSRF" /><published>2020-09-26T00:00:00-04:00</published><updated>2020-09-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/CSRF</id><content type="html" xml:base="http://localhost:4000/_posts/2020-09-26-CSRF/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;CSRF&lt;/strong&gt;是&lt;strong&gt;Cross Site Request Forgery&lt;/strong&gt;的缩写，中文翻译过来是&lt;strong&gt;跨站请求伪造&lt;/strong&gt;。这个漏洞往往能给用户带来巨大的损失，&lt;strong&gt;CSRF&lt;/strong&gt;在等保安全检测中，也是一个非常重要的检测项&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;csrf攻击的原理&quot;&gt;CSRF攻击的原理&lt;/h1&gt;
-
-&lt;p&gt;要想理解CSRF攻击的原理，我们从一个经典的案例出发，看看它是如何进行攻击的。假设你的银行网站的域名是&lt;code&gt;www.a-bank.com&lt;/code&gt;，这个银行网站提供了一个转账的功能，在这个功能页面中，有一个表单，表单中有两个输入框，一个是转账金额，另一个是对方账号，还有一个提交按钮。当你登录了你的银行网站，输入转账金额，对方账号，点击提交按钮，就会进行转账。&lt;/p&gt;
-
-&lt;p&gt;这个转账的表单项，如下所示：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;&amp;lt;form method=&quot;post&quot; action=&quot;/transfer&quot;&amp;gt;
-    &amp;lt;input type=&quot;text&quot; name=&quot;amount&quot;/&amp;gt;
-    &amp;lt;input type=&quot;text&quot; name=&quot;account&quot;/&amp;gt;
-    &amp;lt;input type=&quot;submit&quot; value=&quot;Transfer&quot;/&amp;gt;
-&amp;lt;/form&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;当我们输入金额和账号，点击提交按钮，表单就会提交，给后端的银行网站服务发送请求。请求的内容如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-http&quot;&gt;POST /transfer HTTP/1.1
-Host: www.a-bank.com
-Cookie: JSESSIONID=randomid
-Content-Type: application/x-www-form-urlencoded
-amount=100.00&amp;amp;account=9876
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;请求成功后，你输入的转账金额100元，将转账到9876这个账户当中。假如你完成转账操作后，并没有退出登录，而是访问了一个恶意网站，这时，你的银行网站&lt;code&gt;www.a-bank.com&lt;/code&gt;还是处于登录状态，而这个恶意网站中，出现了一个带有”赢钱“字样的按钮，这个”赢钱“字样的按钮后面是一个form表单，表单如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;&amp;lt;form method=&quot;post&quot; action=&quot;https://www.a-bank.com/transfer&quot;&amp;gt;
-    &amp;lt;input type=&quot;hidden&quot; name=&quot;amount&quot; value=&quot;100.00&quot;/&amp;gt;
-    &amp;lt;input type=&quot;hidden&quot; name=&quot;account&quot; value=&quot;黑客的银行账户&quot;/&amp;gt;
-    &amp;lt;input type=&quot;submit&quot; value=&quot;赢钱!&quot;/&amp;gt;
-&amp;lt;/form&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;我们可以看到这个表单中，金额和账户都是隐藏的，在网页上只看到了一个赢钱按钮。这时，你忍不住冲动，点了一个”赢钱“按钮，这时，将会发生什么操作呢？我们仔细看一下上面表单中的&lt;code&gt;action&lt;/code&gt;写的是什么？&lt;code&gt;action&lt;/code&gt;写的是你的银行网站的转账请求接口。你点了一下赢钱按钮，在这个不正规的网站中，将会发送&lt;code&gt;https://www.a-bank.com/transfer&lt;/code&gt;这个请求，在发送这个请求的时候，会自动带上&lt;code&gt;www.a-bank.com&lt;/code&gt;的cookie，&lt;strong&gt;不要问我为什么是这样，这是浏览器的标准，标准就是这样规定的。&lt;/strong&gt;银行后台接到这个请求后，首先要判断用户是否登录，由于携带了cookie，是登录的，会继续执行后面的转账流程，最后转账成功。你点了一下”赢钱“按钮，自己没有赚到钱，而是给黑客转账了100元。&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;这就是CSRF攻击的原理，在其他的网站向你的网站发送请求，如果你的网站中的用户没有退出登录，而发送的请求又是一些敏感的操作请求，比如：转账，那么将会给你的网站的用户带来巨大的损失。&lt;/em&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;csrf的防御&quot;&gt;CSRF的防御&lt;/h1&gt;
-
-&lt;p&gt;我们知道了CSRF攻击的原理，就可以做针对性的防御了。CSRF的防御可以从两个方面考虑，一个是后台接口层做防御；另一个则是在前端做防御，这种不同源的请求，不可以带cookie。&lt;/p&gt;
-
-&lt;h1 id=&quot;后端防御csrf&quot;&gt;后端防御CSRF&lt;/h1&gt;
-
-&lt;p&gt;我们先聊聊后端的防御，后端防御主要是区分&lt;strong&gt;哪些请求是恶意请求，哪些请求是自己网站的请求。&lt;/strong&gt;区分恶意请求的方式有很多，在这里给大家介绍两种吧。&lt;/p&gt;
-
-&lt;p&gt;第一种，CSRF Token的方式。这种方式是&lt;strong&gt;在表单页面生成一个随机数，这个随机数一定要后端生成，并且对这个随机数进行存储。&lt;/strong&gt;在前端页面中，对这个Token表单项进行隐藏。代码如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;&amp;lt;form method=&quot;post&quot; action=&quot;/transfer&quot;&amp;gt;
-    &amp;lt;input type=&quot;hidden&quot; name=&quot;_csrf&quot; value=&quot;4bfd1575-3ad1-4d21-96c7-4ef2d9f86721&quot;/&amp;gt;
-    &amp;lt;input type=&quot;text&quot; name=&quot;amount&quot;/&amp;gt;
-    &amp;lt;input type=&quot;hidden&quot; name=&quot;account&quot;/&amp;gt;
-    &amp;lt;input type=&quot;submit&quot; value=&quot;Transfer&quot;/&amp;gt;
-&amp;lt;/form&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;_csrf&lt;/code&gt;就是CSRF Token。我们看到他的value是一个UUID，这个UUID是后台生成的。当用户点击转账按钮时，会给银行的后台发送请求，请求中包含&lt;code&gt;_csrf&lt;/code&gt;参数，如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-http&quot;&gt;POST /transfer HTTP/1.1
-Host: www.a-bank.com
-Cookie: JSESSIONID=randomid
-Content-Type: application/x-www-form-urlencoded
-amount=100.00&amp;amp;account=9876&amp;amp;_csrf=4bfd1575-3ad1-4d21-96c7-4ef2d9f86721
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;银行后台接收到这个请求后，判断&lt;code&gt;_csrf&lt;/code&gt;的值是否存在，如果存在则是自己网站的请求，进行后续的流程；如果不存在，则是恶意网站的请求，直接忽略。&lt;/p&gt;
-
-&lt;p&gt;第二种，通过请求头中的&lt;code&gt;referer&lt;/code&gt;字段判断请求的来源。每一个发送给后端的请求，在请求头中都会包含一个&lt;code&gt;referer&lt;/code&gt;字段，这个字段标识着请求的来源。如果请求是从银行网站发出的，这个字段会是银行网站转账页的链接，比如：&lt;code&gt;https://www.a-bank.com/transfer-view&lt;/code&gt;；如果是从恶意网站发出的，那么&lt;code&gt;referer&lt;/code&gt;字段一定不会是银行网站。我们在做后端防御时，可以先取出每个请求的请求头中的&lt;code&gt;referer&lt;/code&gt;字段，判断是不是以自己网站的域名开头，在咱们的示例中，如果&lt;code&gt;referer&lt;/code&gt;字段是以&lt;code&gt;https://www.a-bank.com/&lt;/code&gt;开头的，则继续执行转账操作；如果不是，则直接忽略掉这个请求。&lt;/p&gt;
-
-&lt;p&gt;以上就是后端防御CSRF攻击的两种方式，都需要在后端做特殊的处理。当然也可以在前端做处理，怎么做呢？我们接着往下看。&lt;/p&gt;
-
-&lt;h1 id=&quot;前端防御csrf&quot;&gt;前端防御CSRF&lt;/h1&gt;
-
-&lt;p&gt;既然CSRF攻击的危害这么大，为什么不能在前端禁止这种请求呢？各大浏览器厂商似乎也注意到了这个问题，谷歌提出了same-site cookies概念，same-site cookies 是基于 Chrome 和 Mozilla 开发者花了三年多时间制定的 IETF  标准。它是在原有的Cookie中，新添加了一个&lt;code&gt;SameSite&lt;/code&gt;属性，它标识着在非同源的请求中，是否可以带上Cookie，它可以设置为3个值，分别为：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Strict&lt;/li&gt;
-  &lt;li&gt;Lax&lt;/li&gt;
-  &lt;li&gt;None&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Cookie中的内容为：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-http&quot;&gt;POST /transfer HTTP/1.1
-Host: www.a-bank.com
-Cookie: JSESSIONID=randomid;SameSite=Strict;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;Strict&lt;/code&gt;是最严格的，它完全禁止在跨站情况下，发送Cookie。只有在自己的网站内部发送请求，才会带上Cookie。不过这个规则过于严格，会影响用户的体验。比如在一个网站中有一个链接，这个链接连接到了GitHub上，由于SameSite设置为Strict，跳转到GitHub后，GitHub总是未登录状态。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;Lax&lt;/code&gt;的规则稍稍放宽了些，大部分跨站的请求也不会带上Cookie，但是一些导航的Get请求会带上Cookie，如下：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;请求类型&lt;/th&gt;
-      &lt;th&gt;示例&lt;/th&gt;
-      &lt;th&gt;Lax情况&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;链接&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt;&amp;lt;a href=&quot;...&quot;&amp;gt;&amp;lt;/a&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;发送 Cookie&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;预加载&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt;&amp;lt;link rel=&quot;prerender&quot; href=&quot;...&quot;/&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;发送 Cookie&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;GET 表单&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt;&amp;lt;form method=&quot;GET&quot; action=&quot;...&quot;&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;发送 Cookie&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;POST 表单&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt;&amp;lt;form method=&quot;POST&quot; action=&quot;...&quot;&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;不发送&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;iframe&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt;frameLabelStart--frameLabelEnd &lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;不发送&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;AJAX&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt;$.get(&quot;...&quot;)&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;不发送&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Image&lt;/td&gt;
-      &lt;td&gt;&lt;code&gt;&amp;lt;img src=&quot;...&quot;&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;不发送&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;上面的表格就是SameSite设置为Lax的时候，Cookie的发送情况。&lt;/p&gt;
-
-&lt;p&gt;None就是关闭SameSite属性，所有的情况下都发送Cookie。不过SameSite设置None，还要同时设置Cookie的Secure属性，否则是不生效的。&lt;/p&gt;
-
-&lt;p&gt;以上就是在前端通过Cookie的SameSite属性防御CSRF攻击，&lt;strong&gt;不过大家在使用SameSite属性时，要注意浏览器是否支持SameSite属性。&lt;/strong&gt;&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>
+&lt;p&gt;现在的软件几乎都是用事件触发来控制流程的，事件触发时的情景便形成了场景，而同一事件不同的触发顺序和处理结果就形成事件流。这种在软件设计方面的思想也可以引入到软件测试中，可以比较生动地描绘出事件触发时的情景，有利于测试设计者设计测试用例，同时使测试用例更容易理解和执行。&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>
