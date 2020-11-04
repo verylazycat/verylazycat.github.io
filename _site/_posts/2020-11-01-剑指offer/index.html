@@ -325,6 +325,8 @@
 
       <ol id="toc">
   <li><a href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97">数组中重复的数字</a></li>
+  <li><a href="#-%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8"> 从尾到头打印链表</a></li>
+  <li><a href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97">斐波那契数列</a></li>
 </ol>
       
       
@@ -592,11 +594,11 @@
     
     
     <i class="fas fa-file-word fa-fw"></i>
-    381字
+    1153字
     
     
     <i class="fas fa-clock fa-fw"></i>
-    2分
+    4分
     
     
     <span class="leancloud-visitors" id="/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" data-xid="/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" data-flag-title="剑指offer">
@@ -655,6 +657,95 @@ public:
             a[nums[i]] = true;
         }
         return 0;
+    }
+};
+</code></pre>
+
+<hr />
+
+<h1 id="-从尾到头打印链表"><a href="https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/"> 从尾到头打印链表</a></h1>
+
+<p>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。</p>
+
+<p><strong>示例 1：</strong></p>
+
+<pre><code>输入：head = [1,3,2]
+输出：[2,3,1]
+</code></pre>
+
+<p>解:</p>
+
+<pre><code class="language-c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector&lt;int&gt; reversePrint(ListNode* head) {
+        vector&lt;int&gt; res;
+        stack&lt;int&gt; s;
+        ListNode *temp = head;
+        while(temp)
+        {
+            s.push(temp-&gt;val);
+            temp = temp-&gt;next;
+        }
+        while(!s.empty())
+        {
+            res.push_back(s.top());
+            s.pop();
+        }
+        return res;
+    }
+};
+</code></pre>
+
+<hr />
+
+<h1 id="斐波那契数列"><a href="https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/">斐波那契数列</a></h1>
+
+<p>写一个函数，输入 <code>n</code> ，求斐波那契（Fibonacci）数列的第 <code>n</code> 项。斐波那契数列的定义如下</p>
+
+<pre><code>F(0) = 0,   F(1) = 1
+F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
+</code></pre>
+
+<p>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。</p>
+
+<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
+
+<p><strong>示例 1：</strong></p>
+
+<pre><code>输入：n = 2
+输出：1
+</code></pre>
+
+<p><strong>示例 2：</strong></p>
+
+<pre><code>输入：n = 5
+输出：5
+</code></pre>
+
+<p>解:</p>
+
+<pre><code class="language-c++">class Solution {
+public:
+    int fib(int n) {
+        if(n == 0 || n == 1)
+            return n;
+        int res = 0;
+        int a = 0,b = 1;
+        while(n &gt;= 2){
+            res = (a + b)%1000000007;
+            a = b;
+            b = res;
+            n--;
+        }
+        return res;
     }
 };
 </code></pre>
