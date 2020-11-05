@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-05T04:00:14-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-05T04:04:30-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -365,7 +365,132 @@ public:
         return res;
     }
 };
-&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">Syn_Flood</title><link href="http://localhost:4000/_posts/2020-10-26-Syn_Flood/" rel="alternate" type="text/html" title="Syn_Flood" /><published>2020-10-26T00:00:00-04:00</published><updated>2020-10-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/Syn_Flood</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-26-Syn_Flood/">&lt;p&gt;[toc]&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">Cookie和Session、SessionID</title><link href="http://localhost:4000/_posts/2020-10-26-Cookie%E5%92%8CSession-SessionID/" rel="alternate" type="text/html" title="Cookie和Session、SessionID" /><published>2020-10-26T00:00:00-04:00</published><updated>2020-10-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/Cookie%E5%92%8CSession%E3%80%81SessionID</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-26-Cookie%E5%92%8CSession-SessionID/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h2 id=&quot;一cookie的定义&quot;&gt;一、Cookie的定义&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​    指某些网站为了辨别用户身份、进行session跟踪而存储在用户本地终端上的数据（通常经过加密）。也就是说如果知道一个用户的Cookie，并且在Cookie有效的时间内，就可以利用Cookie以这个用户的身份登录这个网站。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;会话cookie和持久cookie的区别？&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;​    如果不设置过期时间，则表示这个cookie生命周期为浏览器会话期间，只要关闭浏览器窗口，cookie就消失了。这种生命期为浏览会话期的cookie被称为会话cookie。会话cookie一般不保存在硬盘上而是保存在内存里。
+ 　　如果设置了过期时间，浏览器就会把cookie保存到硬盘上，关闭后再次打开浏览器，这些cookie依然有效直到超过设定的过期时间。
+ 　　存储在硬盘上的cookie可以在不同的浏览器进程间共享，比如两个IE窗口。而对于保存在内存的cookie，不同的浏览器有不同的处理方式。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;二session&quot;&gt;二、session&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;1、session在不同环境下的不同含义&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​     session，中文经常翻译为会话，其本来的含义是指有始有终的一系列动作/消息，比如打电话是从拿起电话拨号到挂断电话这中间的一系列过程可以称之为一个session。然而当session一词与网络协议相关联时，它又往往隐含了“面向连接”和/或“保持状态”这样两个含义。&lt;/p&gt;
+
+  &lt;p&gt;​    session在Web开发环境下的语义又有了新的扩展，它的含义是指一类用来在客户端与服务器端之间保持状态的解决方案。有时候Session也用来指这种解决方案的存储结构。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;2、session的机制（下面会细说）&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​     session机制是一种服务器端的机制，服务器使用一种类似于散列表的结构(也可能就是使用散列表)来保存信息。但程序需要为某个客户端的请求创建一个session的时候，服务器首先检查这个客户端的请求里是否包含了一个session标识 —— 称为session id。&lt;/p&gt;
+
+  &lt;p&gt;​      如果已经包含一个session id则说明以前已经为此客户创建过session，服务器就按照session id把这个session检索出来使用(如果检索不到，可能会新建一个，这种情况可能出现在服务端已经删除了该用户对应的session对象，但用户人为地在请求的URL后面附加上一个JSESSION的参数)。&lt;/p&gt;
+
+  &lt;p&gt;​    如果客户请求不包含session id，则为此客户创建一个session并且生成一个与此session相关联的session id，这个session id将在本次响应中返回给客户端保存。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;3、cookie机制和session机制的区别&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;cookie机制采用的是在客户端保持状态的方案，而session机制采用的是在服务器端保持状态的方案。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;三cookie和sessionsessionid的关系&quot;&gt;三、Cookie和Session、SessionID的关系&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​    sessionid 是一个会话的 key，浏览器第一次访问服务器会在服务器端生成一个 session，有一个  sessionID 和它对应，并返回给浏览器，这个 sessionID 会被保存在浏览器的会话 cookie 中。tomcat 生成的  sessionID 叫做 jsessionID。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​    sessionID 在访问 tomcat 服务器 HttpServletRequest 的  getSession(true) 的时候创建，tomcat 的 ManagerBase 类提供创建sessionID  的方法：随机数+时间+jvmid。Tomcat 的 StandardManager 类将 session 存储在内存中，也可以持久化到  file，数据库，memcache，redis等。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​    客户端只保存 sessionID 到 cookie 中，而不会保存 session。session 不会因为浏览器的关闭而删除，只能通过程序调用 HttpSession.invalidate() 或超时才能销毁。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;session 的 id 是从哪里来的，sessionID 是如何使用的？&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;​    当客户端第一次请求 session 对象时候，服务器会为客户端创建一个 session，并将通过特殊算法算出一个 session 的 ID，用来标识该 session 对象。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;session 存放在哪里？&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;​    服务器端的内存中。不过 session 可以通过特殊的方式做持久化管理（memcache，redis）。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;session在下列情况下被删除：&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;ol&gt;
+    &lt;li&gt;程序调用HttpSession.invalidate()&lt;/li&gt;
+    &lt;li&gt;距离上一次收到客户端发送的session id时间间隔超过了session的最大有效时间&lt;/li&gt;
+    &lt;li&gt;服务器进程被停止&lt;/li&gt;
+  &lt;/ol&gt;
+
+  &lt;p&gt;注意：&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;客户端只保存 sessionID 到 cookie 中，而不会保存 session。&lt;/li&gt;
+    &lt;li&gt;关闭浏览器只会使存储在客户端浏览器内存中的session cookie失效，不会使服务器端的session对象失效，同样也不会使已经保存到硬盘上的持久化cookie消失。&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;session cookie和session对象的生命周期是一样的吗？&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;当用户关闭了浏览器虽然session cookie已经消失，但session对象仍然保存在服务器端。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Session 在何时创建呢？&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;​     一个常见的错误是以为session在有客户端访问时就被创建，然而事实是直到某server端程序(如Servlet)调用HttpServletRequest.getSession(true)这样的语句时才会被创建。&lt;/p&gt;
+
+  &lt;p&gt;​    在创建了Session的同时，服务器会为该Session生成唯一的Session  id，而这个Session id在随后的请求中会被用来重新获得已经创建的Session；在Session被创建之后，就可以调用Session相关的方法往Session中增加内容了，而这些内容只会保存在服务器中，发到客户端的只有Session id；当客户端再次发送请求的时候，会将这个Session id带上，服务器接受到请求之后就会依据Session id找到相应的Session，从而再次使用之。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;打开两个浏览器窗口访问应用程序会使用同一个session还是不同的session？&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;​    通常session cookie是不能跨窗口使用的，当你新开了一个浏览器窗口进入相同页面时，系统会赋予你一个新的session id，这样我们信息共享的目的就达不到了。&lt;/p&gt;
+
+  &lt;p&gt;​     此时我们可以先把session id保存在persistent cookie中(通过设置session的最大有效时间)，然后在新窗口中读出来，就可以得到上一个窗口的session id了，这样通过session cookie和persistent cookie的结合我们就可以实现了跨窗口的会话跟踪。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;四客户端用cookie保存了sessionid时&quot;&gt;四、客户端用cookie保存了sessionID时&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;　　客户端用cookie保存了sessionID，当我们请求服务器的时候，会把这个sessionID一起发给服务器，服务器会到内存中搜索对应的sessionID，如果找到了对应的  sessionID，说明我们处于登录状态，有相应的权限；如果没有找到对应的sessionID，这说明：要么是我们把浏览器关掉了（后面会说明为什么），要么session超时了（没有请求服务器超过20分钟），session被服务器清除了，则服务器会给你分配一个新的sessionID。你得重新登录并把这个新的sessionID保存在cookie中。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​     在没有把浏览器关掉的时候（这个时候假如已经把sessionID保存在cookie中了）这个sessionID会一直保存在浏览器中，每次请求的时候都会把这个sessionID提交到服务器，所以服务器认为我们是登录的；当然，如果太长时间没有请求服务器，服务器会认为我们已经所以把浏览器关掉了，这个时候服务器会把该sessionID从内存中清除掉，这个时候如果我们再去请求服务器，sessionID已经不存在了，所以服务器并没有在内存中找到对应的 sessionID，所以会再产生一个新的sessionID，这个时候一般我们又要再登录一次。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;五客户端没有用cookie保存sessionid时&quot;&gt;五、客户端没有用cookie保存sessionID时&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;　　这个时候如果我们请求服务器，因为没有提交sessionID上来，服务器会认为你是一个全新的请求，服务器会给你分配一个新的sessionID，这就是 为什么我们每次打开一个新的浏览器的时候（无论之前我们有没有登录过）都会产生一个新的sessionID（或者是会让我们重新登录）。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​     当我们一旦把浏览器关掉后，再打开浏览器再请求该页面，它会让我们登录，这是为什么？我们明明已经登录了，而且还没有超时，sessionID肯定还在服务器上的，为什么现在我们又要再一次登录呢？这是因为我们关掉浏览再请求的时候，我们提交的信息没有把刚才的sessionID一起提交到服务器，所以服务器不知道我们是同一个人，所以这时服务器又为我们分配一个新的sessionID，打个比方：浏览器就好像一个要去银行开户的人，而服务器就好比银行，  这个要去银行开户的人这个时候显然没有帐号（sessionID），所以到银行后，银行工作人员问有没有帐号，他说没有，这个时候银行就会为他开通一个帐号（sessionID）。所以可以这么说，每次打开一个新的浏览器去请求的一个页面的时候，服务器都会认为，这是一个新的请求，他为你分配一个新的sessionID。&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name></name></author><category term="计算机网络" /><summary type="html">[toc]</summary></entry><entry><title type="html">Syn_Flood</title><link href="http://localhost:4000/_posts/2020-10-26-Syn_Flood/" rel="alternate" type="text/html" title="Syn_Flood" /><published>2020-10-26T00:00:00-04:00</published><updated>2020-10-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/Syn_Flood</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-26-Syn_Flood/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;syn_flood概述&quot;&gt;&lt;strong&gt;Syn_Flood概述&lt;/strong&gt;&lt;/h1&gt;
 
@@ -618,108 +743,4 @@ int main()
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&quot;二叉树的遍历&quot;&gt;二叉树的遍历&lt;/h1&gt;</content><author><name></name></author><category term="数据结构" /><summary type="html">[toc]</summary></entry><entry><title type="html">输入URL后发生什么</title><link href="http://localhost:4000/_posts/2020-10-17-%E8%BE%93%E5%85%A5URL%E5%90%8E%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88/" rel="alternate" type="text/html" title="输入URL后发生什么" /><published>2020-10-17T00:00:00-04:00</published><updated>2020-10-17T00:00:00-04:00</updated><id>http://localhost:4000/_posts/%E8%BE%93%E5%85%A5URL%E5%90%8E%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-17-%E8%BE%93%E5%85%A5URL%E5%90%8E%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;dns解析&quot;&gt;DNS解析&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;搜索浏览器自身DNS&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;操作系统DNS&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;windows&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-powershell&quot;&gt;ipconfig /flushdns
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;linux&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo systemctl is-active systemd-resolved.service
-sudo systemd-resolve --flush-caches
-&lt;/code&gt;&lt;/pre&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;读取host文件&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;windows:C:\WINDOWS\system32\drivers\etc&lt;/p&gt;
-
-      &lt;p&gt;linux:/etc/hosts&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;向域名服务器发送请求&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;tcp连接&quot;&gt;TCP连接&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;/_posts/2020-06-12-TCP三次握手四次挥手&quot;&gt;TCP三次握手四次挥手&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/_posts/2020-06-13-TCP&amp;amp;UDP区别&quot;&gt;TCP&amp;amp;UDP区别&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/_posts/2020-10-04-TCP粘包&quot;&gt;TCP粘包&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;http请求&quot;&gt;HTTP请求&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;/_posts/2020-07-05-HTTP协议请求方法&quot;&gt;HTTP协议请求方法&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;/_posts/2020-07-04-HTTP和HTTPS&quot;&gt;HTTP和HTTPS&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;接受相应结果&quot;&gt;接受相应结果&lt;/h1&gt;
-
-&lt;p&gt;状态码：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;1**：信息性状态码&lt;/li&gt;
-  &lt;li&gt;2**：成功状态码
- 200：OK 请求正常处理
- 204：No Content请求处理成功，但没有资源可返回
- 206：Partial Content对资源的某一部分的请求&lt;/li&gt;
-  &lt;li&gt;3**：重定向状态码
- 301：Moved Permanently 永久重定向
- 302：Found 临时性重定向
- 304：Not Modified 缓存中读取&lt;/li&gt;
-  &lt;li&gt;4**：客户端错误状态码
- 400：Bad Request 请求报文中存在语法错误
- 401：Unauthorized需要有通过Http认证的认证信息
- 403：Forbidden访问被拒绝
- 404：Not Found无法找到请求资源&lt;/li&gt;
-  &lt;li&gt;5**：服务器错误状态码
- 500：Internal Server Error 服务器端在执行时发生错误
- 503：Service Unavailable 服务器处于超负载或者正在进行停机维护&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;浏览器解析html&quot;&gt;浏览器解析HTML&lt;/h1&gt;
-
-&lt;p&gt;浏览器按顺序解析html文件，构建DOM树，在解析到外部的css和js文件时，向服务器发起请求下载资源，若是下载css文件，则解析器会在下载的同时继续解析后面的html来构建DOM树，则在下载js文件和执行它时，解析器会停止对html的解析。这便出现了js阻塞问题。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;预加载器&lt;/strong&gt;：
- 当浏览器被脚本文件阻塞时，预加载器（一个轻量级的解析器）会继续解析后面的html，寻找需要下载的资源。如果发现有需要下载的资源，预加载器在开始接收这些资源。预加载器只能检索HTML标签中的URL，无法检测到使用脚本添加的URL，这些资源要等脚本代码执行时才会获取。
- 注: 预解析并不改变Dom树，它将这个工作留给主解析过程&lt;/p&gt;
-
-&lt;p&gt;浏览器解析css，形成CSSOM树，当DOM树构建完成后，浏览器引擎通过DOM树和CSSOM树构造出渲染树。渲染树中包含可视节点的样式信息（不可见节点将不会被添加到渲染树中，如：head元素和display值为none的元素）&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;值得注意的是，这个过程是逐步完成的，为了更好的用户体验，渲染引擎将会尽可能早的将内容呈现到屏幕上，并不会等到所有的html都解析完成之后再去构建和布局render树。它是解析完一部分内容就显示一部分内容，同时，可能还在通过网络下载其余内容。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;浏览器渲染&quot;&gt;浏览器渲染&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;布局：通过计算得到每个渲染对象在可视区域中的具体位置信息（大小和位置），这是一个递归的过程。&lt;/li&gt;
-  &lt;li&gt;绘制：将计算好的每个像素点信息绘制在屏幕上&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;在页面显示的过程中会多次进行Reflow和Repaint操作，而Reflow的成本比Repaint的成本高得多的多。因为Repaint只是将某个部分进行重新绘制而不用改变页面的布局，如：改变了某个元素的背景颜色。而如果将元素的display属性由block改为none则需要Reflow。&lt;/p&gt;</content><author><name></name></author><category term="计算机网络" /><summary type="html">[toc]</summary></entry></feed>
+&lt;h1 id=&quot;二叉树的遍历&quot;&gt;二叉树的遍历&lt;/h1&gt;</content><author><name></name></author><category term="数据结构" /><summary type="html">[toc]</summary></entry></feed>
