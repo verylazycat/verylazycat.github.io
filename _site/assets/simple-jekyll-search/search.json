@@ -2,6 +2,15 @@
 [
   
     {
+      "title"    : "IO模式",
+      "category" : "",
+      "tags"     : "linux",
+      "date"     : "2020-11-04 00:00:00 -0500",
+      
+      "url"      : "/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/"
+    } ,
+  
+    {
       "title"    : "剑指offer",
       "category" : "",
       "tags"     : "杂项",

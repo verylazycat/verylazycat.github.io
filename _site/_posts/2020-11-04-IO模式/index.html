@@ -4,19 +4,19 @@
 <head>
   
   <!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>剑指offer | lazycat</title>
+<title>IO模式 | lazycat</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="剑指offer" />
+<meta property="og:title" content="IO模式" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="[toc]" />
 <meta property="og:description" content="[toc]" />
-<link rel="canonical" href="http://localhost:4000/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" />
-<meta property="og:url" content="http://localhost:4000/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/" />
 <meta property="og:site_name" content="lazycat" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-11-01T00:00:00-04:00" />
+<meta property="article:published_time" content="2020-11-04T00:00:00-05:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/","headline":"剑指offer","dateModified":"2020-11-01T00:00:00-04:00","datePublished":"2020-11-01T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/"},"description":"[toc]","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/","headline":"IO模式","dateModified":"2020-11-04T00:00:00-05:00","datePublished":"2020-11-04T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/"},"description":"[toc]","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -324,10 +324,12 @@
 </style>
 
       <ol id="toc">
-  <li><a href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97">数组中重复的数字</a></li>
-  <li><a href="#-%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8"> 从尾到头打印链表</a></li>
-  <li><a href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97">斐波那契数列</a></li>
-  <li><a href="#%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6%E9%97%AE%E9%A2%98">青蛙跳台阶问题</a></li>
+  <li><a href="#io%E6%A8%A1%E5%BC%8F">IO模式</a></li>
+  <li><a href="#%E9%98%BB%E5%A1%9E-io">阻塞 I/O</a></li>
+  <li><a href="#%E9%9D%9E%E9%98%BB%E5%A1%9E-io">非阻塞 I/O</a></li>
+  <li><a href="#io-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8">I/O 多路复用</a></li>
+  <li><a href="#%E5%BC%82%E6%AD%A5-io">异步 I/O</a></li>
+  <li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
 </ol>
       
       
@@ -576,7 +578,7 @@
 <div class="masthead">
   <h3 class="container masthead-title">
     
-    剑指offer
+    IO模式
     <a href="/" title="Home">
       <small>
         lazycat
@@ -591,18 +593,18 @@
   <span class="post-date">
     
     <i class="fas fa-calendar-day fa-fw"></i>
-    01 Nov 2020
+    04 Nov 2020
     
     
     <i class="fas fa-file-word fa-fw"></i>
-    1448字
+    1422字
     
     
     <i class="fas fa-clock fa-fw"></i>
     5分
     
     
-    <span class="leancloud-visitors" id="/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" data-xid="/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" data-flag-title="剑指offer">
+    <span class="leancloud-visitors" id="/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/" data-xid="/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/" data-flag-title="IO模式">
       <i class="fas fa-book-reader fa-fw"></i>
       <span class="leancloud-visitors-count">
         <i class="fas fa-spinner fa-pulse"></i>
@@ -612,7 +614,7 @@
     
     
     <i class="fas fa-tag fa-fw"></i>
-    杂项
+    linux
     
     
     <br/>
@@ -631,172 +633,70 @@
   </span>
   <p>[toc]</p>
 
-<h1 id="数组中重复的数字"><a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">数组中重复的数字</a></h1>
+<h1 id="io模式">IO模式</h1>
 
-<p>找出数组中重复的数字。</p>
+<blockquote>
+  <p>Linux环境下的网络IO</p>
+</blockquote>
 
-<p>在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字</p>
+<p>对于一次IO访问，数据会先被拷贝到操作系统内核的缓冲区中，然后再从操作系统内核的缓冲区拷贝到应用程序的地址空间。所以，当发生一个IO操作时，它会经历两个阶段：</p>
 
-<pre><code>输入：
-[2, 3, 1, 0, 2, 5, 3]
-输出：2 或 3 
-</code></pre>
+<ul>
+  <li>等待数据准备</li>
+  <li>将数据从内核拷贝到进程中</li>
+</ul>
 
-<p>解:初始化bool数组为false,先判断,在设置为true,如果重复,则第二次判断为true,直接输出</p>
+<p>对于两个阶段，linux系统产生了下面五种网络模式的IO存储方案。</p>
 
-<pre><code class="language-c++">class Solution {
-public:
-    int findRepeatNumber(vector&lt;int&gt;&amp; nums) {
-        int size = nums.size();
-        bool a[100000] = {false};
-        for(int i = 0 ;i &lt;size;i++)
-        {
-            if(a[nums[i]])
-            {
-                return nums[i];
-            }
-            a[nums[i]] = true;
-        }
-        return 0;
-    }
-};
-</code></pre>
+<ul>
+  <li>阻塞 I/O（blocking IO）</li>
+  <li>非阻塞 I/O（nonblocking IO）</li>
+  <li>I/O 多路复用（ IO multiplexing）</li>
+  <li>信号驱动 I/O（ signal driven IO）</li>
+  <li>异步 I/O（asynchronous IO）</li>
+</ul>
 
-<hr />
+<blockquote>
+  <p>信号驱动IO在实际中并不常用，所以我们讨论剩下的四种IO模式，有兴趣可以自行了解信号驱动**IO。</p>
+</blockquote>
 
-<h1 id="-从尾到头打印链表"><a href="https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/"> 从尾到头打印链表</a></h1>
+<h1 id="阻塞-io">阻塞 I/O</h1>
 
-<p>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。</p>
+<p>在linux中，默认情况下所有的socket都是阻塞io。</p>
 
-<p><strong>示例 1：</strong></p>
+<p>这个模式的特点在于，当用户进程调用了io操作的时候，操作系统就开始准备数据，当操作系统内核一直等到数据准备好了，它就会将数据从操作系统内核中拷贝到用户内存，然后返回结果，用户进程才解除锁住的状态，重新运行起来。整个过程需要等待（不能立刻完成），而用户进程这边，就相当于是卡着一直在等他完成返回结果。</p>
 
-<pre><code>输入：head = [1,3,2]
-输出：[2,3,1]
-</code></pre>
+<p><code>所以，阻塞IO的特点就是在IO执行的两个阶段都被锁住了</code></p>
 
-<p>解:</p>
+<h1 id="非阻塞-io">非阻塞 I/O</h1>
 
-<pre><code class="language-c++">/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    vector&lt;int&gt; reversePrint(ListNode* head) {
-        vector&lt;int&gt; res;
-        stack&lt;int&gt; s;
-        ListNode *temp = head;
-        while(temp)
-        {
-            s.push(temp-&gt;val);
-            temp = temp-&gt;next;
-        }
-        while(!s.empty())
-        {
-            res.push_back(s.top());
-            s.pop();
-        }
-        return res;
-    }
-};
-</code></pre>
+<p>linux下，可以通过设置socket使其变为非阻塞IO。</p>
 
-<hr />
+<p>非阻塞IO的特点是，当用户进程发出IO操作时，在第一个阶段如果内核数据还没准备好，并不会锁住用户进程，而是立刻返回一个error。然后用户进程收到error，就知道没准备好，就会再去问内核有没有准备好，直到内核准备好，并且收到了用户进程的询问，就会立刻拷贝数据，然后进行第二阶段（第二阶段依然会卡住，非阻塞IO只是在第一阶段非阻塞）</p>
 
-<h1 id="斐波那契数列"><a href="https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/">斐波那契数列</a></h1>
+<p>就像打电话一样，对方占线，你就一直打，直到对方接通为止，但效率不高。所以，nonblocking IO的特点是用户进程需要不断的主动询问kernel数据好了没有。</p>
 
-<p>写一个函数，输入 <code>n</code> ，求斐波那契（Fibonacci）数列的第 <code>n</code> 项。斐波那契数列的定义如下</p>
+<h1 id="io-多路复用">I/O 多路复用</h1>
 
-<pre><code>F(0) = 0,   F(1) = 1
-F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
-</code></pre>
+<p>IO多路复用就是我们用的select，poll，epoll。当用户进程调用了select，那么整个进程会被block，而同时，kernel会“监视”所有select负责的socket，当任何一个socket中的数据准备好了，select就会返回。这个时候用户进程再调用read操作，将数据从kernel拷贝到用户进程。简单的说，就是和阻塞IO处理方式一样，但不同的是，select可以一下把很多很多文件描述符都传过来，然后操作系统内核同时监视他们，只要其中一个就绪，就及时处理那个，而不需要一个个等待处理。</p>
 
-<p>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。</p>
+<p>他的性能可能比阻塞IO还要差，但他的优点在于能同时处理多个连接。所以，如果处理的连接数不是很高的话，使用IO多路复用不一定比使用多线程+阻塞IO的性能更好，可能延迟还更大。</p>
 
-<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
+<h1 id="异步-io">异步 I/O</h1>
 
-<p><strong>示例 1：</strong></p>
+<p>Linux下的异步IO其实用得很少。</p>
 
-<pre><code>输入：n = 2
-输出：1
-</code></pre>
+<p>异步io的特点很简单：当处理一个io操作的时候，用户进程把数据传过来，操作系统会立刻返回“收到”，用户进程就不用管了，可以干别的事情了。等操作系统内核处理完2个阶段，就自动告诉用户进程我处理完了。</p>
 
-<p><strong>示例 2：</strong></p>
+<h1 id="总结">总结</h1>
 
-<pre><code>输入：n = 5
-输出：5
-</code></pre>
+<p>阻塞IO：用户一直等操作系统内核完成2个阶段io操作，再继续</p>
 
-<p>解: <strong>别用递归</strong></p>
+<p>非阻塞IO：第一阶段用户一直问操作系统有没有准备好，第二阶段等操作系统完成。</p>
 
-<pre><code class="language-c++">class Solution {
-public:
-    int fib(int n) {
-        if(n == 0 || n == 1)
-            return n;
-        int res = 0;
-        int a = 0,b = 1;
-        while(n &gt;= 2){
-            res = (a + b)%1000000007;
-            a = b;
-            b = res;
-            n--;
-        }
-        return res;
-    }
-};
-</code></pre>
+<p>IO多路复用：用户进程可以同时发多个网络连接IO，操作系统实施监控，虽然用户进程2个阶段都卡住了，但可以处理多个连接。</p>
 
-<h1 id="青蛙跳台阶问题"><a href="https://leetcode-cn.com/problems/qing-wa-tiao-tai-jie-wen-ti-lcof/">青蛙跳台阶问题</a></h1>
-
-<p>一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。</p>
-
-<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
-
-<p><strong>示例 1：</strong></p>
-
-<pre><code>输入：n = 2
-输出：2
-</code></pre>
-
-<p><strong>示例 2：</strong></p>
-
-<pre><code>输入：n = 7
-输出：21
-</code></pre>
-
-<p><strong>示例 3：</strong></p>
-
-<pre><code>输入：n = 0
-输出：1
-</code></pre>
-
-<p>解:</p>
-
-<pre><code class="language-c++">class Solution {
-public:
-    int numWays(int n) {
-        if(n == 0 || n == 1)
-        {
-            return 1;
-        }
-        int res = 0,a = 1,b = 1;
-        while(n &gt;= 2)
-        {
-            res = (a+b)%1000000007;
-            a = b;
-            b = res;
-            n--;
-        }
-        return res;
-    }
-};
-</code></pre>
-
+<p>异步IO：用户进程完全把东西交给操作系统完成，自己不管了。</p>
 
 </div>
 <div class="v">

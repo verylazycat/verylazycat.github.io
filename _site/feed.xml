@@ -1,11 +1,76 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-04T09:21:41-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-05T03:47:09-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">inline和define</title><link href="http://localhost:4000/_posts/2020-11-01-inline%E5%92%8Cdefine/" rel="alternate" type="text/html" title="inline和define" /><published>2020-11-01T00:00:00-04:00</published><updated>2020-11-01T00:00:00-04:00</updated><id>http://localhost:4000/_posts/inline%E5%92%8Cdefine</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-01-inline%E5%92%8Cdefine/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">IO模式</title><link href="http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/" rel="alternate" type="text/html" title="IO模式" /><published>2020-11-04T00:00:00-05:00</published><updated>2020-11-04T00:00:00-05:00</updated><id>http://localhost:4000/_posts/IO%E6%A8%A1%E5%BC%8F</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;io模式&quot;&gt;IO模式&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Linux环境下的网络IO&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;对于一次IO访问，数据会先被拷贝到操作系统内核的缓冲区中，然后再从操作系统内核的缓冲区拷贝到应用程序的地址空间。所以，当发生一个IO操作时，它会经历两个阶段：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;等待数据准备&lt;/li&gt;
+  &lt;li&gt;将数据从内核拷贝到进程中&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;对于两个阶段，linux系统产生了下面五种网络模式的IO存储方案。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;阻塞 I/O（blocking IO）&lt;/li&gt;
+  &lt;li&gt;非阻塞 I/O（nonblocking IO）&lt;/li&gt;
+  &lt;li&gt;I/O 多路复用（ IO multiplexing）&lt;/li&gt;
+  &lt;li&gt;信号驱动 I/O（ signal driven IO）&lt;/li&gt;
+  &lt;li&gt;异步 I/O（asynchronous IO）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;信号驱动IO在实际中并不常用，所以我们讨论剩下的四种IO模式，有兴趣可以自行了解信号驱动**IO。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;阻塞-io&quot;&gt;阻塞 I/O&lt;/h1&gt;
+
+&lt;p&gt;在linux中，默认情况下所有的socket都是阻塞io。&lt;/p&gt;
+
+&lt;p&gt;这个模式的特点在于，当用户进程调用了io操作的时候，操作系统就开始准备数据，当操作系统内核一直等到数据准备好了，它就会将数据从操作系统内核中拷贝到用户内存，然后返回结果，用户进程才解除锁住的状态，重新运行起来。整个过程需要等待（不能立刻完成），而用户进程这边，就相当于是卡着一直在等他完成返回结果。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;所以，阻塞IO的特点就是在IO执行的两个阶段都被锁住了&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;非阻塞-io&quot;&gt;非阻塞 I/O&lt;/h1&gt;
+
+&lt;p&gt;linux下，可以通过设置socket使其变为非阻塞IO。&lt;/p&gt;
+
+&lt;p&gt;非阻塞IO的特点是，当用户进程发出IO操作时，在第一个阶段如果内核数据还没准备好，并不会锁住用户进程，而是立刻返回一个error。然后用户进程收到error，就知道没准备好，就会再去问内核有没有准备好，直到内核准备好，并且收到了用户进程的询问，就会立刻拷贝数据，然后进行第二阶段（第二阶段依然会卡住，非阻塞IO只是在第一阶段非阻塞）&lt;/p&gt;
+
+&lt;p&gt;就像打电话一样，对方占线，你就一直打，直到对方接通为止，但效率不高。所以，nonblocking IO的特点是用户进程需要不断的主动询问kernel数据好了没有。&lt;/p&gt;
+
+&lt;h1 id=&quot;io-多路复用&quot;&gt;I/O 多路复用&lt;/h1&gt;
+
+&lt;p&gt;IO多路复用就是我们用的select，poll，epoll。当用户进程调用了select，那么整个进程会被block，而同时，kernel会“监视”所有select负责的socket，当任何一个socket中的数据准备好了，select就会返回。这个时候用户进程再调用read操作，将数据从kernel拷贝到用户进程。简单的说，就是和阻塞IO处理方式一样，但不同的是，select可以一下把很多很多文件描述符都传过来，然后操作系统内核同时监视他们，只要其中一个就绪，就及时处理那个，而不需要一个个等待处理。&lt;/p&gt;
+
+&lt;p&gt;他的性能可能比阻塞IO还要差，但他的优点在于能同时处理多个连接。所以，如果处理的连接数不是很高的话，使用IO多路复用不一定比使用多线程+阻塞IO的性能更好，可能延迟还更大。&lt;/p&gt;
+
+&lt;h1 id=&quot;异步-io&quot;&gt;异步 I/O&lt;/h1&gt;
+
+&lt;p&gt;Linux下的异步IO其实用得很少。&lt;/p&gt;
+
+&lt;p&gt;异步io的特点很简单：当处理一个io操作的时候，用户进程把数据传过来，操作系统会立刻返回“收到”，用户进程就不用管了，可以干别的事情了。等操作系统内核处理完2个阶段，就自动告诉用户进程我处理完了。&lt;/p&gt;
+
+&lt;h1 id=&quot;总结&quot;&gt;总结&lt;/h1&gt;
+
+&lt;p&gt;阻塞IO：用户一直等操作系统内核完成2个阶段io操作，再继续&lt;/p&gt;
+
+&lt;p&gt;非阻塞IO：第一阶段用户一直问操作系统有没有准备好，第二阶段等操作系统完成。&lt;/p&gt;
+
+&lt;p&gt;IO多路复用：用户进程可以同时发多个网络连接IO，操作系统实施监控，虽然用户进程2个阶段都卡住了，但可以处理多个连接。&lt;/p&gt;
+
+&lt;p&gt;异步IO：用户进程完全把东西交给操作系统完成，自己不管了。&lt;/p&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry><entry><title type="html">inline和define</title><link href="http://localhost:4000/_posts/2020-11-01-inline%E5%92%8Cdefine/" rel="alternate" type="text/html" title="inline和define" /><published>2020-11-01T00:00:00-04:00</published><updated>2020-11-01T00:00:00-04:00</updated><id>http://localhost:4000/_posts/inline%E5%92%8Cdefine</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-01-inline%E5%92%8Cdefine/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;inline与define&quot;&gt;inline与define&lt;/h1&gt;
 
@@ -247,6 +312,52 @@ public:
         int a = 0,b = 1;
         while(n &amp;gt;= 2){
             res = (a + b)%1000000007;
+            a = b;
+            b = res;
+            n--;
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;青蛙跳台阶问题&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/qing-wa-tiao-tai-jie-wen-ti-lcof/&quot;&gt;青蛙跳台阶问题&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。&lt;/p&gt;
+
+&lt;p&gt;答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;输入：n = 2
+输出：2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;输入：n = 7
+输出：21
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;输入：n = 0
+输出：1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int numWays(int n) {
+        if(n == 0 || n == 1)
+        {
+            return 1;
+        }
+        int res = 0,a = 1,b = 1;
+        while(n &amp;gt;= 2)
+        {
+            res = (a+b)%1000000007;
             a = b;
             b = res;
             n--;
@@ -611,71 +722,4 @@ sudo systemd-resolve --flush-caches
   &lt;li&gt;绘制：将计算好的每个像素点信息绘制在屏幕上&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;在页面显示的过程中会多次进行Reflow和Repaint操作，而Reflow的成本比Repaint的成本高得多的多。因为Repaint只是将某个部分进行重新绘制而不用改变页面的布局，如：改变了某个元素的背景颜色。而如果将元素的display属性由block改为none则需要Reflow。&lt;/p&gt;</content><author><name></name></author><category term="计算机网络" /><summary type="html">[toc]</summary></entry><entry><title type="html">TCP粘包</title><link href="http://localhost:4000/_posts/2020-10-04-TCP%E7%B2%98%E5%8C%85/" rel="alternate" type="text/html" title="TCP粘包" /><published>2020-10-04T00:00:00-04:00</published><updated>2020-10-04T00:00:00-04:00</updated><id>http://localhost:4000/_posts/TCP%E7%B2%98%E5%8C%85</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-04-TCP%E7%B2%98%E5%8C%85/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;在socket网络编程中，都是端到端通信，由客户端端口+服务端端口+客户端IP+服务端IP+传输协议组成的五元组可以明确的标识一条连接。在TCP的socket编程中，发送端和接收端都有成对的socket。发送端为了将多个发往接收端的包，更加高效的的发给接收端，于是采用了优化算法（Nagle算法），将多次间隔较小、数据量较小的数据，合并成一个数据量大的数据块，然后进行封包。那么这样一来，接收端就必须使用高效科学的拆包机制来分辨这些数据。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;什么是tcp粘包问题&quot;&gt;什么是TCP粘包问题&lt;/h1&gt;
-
-&lt;p&gt;TCP粘包就是指发送方发送的若干包数据到达接收方时粘成了一包，从接收缓冲区来看，后一包数据的头紧接着前一包数据的尾，出现粘包的原因是多方面的，可能是来自发送方，也可能是来自接收方&lt;/p&gt;
-
-&lt;h1 id=&quot;造成tcp粘包的原因&quot;&gt;造成TCP粘包的原因&lt;/h1&gt;
-
-&lt;h2 id=&quot;发送方原因&quot;&gt;发送方原因&lt;/h2&gt;
-
-&lt;p&gt;TCP默认使用Nagle算法（主要作用：减少网络中报文段的数量），而Nagle算法主要做两件事：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;只有上一个分组得到确认，才会发送下一个分组&lt;/li&gt;
-  &lt;li&gt;收集多个小分组，在一个确认到来时一起发送&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Nagle算法造成了发送方可能会出现粘包问题&lt;/p&gt;
-
-&lt;h2 id=&quot;接收方原因&quot;&gt;接收方原因&lt;/h2&gt;
-
-&lt;p&gt;TCP接收到数据包时，并不会马上交到应用层进行处理，或者说应用层并不会立即处理。实际上，TCP将接收到的数据包保存在接收缓存里，然后应用程序主动从缓存读取收到的分组。这样一来，如果TCP接收数据包到缓存的速度大于应用程序从缓存中读取数据包的速度，多个包就会被缓存，应用程序就有可能读取到多个首尾相接粘到一起的包。&lt;/p&gt;
-
-&lt;h1 id=&quot;什么时候需要处理粘包现象&quot;&gt;什么时候需要处理粘包现象&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;如果发送方发送的多组数据本来就是同一块数据的不同部分，比如说一个文件被分成多个部分发送，这时当然不需要处理粘包现象&lt;/li&gt;
-  &lt;li&gt;如果多个分组毫不相干，甚至是并列关系，那么这个时候就一定要处理粘包现象了&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;如何处理粘包现象&quot;&gt;如何处理粘包现象&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;发送方&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;对于发送方造成的粘包问题，可以通过关闭Nagle算法来解决，使用TCP_NODELAY选项来关闭算法。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;接收方&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;接收方没有办法来处理粘包现象，只能将问题交给应用层来处理。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;应用层&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;应用层的解决办法简单可行，不仅能解决接收方的粘包问题，还可以解决发送方的粘包问题。&lt;/p&gt;
-
-&lt;p&gt;解决办法：循环处理，应用程序从接收缓存中读取分组时，读完一条数据，就应该循环读取下一条数据，直到所有数据都被处理完成，但是如何判断每条数据的长度呢？&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;格式化数据：每条数据有固定的格式（开始符，结束符），这种方法简单易行，但是选择开始符和结束符时一定要确保每条数据的内部不包含开始符和结束符。&lt;/li&gt;
-  &lt;li&gt;发送长度：发送每条数据时，将数据的长度一并发送，例如规定数据的前4位是数据的长度，应用层在处理时可以根据长度来判断每个分组的开始和结束位置。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;udp会不会产生粘包问题呢&quot;&gt;UDP会不会产生粘包问题呢&lt;/h1&gt;
-
-&lt;p&gt;TCP为了保证可靠传输并减少额外的开销（每次发包都要验证），采用了基于流的传输，基于流的传输不认为消息是一条一条的，是无保护消息边界的（保护消息边界：指传输协议把数据当做一条独立的消息在网上传输，接收端一次只能接受一条独立的消息）。&lt;/p&gt;
-
-&lt;p&gt;UDP则是面向消息传输的，是有保护消息边界的，接收方一次只接受一条独立的信息，所以不存在粘包问题。&lt;/p&gt;
-
-&lt;p&gt;举个例子：有三个数据包，大小分别为2k、4k、6k，如果采用UDP发送的话，不管接受方的接收缓存有多大，我们必须要进行至少三次以上的发送才能把数据包发送完，但是使用TCP协议发送的话，我们只需要接受方的接收缓存有12k的大小，就可以一次把这3个数据包全部发送完毕。&lt;/p&gt;</content><author><name></name></author><category term="计算机网络" /><summary type="html">[toc]</summary></entry></feed>
+&lt;p&gt;在页面显示的过程中会多次进行Reflow和Repaint操作，而Reflow的成本比Repaint的成本高得多的多。因为Repaint只是将某个部分进行重新绘制而不用改变页面的布局，如：改变了某个元素的背景颜色。而如果将元素的display属性由block改为none则需要Reflow。&lt;/p&gt;</content><author><name></name></author><category term="计算机网络" /><summary type="html">[toc]</summary></entry></feed>
