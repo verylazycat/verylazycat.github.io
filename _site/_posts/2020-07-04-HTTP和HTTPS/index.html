@@ -350,6 +350,12 @@
       <li><a href="#%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E9%98%B6%E6%AE%B5">用户认证阶段</a></li>
     </ol>
   </li>
+  <li><a href="#tlsssl-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%8F%8A%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3">TLS/SSL 工作原理及握手过程详解</a>
+    <ol>
+      <li><a href="#tlsssl-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5">TLS/SSL 基础概念</a></li>
+      <li><a href="#tlsssl-%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B">TLS/SSL 握手过程</a></li>
+    </ol>
+  </li>
 </ol>
       
       
@@ -617,11 +623,11 @@
     
     
     <i class="fas fa-file-word fa-fw"></i>
-    4559字
+    8975字
     
     
     <i class="fas fa-clock fa-fw"></i>
-    16分
+    30分
     
     
     <span class="leancloud-visitors" id="/_posts/2020-07-04-HTTP%E5%92%8CHTTPS/" data-xid="/_posts/2020-07-04-HTTP%E5%92%8CHTTPS/" data-flag-title="HTTP和HTTPS">
@@ -810,6 +816,134 @@
 <blockquote>
   <p>服务器证书(server certificates)是SSL数字证书的一种形式，意指通过提交数字证书来证明您的身份或表明您有权访问在线服务。再者简单来说，通过使用服务器证书可为不同站点提供身份鉴定并保证该站点拥有高强度加密安全。是组成Web服务器的SSL安全功能的唯一的数字标识。通过相互信任的第三方组织获得，并为用户 提供验证您Web站点身份的手段。服务器证书包含详细的身份验证信息，如服务器内容附属的组织、颁发证书的组织以及称为公开密钥的唯一的身份验证文件</p>
 </blockquote>
+
+<h1 id="tlsssl-工作原理及握手过程详解">TLS/SSL 工作原理及握手过程详解</h1>
+
+<h2 id="tlsssl-基础概念"><strong>TLS/SSL 基础概念</strong></h2>
+
+<p>概念源自百度百科：传输层安全性协议 TLS（Transport Layer Security），及其前身安全套接层 SSL（Secure Sockets Layer）是一种<a href="https://baike.baidu.com/item/安全协议">安全协议</a>，目的是为<a href="https://baike.baidu.com/item/互联网">互联网</a>通信提供安全及数据<a href="https://baike.baidu.com/item/完整性">完整性</a>保障。<a href="https://baike.baidu.com/item/网景">网景</a>公司（Netscape）在 1994 年推出首版<a href="https://baike.baidu.com/item/网页浏览器">网页浏览器</a>，<a href="https://baike.baidu.com/item/网景导航者">网景导航者</a>时，推出 HTTPS 协议，以 SSL 进行加密，这是 SSL 的起源。IETF 将 SSL 进行标准化，1999 年公布第一版 TLS 标准文件。随后又公布RFC 5246（2008年8月）与RFC 6176（2011年3月）。在<a href="https://baike.baidu.com/item/浏览器">浏览器</a>、<a href="https://baike.baidu.com/item/邮箱">邮箱</a>、<a href="https://baike.baidu.com/item/即时通信">即时通信</a>、<a href="https://baike.baidu.com/item/VoIP">VoIP</a>、<a href="https://baike.baidu.com/item/网络传真">网络传真</a>等应用程序中，广泛支持这个协议。主要的网站，如 <a href="https://baike.baidu.com/item/Google">Google</a>、Facebook 等也以这个协议来创建安全连线，发送数据。目前已成为<a href="https://baike.baidu.com/item/互联网">互联网</a>上保密通信的工业标准。</p>
+
+<p><img src="/img/http&amp;s.png" alt="http&amp;s" /></p>
+
+<p>TLS/SSL 的功能实现主要依赖于三类基本算法：散列函数 Hash、对称加密和非对称加密，其利用非对称加密实现身份认证和密钥协商，对称加密算法采用协商的密钥对数据加密，基于散列函数验证信息的完整性。</p>
+
+<p><strong>散列函数 Hash</strong></p>
+
+<p>常见的有 MD5、SHA1、SHA256，该类函数特点是函数单向不可逆、对输入非常敏感、输出长度固定，针对数据的任何修改都会改变散列函数的结果，用于防止信息篡改并验证数据的完整性。在信息传输过程中，散列函数不能单独实现信息防篡改，因为明文传输，中间人可以修改信息之后重新计算信息摘要，因此需要对传输的信息以及信息摘要进行加密。</p>
+
+<p><strong>对称加密</strong></p>
+
+<p>常见的有 AES-CBC、DES、3DES、AES-GCM 等，信息的加密和解密用相同的密钥，掌握密钥才能获取信息。在对称加密中，信息安全的基础是保证密钥的安全。</p>
+
+<p><strong>非对称加密</strong></p>
+
+<p>即常见的 RSA 算法，还包括 ECC、DH 等算法，算法特点是，密钥成对出现，一般称为公钥(公开)和私钥(保密)。因此掌握公钥的不同客户端之间不能互相解密信息，只能和掌握私钥的服务器进行加密通信。服务器持有私钥可以实现一对多的通信，而客户端可以用公钥来验证服务器发送的数字签名。服务器只需要维持一个私钥就能够和多个客户端进行加密通信，但该算法的计算复杂，加密速度慢。</p>
+
+<p>结合三类算法的特点，TLS/SSL 的基本工作方式是，客户端使用非对称加密与服务器进行通信，实现身份验证并协商对称加密使用的密钥，然后对称加密算法采用协商密钥对信息以及信息摘要进行加密通信，不同的节点之间采用的对称密钥不同，从而可以保证信息只能通信双方获取。</p>
+
+<p><strong>密钥协商过程中存在的问题及解决办法</strong></p>
+
+<p><strong>存在的问题</strong></p>
+
+<p>上面介绍了 TLS/SSL 在 HTTPS 信息传递中扮演的角色，我们知道了要用非对称加密与服务器进行通信，实现身份验证并协商对称加密使用的密钥。可是这个公钥是怎么传递给客户端的？</p>
+
+<p><img src="/img/20200726113629774.png" alt="20200726113629774" /></p>
+
+<p>上面图中的过程是不安全的，接下来对该问题进行说明。与公钥密码加密系统相伴的一个重要挑战就是正确地决定某个主体或身份的公钥。如果 <strong>A</strong> 向 <strong>B</strong> 发送自已的公钥，<strong>M</strong> 能够在传输过程中将其修改为自己的公钥。<strong>B</strong> (也被称为依赖方)可能察觉不到自已使用的是 <strong>M</strong> 的公钥，而认为这是 <strong>A</strong> 的公钥。这样就使得 <strong>M</strong> 能够轻易地扮演 <strong>A</strong> 的角色，即如下图所示：</p>
+
+<p><img src="/img/安全连接.png" alt="安全连接" /></p>
+
+<p><strong>解决办法</strong></p>
+
+<p>一种常见的方法是依靠中心化的机构，其中包括对公钥基础设施 PKI (Public Key Infrastructure) 的使用。这一方法在特定的理论假设下容易被证明是安全的。 PKI 负责提供创建、吊销、分发以及更新密钥对与证书的服务。它需要一些证书颁发机构 CA (Certificate Authority) 才能运行。证书颁发机构是用于管理与认证一些个体与它们的公钥间的绑定关系的实体。目前有数百家商业证书颁发机构。一个证书颁发机构通常采用层次的签名构架。这意味着一个公钥可能会被一个父密钥签名，而这个父密钥可能会被一个祖父密钥签名，依次类推。最终，一个证书颁发机构会拥有一个或多个根证书，许多下属的证书都会依赖根证书来建立信任。</p>
+
+<p><img src="/img/证书.png" alt="证书" /></p>
+
+<p>在实践中，系统往往要求公钥操作应当拥有知名 CA 的根证书。这些根证书是在配置时安装的 (例如，微软公司的 Intemet ExpIorer 浏览器、 Mozilia 公司的 Firefox 浏览器以及 Google 公司的  Chrome 浏览器都能够访问一个预先配置的根证书数据库)。</p>
+
+<p><img src="/img/CA.png" alt="CA" /></p>
+
+<h2 id="tlsssl-握手过程"><strong>TLS/SSL 握手过程</strong></h2>
+
+<p><img src="/img/TLS.png" alt="TLS" /></p>
+
+<p><strong>1. client_hello</strong></p>
+
+<p>客户端发起请求，以明文传输请求信息，包含版本信息，加密套件候选列表，压缩算法候选列表，随机数，扩展字段等信息，相关信息如下：</p>
+
+<p>(1) 支持的最高TSL协议版本version，从低到高依次 SSLv2，SSLv3，TLSv1，TLSv1.1，TLSv1.2，TLSv1.3。</p>
+
+<p>(2) 客户端支持的加密套件 cipher suites 列表， 每个加密套件对应前面 TLS 原理中的四个功能的组合：认证算法 Au (身份验证)、密钥交换算法 Key Exchange(密钥协商)、对称加密算法 Enc (信息加密)和信息摘要 Mac(完整性校验)。</p>
+
+<p>(3) 支持的压缩算法 compression methods 列表，用于后续的信息压缩传输。</p>
+
+<p>(4) 随机数 random_C，用于后续的密钥的生成。</p>
+
+<p>(5) 扩展字段 extensions，支持协议与算法的相关参数以及其它辅助信息等，常见的 SNI 就属于扩展字段，后续单独讨论该字段作用。</p>
+
+<p><strong>2. server_hello + server_certificate + sever_hello_done</strong></p>
+
+<p>(1) server_hello， 服务端返回协商的信息结果，包括选择使用的协议版本 version，选择的加密套件 cipher suite，选择的压缩算法 compression method、随机数 random_S 等，其中随机数用于后续的密钥协商。</p>
+
+<p>(2) server_certificates，服务器端配置对应的证书链，用于身份验证与密钥交换。</p>
+
+<p>(3) server_hello_done，通知客户端 server_hello 信息发送结束。</p>
+
+<p><strong>3. 证书校验</strong></p>
+
+<p>客户端验证证书的合法性，如果验证通过才会进行后续通信，否则根据错误情况不同做出提示和操作，合法性验证包括如下：</p>
+
+<p>(1) 证书链的可信性 trusted certificate path。</p>
+
+<p>(2) 证书是否吊销 revocation，有两类方式离线 CRL 与在线 OCSP，不同的客户端行为会不同。</p>
+
+<p>(3) 有效期 expiry date，证书是否在有效时间范围。</p>
+
+<p>(4) 域名 domain，核查证书域名是否与当前的访问域名匹配，匹配规则后续分析。</p>
+
+<p><strong>4. client_key_exchange + change_cipher_spec + encrypted_handshake_message</strong></p>
+
+<p>(1) client_key_exchange，合法性验证通过之后，客户端计算产生随机数字 Pre-master，并用证书公钥加密，发送给服务器。</p>
+
+<p>(2) 此时客户端已经获取全部的计算协商密钥需要的信息：两个明文随机数 random_C 和 random_S 与自己计算产生的 Pre-master，计算得到协商密钥： enc_key = Function(random_C, random_S, Pre-Master); 。</p>
+
+<p>(3) change_cipher_spec，客户端通知服务器后续的通信都采用协商的通信密钥和加密算法进行加密通信。</p>
+
+<p>(4) encrypted_handshake_message，结合之前所有通信参数的 hash 值与其它相关信息生成一段数据，采用协商密钥 session secret 与算法进行加密，然后发送给服务器用于数据与握手验证。</p>
+
+<p><strong>5. change_cipher_spec + encrypted_handshake_message</strong></p>
+
+<p>(1) 服务器用私钥解密加密的 Pre-master 数据，基于之前交换的两个明文随机数 random_C 和 random_S，计算得到协商密钥：enc_key = Function(random_C, random_S, Pre-Master); 。</p>
+
+<p>(2) 计算之前所有接收信息的 hash 值，然后解密客户端发送的 encrypted_handshake_message，验证数据和密钥正确性。</p>
+
+<p>(3) change_cipher_spec， 验证通过之后，服务器同样发送 change_cipher_spec 以告知客户端后续的通信都采用协商的密钥与算法进行加密通信。</p>
+
+<p>(4) encrypted_handshake_message， 服务器也结合所有当前的通信参数信息生成一段数据并采用协商密钥 session secret 与算法加密并发送到客户端。(将随机密码加密的数据响应给客户端)</p>
+
+<p><strong>6. 握手结束</strong></p>
+
+<p>客户端计算所有接收信息的 hash 值，并采用协商密钥解密 encrypted_handshake_message，验证服务器发送的数据和密钥，验证通过则握手完成。</p>
+
+<p><strong>7. 加密通信</strong></p>
+
+<p>开始使用协商密钥与算法进行加密通信。注意：</p>
+
+<p>(1)  服务器也可以要求验证客户端，即双向认证，可以在过程 2 要发送 client_certificate_request 信息，客户端在过程 4  中先发送 client_certificate 与 certificate_verify_message  信息，证书的验证方式基本相同，certificate_verify_message 是采用 client  的私钥加密的一段基于已经协商的通信信息得到数据，服务器可以采用对应的公钥解密并验证。</p>
+
+<p>(2) 根据使用的密钥交换算法的不同，如 ECC 等，协商细节略有不同，总体相似。</p>
+
+<p>(3) sever key exchange 的作用是 server certificate 没有携带足够的信息时，发送给客户端以计算 pre-master，如基于 DH 的证书，公钥不被证书中包含，需要单独发送。</p>
+
+<p>(4) change cipher spec 实际可用于通知对端改版当前使用的加密通信方式，当前没有深入解析。</p>
+
+<p>(5) alter message 用于指明在握手或通信过程中的状态改变或错误信息，一般告警信息触发条件是连接关闭，收到不合法的信息，信息解密失败，用户取消操作等，收到告警信息之后，通信会被断开或者由接收方决定是否断开连接。</p>
+
+<p><strong>签名过程</strong></p>
+
+<p>发送报文时，发送方用一个哈希函数从报文文本中生成<strong><em>*报文摘要*</em></strong>，然后用发送方的私钥对这个摘要进行加密，这个加密后的摘要将作为报文的数字签名和报文一起发送给接收方。接收方首先用与发送方一样的哈希函数从接收到的原始报文中计算出报文摘要，接着再用公钥来对报文附加的数字签名进行解密，如果这两个摘要相同、那么接收方就能确认该报文是发送方的。</p>
+
+<p>数字签名有两种功效：一是能确定消息确实是由发送方签名并发出来的，因为别人假冒不了发送方的签名。二是数字签名能确定消息的完整性。因为数字签名的特点是它代表了文件的特征，文件如果发生改变，数字摘要的值也将发生变化。不同的文件将得到不同的数字摘要。 一次数字签名涉及到一个哈希函数、接收者的公钥、发送方的私钥。</p>
 
 </div>
 <div class="v">
