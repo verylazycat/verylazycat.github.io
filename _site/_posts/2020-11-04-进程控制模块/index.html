@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>进程控制模块 | lazycat</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="进程控制模块" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="[toc]" />
+<meta property="og:description" content="[toc]" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-11-04-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E6%A8%A1%E5%9D%97/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-11-04-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E6%A8%A1%E5%9D%97/" />
+<meta property="og:site_name" content="lazycat" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-04T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-11-04-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E6%A8%A1%E5%9D%97/","headline":"进程控制模块","dateModified":"2020-11-04T00:00:00-05:00","datePublished":"2020-11-04T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-11-04-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E6%A8%A1%E5%9D%97/"},"description":"[toc]","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1"
+/>
+<meta
+  http-equiv="content-type"
+  content="text/html; charset=utf-8"
+/>
+<link
+  rel="alternate"
+  href="/feed.xml"
+  title="RSS"
+  type="application/rss+xml"
+/>
+
+  
+  <link
+  rel="apple-touch-icon-precomposed"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+<link
+  rel="shortcut
+  icon"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/gh/poole/lanyon@v1.1.0/public/css/poole.min.css,gh/poole/lanyon@v1.1.0/public/css/lanyon.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/Dreamer-Paul/Pio@2.4/static/pio.min.css"
+/>
+<script
+  async="async"
+  src="https://cdn.jsdelivr.net/combine/gh/Dreamer-Paul/Pio@2.4/static/l2d.min.js,gh/Dreamer-Paul/Pio@2.4/static/pio.min.js"
+  onload='
+      let pio_container = document.createElement("div");
+      pio_container.classList.add("pio-container");
+      pio_container.classList.add("right");
+      pio_container.style.bottom = "-2rem";
+      pio_container.style.zIndex = "1";
+      document.body.insertAdjacentElement("beforeend", pio_container);
+      let pio_action = document.createElement("div");
+      pio_action.classList.add("pio-action");
+      pio_container.insertAdjacentElement("beforeend", pio_action);
+      let pio_canvas = document.createElement("canvas");
+      pio_canvas.id = "pio";
+      pio_canvas.style.width = "14rem";
+      pio_canvas.width = "600";
+      pio_canvas.height = "800";
+      pio_container.insertAdjacentElement("beforeend", pio_canvas);
+      let pio = new Paul_Pio({
+        "mode": "fixed",
+        "hidden": true,
+        "night": "for(let i=7; i<16; ++i) if(document.body.classList.contains(`theme-base-0`+i.toString(16))) { document.body.classList.remove(`theme-base-0`+i.toString(16)); document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16)); break; }",
+        "content": {
+          "link": ["https://jekyll-theme-WuK.wu-kan.cn"],
+          "skin": ["要换成我的朋友吗？", "让她放个假吧~"],
+          "hidden": true,
+          "custom": [{
+            "selector": "a",
+            "type": "link",
+          }, {
+            "selector": ".sidebar-toggle",
+            "text": "打开侧边栏叭~"
+          }, {
+            "selector": ".effect-info",
+            "text": "哇，你发现了什么！"
+          }, {
+            "selector": "#sidebar-search-input",
+            "text": "想搜索什么呢？很多干货哦！"
+          }, {
+            "selector": "#toc",
+            "text": "这是目录~"
+          }, {
+            "selector": ".page-title",
+            "text": "这是标题~"
+          }, {
+            "selector": ".v",
+            "text": "评论没有审核，要对自己的发言负责哦~"
+          }]
+        },
+        "model": [
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Violet/14.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"]
+      });'
+></script>
+
+  
+  <script
+  src='https://zz.bdstatic.com/linksubmit/push.js'
+  async="async"
+></script>
+
+  
+  <script
+  async="async"
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163543967-1"
+  onload="
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-163543967-1');"
+></script>
+
+  
+  <style>
+  .wrap {
+    transition-property: width,background-size,transform;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    min-height: 100%;
+    display: inline-block;
+    background-size: 100% auto;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+  }
+  @media (min-aspect-ratio: 2400/1850) {
+    .wrap {
+      background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+    }
+  }
+  .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    width: calc(100% - 14rem);
+    background-size: calc(100% - 14rem) auto;
+    transform: translateX(14rem);
+  }
+  .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    transform: translateX(0);
+  }
+</style>
+
+  
+  <style>
+  .sidebar,
+  html,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: PingFang SC, Menlo, Monaco, "Courier New", Microsoft JhengHei, monospace;
+  }
+</style>
+
+  
+  <style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+  }
+</style>
+
+  
+  <style>
+  img {
+    display: inline-block;
+    margin: 0;
+  }
+</style>
+
+  
+  <style>
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, Cyan 0%, Magenta 50%, Yellow 100%);
+  }
+</style>
+
+  
+  <style>
+  ::selection {
+    color: White;
+    background: Black;
+  }
+</style>
+
+  
+</head>
+
+<body
+  class="theme-base-07 sidebar-overlay">
+  
+  
+  
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+  <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"
+     />
+  <!-- Toggleable sidebar -->
+  <div class="sidebar" id="sidebar">
+    
+    <div class="sidebar-item">
+      <div class="effect effect-right_to_left">
+        <img class="effect-img" src="https://pic.cr173.com/up/2017-8/2017841818322084.jpg" alt="img" />
+        <div class="effect-info">
+          lazycat<br/>
+<a href="mailto:verylazycat@outlook.com">
+  <i class="fas fa-envelope"></i>
+</a>
+<a href="https://github.com/verylazycat">
+  <i class="fab fa-github"></i>
+</a>
+
+        </div>
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+      
+      <a class="sidebar-nav-item" href="/">
+        <i class="fas fa-home fa-fw"></i> 首页
+      </a>
+      
+      <a class="sidebar-nav-item" href="/comments/">
+        <i class="fas fa-comments fa-fw"></i> 留言
+      </a>
+      
+      <a class="sidebar-nav-item" href="/tags/">
+        <i class="fas fa-tags fa-fw"></i> 标签
+      </a>
+      
+      <a class="sidebar-nav-item" href="/archive/">
+        <i class="fas fa-archive fa-fw"></i> 归档
+      </a>
+      
+      <a class="sidebar-nav-item" href="/merger/">
+        <i class="fas fa-coffee fa-fw"></i> 打赏
+      </a>
+      
+    </nav>
+    <div class="sidebar-item">
+      
+      <style>
+  #sidebar-search-input {
+    background: none;
+    border: none;
+    color: White;
+    width: 100%;
+  }
+  #sidebar-search-results-container {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+<input
+  id="sidebar-search-input"
+  placeholder="搜索博文"
+/>
+<ol
+  id="sidebar-search-results-container"
+></ol>
+<script
+  src='https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.7/dest/simple-jekyll-search.min.js'
+  async='async'
+  onload='
+    SimpleJekyllSearch({
+      json: "/assets/simple-jekyll-search/search.json",
+      searchInput: document.getElementById("sidebar-search-input"),
+      resultsContainer: document.getElementById("sidebar-search-results-container"),
+      searchResultTemplate: `<li><a href="{url}">{title}</a></li>`,
+      limit: 999,
+      fuzzy: true
+    })'
+></script>
+
+      
+      
+      <style>
+  #toc {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+
+      <ol id="toc">
+  <li><a href="#pcb%E7%BB%93%E6%9E%84">PCB结构</a></li>
+  <li><a href="#%E4%B8%BB%E8%A6%81%E8%AE%B0%E5%BD%95%E5%86%85%E5%AE%B9">主要记录内容</a></li>
+  <li><a href="#task_struct%E7%BB%93%E6%9E%84%E6%8F%8F%E8%BF%B0">task_struct结构描述</a>
+    <ol>
+      <li><a href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81state">进程状态（State）</a></li>
+      <li><a href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E4%BF%A1%E6%81%AF">进程调度信息</a></li>
+      <li><a href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E6%9C%89%E5%85%B3%E4%BF%A1%E6%81%AFipcinter_process-communication">进程通信有关信息（IPC：Inter_Process Communication）</a></li>
+      <li><a href="#%E8%BF%9B%E7%A8%8B%E9%93%BE%E6%8E%A5%E4%BF%A1%E6%81%AFlinks">进程链接信息（Links）</a></li>
+      <li><a href="#%E6%97%B6%E9%97%B4%E5%92%8C%E5%AE%9A%E6%97%B6%E5%99%A8%E4%BF%A1%E6%81%AFtimes-and-timers">时间和定时器信息（Times and Timers）</a></li>
+      <li><a href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AFfile-system">文件系统信息（File System）</a></li>
+      <li><a href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E4%BF%A1%E6%81%AFvirtual-memory">虚拟内存信息（Virtual Memory）</a></li>
+      <li><a href="#%E9%A1%B5%E9%9D%A2%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF">页面管理信息</a></li>
+      <li><a href="#%E5%AF%B9%E7%A7%B0%E5%A4%9A%E5%A4%84%E7%90%86%E6%9C%BAsmp%E4%BF%A1%E6%81%AF">对称多处理机（SMP）信息</a></li>
+      <li><a href="#%E5%92%8C%E5%A4%84%E7%90%86%E5%99%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E7%8E%AF%E5%A2%83%E4%B8%8A%E4%B8%8B%E6%96%87%E4%BF%A1%E6%81%AFprocessor-specific-context">和处理器相关的环境（上下文）信息（Processor Specific Context）</a></li>
+      <li><a href="#%E5%85%B6%E5%AE%83">其它</a></li>
+    </ol>
+  </li>
+</ol>
+      
+      
+      <style>
+  .sidebar-checkbox {
+    display: none;
+  }
+  .sidebar-toggle {
+    position: fixed;
+  }
+</style>
+
+      
+      <style>
+  .effect {
+    margin: 1rem;
+    perspective: 900px;
+  }
+  .effect-info {
+    text-align: center;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    transform-style: preserve-3d;
+  }
+  .effect-img {
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+  }
+  .effect-img:before {
+    position: absolute;
+    display: block;
+  }
+  .effect-right_to_left .effect-img {
+    transform-origin: 0% 50%;
+  }
+  .effect-right_to_left:hover .effect-img {
+    transform: rotate3d(0, 1, 0, -180deg);
+  }
+</style>
+
+      
+      <div>
+  <i class="fas fa-cog fa-spin fa-fw"></i>
+  <span id="run_time_day">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>天
+  <span id="run_time_hour">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>时
+  <span id="run_time_minute">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>分
+  <span id="run_time_second">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>秒
+  <script>
+    setInterval(function (d,h,m,s,b) {
+      function setzero(i) {
+        return i < 10 ? "0" + i : i;
+      }
+      let BirthDay = new Date(b);
+      let today = new Date();
+      let timeold = (today.getTime() - BirthDay.getTime());
+      let sectimeold = timeold / 1000;
+      let secondsold = Math.floor(sectimeold);
+      let msPerDay = 24 * 60 * 60 * 1000;
+      let e_daysold = timeold / msPerDay;
+      let daysold = Math.floor(e_daysold);
+      let e_hrsold = (e_daysold - daysold) * 24;
+      let hrsold = Math.floor(e_hrsold);
+      let e_minsold = (e_hrsold - hrsold) * 60;
+      let minsold = Math.floor((e_hrsold - hrsold) * 60);
+      let seconds = Math.floor((e_minsold - minsold) * 60);
+      d.textContent = daysold;
+      h.textContent = setzero(hrsold);
+      m.textContent = setzero(minsold);
+      s.textContent = setzero(seconds);
+    },
+    1000,
+    document.getElementById("run_time_day"),
+    document.getElementById("run_time_hour"),
+    document.getElementById("run_time_minute"),
+    document.getElementById("run_time_second"),
+    "05/02/2020 11:03:56")// 这是我第一篇博客的时间
+  </script>
+</div>
+
+      
+      <div>
+  <div>
+    <i class="fas fa-eye fa-fw"></i>
+    <span id="busuanzi_value_page_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>次
+  </div>
+  <div>
+    <i class="fas fa-paw fa-fw"></i>
+    <span id="busuanzi_value_site_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>枚
+  </div>
+  <div>
+    <i class="fas fa-user-friends fa-fw"></i>
+    <span id="busuanzi_value_site_uv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>人
+  </div>
+  <script
+    src='https://cdn.jsdelivr.net/npm/busuanzi@2.3.0'
+    async='async'
+  ></script>
+</div>
+
+      
+      <div>
+  <i class="fas fa-copyright fa-fw"></i>
+  2020-2022 lazycat
+</div>
+
+      
+      <div>
+  <i class="fas fa-info-circle fa-fw"></i>
+  <a href="http://beian.miit.gov.cn">
+    蜀ICP备20011774号
+  </a>
+</div>
+
+      
+      
+    </div>
+  </div>
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the content to avoid any CSS collisions with our real content. -->
+  
+  <div class="wrap">
+    
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/katex@0.11.1/dist/katex.min.js,npm/katex@0.11.1/dist/contrib/mathtex-script-type.min.js,npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  defer="defer"
+  onload='renderMathInElement(document.body, { delimiters: [{ left: "$", right: "$", display: false }] })'
+></script>
+
+
+
+<style>
+  pre.language-mermaid,
+  code.language-mermaid {
+    display: none;
+  }
+</style>
+<script
+  src="https://cdn.jsdelivr.net/npm/mermaid@8.5.1/dist/mermaid.min.js"
+  defer="defer"
+  onload='
+    for(let x of document.getElementsByClassName("language-mermaid"))
+      if(x.nodeName=="CODE")
+      {
+        let m = document.createElement("div");
+        m.classList.add("mermaid");
+        m.textContent = x.textContent;
+        x.parentNode.insertAdjacentElement("beforebegin", m);
+      }'
+></script>
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.css,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.css,gh/PrismJS/prism-themes@1955cfef6953b3a59e66016e8a1e016b45d6cc79/themes/prism-nord.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/components/prism-core.min.js,npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js,npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.js,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.js"
+  defer="defer"
+  onload='
+    Prism.plugins.autoloader.languages_path = "https:\/\/cdn.jsdelivr.net/npm/prismjs/components/";
+    for(let x of document.getElementsByTagName("pre"))
+      x.classList.add("line-numbers");
+    Prism.plugins.toolbar.registerButton("select-code", function (env) {
+      let button = document.createElement("button");
+      button.textContent = "select this " + env.language;
+      button.addEventListener("click", function () {
+        if (document.body.createTextRange) {
+          let range = document.body.createTextRange();
+          range.moveToElementText(env.element);
+          range.select();
+        } else if (window.getSelection) {
+          let selection = window.getSelection();
+          let range = document.createRange();
+          range.selectNodeContents(env.element);
+          selection.removeAllRanges();
+            selection.addRange(range);
+        }
+      });
+      return button;
+    })'
+></script>
+
+
+
+<style>
+  pre {
+    max-height: 50vh;
+    overflow: auto;
+  }
+</style>
+
+
+<style>
+  @media (min-width: 56em) {
+    .container {
+      max-width: 66.6%;
+    }
+  }
+</style>
+
+
+<style>
+  .masthead,
+  .container.content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 .75rem rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    animation-duration: 2s;
+    animation-name: fadeIn;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+
+
+<div class="masthead">
+  <h3 class="container masthead-title">
+    
+    进程控制模块
+    <a href="/" title="Home">
+      <small>
+        lazycat
+      </small>
+    </a>
+    
+  </h3>
+</div>
+
+<div class="container content">
+  <div class="post">
+  <span class="post-date">
+    
+    <i class="fas fa-calendar-day fa-fw"></i>
+    04 Nov 2020
+    
+    
+    <i class="fas fa-file-word fa-fw"></i>
+    16879字
+    
+    
+    <i class="fas fa-clock fa-fw"></i>
+    57分
+    
+    
+    <span class="leancloud-visitors" id="/_posts/2020-11-04-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E6%A8%A1%E5%9D%97/" data-xid="/_posts/2020-11-04-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E6%A8%A1%E5%9D%97/" data-flag-title="进程控制模块">
+      <i class="fas fa-book-reader fa-fw"></i>
+      <span class="leancloud-visitors-count">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </span>次
+    </span>
+    
+    
+    
+    <i class="fas fa-tag fa-fw"></i>
+    操作系统
+    
+    
+    <br/>
+<i class="fas fa-coffee fa-fw"></i>
+<a href="/merger/">如果这篇博客帮助到你，可以请我喝一杯咖啡~</a>
+<br/>
+<i class="fab fa-creative-commons-by fa-fw"></i>
+<a
+  href="https://creativecommons.org/licenses/by/4.0/deed.zh"
+  rel="license">
+  CC BY 4.0
+</a>
+（除特别声明或转载文章外）
+
+    
+  </span>
+  <p>[toc]</p>
+
+<blockquote>
+  <p>计算机体系中控制进程的模块我们把它叫做进程控制模块，即PCB。它是对进程控制的唯一手段也是最有效的手段。 
+ 在Linux  中PCB是由task_struct 数据结构来定义的，当我们调用fork() 时,  系统会为我们产生一个task_struct结构。然后从父进程,那里继承一些数据, 并把新的进程插入到进程树中,  以待进行进程管理。因此了解task_struct的结构对于我们理解进程调度的关键。</p>
+</blockquote>
+
+<blockquote>
+  <p>usr/include/linux/sched.h</p>
+</blockquote>
+
+<h1 id="pcb结构">PCB结构</h1>
+
+<pre><code class="language-c">#ifndef _SCHED_H
+#define _SCHED_H
+#define NR_TASKS 64        // 系统中同时最多任务（进程）数。
+#define HZ 100            // 定义系统时钟滴答频率(1 百赫兹，每个滴答10ms)
+#define FIRST_TASK task[0]    // 任务0 比较特殊，所以特意给它单独定义一个符号。
+#define LAST_TASK task[NR_TASKS-1]    // 任务数组中的最后一项任务。
+#include &lt;linux/head.h&gt;        // head 头文件，定义了段描述符的简单结构，和几个选择符常量。
+#include &lt;linux/fs.h&gt;        // 文件系统头文件。定义文件表结构（file,buffer_head,m_inode 等）。
+#include &lt;linux/mm.h&gt;        // 内存管理头文件。含有页面大小定义和一些页面释放函数原型。
+#include &lt;signal.h&gt;        // 信号头文件。定义信号符号常量，信号结构以及信号操作函数原型。
+#if (NR_OPEN &gt; 32)
+#error "Currently the close-on-exec-flags are in one word, max 32 files/proc"
+#endif
+// 这里定义了进程运行可能处的状态。
+#define TASK_RUNNING 0        // 进程正在运行或已准备就绪。
+#define TASK_INTERRUPTIBLE 1    // 进程处于可中断等待状态。
+#define TASK_UNINTERRUPTIBLE 2    // 进程处于不可中断等待状态，主要用于I/O 操作等待。
+#define TASK_ZOMBIE 3        // 进程处于僵死状态，已经停止运行，但父进程还没发信号。
+#define TASK_STOPPED 4        // 进程已停止。
+#ifndef NULL
+#define NULL ((void *) 0)    // 定义NULL 为空指针。
+#endif
+// 复制进程的页目录页表。Linus 认为这是内核中最复杂的函数之一。( mm/memory.c, 105 )
+extern int copy_page_tables (unsigned long from, unsigned long to, long size);
+// 释放页表所指定的内存块及页表本身。( mm/memory.c, 150 )
+extern int free_page_tables (unsigned long from, unsigned long size);
+// 调度程序的初始化函数。( kernel/sched.c, 385 )
+extern void sched_init (void);
+// 进程调度函数。( kernel/sched.c, 104 )
+extern void schedule (void);
+// 异常(陷阱)中断处理初始化函数，设置中断调用门并允许中断请求信号。( kernel/traps.c, 181 )
+extern void trap_init (void);
+// 显示内核出错信息，然后进入死循环。( kernel/panic.c, 16 )。
+extern void panic (const char *str);
+// 往tty 上写指定长度的字符串。( kernel/chr_drv/tty_io.c, 290 )。
+extern int tty_write (unsigned minor, char *buf, int count);
+typedef int (*fn_ptr) ();    // 定义函数指针类型。
+// 下面是数学协处理器使用的结构，主要用于保存进程切换时i387 的执行状态信息。
+struct i387_struct
+{
+  long cwd;            // 控制字(Control word)。
+  long swd;            // 状态字(Status word)。
+  long twd;            // 标记字(Tag word)。
+  long fip;            // 协处理器代码指针。
+  long fcs;            // 协处理器代码段寄存器。
+  long foo;
+  long fos;
+  long st_space[20];        /* 8*10 bytes for each FP-reg = 80 bytes */
+};
+// 任务状态段数据结构（参见列表后的信息）。
+struct tss_struct
+{
+  long back_link;        /* 16 high bits zero */
+  long esp0;
+  long ss0;            /* 16 high bits zero */
+  long esp1;
+  long ss1;            /* 16 high bits zero */
+  long esp2;
+  long ss2;            /* 16 high bits zero */
+  long cr3;
+  long eip;
+  long eflags;
+  long eax, ecx, edx, ebx;
+  long esp;
+  long ebp;
+  long esi;
+  long edi;
+  long es;            /* 16 high bits zero */
+  long cs;            /* 16 high bits zero */
+  long ss;            /* 16 high bits zero */
+  long ds;            /* 16 high bits zero */
+  long fs;            /* 16 high bits zero */
+  long gs;            /* 16 high bits zero */
+  long ldt;            /* 16 high bits zero */
+  long trace_bitmap;        /* bits: trace 0, bitmap 16-31 */
+  struct i387_struct i387;
+};
+// 这里是任务（进程）数据结构，或称为进程描述符。
+// ==========================
+// long state 任务的运行状态（-1 不可运行，0 可运行(就绪)，&gt;0 已停止）。
+// long counter 任务运行时间计数(递减)（滴答数），运行时间片。
+// long priority 运行优先数。任务开始运行时counter = priority，越大运行越长。
+// long signal 信号。是位图，每个比特位代表一种信号，信号值=位偏移值+1。
+// struct sigaction sigaction[32] 信号执行属性结构，对应信号将要执行的操作和标志信息。
+// long blocked 进程信号屏蔽码（对应信号位图）。
+// --------------------------
+// int exit_code 任务执行停止的退出码，其父进程会取。
+// unsigned long start_code 代码段地址。
+// unsigned long end_code 代码长度（字节数）。
+// unsigned long end_data 代码长度 + 数据长度（字节数）。
+// unsigned long brk 总长度（字节数）。
+// unsigned long start_stack 堆栈段地址。
+// long pid 进程标识号(进程号)。
+// long father 父进程号。
+// long pgrp 父进程组号。
+// long session 会话号。
+// long leader 会话首领。
+// unsigned short uid 用户标识号（用户id）。
+// unsigned short euid 有效用户id。
+// unsigned short suid 保存的用户id。
+// unsigned short gid 组标识号（组id）。
+// unsigned short egid 有效组id。
+// unsigned short sgid 保存的组id。
+// long alarm 报警定时值（滴答数）。
+// long utime 用户态运行时间（滴答数）。
+// long stime 系统态运行时间（滴答数）。
+// long cutime 子进程用户态运行时间。
+// long cstime 子进程系统态运行时间。
+// long start_time 进程开始运行时刻。
+// unsigned short used_math 标志：是否使用了协处理器。
+// --------------------------
+// int tty 进程使用tty 的子设备号。-1 表示没有使用。
+// unsigned short umask 文件创建属性屏蔽位。
+// struct m_inode * pwd 当前工作目录i 节点结构。
+// struct m_inode * root 根目录i 节点结构。
+// struct m_inode * executable 执行文件i 节点结构。
+// unsigned long close_on_exec 执行时关闭文件句柄位图标志。（参见include/fcntl.h）
+// struct file * filp[NR_OPEN] 进程使用的文件表结构。
+// --------------------------
+// struct desc_struct ldt[3] 本任务的局部表描述符。0-空，1-代码段cs，2-数据和堆栈段ds&amp;ss。
+// --------------------------
+// struct tss_struct tss 本进程的任务状态段信息结构。
+// ==========================
+struct task_struct
+{
+/* these are hardcoded - don't touch */
+  long state;            /* -1 unrunnable, 0 runnable, &gt;0 stopped */
+  long counter;
+  long priority;
+  long signal;
+  struct sigaction sigaction[32];
+  long blocked;            /* bitmap of masked signals */
+/* various fields */
+  int exit_code;
+  unsigned long start_code, end_code, end_data, brk, start_stack;
+  long pid, father, pgrp, session, leader;
+  unsigned short uid, euid, suid;
+  unsigned short gid, egid, sgid;
+  long alarm;
+  long utime, stime, cutime, cstime, start_time;
+  unsigned short used_math;
+/* file system info */
+  int tty;            /* -1 if no tty, so it must be signed */
+  unsigned short umask;
+  struct m_inode *pwd;
+  struct m_inode *root;
+  struct m_inode *executable;
+  unsigned long close_on_exec;
+  struct file *filp[NR_OPEN];
+/* ldt for this task 0 - zero 1 - cs 2 - ds&amp;ss */
+  struct desc_struct ldt[3];
+/* tss for this task */
+  struct tss_struct tss;
+};
+/*
+* INIT_TASK is used to set up the first task table, touch at
+* your own risk!. Base=0, limit=0x9ffff (=640kB)
+*/
+/*
+* INIT_TASK 用于设置第1 个任务表，若想修改，责任自负?！
+* 基址Base = 0，段长limit = 0x9ffff（=640kB）。
+*/
+// 对应上面任务结构的第1 个任务的信息。
+#define INIT_TASK \
+/* state etc */ { 0,15,15, \    // state, counter, priority
+/* signals */ 0,
+{
+  {
+  }
+,}
+, 0, \                // signal, sigaction[32], blocked
+                    /* ec,brk... */ 0, 0, 0, 0, 0, 0, \
+                    // exit_code,start_code,end_code,end_data,brk,start_stack
+                    /* pid etc.. */ 0, -1, 0, 0, 0, \
+                    // pid, father, pgrp, session, leader
+                    /* uid etc */ 0, 0, 0, 0, 0, 0, \
+                    // uid, euid, suid, gid, egid, sgid
+                    /* alarm */ 0, 0, 0, 0, 0, 0, \
+                    // alarm, utime, stime, cutime, cstime, start_time
+                /* math */ 0, \
+                // used_math
+                            /* fs info */ -1, 0022, NULL, NULL, NULL, 0, \
+                            // tty,umask,pwd,root,executable,close_on_exec
+/* filp */
+{
+NULL,}
+, \                // filp[20]
+{
+  \                // ldt[3]
+  {
+  0, 0}
+  ,
+/* ldt */
+  {
+  0x9f, 0xc0fa00}
+  , \                // 代码长640K，基址0x0，G=1，D=1，DPL=3，P=1 TYPE=0x0a
+  {
+  0x9f, 0xc0f200}
+  , \                // 数据长640K，基址0x0，G=1，D=1，DPL=3，P=1 TYPE=0x02
+}
+,
+/*tss*/
+{
+  0, PAGE_SIZE + (long) &amp;init_task, 0x10, 0, 0, 0, 0, (long) &amp;pg_dir, \    // tss
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0x17, 0x17, 0x17, 0x17, 0x17, 0x17, _LDT (0), 0x80000000,
+  {
+  }
+}
+,}
+extern struct task_struct *task[NR_TASKS];    // 任务数组。
+extern struct task_struct *last_task_used_math;    // 上一个使用过协处理器的进程。
+extern struct task_struct *current;    // 当前进程结构指针变量。
+extern long volatile jiffies;    // 从开机开始算起的滴答数（10ms/滴答）。
+extern long startup_time;    // 开机时间。从1970:0:0:0 开始计时的秒数。
+#define CURRENT_TIME (startup_time+jiffies/HZ)    // 当前时间（秒数）。
+// 添加定时器函数（定时时间jiffies 滴答数，定时到时调用函数*fn()）。( kernel/sched.c,272)
+extern void add_timer (long jiffies, void (*fn) (void));
+// 不可中断的等待睡眠。( kernel/sched.c, 151 )
+extern void sleep_on (struct task_struct **p);
+// 可中断的等待睡眠。( kernel/sched.c, 167 )
+extern void interruptible_sleep_on (struct task_struct **p);
+// 明确唤醒睡眠的进程。( kernel/sched.c, 188 )
+extern void wake_up (struct task_struct **p);
+/*
+* Entry into gdt where to find first TSS. 0-nul, 1-cs, 2-ds, 3-syscall
+* 4-TSS0, 5-LDT0, 6-TSS1 etc ...
+*/
+/*
+* 寻找第1 个TSS 在全局表中的入口。0-没有用nul，1-代码段cs，2-数据段ds，3-系统段syscall
+* 4-任务状态段TSS0，5-局部表LTD0，6-任务状态段TSS1，等。
+*/
+// 全局表中第1 个任务状态段(TSS)描述符的选择符索引号。
+#define FIRST_TSS_ENTRY 4
+// 全局表中第1 个局部描述符表(LDT)描述符的选择符索引号。
+#define FIRST_LDT_ENTRY (FIRST_TSS_ENTRY+1)
+// 宏定义，计算在全局表中第n 个任务的TSS 描述符的索引号（选择符）。
+#define _TSS(n) ((((unsigned long) n)&lt;&lt;4)+(FIRST_TSS_ENTRY&lt;&lt;3))
+// 宏定义，计算在全局表中第n 个任务的LDT 描述符的索引号。
+#define _LDT(n) ((((unsigned long) n)&lt;&lt;4)+(FIRST_LDT_ENTRY&lt;&lt;3))
+// 宏定义，加载第n 个任务的任务寄存器tr。
+#define ltr(n) __asm__( "ltr %%ax":: "a" (_TSS(n)))
+// 宏定义，加载第n 个任务的局部描述符表寄存器ldtr。
+#define lldt(n) __asm__( "lldt %%ax":: "a" (_LDT(n)))
+// 取当前运行任务的任务号（是任务数组中的索引值，与进程号pid 不同）。
+// 返回：n - 当前任务号。用于( kernel/traps.c, 79)。
+#define str(n) \
+__asm__( "str %%ax\n\t" \    // 将任务寄存器中TSS 段的有效地址??ax
+"subl %2,%%eax\n\t" \        // (eax - FIRST_TSS_ENTRY*8)??eax
+  "shrl $4,%%eax" \        // (eax/16)??eax = 当前任务号。
+: "=a" (n):"a" (0), "i" (FIRST_TSS_ENTRY &lt;&lt; 3))
+/*
+* switch_to(n) should switch tasks to task nr n, first
+* checking that n isn't the current task, in which case it does nothing.
+* This also clears the TS-flag if the task we switched to has used
+* tha math co-processor latest.
+*/
+/*
+* switch_to(n)将切换当前任务到任务nr，即n。首先检测任务n 不是当前任务，
+* 如果是则什么也不做退出。如果我们切换到的任务最近（上次运行）使用过数学
+* 协处理器的话，则还需复位控制寄存器cr0 中的TS 标志。
+*/
+// 输入：%0 - 新TSS 的偏移地址(*&amp;__tmp.a)； %1 - 存放新TSS 的选择符值(*&amp;__tmp.b)；
+// dx - 新任务n 的选择符；ecx - 新任务指针task[n]。
+// 其中临时数据结构__tmp 中，a 的值是32 位偏移值，b 为新TSS 的选择符。在任务切换时，a 值
+// 没有用（忽略）。在判断新任务上次执行是否使用过协处理器时，是通过将新任务状态段的地址与
+// 保存在last_task_used_math 变量中的使用过协处理器的任务状态段的地址进行比较而作出的。
+#define switch_to(n) {\
+struct {long a,b;} __tmp; \
+__asm__( "cmpl %%ecx,_current\n\t" \    // 任务n 是当前任务吗?(current ==task[n]?)
+  "je 1f\n\t" \            // 是，则什么都不做，退出。
+  "movw %%dx,%1\n\t" \        // 将新任务的选择符??*&amp;__tmp.b。
+  "xchgl %%ecx,_current\n\t" \    // current = task[n]；ecx = 被切换出的任务。
+  "ljmp %0\n\t" \        // 执行长跳转至*&amp;__tmp，造成任务切换。
+// 在任务切换回来后才会继续执行下面的语句。
+  "cmpl %%ecx,_last_task_used_math\n\t" \    // 新任务上次使用过协处理器吗？
+  "jne 1f\n\t" \        // 没有则跳转，退出。
+  "clts\n" \            // 新任务上次使用过协处理器，则清cr0 的TS 标志。
+  "1:"::"m" (*&amp;__tmp.a), "m" (*&amp;__tmp.b),
+  "d" (_TSS (n)), "c" ((long) task[n]));
+}
+// 页面地址对准。（在内核代码中没有任何地方引用!!）
+#define PAGE_ALIGN(n) (((n)+0xfff)&amp;0xfffff000)
+// 设置位于地址addr 处描述符中的各基地址字段(基地址是base)，参见列表后说明。
+// %0 - 地址addr 偏移2；%1 - 地址addr 偏移4；%2 - 地址addr 偏移7；edx - 基地址base。
+#define _set_base(addr,base) \
+__asm__( "movw %%dx,%0\n\t" \    // 基址base 低16 位(位15-0)??[addr+2]。
+"rorl $16,%%edx\n\t" \        // edx 中基址高16 位(位31-16)??dx。
+  "movb %%dl,%1\n\t" \        // 基址高16 位中的低8 位(位23-16)??[addr+4]。
+  "movb %%dh,%2" \        // 基址高16 位中的高8 位(位31-24)??[addr+7]。
+::"m" (*((addr) + 2)), "m" (*((addr) + 4)), "m" (*((addr) + 7)), "d" (base):"dx")
+// 设置位于地址addr 处描述符中的段限长字段(段长是limit)。
+// %0 - 地址addr；%1 - 地址addr 偏移6 处；edx - 段长值limit。
+#define _set_limit(addr,limit) \
+__asm__( "movw %%dx,%0\n\t" \    // 段长limit 低16 位(位15-0)??[addr]。
+  "rorl $16,%%edx\n\t" \    // edx 中的段长高4 位(位19-16)??dl。
+  "movb %1,%%dh\n\t" \        // 取原[addr+6]字节??dh，其中高4 位是些标志。
+  "andb $0xf0,%%dh\n\t" \    // 清dh 的低4 位(将存放段长的位19-16)。
+  "orb %%dh,%%dl\n\t" \        // 将原高4 位标志和段长的高4 位(位19-16)合成1 字节，
+  "movb %%dl,%1" \        // 并放会[addr+6]处。
+::"m" (*(addr)), "m" (*((addr) + 6)), "d" (limit):"dx")
+// 设置局部描述符表中ldt 描述符的基地址字段。
+#define set_base(ldt,base) _set_base( ((char *)&amp;(ldt)) , base )
+// 设置局部描述符表中ldt 描述符的段长字段。
+#define set_limit(ldt,limit) _set_limit( ((char *)&amp;(ldt)) , (limit-1)&gt;&gt;12 )
+// 从地址addr 处描述符中取段基地址。功能与_set_base()正好相反。
+// edx - 存放基地址(__base)；%1 - 地址addr 偏移2；%2 - 地址addr 偏移4；%3 - addr 偏移7。
+#define _get_base(addr) ({\
+unsigned long __base; \
+__asm__( "movb %3,%%dh\n\t" \    // 取[addr+7]处基址高16 位的高8 位(位31-24)??dh。
+  "movb %2,%%dl\n\t" \        // 取[addr+4]处基址高16 位的低8 位(位23-16)??dl。
+  "shll $16,%%edx\n\t" \    // 基地址高16 位移到edx 中高16 位处。
+  "movw %1,%%dx" \        // 取[addr+2]处基址低16 位(位15-0)??dx。
+:"=d" (__base) \        // 从而edx 中含有32 位的段基地址。
+:"m" (*((addr) + 2)), "m" (*((addr) + 4)), "m" (*((addr) + 7)));
+__base;
+}
+)
+// 取局部描述符表中ldt 所指段描述符中的基地址。
+#define get_base(ldt) _get_base( ((char *)&amp;(ldt)) )
+// 取段选择符segment 的段长值。
+// %0 - 存放段长值(字节数)；%1 - 段选择符segment。
+#define get_limit(segment) ({ \
+unsigned long __limit; \
+__asm__( "lsll %1,%0\n\tincl %0": "=r" (__limit): "r" (segment)); \
+__limit;})
+</code></pre>
+
+<h1 id="主要记录内容">主要记录内容</h1>
+
+<p>1.状态信息，例如这个进程处于可执行状态，休眠，挂起等。</p>
+
+<p>2.性质，由于unix有很多变种，进程有自己独特的性质。</p>
+
+<p>3.资源，资源的链接比如内存，还有资源的限制和权限等。</p>
+
+<p>4.组织，例如按照家族关系建立起来的树（父进程，子进程等）</p>
+
+<h1 id="task_struct结构描述"><strong>task_struct结构描述</strong></h1>
+
+<h2 id="进程状态state"><strong>进程状态（State）</strong></h2>
+
+<p>进程执行时，它会根据具体情况改变状态。进程状态是调度和对换的依据。Linux中的进程主要有如下状态:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>内核表示</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TASK_RUNNING</td>
+      <td>可运行</td>
+    </tr>
+    <tr>
+      <td>TASK_INTERRUPTIBLE</td>
+      <td>可中断的等待状态</td>
+    </tr>
+    <tr>
+      <td>TASK_UNINTERRUPTIBLE</td>
+      <td>不可中断的等待状态</td>
+    </tr>
+    <tr>
+      <td>TASK_ZOMBIE</td>
+      <td>僵死</td>
+    </tr>
+    <tr>
+      <td>TASK_STOPPED</td>
+      <td>暂停</td>
+    </tr>
+    <tr>
+      <td>TASK_SWAPPING</td>
+      <td>换入/换出</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>可运行状态</strong></p>
+
+<p>处于这种状态的进程，要么正在运行、要么正准备运行。正在运行的进程就是当前进程（由current所指向的进程），而准备运行的进程只要得到CPU就可以立即投入运行，CPU是这些进程唯一等待的系统资源。系统中有一个运行队列（run_queue），用来容纳所有处于可运行状态的进程，调度程序执行时，从中选择一个进程投入运行。在后面我们讨论进程调度的时候，可以看到运行队列的作用。当前运行进程一直处于该队列中，也就是说，current总是指向运行队列中的某个元素，只是具体指向谁由调度程序决定。</p>
+
+<p><strong>等待状态</strong></p>
+
+<p>处于该状态的进程正在等待某个事件（event）或某个资源，它肯定位于系统中的某个等待队列（wait_queue）中。Linux中处于等待状态的进程分为两种：可中断的等待状态和不可中断的等待状态。处于可中断等待态的进程可以被信号唤醒，如果收到信号，该进程就从等待状态进入可运行状态，并且加入到运行队列中，等待被调度；而处于不可中断等待态的进程是因为硬件环境不能满足而等待，例如等待特定的系统资源，它任何情况下都不能被打断，只能用特定的方式来唤醒它，例如唤醒函数wake_up（）等。</p>
+
+<p><strong>暂停状态</strong></p>
+
+<p>此时的进程暂时停止运行来接受某种特殊处理。通常当进程接收到SIGSTOP、SIGTSTP、SIGTTIN或 SIGTTOU信号后就处于这种状态。例如，正接受调试的进程就处于这种状态</p>
+
+<p><strong>僵死状态</strong></p>
+
+<p>进程虽然已经终止，但由于某种原因，父进程还没有执行wait()系统调用，终止进程的信息也还没有回收。顾名思义，处于该状态的进程就是死进程，这种进程实际上是系统中的垃圾，必须进行相应处理以释放其占用的资源。</p>
+
+<h2 id="进程调度信息"><strong>进程调度信息</strong></h2>
+
+<p>调度程序利用这部分信息决定系统中哪个进程最应该运行，并结合进程的状态信息保证系统运转的公平和高效。这一部分信息通常包括进程的类别（普通进程还是实时进程）、进程的优先级等等。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>域名</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>need_resched</td>
+      <td>调度标志</td>
+    </tr>
+    <tr>
+      <td>Nice</td>
+      <td>静态优先级</td>
+    </tr>
+    <tr>
+      <td>Counter</td>
+      <td>动态优先级</td>
+    </tr>
+    <tr>
+      <td>Policy</td>
+      <td>调度策略</td>
+    </tr>
+    <tr>
+      <td>rt_priority</td>
+      <td>实时优先级</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>当need_resched被设置时，在“下一次的调度机会”就调用调度程序schedule()。  counter代表进程剩余的时间片，是进程调度的主要依据，也可以说是进程的动态优先级，因为这个值在不断地减少；nice是进程的静态优先级，同时也代表进程的时间片，用于对counter赋值，可以用nice()系统调用改变这个值；policy是适用于该进程的调度策略，实时进程和普通进程的调度策略是不同的；rt_priority只对实时进程有意义，它是实时进程调度的依据。</p>
+
+<p>进程的调度策略有三种</p>
+
+<blockquote>
+  <p>进程调度的策略</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>解释</th>
+      <th>适用范围</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SCHED_OTHER</td>
+      <td>其他调度</td>
+      <td>普通进程</td>
+    </tr>
+    <tr>
+      <td>SCHED_FIFO</td>
+      <td>先来先服务调度</td>
+      <td>实时进程</td>
+    </tr>
+    <tr>
+      <td>SCHED_RR</td>
+      <td>时间片轮转调度</td>
+      <td>实时进程</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>只有root用户能通过sched_setscheduler（）系统调用来改变调度策略。</p>
+
+<p><strong>标识符（Identifiers）</strong></p>
+
+<p>每个进程有进程标识符、用户标识符、组标识符，如表4.4所示。</p>
+
+<p>不管对内核还是普通用户来说，怎么用一种简单的方式识别不同的进程呢？这就引入了进程标识符（PID：process  identifier），每个进程都有一个唯一的标识符，内核通过这个标识符来识别不同的进程，同时，进程标识符PID也是内核提供给用户程序的接口，用户程序通过PID对进程发号施令。PID是32位的无符号整数，它被顺序编号：新创建进程的PID通常是前一个进程的PID加1。然而，为了与16位硬件平台的传统Linux系统保持兼容，在Linux上允许的最大PID号是32767，当内核在系统中创建第32768个进程时，就必须重新开始使用已闲置的PID号。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>域名</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Pid</td>
+      <td>进程标识符</td>
+    </tr>
+    <tr>
+      <td>Uid、gid</td>
+      <td>用户标识符、组标识符</td>
+    </tr>
+    <tr>
+      <td>Euid、egid</td>
+      <td>有效用户标识符、有效组标识符</td>
+    </tr>
+    <tr>
+      <td>Suid、sgid</td>
+      <td>备份用户标识符、备份组标识符</td>
+    </tr>
+    <tr>
+      <td>Fsuid、fsgid</td>
+      <td>文件系统用户标识符、文件系统组标识符</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>另外，每个进程都属于某个用户组。task_struct结构中定义有用户标识符和组标识符。它们同样是简单的数字，这两种标识符用于系统的安全控制。</p>
+
+<h2 id="进程通信有关信息ipcinter_process-communication"><strong>进程通信有关信息（IPC：Inter_Process Communication）</strong></h2>
+
+<p>为了使进程能在同一项任务上协调工作，进程之间必须能进行通信即交流数据。</p>
+
+<p>Linux支持多种不同形式的通信机制。它支持典型的Unix通信机制（IPC Mechanisms）：信号（Signals）、管道（Pipes），也支持System V 通信机制：共享内存（Shared Memory）、信号量和消息队列（Message Queues）</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>域名</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Spinlock_t sigmask_lock</td>
+      <td>信号掩码的自旋锁</td>
+    </tr>
+    <tr>
+      <td>Long blocked</td>
+      <td>信号掩码</td>
+    </tr>
+    <tr>
+      <td>Struct signal *sig</td>
+      <td>信号处理函数</td>
+    </tr>
+    <tr>
+      <td>Struct sem_undo *semundo</td>
+      <td>为避免死锁而在信号量上设置的取消操作</td>
+    </tr>
+    <tr>
+      <td>Struct sem_queue *semsleeping</td>
+      <td>与信号量操作相关的等待队列</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="进程链接信息links"><strong>进程链接信息（Links）</strong></h2>
+
+<p>程序创建的进程具有父/子关系。因为一个进程能创建几个子进程，而子进程之间有兄弟关系，在task_struct结构中有几个域来表示这种关系。</p>
+
+<p>在Linux系统中，除了初始化进程init，其他进程都有一个父进程（parent  process）或称为双亲进程。可以通过fork（）或clone()系统调用来创建子进程，除了进程标识符（PID）等必要的信息外，子进程的task_struct结构中的绝大部分的信息都是从父进程中拷贝，或说“克隆”过来的。系统有必要记录这种“亲属”关系，使进程之间的协作更加方便，例如父进程给子进程发送杀死（kill）信号、父子进程通信等，就可以用这种关系很方便地实现。</p>
+
+<p>每个进程的task_struct结构有许多指针，通过这些指针，系统中所有进程的task_struct结构就构成了一棵进程树，这棵进程树的根就是初始化进程init的task_struct结构（init进程是Linux内核建立起来后人为创建的一个进程，是所有进程的祖先进程）</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>英文解释</th>
+      <th>中文解释 [指向哪个进程]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>p_opptr</td>
+      <td>Original parent</td>
+      <td>祖先</td>
+    </tr>
+    <tr>
+      <td>p_pptr</td>
+      <td>Parent</td>
+      <td>父进程</td>
+    </tr>
+    <tr>
+      <td>p_cptr</td>
+      <td>Child</td>
+      <td>子进程</td>
+    </tr>
+    <tr>
+      <td>p_ysptr</td>
+      <td>Younger sibling</td>
+      <td>弟进程</td>
+    </tr>
+    <tr>
+      <td>p_osptr</td>
+      <td>Older sibling</td>
+      <td>兄进程</td>
+    </tr>
+    <tr>
+      <td>Pidhash_next、 Pidhash_pprev</td>
+      <td> </td>
+      <td>进程在哈希表中的链接</td>
+    </tr>
+    <tr>
+      <td>Next_task、 prev_task</td>
+      <td> </td>
+      <td>进程在双向循环链表中的链接</td>
+    </tr>
+    <tr>
+      <td>Run_list</td>
+      <td> </td>
+      <td>运行队列的链表</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="时间和定时器信息times-and-timers"><strong>时间和定时器信息（Times and Timers）</strong></h2>
+
+<p>一个进程从创建到终止叫做该进程的生存期（lifetime）。进程在其生存期内使用CPU的时间，内核都要进行记录，以便进行统计、计费等有关操作。进程耗费CPU的时间由两部分组成：一是在用户模式（或称为用户态）下耗费的时间、一是在系统模式（或称为系统态）下耗费的时间。每个<strong>时钟滴答</strong>，也就是每个时钟中断，内核都要更新当前进程耗费CPU的时间信息。</p>
+
+<p>“时间”对操作系统是极其重要的。读者可能了解计算机时间的有关知识，例如8353/8254这些物理器件，INT 08、INT 1C等时钟中断等，可能有过编程序时截获时钟中断的成就感，不管怎样，下一章我们将用较大的篇幅尽可能向读者解释清楚操作系统怎样建立完整的时间机制、并在这种机制的激励下进行调度等活动。</p>
+
+<p>建立了“时间”的概念，“定时”就是轻而易举的了，无非是判断系统时间是否到达某个时刻，然后执行相关的操作而已。Linux提供了许多种定时方式，用户可以灵活使用这些方式来为自己的程序定时。</p>
+
+<blockquote>
+  <p>与时间有关的域</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>域名</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Start_time</td>
+      <td>进程创建时间</td>
+    </tr>
+    <tr>
+      <td>Per_cpu_utime</td>
+      <td>进程在某个CPU上运行时在用户态下耗费的时间</td>
+    </tr>
+    <tr>
+      <td>Per_cpu_stime</td>
+      <td>进程在某个CPU上运行时在系统态下耗费的时间</td>
+    </tr>
+    <tr>
+      <td>Counter</td>
+      <td>进程剩余的时间片</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>进程的所有定时器</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>定时器类型</th>
+      <th>解释</th>
+      <th>什么时候更新</th>
+      <th>用来表示此种定时器的域</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ITIMER_REAL</td>
+      <td>实时定时器</td>
+      <td>实时更新，即不论该进程是否运行</td>
+      <td>it_real_value</td>
+    </tr>
+    <tr>
+      <td>it_real_incr</td>
+      <td>实时定时器</td>
+      <td>实时更新，即不论该进程是否运行</td>
+      <td>it_real_incr</td>
+    </tr>
+    <tr>
+      <td>real_timer</td>
+      <td>实时定时器</td>
+      <td>实时更新，即不论该进程是否运行</td>
+      <td>real_timer</td>
+    </tr>
+    <tr>
+      <td>ITIMER_VIRTUAL</td>
+      <td>虚拟定时器</td>
+      <td>只在进程运行于用户态时更新</td>
+      <td>it_virt_value</td>
+    </tr>
+    <tr>
+      <td>it_virt_incr</td>
+      <td>虚拟定时器</td>
+      <td>只在进程运行于用户态时更新</td>
+      <td>it_virt_incr</td>
+    </tr>
+    <tr>
+      <td>ITIMER_PROF</td>
+      <td>概况定时器</td>
+      <td>进程运行于用户态和系统态时更新</td>
+      <td>it_prof_value</td>
+    </tr>
+    <tr>
+      <td>it_prof_incr</td>
+      <td>概况定时器</td>
+      <td>进程运行于用户态和系统态时更新</td>
+      <td>it_prof_incr</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>进程有三种类型的定时器：实时定时器、虚拟定时器和概况定时器。这三种定时器的特征共有三个：到期时间、定时间隔、要触发的事件。到期时间就是定时器到什么时候完成定时操作，从而触发相应的事件；定时间隔就是两次定时操作的时间间隔，它决定了定时操作是否继续进行，如果定时间隔大于0，则在定时器到期时，该定时器的到期时间被重新赋值，使定时操作继续进行下去，直到进程结束或停止使用定时器，只不过对不同的定时器，到期时间的重新赋值操作是不同的。在表4.8中，每个定时器都有两个域来表示到期时间和定时间隔：value和incr，二者的单位都是时钟滴答，和jiffies的单位是一致的，Linux所有的时间应用都建立在jiffies之上。虚拟定时器和概况定时器到期时由内核发送相应的信号，而实时定时器比较特殊，它由内核机制提供支持，我们将在后面讨论这个问题。</p>
+
+<p>每个时钟中断，当前进程所有和时间有关的信息都要更新：当前进程耗费的CPU时间要更新，以便于最后的计费；时间片计数器counter要更新，如果counter&lt;=0，则要执行调度程序；进程申请的延时要更新，如果延时时间到了，则唤醒该进程；所有的定时器都要更新，Linux内核检测这些定时器是否到期，如果到期，则执行相应的操作。在这里，“更新”的具体操作是不同的：对counter，内核要对它减值，而对于所有的定时器，就是检测它的值，内核把系统当前时间和其到期时间作一比较，如果到期时间小于系统时间，则表示该定时器到期。</p>
+
+<p>请特别注意上面三个定时器的更新时间。实时定时器不管其所属的进程是否运行都要更新，所以，时钟中断来临时，系统中所有进程的实时定时器都被更新，如果有多个进程的实时定时器到期，则内核要一一处理这些定时器所触发的事件。而虚拟定时器和概况定时器只在进程运行时更新，所以，时钟中断来临时，只有当前进程的概况定时器得到更新，如果当前进程运行于用户态，则其虚拟定时器也得到更新。</p>
+
+<h2 id="文件系统信息file-system"><strong>文件系统信息（File System）</strong></h2>
+
+<p>进程可以打开或关闭文件，文件属于系统资源，Linux内核要对进程使用文件的情况进行记录。task_struct结构中有两个数据结构用于描述进程与文件相关的信息。其中，fs_struct中描述了两个VFS索引节点（VFS inode），这两个索引节点叫做root和pwd，分别指向进程的可执行映象所对应的根目录（home  directory）和当前目录或工作目录。file_struct结构用来记录了进程打开的文件的描述符（descriptor）</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>定义形式</th>
+      <th>解释</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sruct fs_struct *fs</td>
+      <td>进程的可执行映象所在的文件系统</td>
+    </tr>
+    <tr>
+      <td>Struct files_struct *files</td>
+      <td>进程打开的文件</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>在文件系统中，每个VFS索引节点唯一描述一个文件或目录，同时该节点也是向更低层的文件系统提供的统一的接口。</p>
+
+<h2 id="虚拟内存信息virtual-memory"><strong>虚拟内存信息（Virtual Memory）</strong></h2>
+
+<p>除了内核线程（kernel thread），每个进程都拥有自己的地址空间（也叫虚拟空间），用mm_struct来描述。另外Linux2.4还引入了另外一个域active_mm,这是为内核线程而引入。因为内核线程没有自己的地址空间，为了让内核线程与普通进程具有统一的上下文切换方式，当内核线程进行上下文切换时，让切换进来的线程的active_mm指向刚被调度出去的进程的active_mm（如果进程的mm域不为空，则其active_mm域与mm域相同）。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>定义形式</th>
+      <th>解释</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Struct mm_struct *mm</td>
+      <td>描述进程的地址空间</td>
+    </tr>
+    <tr>
+      <td>Struct mm_struct *active_mm</td>
+      <td>内核线程所借用的地址空间</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="页面管理信息"><strong>页面管理信息</strong></h2>
+
+<p>当物理内存不足时，Linux内存管理子系统需要把内存中的部分页面交换到外存，其交换是以页为单位的</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>定义形式</th>
+      <th>解释</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Int swappable</td>
+      <td>进程占用的内存页面是否可换出</td>
+    </tr>
+    <tr>
+      <td>Unsigned long min_flat,maj_flt,nswap</td>
+      <td>进程累计的次（minor）缺页次数、主(major)次数及累计换出、换入页面数</td>
+    </tr>
+    <tr>
+      <td>Unsigned long cmin_flat,cmaj_flt,cnswap</td>
+      <td>本进程作为祖先进程，其所有层次子进程的累计的次（minor）缺页次数、主(major)次数及累计换出、换入页面数</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="对称多处理机smp信息"><strong>对称多处理机（SMP）信息</strong></h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>定义形式</th>
+      <th>解释</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Int has_cpu</td>
+      <td>进程是否当前拥有CPU</td>
+    </tr>
+    <tr>
+      <td>Int processor</td>
+      <td>进程当前正在使用的CPU</td>
+    </tr>
+    <tr>
+      <td>Int lock_depth</td>
+      <td>上下文切换时内核锁的深度</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="和处理器相关的环境上下文信息processor-specific-context"><strong>和处理器相关的环境（上下文）信息（Processor Specific Context</strong>）</h2>
+
+<p>这里要特别注意标题：和“<strong>处理器</strong>”相关的环境信息。进程作为一个执行环境的综合，当系统调度某个进程执行，即为该进程建立完整的环境时，处理器（processor）的寄存器、堆栈等是必不可少的。因为不同的处理器对内部寄存器和堆栈的定义不尽相同，所以叫做“和处理器相关的环境”，也叫做“<strong>处理机状态</strong>”。当进程暂时停止运行时，处理机状态必须保存在进程的task_struct结构中，当进程被调度重新运行时再从中恢复这些环境，也就是恢复这些寄存器和堆栈的值</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>定义形式</th>
+      <th>解释</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Struct thread_struct *tss</td>
+      <td>任务切换状态</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="其它"><strong>其它</strong></h2>
+
+<p>1） struct wait_queue *wait_chldexit</p>
+
+<p>在进程结束时,或发出系统调用wait4时，为了等待子进程的结束，而将自己（父进程）睡眠在该等待队列上，设置状态标志为TASK_INTERRUPTIBLE，并且把控制权转给调度程序。</p>
+
+<p>（2）Struct rlimit rlim[RLIM_NLIMITS];</p>
+
+<p>每一个进程可以通过系统调用setlimit和getlimit来限制它资源的使用。</p>
+
+<p>（3）Int exit_code exit_signal;</p>
+
+<p>程序的返回代码以及程序异常终止产生的信号，这些数据由父进程（子进程完成后）  轮流查询。</p>
+
+<p>（4）Char comm[16]</p>
+
+<p>这个域存储进程执行的程序的名字，这个名字用在调试中。</p>
+
+<p>（5）Unsigned long personality;</p>
+
+<p>Linux可以运行X86平台上其它Unix操作系统生成的符合iBCS2标准的程序,  personality进一步描述进程执行的程序属于何种Unix平台的“个性”信息。通常有PER_Linux,PER_Linux_32BIT,PER_Linux_EM86,PER_SVR4,PER_SVR3,PER_SCOSVR3,PER_WYSEV386,PER_ISCR4,PER_BSD,PER_XENIX和PER_MASK等，参见include／Linux/personality.h&gt;。</p>
+
+<p>(6) int did_exec:1;</p>
+
+<p>按POSIX要求设计的布尔量，区分进程正在执行老程序代码，还是用系统调用execve（）装入一个新的程序。</p>
+
+<p>（7）struct linux_binfmt *binfmt</p>
+
+<p>指向进程所属的全局执行文件格式结构，共有a.out、script、elf、java等四种。</p>
+
+<p>综上所述，我们对进程的task_struct结构进行了归类讨论,还有一些域没有涉及到，在第六章进程的创建与执行一节几乎涉及到所有的域，在那里可以对很多域有更深入一步的理解。task_struct结构是进程实体的核心，Linux内核通过该结构来控制进程：首先通过其中的调度信息决定该进程是否运行；当该进程运行时，根据其中保存的处理机状态信息来恢复进程运行现场，然后根据虚拟内存信息，找到程序的正文和数据；通过其中的通信信息和其他进程实现同步、通信等合作。几乎所有的操作都要依赖该结构，所以，task_struct结构是一个进程存在的唯一标志。</p>
+
+</div>
+<div class="v">
+  <i class="fas fa-spinner fa-pulse"></i>
+</div>
+<script
+  src='https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js'
+  defer='defer'
+  onload='
+    new Valine({
+      "el": document.getElementsByClassName("v")[0],
+      "appId": "9hABRddSuEkTgqLrt1VSK5B1-gzGzoHsz",
+      "appKey": "NJ7RwmgrxsF7KDzlqU7YewlL",
+      "placeholder": "在这里评论吧！填写邮箱可以获得 Gravatar 头像和回复通知哦",
+      "requiredFields": ["nick","mail"],
+      "visitor": true,
+      "recordIP": true
+    })'
+></script>
+
+</div>
+  </div>
+  
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  
+</body>
+
+</html>

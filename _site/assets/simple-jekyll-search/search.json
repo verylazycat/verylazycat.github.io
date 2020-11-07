@@ -2,6 +2,15 @@
 [
   
     {
+      "title"    : "进程控制模块",
+      "category" : "",
+      "tags"     : "操作系统",
+      "date"     : "2020-11-04 00:00:00 -0500",
+      
+      "url"      : "/_posts/2020-11-04-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E6%A8%A1%E5%9D%97/"
+    } ,
+  
+    {
       "title"    : "IO模式",
       "category" : "",
       "tags"     : "linux",
