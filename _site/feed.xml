@@ -1,11 +1,1322 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-07T22:32:01-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-08T04:08:24-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">IO模式</title><link href="http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/" rel="alternate" type="text/html" title="IO模式" /><published>2020-11-04T00:00:00-05:00</published><updated>2020-11-04T00:00:00-05:00</updated><id>http://localhost:4000/_posts/IO%E6%A8%A1%E5%BC%8F</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">C++内存模型</title><link href="http://localhost:4000/_posts/2020-11-08-C++%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" rel="alternate" type="text/html" title="C++内存模型" /><published>2020-11-08T00:00:00-05:00</published><updated>2020-11-08T00:00:00-05:00</updated><id>http://localhost:4000/_posts/C++%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-08-C++%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;环境&quot;&gt;环境&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sh&quot;&gt;uname -a
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Linux admin233 5.4.0-52-generic #57~18.04.1-Ubuntu SMP Thu Oct 15 14:04:49 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;c内存模型&quot;&gt;C++内存模型&lt;/h1&gt;
+
+&lt;h2 id=&quot;内存模型&quot;&gt;内存模型&lt;/h2&gt;
+
+&lt;p&gt;为 C++ 抽象机的目的定义计算机内存存储的语义。&lt;/p&gt;
+
+&lt;p&gt;可用于 C++ 程序的内存是一或多个相接的&lt;em&gt;字节&lt;/em&gt;序列。内存中的每个字节拥有唯一的&lt;em&gt;地址&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;字节&quot;&gt;字节&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;字节&lt;/em&gt;是最小的可寻址内存单元。它被定义为相接的位序列，大到足以保有任何 &lt;code&gt;UTF-8&lt;/code&gt; 编码单元（ 256 个相异值）和 (C++14 起)&lt;em&gt;基本执行字符集&lt;/em&gt;（要求为单字节的 &lt;a href=&quot;https://zh.cppreference.com/w/cpp/language/translation_phases&quot;&gt;96 个字符&lt;/a&gt;）的任何成员。类似 C ， C++ 支持 8 位或更大的字节。&lt;/p&gt;
+
+&lt;p&gt;char 、 unsigned char 和 signed char &lt;a href=&quot;https://zh.cppreference.com/w/cpp/language/types&quot;&gt;类型&lt;/a&gt;把一个字节用于存储和&lt;a href=&quot;https://zh.cppreference.com/w/cpp/language/object&quot;&gt;值表示&lt;/a&gt;。字节中的位数可作为 &lt;a href=&quot;https://zh.cppreference.com/w/cpp/types/climits&quot;&gt;CHAR_BIT&lt;/a&gt; 或 &lt;a href=&quot;http://zh.cppreference.com/w/cpp/types/numeric_limits&quot;&gt;std::numeric_limits&lt;/a&gt;&lt;unsigned char=&quot;&quot;&gt;::digits 访问。&lt;/unsigned&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;内存位置&quot;&gt;内存位置&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;内存位置&lt;/em&gt;是&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一个&lt;a href=&quot;https://zh.cppreference.com/w/cpp/language/type&quot;&gt;标量类型&lt;/a&gt;（算术类型、指针类型、枚举类型或 std::nullptr_t ）对象&lt;/li&gt;
+  &lt;li&gt;或非零长&lt;a href=&quot;https://zh.cppreference.com/w/cpp/language/bit_field&quot;&gt;位域&lt;/a&gt;的最大相接序列&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;注意：各种语言特性，例如&lt;a href=&quot;https://zh.cppreference.com/w/cpp/language/reference&quot;&gt;引用&lt;/a&gt;和&lt;a href=&quot;https://zh.cppreference.com/w/cpp/language/virtual&quot;&gt;虚函数&lt;/a&gt;，可能涉及到程序不可访问，但为实现所管理的额外内存位置。&lt;/p&gt;
+
+&lt;h2 id=&quot;线程与数据竞争&quot;&gt;线程与数据竞争&lt;/h2&gt;
+
+&lt;p&gt;执行线程是程序中的控制流，它始于 &lt;a href=&quot;https://zh.cppreference.com/w/cpp/thread/thread/thread&quot;&gt;std::thread::thread&lt;/a&gt; 、 &lt;a href=&quot;https://zh.cppreference.com/w/cpp/thread/async&quot;&gt;std::async&lt;/a&gt; 或以其他方式所做的顶层函数调用。&lt;/p&gt;
+
+&lt;p&gt;任何线程都能潜在地访问程序中的任何对象（拥有自动或线程局域&lt;a href=&quot;https://zh.cppreference.com/w/cpp/language/storage_duration&quot;&gt;存储期&lt;/a&gt;的对象仍可为另一线程通过指针或引用访问）。&lt;/p&gt;
+
+&lt;p&gt;始终允许不同的执行线程同时访问（读和写）不同的&lt;em&gt;内存位置&lt;/em&gt;，而无冲突或同步要求。&lt;/p&gt;
+
+&lt;p&gt;一个表达式的&lt;a href=&quot;https://zh.cppreference.com/w/cpp/language/eval_order&quot;&gt;求值&lt;/a&gt;写入内存位置，而另一求值读或写同一内存位置时，称这些表达式&lt;em&gt;冲突&lt;/em&gt;。拥有二个冲突求值的程序有&lt;em&gt;数据竞争&lt;/em&gt;，除非&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;两个求值都在同一线程上，或同一&lt;a href=&quot;https://zh.cppreference.com/w/cpp/utility/program/signal#.E4.BF.A1.E5.8F.B7.E5.A4.84.E7.90.86.E5.87.BD.E6.95.B0&quot;&gt;信号处理函数&lt;/a&gt;中执行，或&lt;/li&gt;
+  &lt;li&gt;两个冲突求值都是原子操作（见 &lt;a href=&quot;https://zh.cppreference.com/w/cpp/atomic/atomic&quot;&gt;std::atomic&lt;/a&gt; ），或&lt;/li&gt;
+  &lt;li&gt;一个冲突求值&lt;em&gt;先发生于（ happens-before ）&lt;/em&gt;另一个（见 &lt;a href=&quot;https://zh.cppreference.com/w/cpp/atomic/memory_order&quot;&gt;std::memory_order&lt;/a&gt; ）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;若出现数据竞争，则程序的行为未定义。&lt;/p&gt;
+
+&lt;p&gt;（特别是， &lt;a href=&quot;https://zh.cppreference.com/w/cpp/thread/mutex&quot;&gt;std::mutex&lt;/a&gt; 的释放&lt;em&gt;同步于&lt;/em&gt;，从而&lt;em&gt;先发生于&lt;/em&gt;另一线程取得同一 mutex ，这使得可以用互斥锁防止数据竞争）&lt;/p&gt;
+
+&lt;h2 id=&quot;内存顺序&quot;&gt;内存顺序&lt;/h2&gt;
+
+&lt;p&gt;线程在从内存位置读取值时，它可能看到初值、同一线程所写入的值或另一线程写入的值。线程所作的写入对其他线程变为可见的顺序上的细节，见 &lt;a href=&quot;https://zh.cppreference.com/w/cpp/atomic/memory_order&quot;&gt;std::memory_order&lt;/a&gt; 。&lt;/p&gt;
+
+&lt;p&gt;from https://zh.cppreference.com/w/cpp/language/memory_model&lt;/p&gt;
+
+&lt;h1 id=&quot;c对象内存模型&quot;&gt;C++对象内存模型&lt;/h1&gt;
+
+&lt;h2 id=&quot;空类对象&quot;&gt;空类对象&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class A { };
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;sizeof（A) = 1
+C++标准要求C++的对象大小不能为0，C++对象必须在内存里面有唯一的地址，
+但又不想浪费太多内存空间，所以标准规定为1byte&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A –&amp;gt; +———–+
+          | 1 bytes   |
+          +———–+&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;非空类&quot;&gt;非空类&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class A 
+{
+public：
+   int a;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;sizeof（A ) = 8  ,align=8&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A –&amp;gt; +———–+
+          |pad  |  a  |
+          +———–+&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;非空虚基类&quot;&gt;非空虚基类&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;lass A 
+{
+public：
+   int a;
+   virtual void v();
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;sizeof（A ) = 16 ,align=8&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​                         vtable&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​                          +———————–+
+​                           |     0 (top_offset)    |
+​                           +———————–+
+A –&amp;gt; +———-+         | ptr to typeinfo for A |
+​      |  vtptr   |——-&amp;gt; +———————–+
+​      +———-+         |         A::v()        |
+​      | pad |a   |         +———————–+
+​      +———-+&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;单继承&quot;&gt;单继承&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class A {
+public:
+  int a;
+  virtual void v();
+};
+
+class B : public A {
+public:
+  int b;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;sizeof（B） = 16, align = 8&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​                                   vtable&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​                          +———————–+
+​                           |     0 (top_offset)    |
+​                           +———————–+
+b –&amp;gt; +———-+         | ptr to typeinfo for B |
+​      |  vtptr   |——-&amp;gt; +———————–+
+​      +———-+         |         A::v()        |
+​      |   b | a  |         +———————–+
+​      +———-+&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;简单多继承&quot;&gt;简单多继承&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class A {
+public:
+  int a;
+  virtual void v();
+};
+
+class B {
+public:
+  int b;
+  virtual void w();
+};
+
+class C : public A, public B {
+public:
+  int c;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;sizeof（C) = 32 ,align = 8&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​                                   vtable
+​                           +———————–+
+​                           |     0 (top_offset)    |
+​                           +———————–+
+c –&amp;gt; +———-+         | ptr to typeinfo for C |
+​      |  vtptr   |——-&amp;gt; +———————–+
+​      +———-+         |         A::v()        |
+​      | pad |a   |         +———————–+
+​      +———-+         |    -16 (top_offset)    |
+​      |  vtptr   |—+     +———————–+
+​      +———-+   |     | ptr to typeinfo for C |
+​      |  c | b   |   +—&amp;gt; +———————–+
+​      +———-+         |         B::w()        |
+​                           +———————–+&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;简单多继承2&quot;&gt;简单多继承2&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class A {
+public:
+  int a;
+  virtual void v();
+};
+
+class B {
+public:
+  int b;
+  virtual void w();
+};
+
+class C : public A, public B {
+public:
+  int c;
+  void w();
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;sizeof（C) = 32 ,align = 8&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​                                   vtable
+​                           +———————–+
+​                           |     0 (top_offset)    |
+​                           +———————–+
+c –&amp;gt; +———-+         | ptr to typeinfo for C |
+​      |  vtptr   |——-&amp;gt; +———————–+
+​      +———-+         |         A::v()        |
+​      | pad |a   |         +———————–+
+​      +———-+         |         C::w()        |
+​      |  vtptr   |—+     +———————–+
+​      +———-+  |     |    -16 (top_offset)    |
+​      |  c | b   |  |     +———————–+
+​      +———-+   |     | ptr to typeinfo for C |
+​                     +—&amp;gt; +———————–+
+   |    thunk to C::w()  |
+​                           +———————–+&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;注意点：
+1  此种继承，存在两份份基类成员，使用时候需要指定路径，使用不方便，易出错&lt;/p&gt;
+
+&lt;h2 id=&quot;the-diamond-钻石类虚继承&quot;&gt;The Diamond: 钻石类虚继承&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class A {
+public:
+  int a;
+  virtual void v();
+};
+
+class B : public virtual A {
+public:
+  int b;
+  virtual void w();
+};
+
+class C : public virtual A {
+public:
+  int c;
+  virtual void x();
+};
+
+class D : public B, public C {
+public:
+  int d;
+  virtual void y();
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;sizeof(D) = 48,align = 8&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​										  vtable&lt;br /&gt;
+​                                   +———————–+
+​                                   |   32 (vbase_offset)   |
+​                                   +———————–+
+​                                   |     0 (top_offset)    |
+​                                   +———————–+
+​                                   | ptr to typeinfo for D |
+​                      +———-&amp;gt; +———————–+
+d –&amp;gt; +———-+    |            |         B::w()        |
+​      |  vtptr   |—-+            +———————–+
+​      +———-+                 |         D::y()        |
+​      |pad  |b   |                 +———————–+
+​      +———-+                 |   16 (vbase_offset)   |
+​      |  vtptr   |———+       +———————–+
+​      +———-+         |       |    -16 (top_offset)    |
+​      |  d  | c  |         |       +———————–+
+​      +———-+         |       | ptr to typeinfo for D |
+​      |  vtptr   |—-+    +—–&amp;gt; +———————–+
+​      +———-+    |            |         C::x()        |
+​      | pad | a  |              | +———————–+
+​      +———-+    |            |    0 (vbase_offset)   |
+​                      |            +———————–+
+​                      |            |   -32 (top_offset)    |
+​                      |            +———————–+
+​                      |            | ptr to typeinfo for D |
+​                      +———-&amp;gt; +———————–+
+​                                   |         A::v()        |
+​                                   +———————–+&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;注意点：
+1 top_offset 表示this指针对子类的偏移，用于子类和继承类之间dynamic_cast转换（还需要typeinfo数据），实现多态，
+  vbase_offset 表示this指针对基类的偏移，用于共享基类；
+2 gcc为了每一个类生成一个vtable虚函数表，放在程序的.rodata段，其他编译器（平台）比如vs，实现不太一样.
+3 gcc还有VTT表，里面存放了各个基类之间虚函数表的关系，最大化利用基类的虚函数表，专门用来为构建最终类vtable；
+4 在构造函数里面设置对象的vtptr指针。
+4 虚函数表地址的前面设置了一个指向type_info的指针，RTTI（Run Time Type Identification）运行时类型识别是有编译器在编译器生成的特殊类型信息，包括对象继承关系，对象本身的描述，RTTI是为多态而生成的信息，所以只有具有虚函数的对象在会生成。
+5 在C++类中有两种成员数据：static、nonstatic；三种成员函数：static、nonstatic、virtual。
+  C++成员非静态数据需要占用动态内存，栈或者堆中，其他static数据存在全局变量区（数据段）,编译时候确定。
+  虚函数会增加用虚函数表大小，也是存储在数据区的.rodada段，编译时确定，其他函数不占空间。
+6 G++ 选项 -fdump-class-hierarchy 可以生成C++类层结构，虚函数表结构，VTT表结构。
+7 GDB调试选项：
+    set p obj &amp;lt;on/off&amp;gt; 在C++中，如果一个对象指针指向其派生类，如果打开这个选项，GDB会现在类对象结构的规则显示输出。
+    set p pertty &amp;lt;on/off&amp;gt;: 按照层次打印结构体。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;思考问题：
+1 Why don’t we have virtual constructors?&lt;/p&gt;
+
+&lt;p&gt;2 为什么不要在构造函数或者析构函数中调用虚函数？&lt;/p&gt;
+
+&lt;p&gt;3 C++对象构造顺序？&lt;/p&gt;
+
+&lt;p&gt;4 为什么虚函数会降低效率？&lt;/p&gt;
+
+&lt;p&gt;参考答案：&lt;/p&gt;
+
+&lt;p&gt;1 From Bjarne Stroustrup’s C++ Style and Technique FAQ&lt;/p&gt;
+
+&lt;p&gt;A virtual call is a mechanism to get work done given partial  information. In particular, “virtual” allows us to call a function  knowing only any interfaces and not the exact type of the object. To  create an object you need complete information. In particular, you need  to know the exact type of what you want to create. Consequently, a “call to a constructor” cannot be virtual.&lt;/p&gt;
+
+&lt;p&gt;2&lt;/p&gt;
+
+&lt;p&gt;对于构造函数：此时子类的对象还没有完全构造，编译器会去虚函数化，只会用当前类的函数， 如果是纯虚函数，就会调用到纯虚函数，会导致构造函数抛异常：&lt;/p&gt;
+
+&lt;p&gt;pure virtual method calle；&lt;/p&gt;
+
+&lt;p&gt;对于析构函数： 同样，由于对象不完整，编译器会去虚函数化，函数调用本类的虚函数，如果本类虚函数是纯虚函数，就会到账析构函数抛出异常：&lt;/p&gt;
+
+&lt;p&gt;pure virtual method called；&lt;/p&gt;
+
+&lt;p&gt;3 构造大致顺序：&lt;/p&gt;
+
+&lt;p&gt;1．构造子类构造函数的参数&lt;/p&gt;
+
+&lt;p&gt;2．子类调用基类构造函数&lt;/p&gt;
+
+&lt;p&gt;3．基类设置vptr&lt;/p&gt;
+
+&lt;p&gt;4．基类初始化列表内容进行构造&lt;/p&gt;
+
+&lt;p&gt;\5. 基类函数体调用&lt;/p&gt;
+
+&lt;p&gt;\6. 子类设置vptr&lt;/p&gt;
+
+&lt;p&gt;\7. 子类初始化列表内容进行构造&lt;/p&gt;
+
+&lt;p&gt;\8. 子类构造函数体调用&lt;/p&gt;
+
+&lt;p&gt;4 是因为虚函数调用，执行过程中会跳转两次，首先找到虚函数表，然后再查找对应函数地址，这样CPU指令就会跳转两次，而普通函数指跳转一次，CPU每跳转一次，预取指令都可能作废，这会导致分支预测失败，流水线排空，所以效率会变低。&lt;/p&gt;
+
+&lt;p&gt;设想一下，如果说不是虚函数，那么在编译时期，其相对地址是确定的，编译器可以直接生成jmp/invoke指令；  如果是虚函数，多出来的一次查找vtable所带来的开销，倒是次要的，关键在于，这个函数地址是动态的，譬如 取到的地址在eax里，则在call  eax之后的那些已经被预取进入流水线的所有指令都将失效。流水线越长，一次分支预测失败的代价也就越大。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;c程序运行内存空间模型&quot;&gt;C++程序运行内存空间模型&lt;/h1&gt;
+
+&lt;h2 id=&quot;c程序大致运行空间&quot;&gt;C++程序大致运行空间&lt;/h2&gt;
+
+&lt;p&gt;32位：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/32位内存空间.png&quot; alt=&quot;32位内存空间&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;64位：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/64位内存空间.jpeg&quot; alt=&quot;64位内存空间&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;linux虚拟内存内部实现&quot;&gt;Linux虚拟内存内部实现&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/虚拟内存.png&quot; alt=&quot;虚拟内存&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;关键点&quot;&gt;关键点：&lt;/h4&gt;
+
+&lt;p&gt;1  各个分区的意义：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;ul&gt;
+      &lt;li&gt;内核空间： 在32位系统中，Linux会留1G空间给内核，用户进程是无法访问的，用来存放进程相关数据和内存数据，内核代码等；  在64位系统里面，Linux会采用最低48位来表示虚拟内存，这可通过 /proc/cpuinfo 来查看address sizes :&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;address sizes  : 36 bits physical, 48 bits virtual，总的虚拟地址空间为256TB( 2^48 )，在这256TB的虚拟内存空间中, 0000000000000000 -  00007fffffffffff(128TB)为用户空间，ffff800000000000 -  ffffffffffffffff(128TB)为内核空间。目前常用的分配设计：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Virtual memory map with 4 level page tables:
+
+0000000000000000 - 00007fffffffffff (=47 bits) user space, different per mm
+hole caused by [47:63] sign extension
+ffff800000000000 - ffff87ffffffffff (=43 bits) guard hole, reserved for hypervisor
+ffff880000000000 - ffffc7ffffffffff (=64 TB) direct mapping of all phys. memory
+ffffc80000000000 - ffffc8ffffffffff (=40 bits) hole
+ffffc90000000000 - ffffe8ffffffffff (=45 bits) vmalloc/ioremap space
+ffffe90000000000 - ffffe9ffffffffff (=40 bits) hole
+ffffea0000000000 - ffffeaffffffffff (=40 bits) virtual memory map (1TB)
+... unused hole ...
+ffffec0000000000 - fffffbffffffffff (=44 bits) kasan shadow memory (16TB)
+... unused hole ...
+				    vaddr_end for KASLR
+fffffe0000000000 - fffffe7fffffffff (=39 bits) cpu_entry_area mapping
+fffffe8000000000 - fffffeffffffffff (=39 bits) LDT remap for PTI
+ffffff0000000000 - ffffff7fffffffff (=39 bits) %esp fixup stacks
+... unused hole ...
+ffffffef00000000 - fffffffeffffffff (=64 GB) EFI region mapping space
+... unused hole ...
+ffffffff80000000 - ffffffff9fffffff (=512 MB)  kernel text mapping, from phys 0
+ffffffffa0000000 - fffffffffeffffff (1520 MB) module mapping space
+[fixmap start]   - ffffffffff5fffff kernel-internal fixmap range
+ffffffffff600000 - ffffffffff600fff (=4 kB) legacy vsyscall ABI
+ffffffffffe00000 - ffffffffffffffff (=2 MB) unused hole
+from  http://www.kernel.org/doc/Documentation/x86/x86_64/mm.txt
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;剩下的是用户内存空间：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;stack栈区：专门用来实现函数调用-栈结构的内存块。相对空间下（可以设置大小，Linux 一般默认是8M，可通过 ulimit –s 查看），系统自动管理，从高地址往低地址，向下生长。&lt;/li&gt;
+  &lt;li&gt;内存映射区： 包括文件映射和匿名内存映射，  应用程序的所依赖的动态库，会在程序执行时候，加载到内存这个区域，一般包括数据（data）和代码（text）;通过mmap系统调用，可以把特定的文件映射到内存中，然后在相应的内存区域中操作字节来访问文件内容，实现更高效的IO操作；匿名映射，在glibc中malloc分配大内存的时候会用到匿名映射。这里所谓的“大”表示是超过了&lt;code&gt;MMAP_THRESHOLD&lt;/code&gt; 设置的字节数，它的缺省值是 128 kB，可以通过 &lt;a href=&quot;http://www.kernel.org/doc/man-pages/online/pages/man3/undocumented.3.html&quot;&gt;&lt;code&gt;mallopt()&lt;/code&gt;&lt;/a&gt; 去调整这个设置值。还可以用于进程间通信IPC（共享内存）。&lt;/li&gt;
+  &lt;li&gt;heap堆区：主要用于用户动态内存分配，空间大，使用灵活，但需要用户自己管理，通过brk系统调用控制堆的生长，向高地址生长。&lt;/li&gt;
+  &lt;li&gt;BBS段和DATA段：用于存放程序全局数据和静态数据，一般未初始化的放在BSS段（统一初始化为0，不占程序文件的空间），初始化的放在data段，只读数据放在rodata段（常量存储区）。&lt;/li&gt;
+  &lt;li&gt;text段： 主要存放程序二进制代码。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;2 为了防止内存被攻击，比如栈溢出攻击和堆溢出攻击等，Linux在特定段之间使用随机偏移，使段的起始地址是随机值。&lt;/p&gt;
+
+&lt;p&gt;Linux 系统上的 ASLR 等级可以通过文件 /proc/sys/kernel/randomize_va_space 来进行设置，它支持以下取值：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;0 – 关闭的随机化。一切都是静止的。&lt;/li&gt;
+  &lt;li&gt;1 – 保守的随机化。共享库、栈、mmap()、VDSO（下面有说明）以及堆将被随机化。&lt;/li&gt;
+  &lt;li&gt;2 – 完全的随机化。除了上面列举的要素外，通过 brk() 分配得到的内存空间也将被随机化。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;3 每个段都有特定的安全控制&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;vm_flags&lt;/th&gt;
+      &lt;th&gt;第三列，如r-xp&lt;/th&gt;
+      &lt;th&gt;此段虚拟地址空间的属性。每种属性用一个字段表示，r表示可读，w表示可写，x表示可执行，p和s共用一个字段，互斥关系，p表示私有段，s表示共享段，如果没有相应权限，则用’-’代替&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;4 Linux虚拟内存是按页分配，每页大小为4KB或者2M（大页内存），默认是4K&lt;/p&gt;
+
+&lt;h2 id=&quot;例子-通过pmap-查看程序内存布局综合procxmaps与procxsmaps数据&quot;&gt;例子-通过pmap 查看程序内存布局(综合proc/x/maps与proc/x/smaps数据）&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include&amp;lt;iostream&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+using namespace std;
+//long  a[1024*1024] = {0};
+int main()
+{
+    void *heap;
+    int *x = new int[1024]();
+    cout &amp;lt;&amp;lt; hex &amp;lt;&amp;lt;&quot;x: &quot; &amp;lt;&amp;lt; x &amp;lt;&amp;lt;endl;
+    heap = sbrk(0);
+    //cout &amp;lt;&amp;lt; hex &amp;lt;&amp;lt; &quot;a:&quot; &amp;lt;&amp;lt; (long) &amp;amp;a &amp;lt;&amp;lt;endl;
+    cout &amp;lt;&amp;lt; hex &amp;lt;&amp;lt; &quot;heap: &quot; &amp;lt;&amp;lt; (long) heap &amp;lt;&amp;lt;endl;
+    cout &amp;lt;&amp;lt; hex &amp;lt;&amp;lt; &quot;heap: &quot; &amp;lt;&amp;lt; (long)heap - (long)x &amp;lt;&amp;lt;endl;
+    while(1);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;g++ -g -std=c++11 -o main mem.cpp&lt;/p&gt;
+
+  &lt;p&gt;./main&lt;/p&gt;
+
+  &lt;p&gt;关闭了内存地址随机化&lt;/p&gt;
+
+  &lt;p&gt;pmap -X 8117
+ 8117:  ./main
+     Address Perm  Offset Device  Inode Size Rss Pss Referenced Anonymous Swap Locked Mapping
+     00400000 r-xp 00000000 08:11 43014235   4  4  4     4     0  0   0 main
+     00601000 r–p 00001000 08:11 43014235   4  4  4     4     4  0   0 main
+     00602000 rw-p 00002000 08:11 43014235   4  4  4     4     4  0   0 main&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;//程序的text段，只读数据段，和全局/静态数据段;
+ 00603000 rw-p 00000000 00:00    0  136  8  8     8     8  0   0 [heap]&lt;/p&gt;
+
+&lt;p&gt;//程序的堆内存段；&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;7ffff71e2000 r-xp 00000000 08:11  266401  88  88 18     88     0  0   0 libgcc_s.so.1
+   7ffff71f8000 —p 00016000 08:11  266401 2044  0  0     0     0  0   0 libgcc_s.so.1
+   7ffff73f7000 rw-p 00015000 08:11  266401   4  4  4     4     4  0   0 libgcc_s.so.1
+   7ffff73f8000 r-xp 00000000 08:11  266431 1052 224  3    224     0  0   0 libm-2.21.so
+   7ffff74ff000 —p 00107000 08:11  266431 2044  0  0     0     0  0   0 libm-2.21.so
+   7ffff76fe000 r–p 00106000 08:11  266431   4  4  4     4     4  0   0 libm-2.21.so
+   7ffff76ff000 rw-p 00107000 08:11  266431   4  4  4     4     4  0   0 libm-2.21.so
+   7ffff7700000 r-xp 00000000 08:11  266372 1792 1152  8    1152     0  0   0 libc-2.21.so
+   7ffff78c0000 —p 001c0000 08:11  266372 2048  0  0     0     0  0   0 libc-2.21.so
+   7ffff7ac0000 r–p 001c0000 08:11  266372  16  16 16     16    16  0   0 libc-2.21.so
+   7ffff7ac4000 rw-p 001c4000 08:11  266372   8  8  8     8     8  0   0 libc-2.21.so
+   7ffff7ac6000 rw-p 00000000 00:00    0  16  12 12     12    12  0   0
+   7ffff7aca000 r-xp 00000000 08:11 46146360  960 856 283    856     0  0   0 libstdc++.so.6.0.20
+   7ffff7bba000 —p 000f0000 08:11 46146360 2048  0  0     0     0  0   0 libstdc++.so.6.0.20
+   7ffff7dba000 r–p 000f0000 08:11 46146360  32  32 32     32    32  0   0 libstdc++.so.6.0.20
+   7ffff7dc2000 rw-p 000f8000 08:11 46146360   8  8  8     8     8  0   0 libstdc++.so.6.0.20
+   7ffff7dc4000 rw-p 00000000 00:00    0  84  16 16     16    16  0   0
+   7ffff7dd9000 r-xp 00000000 08:11  266344  144 144  1    144     0  0   0 ld-2.21.so&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;//程序的内存映射区，主要是动态库加载到该内存区，包括动态库的text代码段和数据data段。&lt;/p&gt;
+
+&lt;p&gt;//中间没有名字的，属于程序的匿名映射段，主要提供大内存分配。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;7ffff7fd4000 rw-p 00000000 00:00    0  20  20 20     20    20  0   0
+   7ffff7ff5000 rw-p 00000000 00:00    0  12  12 12     12    12  0   0
+   7ffff7ff8000 r–p 00000000 00:00    0   8  0  0     0     0  0   0 [vvar]
+   7ffff7ffa000 r-xp 00000000 00:00    0   8  4  0     4     0  0   0 [vdso]&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;//&lt;code&gt;vvar page，kernel的一些系统调用的数据会映射到这个页面，用户可以直接在用户空间访问；&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;//vDSO -virtual dynamic shared object,is a small shared library  exported by the kernel to accelerate the execution of certain system  calls that do not necessarily have to run in kernel  space,就是内核实现了glibc的一些系统调用，然后可以直接在用户空间执行,提高系统调用效率和减少与glibc的耦合。&lt;/p&gt;
+
+&lt;p&gt;from https://lwn.net/Articles/615809/&lt;code&gt;   7ffff7ffc000 r--p 00023000 08:11  266344   4  4  4     4     4  0   0 ld-2.21.so   7ffff7ffd000 rw-p 00024000 08:11  266344   4  4  4     4     4  0   0 ld-2.21.so   7ffff7ffe000 rw-p 00000000 00:00    0   4  4  4     4     4  0   0   7ffffffde000 rw-p 00000000 00:00    0  136  8  8     8     8  0   0 [stack]&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;//此段为程序的栈区
+ffffffffff600000 r-xp 00000000 00:00    0   4  0  0     0     0  0   0 [vsyscall]&lt;/p&gt;
+
+&lt;p&gt;//此段是Linux实现vsyscall系统调用vsyscall库代码段
+                        ===== ==== === ========== ========= ==== ======
+                        12744 2644 489    2644    172  0   0 KB&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;思考问题：&lt;/p&gt;
+
+&lt;p&gt;1 栈为什么要由高地址向低地址扩展，堆为什么由低地址向高地址扩展？&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;历史原因：在没有MMU的时代，为了最大的利用内存空间，堆和栈被设计为从两端相向生长。那么哪一个向上，哪一个向下呢？人们对数据访问是习惯于向上的，比如你在堆中new一个数组，是习惯于把低元素放到低地址，把高位放到高地址，所以堆 向上生长比较符合习惯, 而栈则对方向不敏感，一般对栈的操作只有PUSH和pop，无所谓向上向下，所以就把堆放在了低端，把栈放在了高端.  但现在已经习惯这样了。这个和处理器设计有关系，目前大多数主流处理器都是这样设计，但ARM 同时支持这两种增长方式&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;c栈内存空间模型&quot;&gt;C++栈内存空间模型&lt;/h1&gt;
+
+&lt;h2 id=&quot;c程序运行调用栈示意图&quot;&gt;C++程序运行调用栈示意图&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/调用栈.png&quot; alt=&quot;调用栈&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;函数调用过程中栈有俗称堆栈的变化&quot;&gt;函数调用过程中，栈（有俗称堆栈）的变化&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/函数调用.jpg&quot; alt=&quot;函数调用&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;当主函数调用子函数的时候&quot;&gt;当主函数调用子函数的时候：&lt;/h5&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在主函数中，将子函数的参数按照一定调用约定(参考调用约定），一般是从右向左把参数push到栈中；&lt;/li&gt;
+  &lt;li&gt;然后把下一条指令地址，即返回地址（return address）push入栈（隐藏在call指令中）；&lt;/li&gt;
+  &lt;li&gt;然后跳转到子函数地址处执行： call 子函数；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;此时&lt;/p&gt;
+
+&lt;h5 id=&quot;2-子函数执行&quot;&gt;2. 子函数执行：&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;push %rbp : 把当前rbp的值保持在栈中；&lt;/li&gt;
+  &lt;li&gt;mov %rsp， %rbp： 把rbp移到最新栈顶位置，即开启子函数的新帧；&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;[可选]&lt;/strong&gt;sub $xxx, %esp&lt;strong&gt;:&lt;/strong&gt; 在栈上分配XXX字节的临时空间。（抬高栈顶）(编译器根据函数中的局部变量的总大小确定临时空间的大小);&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;[可选]&lt;/strong&gt;push XXX:  保存（push）一些寄存器的值;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;3-子函数调用返回&quot;&gt;3. 子函数调用返回：&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;保持返回值：一般将函数函数值保持在eax寄存器中；&lt;/li&gt;
+  &lt;li&gt;[可选]恢复（pop）一些寄存器的值；&lt;/li&gt;
+  &lt;li&gt;mov %rbp,%rsp: 收回栈空间，恢复主函数的栈顶；&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;pop %rbp； 恢复主函数的栈底；&lt;/p&gt;
+
+    &lt;p&gt;在AT&amp;amp;T中：&lt;/p&gt;
+
+    &lt;p&gt;以上两条指令可以被leave指令取代&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;leave&lt;/li&gt;
+  &lt;li&gt;ret； 从栈顶获取之前保持的返回地址（return address），并跳转到此位置执行；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;c堆内存空间模型&quot;&gt;C++堆内存空间模型&lt;/h1&gt;
+
+&lt;h2 id=&quot;c-程序动态申请内存newdelete&quot;&gt;C++ 程序动态申请内存new/delete&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;newdelete-操作符c内置操作符&quot;&gt;new/delete 操作符,C++内置操作符：&lt;/h5&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;​      \1. new操作符做两件事，分配内存+调用构造函数初始化。你不能改变它的行为；&lt;/p&gt;
+
+&lt;p&gt;​      \2. delete操作符同样做两件事，调用析构函数+释放内存。你不能改变它的行为；&lt;/p&gt;
+
+&lt;h5 id=&quot;2-operator-newdelete-函数&quot;&gt;2. operator new/delete 函数：&lt;/h5&gt;
+
+&lt;p&gt;​      operator new ：&lt;/p&gt;
+
+&lt;p&gt;\1. 是用来专门分配内存的函数，为new操作符调用，你能增加额外的参数重载函数operator new（有限制）:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​    限制1： 第一个参数类型必须是size_t；&lt;/p&gt;
+
+  &lt;p&gt;​    限制2： 函数必须返回void*；&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;​      \2. operator new 底层一般调用malloc函数（gcc+glibc）分配内存；&lt;/p&gt;
+
+&lt;p&gt;​      \3. operator new 分配失败会抛异常（默认），通过传递参数也可以不抛异常，返回空指针；&lt;/p&gt;
+
+&lt;p&gt;​      operator delete :&lt;/p&gt;
+
+&lt;p&gt;​      \1. 是用来专门分配内存的函数，为delete操作符调用，你能增加额外的参数重载函数operator delete（有限制）:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;​    限制1： 第一个参数类型必须是void*；&lt;/p&gt;
+
+  &lt;p&gt;​    限制2： 函数必须返回void；&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;​       \2. operator delete底层一般调用free函数（gcc+glibc）释放内存；&lt;/p&gt;
+
+&lt;p&gt;​       \3. operator delete分配失败会抛异常（默认），通过传递参数也可以不抛异常，返回空指针；&lt;/p&gt;
+
+&lt;h5 id=&quot;3-placement-newdelete-函数&quot;&gt;3. placement new/delete 函数&lt;/h5&gt;
+
+&lt;p&gt;​        \1. placement new 其实就是new的一种重载，placement  new是一种特殊的operator  new，作用于一块已分配但未处理或未初始化的raw内存，就是用一块已经分配好的内存上重建对象（调用构造函数）；&lt;/p&gt;
+
+&lt;p&gt;​        \2. 它是C++库标准的一部分；&lt;/p&gt;
+
+&lt;p&gt;​        \3. placement delete 什么都不做；&lt;/p&gt;
+
+&lt;h5 id=&quot;4-数组分配-newdelete-表达式&quot;&gt;4. 数组分配 new[]/delete[] 表达式&lt;/h5&gt;
+
+&lt;p&gt;​    \1. 对应会调用operator new[]/delete[]函数;&lt;/p&gt;
+
+&lt;p&gt;​    \2. 按对象的个数，分别调用构造函数和析构函数；&lt;/p&gt;
+
+&lt;p&gt;from http://www.cplusplus.com/reference/new/operator%20new[]/&lt;/p&gt;
+
+&lt;h5 id=&quot;5-class-specific-allocation-functions&quot;&gt;5 class-specific allocation functions&lt;/h5&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;class-specific allocation functions&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;void* T::operator new  ( &lt;a href=&quot;http://en.cppreference.com/w/cpp/types/size_t&quot;&gt;std::size_t&lt;/a&gt; count );&lt;/td&gt;
+      &lt;td&gt;(15)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;void* T::operator new&lt;a href=&quot;[std::size_t](http://en.cppreference.com/w/cpp/types/size_t) count&quot;&gt;&lt;/a&gt;;&lt;/td&gt;
+      &lt;td&gt;(16)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;void* T::operator new  ( &lt;a href=&quot;http://en.cppreference.com/w/cpp/types/size_t&quot;&gt;std::size_t&lt;/a&gt; count, &lt;a href=&quot;http://en.cppreference.com/w/cpp/memory/new/align_val_t&quot;&gt;std::align_val_t&lt;/a&gt; al );&lt;/td&gt;
+      &lt;td&gt;(17)&lt;/td&gt;
+      &lt;td&gt;(since C++17)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;void* T::operator new&lt;a href=&quot;[std::size_t](http://en.cppreference.com/w/cpp/types/size_t) count, [std::align_val_t](http://en.cppreference.com/w/cpp/memory/new/align_val_t) al&quot;&gt;&lt;/a&gt;;&lt;/td&gt;
+      &lt;td&gt;(18)&lt;/td&gt;
+      &lt;td&gt;(since C++17)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;class-specific placement allocation functions&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;void* T::operator new  ( &lt;a href=&quot;http://en.cppreference.com/w/cpp/types/size_t&quot;&gt;std::size_t&lt;/a&gt; count, user-defined-args… );&lt;/td&gt;
+      &lt;td&gt;(19)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;void* T::operator new&lt;a href=&quot;[std::size_t](http://en.cppreference.com/w/cpp/types/size_t) count, user-defined-args...&quot;&gt;&lt;/a&gt;;&lt;/td&gt;
+      &lt;td&gt;(20)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;void* T::operator new  ( &lt;a href=&quot;http://en.cppreference.com/w/cpp/types/size_t&quot;&gt;std::size_t&lt;/a&gt; count,               &lt;a href=&quot;http://en.cppreference.com/w/cpp/memory/new/align_val_t&quot;&gt;std::align_val_t&lt;/a&gt; al, user-defined-args… );&lt;/td&gt;
+      &lt;td&gt;(21)&lt;/td&gt;
+      &lt;td&gt;(since C++17)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;void* T::operator new&lt;a href=&quot;[std::size_t](http://en.cppreference.com/w/cpp/types/size_t) count,               [std::align_val_t](http://en.cppreference.com/w/cpp/memory/new/align_val_t) al, user-defined-args...&quot;&gt;&lt;/a&gt;;&lt;/td&gt;
+      &lt;td&gt;(22)&lt;/td&gt;
+      &lt;td&gt;(since C++17)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;from http://en.cppreference.com/w/cpp/memory/new/operator_new&lt;/p&gt;
+
+&lt;p&gt;定制对象特殊new/delete函数；&lt;/p&gt;
+
+&lt;p&gt;实现一般是使用全局：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;::operator new
+::operator delete
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;关键点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;你想在堆上建立一个对象，应该用new操作符。它既分配内存又为对象调用构造函数。&lt;/li&gt;
+  &lt;li&gt;如果你仅仅想分配内存，就应该调用operator new函数；它不会调用构造函数。&lt;/li&gt;
+  &lt;li&gt;如果你想定制自己的在堆对象被建立时的内存分配过程，你应该写你自己的operator new函数，然后使用new操作符，new操作符会调用你定制的operator new。&lt;/li&gt;
+  &lt;li&gt;如果你想在一块已经获得指针的内存里建立一个对象，应该用placement new。&lt;/li&gt;
+  &lt;li&gt;C++可以为分配失败设置自己的异常处理函数：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;If&lt;a href=&quot;http://www.cplusplus.com/set_new_handler&quot;&gt;set_new_handler&lt;/a&gt;has been used to define a&lt;a href=&quot;http://www.cplusplus.com/new_handler&quot;&gt;new_handler&lt;/a&gt;function, this &lt;em&gt;new-handler&lt;/em&gt; function is called by the default definitions of the allocating versions (&lt;em&gt;(1)&lt;/em&gt; and &lt;em&gt;(2)&lt;/em&gt;) if they fail to allocate the requested storage.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如果在构造函数时候抛出异常，new表达式后面会调用对应operator delete函数释放内存：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The other signatures (&lt;em&gt;(2)&lt;/em&gt; and &lt;em&gt;(3)&lt;/em&gt;) are &lt;strong&gt;never&lt;/strong&gt; called by a &lt;em&gt;delete-expression&lt;/em&gt; (the &lt;code&gt;delete&lt;/code&gt; operator always calls the ordinary version of this function, and  exactly once for each of its arguments). These other signatures are only called automatically by a &lt;em&gt;new-expression&lt;/em&gt; when their object construction fails (e.g., if the constructor of an object throws while being constructed by a &lt;em&gt;new-expression&lt;/em&gt; withnothrow, the matchingoperator deletefunction accepting anothrowargument is called).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;c-stl-内存模型&quot;&gt;C++ STL 内存模型&lt;/h1&gt;
+
+&lt;p&gt;STL（C++标准模板库）引入的一个Allocator概念。整个STL所有组件的内存均从allocator分配。也就是说，STL并不推荐使用 new/delete 进行内存管理，而是推荐使用allocator。&lt;/p&gt;
+
+&lt;p&gt;SGI STL allocator设计：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/内存分配器.jpg&quot; alt=&quot;内存分配器&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;对象的构造和析构采用placement new函数&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/stl内存分配.png&quot; alt=&quot;stl内存分配&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;c内存问题及常用的解决方法&quot;&gt;C++内存问题及常用的解决方法&lt;/h1&gt;
+
+&lt;h3 id=&quot;1-内存管理功能问题&quot;&gt;1. 内存管理功能问题&lt;/h3&gt;
+
+&lt;p&gt;由于C++语言对内存有主动控制权，内存使用灵活和效率高，但代价是不小心使用就会导致以下内存错误：&lt;/p&gt;
+
+&lt;p&gt;• memory overrun：写内存越界 
+• double free：同一块内存释放两次 
+• use after free：内存释放后使用 
+• wild free：释放内存的参数为非法值 
+• access uninitialized memory：访问未初始化内存 
+• read invalid memory：读取非法内存，本质上也属于内存越界 
+• memory leak：内存泄露 
+• use after return：caller访问一个指针，该指针指向callee的栈内内存 
+• stack overflow：栈溢出&lt;/p&gt;
+
+&lt;p&gt;常用的解决内存错误的方法&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;代码静态检测&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;​    静态代码检测是指无需运行被测代码，通过词法分析、语法分析、控制流、数据流分析等&lt;a href=&quot;http://www.51testing.com/html/19/&quot;&gt;&lt;strong&gt;技术&lt;/strong&gt;&lt;/a&gt;对程序代码进行扫描，找出代码隐藏的错误和缺陷，如参数不匹配，有歧义的嵌套语句，错误的递归，非法计算，可能出现的空指针引用等等。统计证明，在整个&lt;a href=&quot;http://www.51testing.com/html/19/&quot;&gt;&lt;strong&gt;软件开发&lt;/strong&gt;&lt;/a&gt;生命周期中，30%至70%的代码逻辑设计和编码缺陷是可以通过静态代码分析来发现和修复的。在C++项目开发过程中，因为其为编译执行语言，语言规则要求较高，开发团队往往要花费大量的时间和精力发现并修改代码缺陷。所以C++静态代码分析工具能够帮助开发人员快速、有效的定位代码缺陷并及时纠正这些问题，从而极大地提高软件可靠性并节省开发成本。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;静态代码分析工具的优势：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;　　1、自动执行静态代码分析，快速定位代码隐藏错误和缺陷。&lt;/p&gt;
+
+&lt;p&gt;　　2、帮助代码设计人员更专注于分析和解决代码设计缺陷。&lt;/p&gt;
+
+&lt;p&gt;　　3、减少在代码人工检查上花费的时间，提高软件可靠性并节省开发成本。&lt;/p&gt;
+
+&lt;p&gt;一些主流的静态代码检测工具：&lt;/p&gt;
+
+&lt;p&gt;​    免费的cppcheck，clang static analyzer；商用的coverity，pclint等&lt;/p&gt;
+
+&lt;p&gt;各个工具性能对比： &lt;a href=&quot;http://www.51testing.com/html/19/n-3709719.html&quot;&gt; http://www.51testing.com/html/19/n-3709719.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;代码动态检测&lt;/p&gt;
+
+    &lt;p&gt;所谓的代码动态检测，就是需要再程序运行情况下，通过插入特殊指令，进行动态检测和收集运行数据信息，然后分析给出报告。&lt;/p&gt;
+
+    &lt;p&gt;\1.  为了检测内存非法使用，需要hook内存分配和操作函数。hook的方法可以是用C-preprocessor，也可以是在链接库中直接定义（因为Glibc中的malloc/free等函数都是weak symbol），或是用LD_PRELOAD。另外，通过hook strcpy(),memmove()等函数可以检测它们是否引起buffer  overflow。 
+ \2.  为了检查内存的非法访问，需要对程序的内存进行bookkeeping，然后截获每次访存操作并检测是否合法。bookkeeping的方法大同小异，主要思想是用shadow  memory来验证某块内存的合法性。至于instrumentation的方法各种各样。有run-time的，比如通过把程序运行在虚拟机中或是通过binary  translator来运行；或是compile-time的，在编译时就在访存指令时就加入检查操作。另外也可以通过在分配内存前后加设为不可访问的guard page，这样可以利用硬件(MMU)来触发SIGSEGV，从而提高速度。 
+ \3.  为了检测栈的问题，一般在stack上设置canary，即在函数调用时在栈上写magic  number或是随机值，然后在函数返回时检查是否被改写。另外可以通过mprotect()在stack的顶端设置guard  page，这样栈溢出会导致SIGSEGV而不至于破坏数据。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;tools-summary&quot;&gt;Tools Summary：&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;a href=&quot;https://github.com/google/sanitizers/wiki/AddressSanitizer&quot;&gt; &lt;/a&gt;&lt;/th&gt;
+      &lt;th&gt;AddressSanitizer&lt;/th&gt;
+      &lt;th&gt;Valgrind/Memcheck&lt;/th&gt;
+      &lt;th&gt;Dr. Memory&lt;/th&gt;
+      &lt;th&gt;Mudflap&lt;/th&gt;
+      &lt;th&gt;Guard Page&lt;/th&gt;
+      &lt;th&gt;gperftools&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;technology&lt;/td&gt;
+      &lt;td&gt;CTI&lt;/td&gt;
+      &lt;td&gt;DBI&lt;/td&gt;
+      &lt;td&gt;DBI&lt;/td&gt;
+      &lt;td&gt;CTI&lt;/td&gt;
+      &lt;td&gt;Library&lt;/td&gt;
+      &lt;td&gt;Library&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ARCH&lt;/td&gt;
+      &lt;td&gt;x86, ARM, PPC&lt;/td&gt;
+      &lt;td&gt;x86, ARM, PPC, MIPS, S390X, TILEGX&lt;/td&gt;
+      &lt;td&gt;x86&lt;/td&gt;
+      &lt;td&gt;all(?)&lt;/td&gt;
+      &lt;td&gt;all(?)&lt;/td&gt;
+      &lt;td&gt;all(?)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;OS&lt;/td&gt;
+      &lt;td&gt;Linux, OS X, Windows, FreeBSD, Android, iOS Simulator&lt;/td&gt;
+      &lt;td&gt;Linux, OS X, Solaris, Android&lt;/td&gt;
+      &lt;td&gt;Windows, Linux&lt;/td&gt;
+      &lt;td&gt;Linux, Mac(?)&lt;/td&gt;
+      &lt;td&gt;All (1)&lt;/td&gt;
+      &lt;td&gt;Linux, Windows&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Slowdown&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;2x&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;20x&lt;/td&gt;
+      &lt;td&gt;10x&lt;/td&gt;
+      &lt;td&gt;2x-40x&lt;/td&gt;
+      &lt;td&gt;?&lt;/td&gt;
+      &lt;td&gt;？&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Detects:&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/google/sanitizers/wiki/AddressSanitizerExampleHeapOutOfBounds&quot;&gt;Heap OOB&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;yes&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;some&lt;/td&gt;
+      &lt;td&gt;some&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/google/sanitizers/wiki/AddressSanitizerExampleStackOutOfBounds&quot;&gt;Stack OOB&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;yes&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;some&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/google/sanitizers/wiki/AddressSanitizerExampleGlobalOutOfBounds&quot;&gt;Global OOB&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;yes&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;?&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/google/sanitizers/wiki/AddressSanitizerExampleUseAfterFree&quot;&gt;UAF&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;yes&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/google/sanitizers/wiki/AddressSanitizerExampleUseAfterReturn&quot;&gt;UAR&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;yes&lt;/strong&gt; (see &lt;a href=&quot;https://github.com/google/sanitizers/wiki/AddressSanitizerUseAfterReturn&quot;&gt;AddressSanitizerUseAfterReturn&lt;/a&gt;)&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;UMR&lt;/td&gt;
+      &lt;td&gt;no (see MemorySanitizer)&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;?&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Leaks&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;yes&lt;/strong&gt; (see LeakSanitizer)&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt;?&lt;/td&gt;
+      &lt;td&gt;no&lt;/td&gt;
+      &lt;td&gt;yes&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;DBI&lt;/strong&gt;: dynamic binary instrumentation
+&lt;strong&gt;CTI&lt;/strong&gt;: compile-time instrumentation
+&lt;strong&gt;UMR&lt;/strong&gt;: uninitialized memory reads
+&lt;strong&gt;UAF&lt;/strong&gt;: use-after-free (aka dangling pointer)
+&lt;strong&gt;UAR&lt;/strong&gt;: use-after-return
+&lt;strong&gt;OOB&lt;/strong&gt;: out-of-bounds
+&lt;strong&gt;x86&lt;/strong&gt;: includes 32- and 64-bit.
+&lt;strong&gt;mudflap&lt;/strong&gt; was removed in GCC 4.9, as it has been superseded by AddressSanitizer.
+&lt;strong&gt;Guard Page&lt;/strong&gt;: a family of memory error detectors (&lt;a href=&quot;https://en.wikipedia.org/wiki/Electric_Fence&quot;&gt;Electric fence&lt;/a&gt; or &lt;a href=&quot;http://duma.sourceforge.net/&quot;&gt;DUMA&lt;/a&gt; on Linux, Page Heap on Windows, libgmalloc on OS X)
+&lt;strong&gt;gperftools&lt;/strong&gt;: various performance tools/error detectors bundled with TCMalloc. &lt;a href=&quot;http://htmlpreview.github.io/?https://github.com/gperftools/gperftools/blob/master/doc/heap_checker.html&quot;&gt;Heap checker&lt;/a&gt; (leak detector) is only available on Linux. &lt;a href=&quot;https://github.com/gperftools/gperftools/blob/master/src/debugallocation.cc&quot;&gt;Debug allocator&lt;/a&gt; provides both guard pages and canary values for more precise detection  of OOB writes, so it’s better than guard page-only detectors.&lt;/p&gt;
+
+&lt;p&gt;from https://github.com/google/sanitizers/wiki/AddressSanitizerComparisonOfMemoryTools&lt;/p&gt;
+
+&lt;h3 id=&quot;2-c内存管理效率问题&quot;&gt;2. C++内存管理效率问题&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;内存管理可以分为三个层次&quot;&gt;内存管理可以分为三个层次&lt;/h5&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&quot;自底向上分别是&quot;&gt;自底向上分别是：&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;第一层：操作系统内核的内存管理-虚拟内存管理&lt;/li&gt;
+  &lt;li&gt;第二层： glibc层维护的内存管理算法&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;第三层： 应用程序从glibc动态分配内存后，根据应用程序本身的程序特性进行优化， 比如SGI STL allocator，使用引用计数std::shared_ptr，RAII，实现应用的内存池等等。&lt;/p&gt;
+
+    &lt;p&gt;当然应用程序也可以直接使用系统调用从内核分配内存，自己根据程序特性来维护内存，但是会大大增加开发成本。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;2--c内存管理问题&quot;&gt;2.  C++内存管理问题&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;频繁的new/delete势必会造成内存碎片化，使内存再分配和回收的效率下降；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;new/delete分配内存在linux下默认是通过调用glibc的api-malloc/free来实现的，而这些api是通过调用到linux的系统调用:&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/img/内存分配底层.webp&quot; alt=&quot;内存分配底层&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;pre&gt;&lt;code&gt;brk()/sbrk() // 通过移动Heap堆顶指针brk，达到增加内存目的
+mmap()/munmap() // 通过文件影射的方式，把文件映射到mmap区
+&lt;/code&gt;&lt;/pre&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;分配内存 &amp;lt; &lt;code&gt;DEFAULT_MMAP_THRESHOLD&lt;/code&gt;，走brk，从内存池获取，失败的话走brk系统调用&lt;/li&gt;
+    &lt;li&gt;分配内存 &amp;gt; &lt;code&gt;DEFAULT_MMAP_THRESHOLD&lt;/code&gt;，走mmap，直接调用mmap系统调用&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;其中，&lt;code&gt;DEFAULT_MMAP_THRESHOLD&lt;/code&gt;默认为128k，可通过&lt;code&gt;mallopt&lt;/code&gt;进行设置。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;sbrk/brk系统调用的实现：分配内存是通过调节堆顶的位置来实现， 堆顶的位置是通过函数 brk 和 sbrk 进行动态调整，参考例子：&lt;/p&gt;
+
+&lt;p&gt;(1) 初始状态：如图 (1) 所示，系统已分配 ABCD 四块内存，其中 ABD 在堆内分配， C 使用 mmap 分配。为简单起见，图中忽略了如共享库等文件映射区域的地址空间。&lt;/p&gt;
+
+&lt;p&gt;(2) E=malloc(100k) ：分配 100k 内存，小于 128k ，从堆内分配，堆内剩余空间不足，扩展堆顶 (brk) 指针。&lt;/p&gt;
+
+&lt;p&gt;(3) free(A) ：释放 A 的内存，在 glibc 中，仅仅是标记为可用，形成一个内存空洞 ( 碎片 )，并没有真正释放。如果此时需要分配 40k 以内的空间，可重用此空间，剩余空间形成新的小碎片。&lt;/p&gt;
+
+&lt;p&gt;(4) free(C) ：C 空间大于 128K ，使用 mmap 分配，如果释放 C ，会调用 munmap 系统调用来释放，并会真正释放该空间，还给 OS&lt;/p&gt;
+
+&lt;p&gt;所以free的内存不一定真正的归还给OS，随着系统频繁地 malloc 和 free ，尤其对于小块内存，堆内将产生越来越多不可用的碎片，导致“内存泄露”。而这种“泄露”现象使用 valgrind 是无法检测出来的。&lt;/p&gt;
+
+&lt;p&gt;综上，频繁内存分配释放还会导致大量系统调用开销，影响效率，降低整体性能；&lt;/p&gt;
+
+&lt;h5 id=&quot;常用解决上述问题的方案&quot;&gt;常用解决上述问题的方案&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;内存池技术&lt;/p&gt;
+
+    &lt;p&gt;内存池方案通常一次从系统申请一大块内存块，然后基于在这块内存块可以进行不同内存策略实现，&lt;/p&gt;
+
+    &lt;p&gt;可以比较好得解决上面提到的问题，一般采用内存池有以下好处：&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;​    1.少量系统申请次数，非常少(几没有) 堆碎片。
+​    2.由于没有系统调用等，比通常的内存申请/释放(比如通过malloc, new等)的方式快。
+​    3.可以检查应用的任何一块内存是否在内存池里。
+​    4.写一个”堆转储(Heap-Dump)”到你的硬盘(对事后的调试非常有用)。
+​    5.可以更方便实现某种内存泄漏检测(memory-leak detection)。&lt;/p&gt;
+
+&lt;p&gt;​    6.减少额外系统内存管理开销，可以节约内存；&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;内存管理方案实现的指标有：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;额外的空间损耗尽量少&lt;/li&gt;
+  &lt;li&gt;分配速度尽可能快&lt;/li&gt;
+  &lt;li&gt;尽量避免内存碎片&lt;/li&gt;
+  &lt;li&gt;多线程性能好&lt;/li&gt;
+  &lt;li&gt;缓存本地化友好&lt;/li&gt;
+  &lt;li&gt;通用性，兼容性，可移植性，易调试等&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;各个内存分配器的实现都是在以上的各种指标中进行权衡选择.&lt;/p&gt;
+
+&lt;h5 id=&quot;4-一些业界主流的内存管理方案&quot;&gt;4. 一些业界主流的内存管理方案&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SGI STL allocator 是比较优秀的 C++库内存分配器(细节参考上面描述）&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.malloc.de/en/&quot;&gt;ptmalloc&lt;/a&gt; 是glibc的内存分配管理模块&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;​    主要核心技术点：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Arena-main /thread；支持多线程&lt;/li&gt;
+  &lt;li&gt;Heap segments；for thread arena via by mmap call ；提高管理&lt;/li&gt;
+  &lt;li&gt;chunk/Top chunk/Last Remainder chunk；提高内存分配的局部性&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;bins/fast bin/unsorted bin/small bin/large bin;提高分配效率&lt;/p&gt;
+
+    &lt;p&gt;等等&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;是google的gperftools内存分配管理模块&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/tcmalloc.png&quot; alt=&quot;tcmalloc&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;thread-local cache/periodic garbage collections/CentralFreeList；提高多线程性能,提高cache利用率&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;​     TCMalloc给每个线程分配了一个线程局部缓存。小分配可以直接由线程局部缓存来满足。需要的话，会将对象从中央数据结构移动到线程局部缓存中，同时定期的垃圾收集将用于把内存从线程局部缓存迁移回中央数据结构中&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Thread Specific Free List/size-classes [8,16,32,…32k]: 更好小对象内存分配;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;​      每个小对象的大小都会被映射到170个可分配的尺寸类别中的一个。例如，在分配961到1024字节时，都会归整为1024字节。尺寸类别这样隔开：较小的尺寸相差8字节，较大的尺寸相差16字节，再大一点的尺寸差32字节，如此类推。最大的间隔（对于尺寸 &amp;gt;= ~2K的）是256字节。&lt;/p&gt;
+
+&lt;p&gt;一个线程缓存对每个尺寸类都包含了一个自由对象的单向链表&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The central page heap：更好的大对象内存分配&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;​     一个大对象的尺寸(&amp;gt; 32K)会被除以一个页面尺寸（4K）并取整（大于结果的最小整数），同时是由中央页面堆来处理  的。中央页面堆又是一个自由列表的阵列。对于&lt;code&gt;i &amp;lt; 256&lt;/code&gt;而言，第&lt;code&gt;k&lt;/code&gt;个条目是一个由&lt;code&gt;k&lt;/code&gt;个页面组成的自由列表。第&lt;code&gt;256&lt;/code&gt;个条目则是一个包含了长度&lt;code&gt;&amp;gt;= 256&lt;/code&gt;个页面的自由列表&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Spans:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;TCMalloc管理的堆由一系列页面组成。连续的页面由一个“跨度”（&lt;code&gt;Span&lt;/code&gt;）对象来表示。一个跨度可以是&lt;em&gt;已被分配&lt;/em&gt;或者是&lt;em&gt;自由&lt;/em&gt;的。如果是自由的，跨度则会是一个页面堆链表中的一个条目。如果已被分配，它会是一个已经被传递给应用程序的大对象，或者是一个已经被分割成一系列小对象的一个页面。如果是被分割成小对象的，对象的尺寸类别会被记录在跨度中。&lt;/p&gt;
+
+&lt;p&gt;由页面号索引的中央数组可以用于找到某个页面所属的跨度。例如，下面的跨度&lt;em&gt;a&lt;/em&gt;占据了2个页面，跨度&lt;em&gt;b&lt;/em&gt;占据了1个页面，跨度&lt;em&gt;c&lt;/em&gt;占据了5个页面最后跨度&lt;em&gt;d&lt;/em&gt;占据了3个页面。&lt;/p&gt;
+
+&lt;h2 id=&quot;c程序内存性能测试&quot;&gt;C++程序内存性能测试&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-用系统工具抓取性能数据&quot;&gt;1. 用系统工具抓取性能数据&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;pmap&quot;&gt;pmap&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;通过读取/proc/$PID/maps 和 smaps 的数据，解析数据，生成进程的虚列内存映像和一些内存统计：&lt;/p&gt;
+
+&lt;p&gt;pmap -X -p 31931
+ 31931:  ./bug_tc
+ Address Perm  Offset Device  Inode Size  Rss  Pss Referenced Anonymous Swap Locked Mapping
+ …&lt;/p&gt;
+
+&lt;p&gt;7f37e4c36000 rw-p 00000000 00:00    0  132   88   88     80    88   44   0 [heap]
+7fffff85c000 rw-p 00000000 00:00    0 7824 7820 7820    7820   7820  0   0 [stack]&lt;/p&gt;
+
+&lt;p&gt;…&lt;/p&gt;
+
+&lt;p&gt;​                         ===== ===== ===== ========== ========= ==== ======
+​                            71396 16540 13902   16540   13048  0   0 KB&lt;/p&gt;
+
+&lt;p&gt;里面可以查看程序堆和栈内存大小区间，程序所占内存大小，主要是关注PSS&lt;/p&gt;
+
+&lt;p&gt;以下内存统计名称解释：&lt;/p&gt;
+
+&lt;p&gt;VSS：Virtual Set Size，虚拟内存耗用内存，包括共享库的内存&lt;/p&gt;
+
+&lt;p&gt;RSS：Resident Set Size，实际使用物理内存，包括共享库&lt;/p&gt;
+
+&lt;p&gt;PSS：Proportional Set Size，实际使用的物理内存，共享库按比例分配&lt;/p&gt;
+
+&lt;p&gt;USS：Unique Set Size，进程独占的物理内存，不计算共享库，也可以理解为将进程杀死能释放出的内存&lt;/p&gt;
+
+&lt;p&gt;一般VSS &amp;gt;= RSS &amp;gt;= PSS &amp;gt;= USS。&lt;/p&gt;
+
+&lt;p&gt;一般统计程序的内存占用，PSS是最好的选择，比较合理。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;top&quot;&gt;top&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;实时显示内存当前使用情况和各个进程使用内存信息&quot;&gt;实时显示内存当前使用情况和各个进程使用内存信息&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;free&quot;&gt;free&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;查看系统可用内存和占用情况&quot;&gt;查看系统可用内存和占用情况&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;procmeminfo&quot;&gt;/proc/meminfo&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;查看机器使用内存使用统计和内存硬件基本信息&quot;&gt;查看机器使用内存使用统计和内存硬件基本信息。&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;vmstat&quot;&gt;vmstat&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;监控内存变化&quot;&gt;监控内存变化&lt;/h4&gt;
+
+&lt;h3 id=&quot;valgrind-massif&quot;&gt;valgrind massif&lt;/h3&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">C++锁</title><link href="http://localhost:4000/_posts/2020-11-04-C++%E9%94%81/" rel="alternate" type="text/html" title="C++锁" /><published>2020-11-04T00:00:00-05:00</published><updated>2020-11-04T00:00:00-05:00</updated><id>http://localhost:4000/_posts/C++%E9%94%81</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-04-C++%E9%94%81/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;线程之间的锁有：&lt;strong&gt;互斥锁、条件锁、自旋锁、读写锁、递归锁&lt;/strong&gt;。一般而言，锁的功能与性能成反比。不过我们一般不使用递归锁（C++标准库提供了std::recursive_mutex）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;互斥锁mutex&quot;&gt;互斥锁（Mutex）&lt;/h1&gt;
+
+&lt;p&gt;互斥锁用于控制多个线程对他们之间共享资源互斥访问的一个信号量。也就是说是为了避免多个线程在某一时刻同时操作一个共享资源。例如线程池中的有多个空闲线程和一个任务队列。任何是一个线程都要使用互斥锁互斥访问任务队列，以避免多个线程同时访问任务队列以发生错乱。&lt;/p&gt;
+
+&lt;p&gt;在某一时刻，只有一个线程可以获取互斥锁，在释放互斥锁之前其他线程都不能获取该互斥锁。如果其他线程想要获取这个互斥锁，那么这个线程只能以阻塞方式进行等待。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;std::mutex - The standard mutex type&lt;/p&gt;
+
+  &lt;p&gt;Public Types
+       typedef __native_type * native_handle_type&lt;/p&gt;
+
+  &lt;p&gt;Public Member Functions
+       mutex (const mutex &amp;amp;)=delete
+       void lock ()
+       native_handle_type native_handle () noexcept
+       mutex &amp;amp; operator= (const mutex &amp;amp;)=delete
+       bool try_lock () noexcept
+       void unlock ()&lt;/p&gt;
+
+  &lt;p&gt;Private Types
+       typedef __gthread_mutex_t __native_type&lt;/p&gt;
+
+  &lt;p&gt;Private Attributes
+       __native_type _M_mutex&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;在C++中，通过构造std::mutex的实例创建互斥元，调用成员函数lock()来锁定它，调用unlock()来解锁，不过一般不推荐这种做法，标准C++库提供了std::lock_guard类模板，实现了互斥元的RAII惯用语法。std::mutex和std::lock _ guard。都声明在&amp;lt; mutex &amp;gt;头文件中&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;thread&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;mutex&amp;gt;
+#include &amp;lt;chrono&amp;gt;
+#include &amp;lt;stdexcept&amp;gt;
+
+int counter = 0;
+std::mutex mtx; // 保护counter
+
+void increase(int time) {
+    for (int i = 0; i &amp;lt; time; i++) {
+        mtx.lock();
+        // 当前线程休眠1毫秒
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        counter++;
+        mtx.unlock();
+    }
+}
+
+int main(int argc, char** argv) {
+    std::thread t1(increase, 10000);
+    std::thread t2(increase, 10000);
+    t1.join();
+    t2.join();
+    std::cout &amp;lt;&amp;lt; &quot;counter:&quot; &amp;lt;&amp;lt; counter &amp;lt;&amp;lt; std::endl;
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;lock_guard&quot;&gt;lock_guard&lt;/h2&gt;
+
+&lt;p&gt;虽然std::mutex可以对多线程编程中的共享变量提供保护，但是直接使用std::mutex的情况并不多。因为仅使用std::mutex有时候会发生死锁。回到上边的例子，考虑这样一个情况：假设线程1上锁成功，线程2上锁等待。但是线程1上锁成功后，抛出异常并退出，没有来得及释放锁，导致线程2“永久的等待下去”（线程2：我的心在等待永远在等待……），此时就发生了死锁。给一个发生死锁的 ：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;thread&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;mutex&amp;gt;
+#include &amp;lt;chrono&amp;gt;
+#include &amp;lt;stdexcept&amp;gt;
+
+int counter = 0;
+std::mutex mtx; // 保护counter
+
+void increase_proxy(int time, int id) {
+    for (int i = 0; i &amp;lt; time; i++) {
+        // std::lock_guard对象构造时，自动调用mtx.lock()进行上锁
+        // std::lock_guard对象析构时，自动调用mtx.unlock()释放锁
+        std::lock_guard&amp;lt;std::mutex&amp;gt; lk(mtx);
+        // 线程1上锁成功后，抛出异常：未释放锁
+        if (id == 1) {
+            throw std::runtime_error(&quot;throw excption....&quot;);
+        }
+        // 当前线程休眠1毫秒
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        counter++;
+    }
+}
+
+void increase(int time, int id) {
+    try {
+        increase_proxy(time, id);
+    }
+    catch (const std::exception&amp;amp; e){
+        std::cout &amp;lt;&amp;lt; &quot;id:&quot; &amp;lt;&amp;lt; id &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; e.what() &amp;lt;&amp;lt; std::endl;
+    }
+}
+
+int main(int argc, char** argv) {
+    std::thread t1(increase, 10000, 1);
+    std::thread t2(increase, 10000, 2);
+    t1.join();
+    t2.join();
+    std::cout &amp;lt;&amp;lt; &quot;counter:&quot; &amp;lt;&amp;lt; counter &amp;lt;&amp;lt; std::endl;
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">IO模式</title><link href="http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/" rel="alternate" type="text/html" title="IO模式" /><published>2020-11-04T00:00:00-05:00</published><updated>2020-11-04T00:00:00-05:00</updated><id>http://localhost:4000/_posts/IO%E6%A8%A1%E5%BC%8F</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;io模式&quot;&gt;IO模式&lt;/h1&gt;
 
@@ -1234,6 +2545,60 @@ public:
         return res;
     }
 };
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;数值的整数次方&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/&quot;&gt;数值的整数次方&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;实现函数double Power(double base, int exponent)，求base的exponent次方。不得使用库函数，同时不需要考虑大数问题&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;示例 1:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入: 2.00000, 10
+输出: 1024.00000&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;示例 2:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入: 2.10000, 3
+输出: 9.26100&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;示例 3:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入: 2.00000, -2
+输出: 0.25000
+解释: 2-2 = 1/22 = 1/4 = 0.25&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;解&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    double myPow(double x, int n) {
+        if(x == 1 || n == 0) return 1;
+        double ans = 1;
+        long num = n;
+        if(n &amp;lt; 0){
+            num = -num;
+            x = 1/x;
+        }
+        while(num){
+            if(num &amp;amp; 1) ans *= x;
+            x *= x;
+            num &amp;gt;&amp;gt;= 1;
+        }
+        return ans;
+    }
+};
 &lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">Cookie和Session、SessionID</title><link href="http://localhost:4000/_posts/2020-10-26-Cookie%E5%92%8CSession-SessionID/" rel="alternate" type="text/html" title="Cookie和Session、SessionID" /><published>2020-10-26T00:00:00-04:00</published><updated>2020-10-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/Cookie%E5%92%8CSession%E3%80%81SessionID</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-26-Cookie%E5%92%8CSession-SessionID/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h2 id=&quot;一cookie的定义&quot;&gt;一、Cookie的定义&lt;/h2&gt;
@@ -1502,76 +2867,4 @@ cat /proc/sys/net/ipv4/tcp_max_syn_backlog65536
 &lt;p&gt;非 LISTEN 状态中Recv-Q 表示 receive queue 中的 bytes 数量;Send-Q 表示 send queue 中的 bytes 数值。查看Accept queue 是否有溢出&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt; netstat -s | grep TCPBacklogDrop
-&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="计算机网络" /><summary type="html">[toc]</summary></entry><entry><title type="html">TCP可靠性保证</title><link href="http://localhost:4000/_posts/2020-10-26-TCP%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BF%9D%E8%AF%81/" rel="alternate" type="text/html" title="TCP可靠性保证" /><published>2020-10-26T00:00:00-04:00</published><updated>2020-10-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/TCP%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BF%9D%E8%AF%81</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-26-TCP%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BF%9D%E8%AF%81/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;系统总结TCP连接中，它是如何保证数据的传输&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;保证数据安全的方法&quot;&gt;保证数据安全的方法&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;检验和&lt;/li&gt;
-  &lt;li&gt;序列号/确认应答&lt;/li&gt;
-  &lt;li&gt;超时重传&lt;/li&gt;
-  &lt;li&gt;最大消息长度&lt;/li&gt;
-  &lt;li&gt;滑动窗口控制&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;检验和&quot;&gt;&lt;strong&gt;检验和&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;通过检验和的方式，接收端可以检测出来数据是否有差错和异常，假如有差错就会直接丢弃TCP段，重新发送。TCP在计算检验和时，会在TCP首部加上一个12字节的伪首部。检验和总共计算3部分：TCP首部、TCP数据、TCP伪首部&lt;/p&gt;
-
-&lt;h1 id=&quot;序列号确认应答&quot;&gt;&lt;strong&gt;序列号/确认应答&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;这个机制类似于问答的形式。比如在课堂上老师会问你“明白了吗？”，假如你没有隔一段时间没有回应或者你说不明白，那么老师就会重新讲一遍。其实计算机的确认应答机制也是一样的，发送端发送信息给接收端，接收端会回应一个包，这个包就是应答包。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/序列号.png&quot; alt=&quot;序列号&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;上述过程中，只要发送端有一个包传输，接收端没有回应确认包（ACK包），都会重发。或者接收端的应答包，发送端没有收到也会重发数据。这就可以保证数据的完整性。&lt;/p&gt;
-
-&lt;h1 id=&quot;超时重传&quot;&gt;&lt;strong&gt;超时重传&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;超时重传是指发送出去的数据包到接收到确认包之间的时间，如果超过了这个时间会被认为是丢包了，需要重传。那么我们该如何确认这个时间值呢？&lt;/p&gt;
-
-&lt;p&gt;我们知道，一来一回的时间总是差不多的，都会有一个类似于平均值的概念。比如发送一个包到接收端收到这个包一共是0.5s，然后接收端回发一个确认包给发送端也要0.5s，这样的两个时间就是RTT（往返时间）。然后可能由于网络原因的问题，时间会有偏差，称为抖动（方差）。&lt;/p&gt;
-
-&lt;p&gt;从上面的介绍来看，超时重传的时间大概是比往返时间+抖动值还要稍大的时间。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/超时重传.png&quot; alt=&quot;超时重传&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;但是在重发的过程中，假如一个包经过多次的重发也没有收到对端的确认包，那么就会认为接收端异常，强制关闭连接。并且通知应用通信异常强行终止。&lt;/p&gt;
-
-&lt;h1 id=&quot;最大消息长度&quot;&gt;&lt;strong&gt;最大消息长度&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;在建立TCP连接的时候，双方约定一个最大的长度（MSS）作为发送的单位，重传的时候也是以这个单位来进行重传。理想的情况下是该长度的数据刚好不被网络层分块。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/最大消息长度.png&quot; alt=&quot;最大消息长度&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;滑动窗口控制&quot;&gt;&lt;strong&gt;滑动窗口控制&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;我们上面提到的超时重传的机制存在效率低下的问题，发送一个包到发送下一个包要经过一段时间才可以。所以我们就想着能不能不用等待确认包就发送下一个数据包呢？这就提出了一个滑动窗口的概念。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/滑动窗口控制.png&quot; alt=&quot;滑动窗口控制&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;窗口的大小就是在无需等待确认包的情况下，发送端还能发送的最大数据量。这个机制的实现就是使用了大量的缓冲区，通过对多个段进行确认应答的功能。通过下一次的确认包可以判断接收端是否已经接收到了数据，如果已经接收了就从缓冲区里面删除数据。&lt;/p&gt;
-
-&lt;p&gt;在窗口之外的数据就是还未发送的和对端已经收到的数据。那么发送端是怎么样判断接收端有没有接收到数据呢？或者怎么知道需要重发的数据有哪些呢？通过下面这个图就知道了。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/滑动窗口控制2.png&quot; alt=&quot;滑动窗口控制2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;如上图，接收端在没有收到自己所期望的序列号数据之前，会对之前的数据进行重复确认。发送端在收到某个应答包之后，又连续3次收到同样的应答包，则数据已经丢失了，需要重发。&lt;/p&gt;
-
-&lt;h1 id=&quot;拥塞控制&quot;&gt;&lt;strong&gt;拥塞控制&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;窗口控制解决了  两台主机之间因传送速率而可能引起的丢包问题，在一方面保证了TCP数据传送的可靠性。然而如果网络非常拥堵，此时再发送数据就会加重网络负担，那么发送的数据段很可能超过了最大生存时间也没有到达接收方，就会产生丢包问题。为此TCP引入慢启动机制，先发出少量数据，就像探路一样，先摸清当前的网络拥堵状态后，再决定按照多大的速度传送数据。&lt;/p&gt;
-
-&lt;p&gt;此处引入一个拥塞窗口：&lt;/p&gt;
-
-&lt;p&gt;发送开始时定义拥塞窗口大小为1；每次收到一个ACK应答，拥塞窗口加1；而在每次发送数据时，发送窗口取拥塞窗口与接送段接收窗口最小者。&lt;/p&gt;
-
-&lt;p&gt;慢启动：在启动初期以指数增长方式增长；设置一个慢启动的阈值，当以指数增长达到阈值时就停止指数增长，按照线性增长方式增加至拥塞窗口；线性增长达到网络拥塞时立即把拥塞窗口置回1，进行新一轮的“慢启动”，同时新一轮的阈值变为原来的一半。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/拥塞控制.png&quot; alt=&quot;拥塞控制&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="计算机网络" /><summary type="html">[toc]</summary></entry><entry><title type="html">STL学习笔记</title><link href="http://localhost:4000/_posts/2020-10-22-STL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="STL学习笔记" /><published>2020-10-22T00:00:00-04:00</published><updated>2020-10-22T00:00:00-04:00</updated><id>http://localhost:4000/_posts/STL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-22-STL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;stl基础&quot;&gt;STL基础&lt;/h1&gt;</content><author><name></name></author><category term="数据结构" /><summary type="html">[toc]</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="计算机网络" /><summary type="html">[toc]</summary></entry></feed>
