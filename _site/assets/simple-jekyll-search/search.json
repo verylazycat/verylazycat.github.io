@@ -2,6 +2,15 @@
 [
   
     {
+      "title"    : "ubuntu搭建ftp服务",
+      "category" : "",
+      "tags"     : "linux",
+      "date"     : "2020-11-08 00:00:00 -0500",
+      
+      "url"      : "/_posts/2020-11-08-ubuntu%E6%90%AD%E5%BB%BAtfp%E6%9C%8D%E5%8A%A1/"
+    } ,
+  
+    {
       "title"    : "C++内存模型",
       "category" : "",
       "tags"     : "杂项",

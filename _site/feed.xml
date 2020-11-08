@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-08T04:08:24-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-08T07:29:23-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -1205,7 +1205,220 @@ mmap()/munmap() // 通过文件影射的方式，把文件映射到mmap区
 
 &lt;h4 id=&quot;监控内存变化&quot;&gt;监控内存变化&lt;/h4&gt;
 
-&lt;h3 id=&quot;valgrind-massif&quot;&gt;valgrind massif&lt;/h3&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">C++锁</title><link href="http://localhost:4000/_posts/2020-11-04-C++%E9%94%81/" rel="alternate" type="text/html" title="C++锁" /><published>2020-11-04T00:00:00-05:00</published><updated>2020-11-04T00:00:00-05:00</updated><id>http://localhost:4000/_posts/C++%E9%94%81</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-04-C++%E9%94%81/">&lt;p&gt;[toc]&lt;/p&gt;
+&lt;h3 id=&quot;valgrind-massif&quot;&gt;valgrind massif&lt;/h3&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">ubuntu搭建ftp服务</title><link href="http://localhost:4000/_posts/2020-11-08-ubuntu%E6%90%AD%E5%BB%BAtfp%E6%9C%8D%E5%8A%A1/" rel="alternate" type="text/html" title="ubuntu搭建ftp服务" /><published>2020-11-08T00:00:00-05:00</published><updated>2020-11-08T00:00:00-05:00</updated><id>http://localhost:4000/_posts/ubuntu%E6%90%AD%E5%BB%BAtfp%E6%9C%8D%E5%8A%A1</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-08-ubuntu%E6%90%AD%E5%BB%BAtfp%E6%9C%8D%E5%8A%A1/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;vsftpd&quot;&gt;vsftpd&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo apt install vsftpd 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;配置参数&quot;&gt;配置参数&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo vim /etc/vsftpd.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;# Example config file /etc/vsftpd.conf
+#
+# The default compiled in settings are fairly paranoid. This sample file
+# loosens things up a bit, to make the ftp daemon more usable.
+# Please see vsftpd.conf.5 for all compiled in defaults.
+#
+# READ THIS: This example file is NOT an exhaustive list of vsftpd options.
+# Please read the vsftpd.conf.5 manual page to get a full idea of vsftpd's
+# capabilities.
+#
+#
+# Run standalone?  vsftpd can run either from an inetd or as a standalone
+# daemon started from an initscript.
+listen=NO
+#
+# This directive enables listening on IPv6 sockets. By default, listening
+# on the IPv6 &quot;any&quot; address (::) will accept connections from both IPv6
+# and IPv4 clients. It is not necessary to listen on *both* IPv4 and IPv6
+# sockets. If you want that (perhaps because you want to listen on specific
+# addresses) then you must run two copies of vsftpd with two configuration
+# files.
+listen_ipv6=YES
+#
+# Allow anonymous FTP? (Disabled by default).
+anonymous_enable=NO
+#
+# Uncomment this to allow local users to log in.
+local_enable=YES
+#
+# Uncomment this to enable any form of FTP write command.
+#write_enable=YES
+#
+# Default umask for local users is 077. You may wish to change this to 022,
+# if your users expect that (022 is used by most other ftpd's)
+#local_umask=022
+#
+# Uncomment this to allow the anonymous FTP user to upload files. This only
+# has an effect if the above global write enable is activated. Also, you will
+# obviously need to create a directory writable by the FTP user.
+#anon_upload_enable=YES
+#
+# Uncomment this if you want the anonymous FTP user to be able to create
+# new directories.
+#anon_mkdir_write_enable=YES
+#
+# Activate directory messages - messages given to remote users when they
+# go into a certain directory.
+dirmessage_enable=YES
+#
+# If enabled, vsftpd will display directory listings with the time
+# in  your  local  time  zone.  The default is to display GMT. The
+# times returned by the MDTM FTP command are also affected by this
+# option.
+use_localtime=YES
+#
+# Activate logging of uploads/downloads.
+xferlog_enable=YES
+#
+# Make sure PORT transfer connections originate from port 20 (ftp-data).
+connect_from_port_20=YES
+#
+# If you want, you can arrange for uploaded anonymous files to be owned by
+# a different user. Note! Using &quot;root&quot; for uploaded files is not
+# recommended!
+#chown_uploads=YES
+#chown_username=whoever
+#
+# You may override where the log file goes if you like. The default is shown
+# below.
+#xferlog_file=/var/log/vsftpd.log
+#
+# If you want, you can have your log file in standard ftpd xferlog format.
+# Note that the default log file location is /var/log/xferlog in this case.
+#xferlog_std_format=YES
+#
+# You may change the default value for timing out an idle session.
+#idle_session_timeout=600
+#
+# You may change the default value for timing out a data connection.
+#data_connection_timeout=120
+#
+# It is recommended that you define on your system a unique user which the
+# ftp server can use as a totally isolated and unprivileged user.
+#nopriv_user=ftpsecure
+#
+# Enable this and the server will recognise asynchronous ABOR requests. Not
+# recommended for security (the code is non-trivial). Not enabling it,
+# however, may confuse older FTP clients.
+#async_abor_enable=YES
+#
+# By default the server will pretend to allow ASCII mode but in fact ignore
+# the request. Turn on the below options to have the server actually do ASCII
+# mangling on files when in ASCII mode.
+# Beware that on some FTP servers, ASCII support allows a denial of service
+# attack (DoS) via the command &quot;SIZE /big/file&quot; in ASCII mode. vsftpd
+# predicted this attack and has always been safe, reporting the size of the
+# raw file.
+# ASCII mangling is a horrible feature of the protocol.
+#ascii_upload_enable=YES
+#ascii_download_enable=YES
+#
+# You may fully customise the login banner string:
+#ftpd_banner=Welcome to blah FTP service.
+#
+# You may specify a file of disallowed anonymous e-mail addresses. Apparently
+# useful for combatting certain DoS attacks.
+#deny_email_enable=YES
+# (default follows)
+#banned_email_file=/etc/vsftpd.banned_emails
+#
+# You may restrict local users to their home directories.  See the FAQ for
+# the possible risks in this before using chroot_local_user or
+# chroot_list_enable below.
+#chroot_local_user=YES
+#
+# You may specify an explicit list of local users to chroot() to their home
+# directory. If chroot_local_user is YES, then this list becomes a list of
+# users to NOT chroot().
+# (Warning! chroot'ing can be very dangerous. If using chroot, make sure that
+# the user does not have write access to the top level directory within the
+# chroot)
+#chroot_local_user=YES
+#chroot_list_enable=YES
+# (default follows)
+#chroot_list_file=/etc/vsftpd.chroot_list
+#
+# You may activate the &quot;-R&quot; option to the builtin ls. This is disabled by
+# default to avoid remote users being able to cause excessive I/O on large
+# sites. However, some broken FTP clients such as &quot;ncftp&quot; and &quot;mirror&quot; assume
+# the presence of the &quot;-R&quot; option, so there is a strong case for enabling it.
+#ls_recurse_enable=YES
+#
+# Customization
+#
+# Some of vsftpd's settings don't fit the filesystem layout by
+# default.
+#
+# This option should be the name of a directory which is empty.  Also, the
+# directory should not be writable by the ftp user. This directory is used
+# as a secure chroot() jail at times vsftpd does not require filesystem
+# access.
+secure_chroot_dir=/var/run/vsftpd/empty
+#
+# This string is the name of the PAM service vsftpd will use.
+pam_service_name=vsftpd
+#
+# This option specifies the location of the RSA certificate to use for SSL
+# encrypted connections.
+rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+ssl_enable=NO
+#
+# Uncomment this to indicate that vsftpd use a utf8 filesystem.
+#utf8_filesystem=YES
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;配置说明&quot;&gt;配置说明&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;anonymous_enable=NO 拒绝匿名登陆&lt;/li&gt;
+  &lt;li&gt;write_enable=YES 设置可以上传文件，这个设置看需要个人需要&lt;/li&gt;
+  &lt;li&gt;xferlog_enable=YES 开启日志记录&lt;/li&gt;
+  &lt;li&gt;xferlog_file=/var/log/vsftpd.log 设置日志文件路径&lt;/li&gt;
+  &lt;li&gt;xferlog_std_format=YES 设置日志格式为标准输出&lt;/li&gt;
+  &lt;li&gt;connect_from_port_20=YES 绑定20端口&lt;/li&gt;
+  &lt;li&gt;ftpd_banner=Welcome to FTP service. 欢迎语句，在使用shell时可以看到&lt;/li&gt;
+  &lt;li&gt;chroot_local_user=YES&lt;/li&gt;
+  &lt;li&gt;chroot_list_enable=YES&lt;/li&gt;
+  &lt;li&gt;chroot_list_file=/etc/vsftpd.chroot_list
+ 上面的这几个配置实现的功能是：用户被限制在自己的主目录下。用户名单来源于/etc/vsftpd.chroot_list&lt;/li&gt;
+  &lt;li&gt;user_sub_token=$USER&lt;/li&gt;
+  &lt;li&gt;local_root=/home/$USER/ftp
+ 添加一个user_sub_token ，以便插入用户名在我们local_root directory路径，以便我们的配置将为该用户，并可能被添加任何未来的用户&lt;/li&gt;
+  &lt;li&gt;pam_service_name=ftp原配置中为vsftpd，ubuntu用户需要更改成ftp&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;创建ftp用户&quot;&gt;创建ftp用户&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;mkdir /home/ftpuser
+sudo useradd ftpuser -d /home/ftpuser -m
+sudo passwd ftpuser
+mkdir /home/ftpuser/ftp
+chmod 777 -R /home/username/ftp
+usermod -s /sbin/nologin ftpuser
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;/etc/vsftpd.chroot_list要自己创建，并将ftpuser放进去&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;启动vsftpd或者重启&quot;&gt;启动vsftpd或者重启&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;systemctl start vsftpd 或 service vsftpd start&lt;/li&gt;
+  &lt;li&gt;systemctl restart vsftpd 或 service vsftpd restart&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;登陆&quot;&gt;登陆&lt;/h1&gt;
+
+&lt;p&gt;使用filezilla或者打开文件管理器输入ftp://ipaddress&lt;/p&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry><entry><title type="html">C++锁</title><link href="http://localhost:4000/_posts/2020-11-04-C++%E9%94%81/" rel="alternate" type="text/html" title="C++锁" /><published>2020-11-04T00:00:00-05:00</published><updated>2020-11-04T00:00:00-05:00</updated><id>http://localhost:4000/_posts/C++%E9%94%81</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-04-C++%E9%94%81/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;线程之间的锁有：&lt;strong&gt;互斥锁、条件锁、自旋锁、读写锁、递归锁&lt;/strong&gt;。一般而言，锁的功能与性能成反比。不过我们一般不使用递归锁（C++标准库提供了std::recursive_mutex）&lt;/p&gt;
@@ -2792,79 +3005,4 @@ public:
 
 &lt;p&gt;首包丢弃方案对用户体验会略有影响，因为丢弃首包重传会增大业务的响应时间，有鉴于此发展出了一种更优的TCP  Proxy方案。所有的SYN数据报文由清洗设备接受，按照SYN  Cookie方案处理。和设备成功建立了TCP三次握手的IP地址被判定为合法用户加入白名单，由设备伪装真实客户端IP地址再与真实服务器完成三次握手，随后转发数据。而指定时间内没有和设备完成三次握手的IP地址，被判定为恶意IP地址屏蔽一定时间。除了SYN Cookie结合TCP  Proxy外，清洗设备还具备多种畸形TCP标志位数据包探测的能力，通过对SYN报文返回非预期应答测试客户端反应的方式来鉴别正常访问和恶意行为。&lt;/p&gt;
 
-&lt;p&gt;清洗设备的硬件具有特殊的网络处理器芯片和特别优化的操作系统、TCP/IP协议栈，可以处理非常巨大的流量和SYN队列。&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry><entry><title type="html">TCP半连接队列和全连接队列</title><link href="http://localhost:4000/_posts/2020-10-26-TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E5%92%8C%E5%85%A8%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97/" rel="alternate" type="text/html" title="TCP半连接队列和全连接队列" /><published>2020-10-26T00:00:00-04:00</published><updated>2020-10-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E5%92%8C%E5%85%A8%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-26-TCP%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E5%92%8C%E5%85%A8%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;简单的tcp建连流程&quot;&gt;简单的TCP建连流程&lt;/h1&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/TCP.png&quot; alt=&quot;TCP&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;client端使用connect()向server端发起连接请求(发送syn包)，此时client端的TCP的状态为SYN_SENT&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;server端在收到SYN包后，将TCP相关信息放到syn queue(半连接队列)中，同时向client发送syn+ack。server端TCP的状态为SYN_RCVD&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;client端收到server端的syn+ack后，向server端发送ack，此时client端的TCP的状态为ESTABLISHED。Server端收到ack确认后，从syn queue里将TCP信息取出，并放到accept quee(全连接队列)中，此时server端的TCP的状态为ESTABLISHED。&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;经过以上三个过程，client端和server端建立了连接，即所有三次握手的过程&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;半连接状态与全连接状态&quot;&gt;半连接状态与全连接状态&lt;/h1&gt;
-
-&lt;p&gt;通过上图和上述流程中可以看到TCP有两个队列:半连接队列(SYN queue)与全连接队列(accept queue)，分别用来存放半连接状态和全连接状态信息。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/连接状态.png&quot; alt=&quot;连接状态&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;半连接状态:指TCP状态为SYN_RCVD的状态。服务器处于Listen状态时收到客户端SYN报文时放入半连接队列中，即SYN queue。&lt;/p&gt;
-
-&lt;p&gt;全连接状态:指TCP状态为的状态ESTABLISHED。TCP的连接状态从服务器(SYN+ACK)响应客户端后，到客户端的ACK报文到达服务器之前，&lt;/p&gt;
-
-&lt;p&gt;则一直保留在半连接状态中;当服务器接收到客户端的ACK报文后，该条目将从半连接队列移到全连接队列尾部，即 accept queue。&lt;/p&gt;
-
-&lt;p&gt;从linux内核2.2开始，系统分离成两个backlog分别限制半连接(SYN_RCVD状态)队列大小和全连接(ESTABLISHED状态)队列大小。&lt;/p&gt;
-
-&lt;h1 id=&quot;半连接队列syn-queue&quot;&gt;半连接队列(SYN queue)&lt;/h1&gt;
-
-&lt;p&gt;SYN queue 队列长度由 net.ipv4.tcp_max_syn_backlog 指定，默认值是根据内存大小而定，如果系统内存超过128MB，默认值为1024，低于128MB时为128。&lt;/p&gt;
-
-&lt;p&gt;当 SYN queue满了，系统还在不断的收到 SYN 包时，系统怎么处理的?系统会根据内核参数net.ipv4.tcp_syncookies的值来处理请求。&lt;/p&gt;
-
-&lt;p&gt;tcp_syncookies是用来防止SYN flood攻击，其原理是在半连接队列满时，SYN cookies并不丢弃SYN请求，而是将源目的IP、源目的端口号、接收到的client端初始序列号以及其他一些安全数值等信息进行hash运算，并加密后得到server端的初始序列号，称之为cookie。server端在发送初始序列号为cookie的SYN+ACK包后，会将分配的连接请求块释放。如果接收到client端的ACK包，server端将client端的ACK序列号减1得到的值，与上述要素hash运算得到的值比较，如果相等，直接完成三次握手，构建新的连接。SYN cookies机制的核心就是避免攻击造成的大量构造无用的连接请求块，导致内存耗尽，而无法处理正常的连接请求。&lt;/p&gt;
-
-&lt;p&gt;当syn queue满了，在Server端没有开启syncookies的时候，即syncookies=0，server端会丢弃新来的SYN包，而client端在多次重发SYN包得不到响应而返回connection time out错误。但是，当Server端开启了syncookies,即syncookies=1，那么SYN queue就在逻辑上的没有最大值了，而是忽略内核参数net.ipv4.tcp_max_syn_backlog设置的值。Client端在多次重发SYN包得不到响应而返回connection time out错误注意，即使开启该机制并不意味着所有的连接都是用SYN cookies机制来完成连接的建立，只有在SYN queue已满的情况下才会触发SYN cookies&lt;/p&gt;
-
-&lt;p&gt;机制。由于SYN cookies机制严重违背TCP协议，不允许使用TCP扩展，可能对某些服务造成严重的性能影响(如SMTP转发)，对于防御SYNflood攻击的确有效。对于没有收到攻击的高负载服务器，不要开启此选项，可以通过修改tcp_max_syn_backlog、tcp_synack_retries和tcp_abort_on_overflow系统参数来调节。&lt;/p&gt;
-
-&lt;p&gt;查看系统最大半队列大小可以使用下面两种方面查看系统最大半队列大小:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sysctl -a |grep max_synnet.ipv4.tcp_max_syn_backlog = 65536
-cat /proc/sys/net/ipv4/tcp_max_syn_backlog65536
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;查看系统当前半队列大小&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;ss -s
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;全连接队列accept-queue&quot;&gt;全连接队列(Accept queue)&lt;/h1&gt;
-
-&lt;p&gt;在第三次握手时，当server端接收到ACK 报之后， 会进入一个叫accept queue，Accept queue 队列长度由 net.core.somaxconn 和应用程序使用listen函数时传入的参数，二者取最小值。默认为128，表示最多有 129 的 ESTABLISHED的连接等待 accept()。当Accept queue满了以后，即使client端继续向server端发送ACK的包，也会不被响应，此时ListenOverflows+1，系统会根据net.ipv4,tcp_abort_on_overflow参数的值来决定如何返回。值为0表示直接丢弃该ACK，但不会从连接信息从SYN queue队列中移除。当系统丢弃了最后阶段的 ACK，系统会根据参数net.ipv4.tcp_synack_retries的设置重新向client端发送 SYN+ACK 包。而client端在收到多个 SYN+ACK 包，会认为之前的ACK丢包了，于是client端又重新向server端发送ACK包。当在 accept queue有空闲的时候最终完成连接。如果accept queue始终满员，则最终client将收到RST包。&lt;/p&gt;
-
-&lt;p&gt;如果net.ipv4.tcp_abort_on_overflow参数值为1表示server端发送RST通知client;与此同时，client则会分别返回read timeout 或者connection reset by peer。&lt;/p&gt;
-
-&lt;p&gt;可以通过ss/netstat查看全队列的长度:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;ss –ln
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;TCP状态为LISTEN状态的Send-Q字段的值为全队列最大长度，即min(backlog, somaxconn) 的值，Recv-Q字段的值，表示当前等待服务端调用accept 完成三次握手的 listen backlog 数值，即当前全队列已用长度。&lt;/p&gt;
-
-&lt;p&gt;非 LISTEN 状态中Recv-Q 表示 receive queue 中的 bytes 数量;Send-Q 表示 send queue 中的 bytes 数值。查看Accept queue 是否有溢出&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt; netstat -s | grep TCPBacklogDrop
-&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="计算机网络" /><summary type="html">[toc]</summary></entry></feed>
+&lt;p&gt;清洗设备的硬件具有特殊的网络处理器芯片和特别优化的操作系统、TCP/IP协议栈，可以处理非常巨大的流量和SYN队列。&lt;/p&gt;</content><author><name></name></author><category term="安全" /><summary type="html">[toc]</summary></entry></feed>
