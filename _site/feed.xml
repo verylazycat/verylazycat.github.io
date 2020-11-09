@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-08T07:29:23-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-09T01:47:22-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -2810,6 +2810,41 @@ public:
             num &amp;gt;&amp;gt;= 1;
         }
         return ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;-旋转数组的最小数字&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/&quot;&gt; 旋转数组的最小数字&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组 [3,4,5,1,2] 为 [1,2,3,4,5] 的一个旋转，该数组的最小值为1。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入：[3,4,5,1,2]
+输出：1&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入：[2,2,2,0,1]
+输出：0&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;解&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int minArray(vector&amp;lt;int&amp;gt;&amp;amp; numbers) {
+        int i = 0, j = numbers.size() - 1;
+        while (i &amp;lt; j) {
+            int m = (i + j) / 2;
+            if (numbers[m] &amp;gt; numbers[j]) i = m + 1;
+            else if (numbers[m] &amp;lt; numbers[j]) j = m;
+            else j--;
+        }
+        return numbers[i];
     }
 };
 &lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">Cookie和Session、SessionID</title><link href="http://localhost:4000/_posts/2020-10-26-Cookie%E5%92%8CSession-SessionID/" rel="alternate" type="text/html" title="Cookie和Session、SessionID" /><published>2020-10-26T00:00:00-04:00</published><updated>2020-10-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/Cookie%E5%92%8CSession%E3%80%81SessionID</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-26-Cookie%E5%92%8CSession-SessionID/">&lt;p&gt;[toc]&lt;/p&gt;
