@@ -2,6 +2,15 @@
 [
   
     {
+      "title"    : "asan使用",
+      "category" : "",
+      "tags"     : "linux",
+      "date"     : "2020-11-10 00:00:00 -0500",
+      
+      "url"      : "/_posts/2020-11-10-asan%E4%BD%BF%E7%94%A8/"
+    } ,
+  
+    {
       "title"    : "ubuntu搭建ftp服务",
       "category" : "",
       "tags"     : "linux",
