@@ -1,11 +1,253 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-10T21:38:33-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-12T02:15:37-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">asan使用</title><link href="http://localhost:4000/_posts/2020-11-10-asan%E4%BD%BF%E7%94%A8/" rel="alternate" type="text/html" title="asan使用" /><published>2020-11-10T00:00:00-05:00</published><updated>2020-11-10T00:00:00-05:00</updated><id>http://localhost:4000/_posts/asan%E4%BD%BF%E7%94%A8</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-10-asan%E4%BD%BF%E7%94%A8/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">fork</title><link href="http://localhost:4000/_posts/2020-11-11-fork/" rel="alternate" type="text/html" title="fork" /><published>2020-11-11T00:00:00-05:00</published><updated>2020-11-11T00:00:00-05:00</updated><id>http://localhost:4000/_posts/fork</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-11-fork/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;fork的原理&quot;&gt;fork的原理&lt;/h1&gt;
+
+&lt;p&gt;先通过下面这段代码简单的介绍一下fork这个函数，了解一下它的功能&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c&quot;&gt;#include &amp;lt;unistd.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+int main()
+{
+    int pid = fork();
+
+    if (pid == -1)
+        return -1;
+
+    if (pid)
+    {
+        printf(&quot;I am father, my pid is %d\n&quot;, getpid());
+        return 0;
+    }
+    else
+    {
+        printf(&quot;I am child, my pid is %d\n&quot;, getpid());
+        return 0;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;为什么if的分支执行到了，else的分支也执行到了。这明显不符合程序执行最基本的原理。这个放到后面再来解释，先来了解一下fork这个函数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c&quot;&gt;pid_t fork();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面是fork函数的原型，它有三个返回值
+- 该进程为父进程时，返回子进程的pid
+- 该进程为子进程时，返回0
+- fork执行失败，返回-1&lt;/p&gt;
+
+&lt;p&gt;那么问题来了，fork它是如何知道一个进程是父进程还是子进程的。&lt;/p&gt;
+
+&lt;p&gt;这个就涉及到fork本身的功能了，它的作用是克隆进程，也就是将原先的一个进程再克隆出一个来，克隆出的这个进程就是原进程的子进程，这个子进程和其他的进程没有什么区别，同样拥有自己的独立的地址空间。不同的是子进程是在fork返回之后才开始执行的，就像一把叉子一样，执行fork之后，父子进程就分道扬镳了，所以fork这个名字就很形象，叉子的意思。&lt;/p&gt;
+
+&lt;p&gt;fork在执行之后，会创建出一个新的进程，这个新的进程内部的数据是原进程所有数据的一份拷贝。因此fork就相当于把某个进程的全部资源复制了一遍，然后让cs：eip指向新进程的指令部分。&lt;/p&gt;
+
+&lt;p&gt;fork给父进程返回子进程pid，给其拷贝出来的子进程返回0，这也是他的特点之一，一次调用，两次返回。两次返回看上去有点神秘，实质是在子进程的栈中构造好数据后，子进程从栈中获取到的返回值。&lt;/p&gt;
+
+&lt;h1 id=&quot;fork的实现&quot;&gt;fork的实现&lt;/h1&gt;
+
+&lt;p&gt;fork的实现分为以下两步&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;复制进程资源&lt;/li&gt;
+  &lt;li&gt;执行该进程&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;复制进程的资源包括以下几步&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;进程pcb&lt;/li&gt;
+  &lt;li&gt;程序体，即代码段数据段等&lt;/li&gt;
+  &lt;li&gt;用户栈&lt;/li&gt;
+  &lt;li&gt;内核栈&lt;/li&gt;
+  &lt;li&gt;虚拟内存池&lt;/li&gt;
+  &lt;li&gt;页表&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;进行进程的话就比较简单了，只需要将其加入到就绪队列即可，接下来就等待cpu的调度了。&lt;/p&gt;
+
+&lt;p&gt;将父进程的pcb、虚拟地址位图拷贝给子进程&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c&quot;&gt;static int32_t copy_pcb_vaddrbitmap_stack0(task_struct *child_thread, task_struct *parent_thread)
+{
+      /* a 复制pcb所在的整个页,里面包含进程pcb信息及特级0极的栈,里面包含了返回地址, 然后再单独修改个别部分 */
+      memcpy(child_thread, parent_thread, PG_SIZE);
+      child_thread-&amp;gt;pid = fork_pid();
+      child_thread-&amp;gt;elapsed_ticks = 0;
+      child_thread-&amp;gt;status = TASK_READY;
+      child_thread-&amp;gt;ticks = child_thread-&amp;gt;priority; // 为新进程把时间片充满
+      child_thread-&amp;gt;parent_pid = parent_thread-&amp;gt;pid;
+      child_thread-&amp;gt;general_tag.prev = child_thread-&amp;gt;general_tag.next = NULL;
+      child_thread-&amp;gt;all_list_tag.prev = child_thread-&amp;gt;all_list_tag.next = NULL;
+      block_desc_init(child_thread-&amp;gt;u_block_desc);
+      /* b 复制父进程的虚拟地址池的位图 */
+      uint32_t bitmap_pg_cnt = DIV_ROUND_UP((0xc0000000 - USER_VADDR_START) / PG_SIZE / 8, PG_SIZE);
+      void *vaddr_btmp = get_kernel_pages(bitmap_pg_cnt);
+      if (vaddr_btmp == NULL)
+            return -1;
+      /* 此时child_thread-&amp;gt;userprog_vaddr.vaddr_bitmap.bits还是指向父进程虚拟地址的位图地址
+    * 下面将child_thread-&amp;gt;userprog_vaddr.vaddr_bitmap.bits指向自己的位图vaddr_btmp */
+      memcpy(vaddr_btmp, child_thread-&amp;gt;userprog_vaddr.vaddr_bitmap.bits, bitmap_pg_cnt * PG_SIZE);
+      child_thread-&amp;gt;userprog_vaddr.vaddr_bitmap.bits = vaddr_btmp;
+
+      ASSERT(strlen(child_thread-&amp;gt;name) &amp;lt; 11); // pcb.name的长度是16,为避免下面strcat越界
+      strcat(child_thread-&amp;gt;name, &quot;_fork&quot;);
+      return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;复制子进程的进程体(代码和数据)及用户栈&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c&quot;&gt;static void copy_body_stack3(task_struct *child_thread, task_struct *parent_thread, void *buf_page)
+{
+      uint8_t *vaddr_btmp = parent_thread-&amp;gt;userprog_vaddr.vaddr_bitmap.bits;
+      uint32_t btmp_bytes_len = parent_thread-&amp;gt;userprog_vaddr.vaddr_bitmap.btmp_bytes_len;
+      uint32_t vaddr_start = parent_thread-&amp;gt;userprog_vaddr.vaddr_start;
+      uint32_t idx_byte = 0;
+      uint32_t idx_bit = 0;
+      uint32_t prog_vaddr = 0;
+
+      /* 在父进程的用户空间中查找已有数据的页 */
+      while (idx_byte &amp;lt; btmp_bytes_len)
+      {
+            if (vaddr_btmp[idx_byte])
+            {
+                  idx_bit = 0;
+                  while (idx_bit &amp;lt; 8)
+                  {
+                        if ((BITMAP_MASK &amp;lt;&amp;lt; idx_bit) &amp;amp; vaddr_btmp[idx_byte])
+                        {
+                              prog_vaddr = (idx_byte * 8 + idx_bit) * PG_SIZE + vaddr_start;
+                              /* 下面的操作是将父进程用户空间中的数据通过内核空间做中转,最终复制到子进程的用户空间 */
+
+                              /* a 将父进程在用户空间中的数据复制到内核缓冲区buf_page,
+           目的是下面切换到子进程的页表后,还能访问到父进程的数据*/
+                              memcpy(buf_page, (void *)prog_vaddr, PG_SIZE);
+
+                              /* b 将页表切换到子进程,目的是避免下面申请内存的函数将pte及pde安装在父进程的页表中 */
+                              page_dir_activate(child_thread);
+                              /* c 申请虚拟地址prog_vaddr */
+                              get_a_page_without_opvaddrbitmap(PF_USER, prog_vaddr);
+
+                              /* d 从内核缓冲区中将父进程数据复制到子进程的用户空间 */
+                              memcpy((void *)prog_vaddr, buf_page, PG_SIZE);
+
+                              /* e 恢复父进程页表 */
+                              page_dir_activate(parent_thread);
+                        }
+                        idx_bit++;
+                  }
+            }
+            idx_byte++;
+      }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;为子进程构建thread_stack和修改返回值&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c&quot;&gt;static int32_t build_child_stack(task_struct *child_thread)
+{
+      /* a 使子进程pid返回值为0 */
+      /* 获取子进程0级栈栈顶 */
+      intr_stack *intr_0_stack = (intr_stack *)((uint32_t)child_thread + PG_SIZE - sizeof(intr_stack));
+      /* 修改子进程的返回值为0 */
+      intr_0_stack-&amp;gt;eax = 0;
+
+      /* b 为switch_to 构建 struct thread_stack,将其构建在紧临intr_stack之下的空间*/
+      uint32_t *ret_addr_in_thread_stack = (uint32_t *)intr_0_stack - 1;
+
+      /* ebp在thread_stack中的地址便是当时的esp(0级栈的栈顶),
+   即esp为&quot;(uint32_t*)intr_0_stack - 5&quot; */
+      uint32_t *ebp_ptr_in_thread_stack = (uint32_t *)intr_0_stack - 5;
+
+      /* switch_to的返回地址更新为intr_exit,直接从中断返回 */
+      *ret_addr_in_thread_stack = (uint32_t)intr_exit;
+
+      /* 把构建的thread_stack的栈顶做为switch_to恢复数据时的栈顶 */
+      child_thread-&amp;gt;self_kstack = ebp_ptr_in_thread_stack;
+      return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;拷贝父进程本身所占资源给子进程&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c&quot;&gt;static int32_t copy_process(task_struct *child_thread, task_struct *parent_thread)
+{
+      /* 内核缓冲区,作为父进程用户空间的数据复制到子进程用户空间的中转 */
+      void *buf_page = get_kernel_pages(1);
+      if (buf_page == NULL)
+      {
+            return -1;
+      }
+
+      /* a 复制父进程的pcb、虚拟地址位图、内核栈到子进程 */
+      if (copy_pcb_vaddrbitmap_stack0(child_thread, parent_thread) == -1)
+      {
+            return -1;
+      }
+
+      /* b 为子进程创建页表,此页表仅包括内核空间 */
+      child_thread-&amp;gt;pgdir = create_page_dir();
+      if (child_thread-&amp;gt;pgdir == NULL)
+      {
+            return -1;
+      }
+
+      /* c 复制父进程进程体及用户栈给子进程 */
+      copy_body_stack3(child_thread, parent_thread, buf_page);
+
+      /* d 构建子进程thread_stack和修改返回值pid */
+      build_child_stack(child_thread);
+
+      /* e 更新文件inode的打开数 */
+      update_inode_open_cnts(child_thread);
+
+      mfree_page(PF_KERNEL, buf_page, 1);
+      return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c&quot;&gt;/* fork子进程,内核线程不可直接调用 */
+pid_t sys_fork(void)
+{
+      task_struct *parent_thread = running_thread();
+      task_struct *child_thread = get_kernel_pages(1); // 为子进程创建pcb(task_struct结构)
+      if (child_thread == NULL)
+      {
+            return -1;
+      }
+      ASSERT(INTR_OFF == intr_get_status() &amp;amp;&amp;amp; parent_thread-&amp;gt;pgdir != NULL);
+
+      if (copy_process(child_thread, parent_thread) == -1)
+      {
+            return -1;
+      }
+
+      /* 添加到就绪线程队列和所有线程队列,子进程由调试器安排运行 */
+      ASSERT(!elem_find(&amp;amp;thread_ready_list, &amp;amp;child_thread-&amp;gt;general_tag));
+      list_append(&amp;amp;thread_ready_list, &amp;amp;child_thread-&amp;gt;general_tag);
+      ASSERT(!elem_find(&amp;amp;thread_all_list, &amp;amp;child_thread-&amp;gt;all_list_tag));
+      list_append(&amp;amp;thread_all_list, &amp;amp;child_thread-&amp;gt;all_list_tag);
+
+      return child_thread-&amp;gt;pid; // 父进程返回子进程的pid
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;fork的应用&quot;&gt;fork的应用&lt;/h2&gt;
+
+&lt;p&gt;fork的应用场景非常多，这里只讨论在这里kernel中的应用。&lt;/p&gt;
+
+&lt;p&gt;在之后的内容中，将会实现shell，那么这个shell由谁来调用呢。比如说内建的shell命令，他是写死在程序中的，本质上就是一个函数。肯定要有一个东西来调用它&lt;/p&gt;
+
+&lt;p&gt;在这个kernel的设计中，会有一个init进程，通过这个init进程fork出一个子进程，这个子进程就专门来处理我们的shell&lt;/p&gt;</content><author><name></name></author><category term="操作系统" /><summary type="html">[toc]</summary></entry><entry><title type="html">asan使用</title><link href="http://localhost:4000/_posts/2020-11-10-asan%E4%BD%BF%E7%94%A8/" rel="alternate" type="text/html" title="asan使用" /><published>2020-11-10T00:00:00-05:00</published><updated>2020-11-10T00:00:00-05:00</updated><id>http://localhost:4000/_posts/asan%E4%BD%BF%E7%94%A8</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-10-asan%E4%BD%BF%E7%94%A8/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;strong&gt;ASAN（Address-Sanitizier）早先是LLVM中的特性，后被加入GCC 4.8，在GCC 4.9后加入对ARM平台的支持。因此GCC 4.8以上版本使用ASAN时不需要安装第三方库，通过在编译时指定编译CFLAGS即可打开开关。&lt;/strong&gt;&lt;/p&gt;
@@ -2860,129 +3102,69 @@ public:
         return numbers[i];
     }
 };
-&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">Cookie和Session、SessionID</title><link href="http://localhost:4000/_posts/2020-10-26-Cookie%E5%92%8CSession-SessionID/" rel="alternate" type="text/html" title="Cookie和Session、SessionID" /><published>2020-10-26T00:00:00-04:00</published><updated>2020-10-26T00:00:00-04:00</updated><id>http://localhost:4000/_posts/Cookie%E5%92%8CSession%E3%80%81SessionID</id><content type="html" xml:base="http://localhost:4000/_posts/2020-10-26-Cookie%E5%92%8CSession-SessionID/">&lt;p&gt;[toc]&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&quot;一cookie的定义&quot;&gt;一、Cookie的定义&lt;/h2&gt;
+&lt;h1 id=&quot;二进制中1的个数&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/&quot;&gt;二进制中1的个数&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;请实现一个函数，输入一个整数，输出该数二进制表示中 1 的个数。例如，把 9 表示成二进制是 1001，有 2 位是 1。因此，如果输入 9，则该函数输出 2。&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;​    指某些网站为了辨别用户身份、进行session跟踪而存储在用户本地终端上的数据（通常经过加密）。也就是说如果知道一个用户的Cookie，并且在Cookie有效的时间内，就可以利用Cookie以这个用户的身份登录这个网站。&lt;/p&gt;
+  &lt;p&gt;示例 1：&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;会话cookie和持久cookie的区别？&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;​    如果不设置过期时间，则表示这个cookie生命周期为浏览器会话期间，只要关闭浏览器窗口，cookie就消失了。这种生命期为浏览会话期的cookie被称为会话cookie。会话cookie一般不保存在硬盘上而是保存在内存里。
- 　　如果设置了过期时间，浏览器就会把cookie保存到硬盘上，关闭后再次打开浏览器，这些cookie依然有效直到超过设定的过期时间。
- 　　存储在硬盘上的cookie可以在不同的浏览器进程间共享，比如两个IE窗口。而对于保存在内存的cookie，不同的浏览器有不同的处理方式。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;二session&quot;&gt;二、session&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;1、session在不同环境下的不同含义&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;​     session，中文经常翻译为会话，其本来的含义是指有始有终的一系列动作/消息，比如打电话是从拿起电话拨号到挂断电话这中间的一系列过程可以称之为一个session。然而当session一词与网络协议相关联时，它又往往隐含了“面向连接”和/或“保持状态”这样两个含义。&lt;/p&gt;
-
-  &lt;p&gt;​    session在Web开发环境下的语义又有了新的扩展，它的含义是指一类用来在客户端与服务器端之间保持状态的解决方案。有时候Session也用来指这种解决方案的存储结构。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;2、session的机制（下面会细说）&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;​     session机制是一种服务器端的机制，服务器使用一种类似于散列表的结构(也可能就是使用散列表)来保存信息。但程序需要为某个客户端的请求创建一个session的时候，服务器首先检查这个客户端的请求里是否包含了一个session标识 —— 称为session id。&lt;/p&gt;
-
-  &lt;p&gt;​      如果已经包含一个session id则说明以前已经为此客户创建过session，服务器就按照session id把这个session检索出来使用(如果检索不到，可能会新建一个，这种情况可能出现在服务端已经删除了该用户对应的session对象，但用户人为地在请求的URL后面附加上一个JSESSION的参数)。&lt;/p&gt;
-
-  &lt;p&gt;​    如果客户请求不包含session id，则为此客户创建一个session并且生成一个与此session相关联的session id，这个session id将在本次响应中返回给客户端保存。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;3、cookie机制和session机制的区别&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;cookie机制采用的是在客户端保持状态的方案，而session机制采用的是在服务器端保持状态的方案。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;三cookie和sessionsessionid的关系&quot;&gt;三、Cookie和Session、SessionID的关系&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;​    sessionid 是一个会话的 key，浏览器第一次访问服务器会在服务器端生成一个 session，有一个  sessionID 和它对应，并返回给浏览器，这个 sessionID 会被保存在浏览器的会话 cookie 中。tomcat 生成的  sessionID 叫做 jsessionID。&lt;/p&gt;
+  &lt;p&gt;输入：00000000000000000000000000001011
+输出：3
+解释：输入的二进制串 00000000000000000000000000001011 中，共有三位为 ‘1’。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;​    sessionID 在访问 tomcat 服务器 HttpServletRequest 的  getSession(true) 的时候创建，tomcat 的 ManagerBase 类提供创建sessionID  的方法：随机数+时间+jvmid。Tomcat 的 StandardManager 类将 session 存储在内存中，也可以持久化到  file，数据库，memcache，redis等。&lt;/p&gt;
+  &lt;p&gt;示例 2：&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;​    客户端只保存 sessionID 到 cookie 中，而不会保存 session。session 不会因为浏览器的关闭而删除，只能通过程序调用 HttpSession.invalidate() 或超时才能销毁。&lt;/p&gt;
+  &lt;p&gt;输入：00000000000000000000000010000000
+输出：1
+解释：输入的二进制串 00000000000000000000000010000000 中，共有一位为 ‘1’。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;session 的 id 是从哪里来的，sessionID 是如何使用的？&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;​    当客户端第一次请求 session 对象时候，服务器会为客户端创建一个 session，并将通过特殊算法算出一个 session 的 ID，用来标识该 session 对象。&lt;/p&gt;
+  &lt;p&gt;示例 3：&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;session 存放在哪里？&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;​    服务器端的内存中。不过 session 可以通过特殊的方式做持久化管理（memcache，redis）。&lt;/p&gt;
+  &lt;p&gt;输入：11111111111111111111111111111101
+输出：31
+解释：输入的二进制串 11111111111111111111111111111101 中，共有 31 位为 ‘1’。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;session在下列情况下被删除：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;解:&lt;/p&gt;
 
-  &lt;ol&gt;
-    &lt;li&gt;程序调用HttpSession.invalidate()&lt;/li&gt;
-    &lt;li&gt;距离上一次收到客户端发送的session id时间间隔超过了session的最大有效时间&lt;/li&gt;
-    &lt;li&gt;服务器进程被停止&lt;/li&gt;
-  &lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        int res = 0;
+        while(n)
+        {
+            if(n &amp;amp; 1)
+                res++;
+            n &amp;gt;&amp;gt;= 1;
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
 
-  &lt;p&gt;注意：&lt;/p&gt;
-
-  &lt;ul&gt;
-    &lt;li&gt;客户端只保存 sessionID 到 cookie 中，而不会保存 session。&lt;/li&gt;
-    &lt;li&gt;关闭浏览器只会使存储在客户端浏览器内存中的session cookie失效，不会使服务器端的session对象失效，同样也不会使已经保存到硬盘上的持久化cookie消失。&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;session cookie和session对象的生命周期是一样的吗？&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;当用户关闭了浏览器虽然session cookie已经消失，但session对象仍然保存在服务器端。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Session 在何时创建呢？&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;​     一个常见的错误是以为session在有客户端访问时就被创建，然而事实是直到某server端程序(如Servlet)调用HttpServletRequest.getSession(true)这样的语句时才会被创建。&lt;/p&gt;
-
-  &lt;p&gt;​    在创建了Session的同时，服务器会为该Session生成唯一的Session  id，而这个Session id在随后的请求中会被用来重新获得已经创建的Session；在Session被创建之后，就可以调用Session相关的方法往Session中增加内容了，而这些内容只会保存在服务器中，发到客户端的只有Session id；当客户端再次发送请求的时候，会将这个Session id带上，服务器接受到请求之后就会依据Session id找到相应的Session，从而再次使用之。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;打开两个浏览器窗口访问应用程序会使用同一个session还是不同的session？&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;​    通常session cookie是不能跨窗口使用的，当你新开了一个浏览器窗口进入相同页面时，系统会赋予你一个新的session id，这样我们信息共享的目的就达不到了。&lt;/p&gt;
-
-  &lt;p&gt;​     此时我们可以先把session id保存在persistent cookie中(通过设置session的最大有效时间)，然后在新窗口中读出来，就可以得到上一个窗口的session id了，这样通过session cookie和persistent cookie的结合我们就可以实现了跨窗口的会话跟踪。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;四客户端用cookie保存了sessionid时&quot;&gt;四、客户端用cookie保存了sessionID时&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;　　客户端用cookie保存了sessionID，当我们请求服务器的时候，会把这个sessionID一起发给服务器，服务器会到内存中搜索对应的sessionID，如果找到了对应的  sessionID，说明我们处于登录状态，有相应的权限；如果没有找到对应的sessionID，这说明：要么是我们把浏览器关掉了（后面会说明为什么），要么session超时了（没有请求服务器超过20分钟），session被服务器清除了，则服务器会给你分配一个新的sessionID。你得重新登录并把这个新的sessionID保存在cookie中。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;​     在没有把浏览器关掉的时候（这个时候假如已经把sessionID保存在cookie中了）这个sessionID会一直保存在浏览器中，每次请求的时候都会把这个sessionID提交到服务器，所以服务器认为我们是登录的；当然，如果太长时间没有请求服务器，服务器会认为我们已经所以把浏览器关掉了，这个时候服务器会把该sessionID从内存中清除掉，这个时候如果我们再去请求服务器，sessionID已经不存在了，所以服务器并没有在内存中找到对应的 sessionID，所以会再产生一个新的sessionID，这个时候一般我们又要再登录一次。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;五客户端没有用cookie保存sessionid时&quot;&gt;五、客户端没有用cookie保存sessionID时&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;　　这个时候如果我们请求服务器，因为没有提交sessionID上来，服务器会认为你是一个全新的请求，服务器会给你分配一个新的sessionID，这就是 为什么我们每次打开一个新的浏览器的时候（无论之前我们有没有登录过）都会产生一个新的sessionID（或者是会让我们重新登录）。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;​     当我们一旦把浏览器关掉后，再打开浏览器再请求该页面，它会让我们登录，这是为什么？我们明明已经登录了，而且还没有超时，sessionID肯定还在服务器上的，为什么现在我们又要再一次登录呢？这是因为我们关掉浏览再请求的时候，我们提交的信息没有把刚才的sessionID一起提交到服务器，所以服务器不知道我们是同一个人，所以这时服务器又为我们分配一个新的sessionID，打个比方：浏览器就好像一个要去银行开户的人，而服务器就好比银行，  这个要去银行开户的人这个时候显然没有帐号（sessionID），所以到银行后，银行工作人员问有没有帐号，他说没有，这个时候银行就会为他开通一个帐号（sessionID）。所以可以这么说，每次打开一个新的浏览器去请求的一个页面的时候，服务器都会认为，这是一个新的请求，他为你分配一个新的sessionID。&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name></name></author><category term="计算机网络" /><summary type="html">[toc]</summary></entry></feed>
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        int res = 0;
+        while(n)
+        {
+            n = n &amp;amp; (n -1);
+            res++;
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry></feed>

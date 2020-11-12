@@ -4,19 +4,19 @@
 <head>
   
   <!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>剑指offer | lazycat</title>
+<title>fork | lazycat</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="剑指offer" />
+<meta property="og:title" content="fork" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="[toc]" />
 <meta property="og:description" content="[toc]" />
-<link rel="canonical" href="http://localhost:4000/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" />
-<meta property="og:url" content="http://localhost:4000/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-11-11-fork/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-11-11-fork/" />
 <meta property="og:site_name" content="lazycat" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-11-01T00:00:00-04:00" />
+<meta property="article:published_time" content="2020-11-11T00:00:00-05:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/","headline":"剑指offer","dateModified":"2020-11-01T00:00:00-04:00","datePublished":"2020-11-01T00:00:00-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/"},"description":"[toc]","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","url":"http://localhost:4000/_posts/2020-11-11-fork/","headline":"fork","dateModified":"2020-11-11T00:00:00-05:00","datePublished":"2020-11-11T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-11-11-fork/"},"description":"[toc]","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -324,13 +324,12 @@
 </style>
 
       <ol id="toc">
-  <li><a href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97">数组中重复的数字</a></li>
-  <li><a href="#-%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8"> 从尾到头打印链表</a></li>
-  <li><a href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97">斐波那契数列</a></li>
-  <li><a href="#%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6%E9%97%AE%E9%A2%98">青蛙跳台阶问题</a></li>
-  <li><a href="#%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9">数值的整数次方</a></li>
-  <li><a href="#-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97"> 旋转数组的最小数字</a></li>
-  <li><a href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0">二进制中1的个数</a></li>
+  <li><a href="#fork%E7%9A%84%E5%8E%9F%E7%90%86">fork的原理</a></li>
+  <li><a href="#fork%E7%9A%84%E5%AE%9E%E7%8E%B0">fork的实现</a>
+    <ol>
+      <li><a href="#fork%E7%9A%84%E5%BA%94%E7%94%A8">fork的应用</a></li>
+    </ol>
+  </li>
 </ol>
       
       
@@ -579,7 +578,7 @@
 <div class="masthead">
   <h3 class="container masthead-title">
     
-    剑指offer
+    fork
     <a href="/" title="Home">
       <small>
         lazycat
@@ -594,18 +593,18 @@
   <span class="post-date">
     
     <i class="fas fa-calendar-day fa-fw"></i>
-    01 Nov 2020
+    11 Nov 2020
     
     
     <i class="fas fa-file-word fa-fw"></i>
-    2774字
+    5358字
     
     
     <i class="fas fa-clock fa-fw"></i>
-    10分
+    18分
     
     
-    <span class="leancloud-visitors" id="/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" data-xid="/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" data-flag-title="剑指offer">
+    <span class="leancloud-visitors" id="/_posts/2020-11-11-fork/" data-xid="/_posts/2020-11-11-fork/" data-flag-title="fork">
       <i class="fas fa-book-reader fa-fw"></i>
       <span class="leancloud-visitors-count">
         <i class="fas fa-spinner fa-pulse"></i>
@@ -615,7 +614,7 @@
     
     
     <i class="fas fa-tag fa-fw"></i>
-    杂项
+    操作系统
     
     
     <br/>
@@ -634,326 +633,247 @@
   </span>
   <p>[toc]</p>
 
-<h1 id="数组中重复的数字"><a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">数组中重复的数字</a></h1>
+<h1 id="fork的原理">fork的原理</h1>
 
-<p>找出数组中重复的数字。</p>
+<p>先通过下面这段代码简单的介绍一下fork这个函数，了解一下它的功能</p>
 
-<p>在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字</p>
+<pre><code class="language-c">#include &lt;unistd.h&gt;
+#include &lt;stdio.h&gt;
 
-<pre><code>输入：
-[2, 3, 1, 0, 2, 5, 3]
-输出：2 或 3 
-</code></pre>
+int main()
+{
+    int pid = fork();
 
-<p>解:初始化bool数组为false,先判断,在设置为true,如果重复,则第二次判断为true,直接输出</p>
+    if (pid == -1)
+        return -1;
 
-<pre><code class="language-c++">class Solution {
-public:
-    int findRepeatNumber(vector&lt;int&gt;&amp; nums) {
-        int size = nums.size();
-        bool a[100000] = {false};
-        for(int i = 0 ;i &lt;size;i++)
-        {
-            if(a[nums[i]])
-            {
-                return nums[i];
-            }
-            a[nums[i]] = true;
-        }
+    if (pid)
+    {
+        printf("I am father, my pid is %d\n", getpid());
         return 0;
     }
-};
-</code></pre>
-
-<hr />
-
-<h1 id="-从尾到头打印链表"><a href="https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/"> 从尾到头打印链表</a></h1>
-
-<p>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。</p>
-
-<p><strong>示例 1：</strong></p>
-
-<pre><code>输入：head = [1,3,2]
-输出：[2,3,1]
-</code></pre>
-
-<p>解:</p>
-
-<pre><code class="language-c++">/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    vector&lt;int&gt; reversePrint(ListNode* head) {
-        vector&lt;int&gt; res;
-        stack&lt;int&gt; s;
-        ListNode *temp = head;
-        while(temp)
-        {
-            s.push(temp-&gt;val);
-            temp = temp-&gt;next;
-        }
-        while(!s.empty())
-        {
-            res.push_back(s.top());
-            s.pop();
-        }
-        return res;
+    else
+    {
+        printf("I am child, my pid is %d\n", getpid());
+        return 0;
     }
-};
+}
 </code></pre>
 
-<hr />
+<p>为什么if的分支执行到了，else的分支也执行到了。这明显不符合程序执行最基本的原理。这个放到后面再来解释，先来了解一下fork这个函数</p>
 
-<h1 id="斐波那契数列"><a href="https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/">斐波那契数列</a></h1>
-
-<p>写一个函数，输入 <code>n</code> ，求斐波那契（Fibonacci）数列的第 <code>n</code> 项。斐波那契数列的定义如下</p>
-
-<pre><code>F(0) = 0,   F(1) = 1
-F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
+<pre><code class="language-c">pid_t fork();
 </code></pre>
 
-<p>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。</p>
+<p>上面是fork函数的原型，它有三个返回值
+- 该进程为父进程时，返回子进程的pid
+- 该进程为子进程时，返回0
+- fork执行失败，返回-1</p>
 
-<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
+<p>那么问题来了，fork它是如何知道一个进程是父进程还是子进程的。</p>
 
-<p><strong>示例 1：</strong></p>
+<p>这个就涉及到fork本身的功能了，它的作用是克隆进程，也就是将原先的一个进程再克隆出一个来，克隆出的这个进程就是原进程的子进程，这个子进程和其他的进程没有什么区别，同样拥有自己的独立的地址空间。不同的是子进程是在fork返回之后才开始执行的，就像一把叉子一样，执行fork之后，父子进程就分道扬镳了，所以fork这个名字就很形象，叉子的意思。</p>
 
-<pre><code>输入：n = 2
-输出：1
+<p>fork在执行之后，会创建出一个新的进程，这个新的进程内部的数据是原进程所有数据的一份拷贝。因此fork就相当于把某个进程的全部资源复制了一遍，然后让cs：eip指向新进程的指令部分。</p>
+
+<p>fork给父进程返回子进程pid，给其拷贝出来的子进程返回0，这也是他的特点之一，一次调用，两次返回。两次返回看上去有点神秘，实质是在子进程的栈中构造好数据后，子进程从栈中获取到的返回值。</p>
+
+<h1 id="fork的实现">fork的实现</h1>
+
+<p>fork的实现分为以下两步</p>
+
+<ul>
+  <li>复制进程资源</li>
+  <li>执行该进程</li>
+</ul>
+
+<p>复制进程的资源包括以下几步</p>
+
+<ul>
+  <li>进程pcb</li>
+  <li>程序体，即代码段数据段等</li>
+  <li>用户栈</li>
+  <li>内核栈</li>
+  <li>虚拟内存池</li>
+  <li>页表</li>
+</ul>
+
+<p>进行进程的话就比较简单了，只需要将其加入到就绪队列即可，接下来就等待cpu的调度了。</p>
+
+<p>将父进程的pcb、虚拟地址位图拷贝给子进程</p>
+
+<pre><code class="language-c">static int32_t copy_pcb_vaddrbitmap_stack0(task_struct *child_thread, task_struct *parent_thread)
+{
+      /* a 复制pcb所在的整个页,里面包含进程pcb信息及特级0极的栈,里面包含了返回地址, 然后再单独修改个别部分 */
+      memcpy(child_thread, parent_thread, PG_SIZE);
+      child_thread-&gt;pid = fork_pid();
+      child_thread-&gt;elapsed_ticks = 0;
+      child_thread-&gt;status = TASK_READY;
+      child_thread-&gt;ticks = child_thread-&gt;priority; // 为新进程把时间片充满
+      child_thread-&gt;parent_pid = parent_thread-&gt;pid;
+      child_thread-&gt;general_tag.prev = child_thread-&gt;general_tag.next = NULL;
+      child_thread-&gt;all_list_tag.prev = child_thread-&gt;all_list_tag.next = NULL;
+      block_desc_init(child_thread-&gt;u_block_desc);
+      /* b 复制父进程的虚拟地址池的位图 */
+      uint32_t bitmap_pg_cnt = DIV_ROUND_UP((0xc0000000 - USER_VADDR_START) / PG_SIZE / 8, PG_SIZE);
+      void *vaddr_btmp = get_kernel_pages(bitmap_pg_cnt);
+      if (vaddr_btmp == NULL)
+            return -1;
+      /* 此时child_thread-&gt;userprog_vaddr.vaddr_bitmap.bits还是指向父进程虚拟地址的位图地址
+    * 下面将child_thread-&gt;userprog_vaddr.vaddr_bitmap.bits指向自己的位图vaddr_btmp */
+      memcpy(vaddr_btmp, child_thread-&gt;userprog_vaddr.vaddr_bitmap.bits, bitmap_pg_cnt * PG_SIZE);
+      child_thread-&gt;userprog_vaddr.vaddr_bitmap.bits = vaddr_btmp;
+
+      ASSERT(strlen(child_thread-&gt;name) &lt; 11); // pcb.name的长度是16,为避免下面strcat越界
+      strcat(child_thread-&gt;name, "_fork");
+      return 0;
+}
 </code></pre>
 
-<p><strong>示例 2：</strong></p>
+<p>复制子进程的进程体(代码和数据)及用户栈</p>
 
-<pre><code>输入：n = 5
-输出：5
+<pre><code class="language-c">static void copy_body_stack3(task_struct *child_thread, task_struct *parent_thread, void *buf_page)
+{
+      uint8_t *vaddr_btmp = parent_thread-&gt;userprog_vaddr.vaddr_bitmap.bits;
+      uint32_t btmp_bytes_len = parent_thread-&gt;userprog_vaddr.vaddr_bitmap.btmp_bytes_len;
+      uint32_t vaddr_start = parent_thread-&gt;userprog_vaddr.vaddr_start;
+      uint32_t idx_byte = 0;
+      uint32_t idx_bit = 0;
+      uint32_t prog_vaddr = 0;
+
+      /* 在父进程的用户空间中查找已有数据的页 */
+      while (idx_byte &lt; btmp_bytes_len)
+      {
+            if (vaddr_btmp[idx_byte])
+            {
+                  idx_bit = 0;
+                  while (idx_bit &lt; 8)
+                  {
+                        if ((BITMAP_MASK &lt;&lt; idx_bit) &amp; vaddr_btmp[idx_byte])
+                        {
+                              prog_vaddr = (idx_byte * 8 + idx_bit) * PG_SIZE + vaddr_start;
+                              /* 下面的操作是将父进程用户空间中的数据通过内核空间做中转,最终复制到子进程的用户空间 */
+
+                              /* a 将父进程在用户空间中的数据复制到内核缓冲区buf_page,
+           目的是下面切换到子进程的页表后,还能访问到父进程的数据*/
+                              memcpy(buf_page, (void *)prog_vaddr, PG_SIZE);
+
+                              /* b 将页表切换到子进程,目的是避免下面申请内存的函数将pte及pde安装在父进程的页表中 */
+                              page_dir_activate(child_thread);
+                              /* c 申请虚拟地址prog_vaddr */
+                              get_a_page_without_opvaddrbitmap(PF_USER, prog_vaddr);
+
+                              /* d 从内核缓冲区中将父进程数据复制到子进程的用户空间 */
+                              memcpy((void *)prog_vaddr, buf_page, PG_SIZE);
+
+                              /* e 恢复父进程页表 */
+                              page_dir_activate(parent_thread);
+                        }
+                        idx_bit++;
+                  }
+            }
+            idx_byte++;
+      }
+}
 </code></pre>
 
-<p>解: <strong>别用递归</strong></p>
+<p>为子进程构建thread_stack和修改返回值</p>
 
-<pre><code class="language-c++">class Solution {
-public:
-    int fib(int n) {
-        if(n == 0 || n == 1)
-            return n;
-        int res = 0;
-        int a = 0,b = 1;
-        while(n &gt;= 2){
-            res = (a + b)%1000000007;
-            a = b;
-            b = res;
-            n--;
-        }
-        return res;
-    }
-};
+<pre><code class="language-c">static int32_t build_child_stack(task_struct *child_thread)
+{
+      /* a 使子进程pid返回值为0 */
+      /* 获取子进程0级栈栈顶 */
+      intr_stack *intr_0_stack = (intr_stack *)((uint32_t)child_thread + PG_SIZE - sizeof(intr_stack));
+      /* 修改子进程的返回值为0 */
+      intr_0_stack-&gt;eax = 0;
+
+      /* b 为switch_to 构建 struct thread_stack,将其构建在紧临intr_stack之下的空间*/
+      uint32_t *ret_addr_in_thread_stack = (uint32_t *)intr_0_stack - 1;
+
+      /* ebp在thread_stack中的地址便是当时的esp(0级栈的栈顶),
+   即esp为"(uint32_t*)intr_0_stack - 5" */
+      uint32_t *ebp_ptr_in_thread_stack = (uint32_t *)intr_0_stack - 5;
+
+      /* switch_to的返回地址更新为intr_exit,直接从中断返回 */
+      *ret_addr_in_thread_stack = (uint32_t)intr_exit;
+
+      /* 把构建的thread_stack的栈顶做为switch_to恢复数据时的栈顶 */
+      child_thread-&gt;self_kstack = ebp_ptr_in_thread_stack;
+      return 0;
+}
 </code></pre>
 
-<h1 id="青蛙跳台阶问题"><a href="https://leetcode-cn.com/problems/qing-wa-tiao-tai-jie-wen-ti-lcof/">青蛙跳台阶问题</a></h1>
+<p>拷贝父进程本身所占资源给子进程</p>
 
-<p>一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。</p>
+<pre><code class="language-c">static int32_t copy_process(task_struct *child_thread, task_struct *parent_thread)
+{
+      /* 内核缓冲区,作为父进程用户空间的数据复制到子进程用户空间的中转 */
+      void *buf_page = get_kernel_pages(1);
+      if (buf_page == NULL)
+      {
+            return -1;
+      }
 
-<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
+      /* a 复制父进程的pcb、虚拟地址位图、内核栈到子进程 */
+      if (copy_pcb_vaddrbitmap_stack0(child_thread, parent_thread) == -1)
+      {
+            return -1;
+      }
 
-<p><strong>示例 1：</strong></p>
+      /* b 为子进程创建页表,此页表仅包括内核空间 */
+      child_thread-&gt;pgdir = create_page_dir();
+      if (child_thread-&gt;pgdir == NULL)
+      {
+            return -1;
+      }
 
-<pre><code>输入：n = 2
-输出：2
+      /* c 复制父进程进程体及用户栈给子进程 */
+      copy_body_stack3(child_thread, parent_thread, buf_page);
+
+      /* d 构建子进程thread_stack和修改返回值pid */
+      build_child_stack(child_thread);
+
+      /* e 更新文件inode的打开数 */
+      update_inode_open_cnts(child_thread);
+
+      mfree_page(PF_KERNEL, buf_page, 1);
+      return 0;
+}
 </code></pre>
 
-<p><strong>示例 2：</strong></p>
+<pre><code class="language-c">/* fork子进程,内核线程不可直接调用 */
+pid_t sys_fork(void)
+{
+      task_struct *parent_thread = running_thread();
+      task_struct *child_thread = get_kernel_pages(1); // 为子进程创建pcb(task_struct结构)
+      if (child_thread == NULL)
+      {
+            return -1;
+      }
+      ASSERT(INTR_OFF == intr_get_status() &amp;&amp; parent_thread-&gt;pgdir != NULL);
 
-<pre><code>输入：n = 7
-输出：21
+      if (copy_process(child_thread, parent_thread) == -1)
+      {
+            return -1;
+      }
+
+      /* 添加到就绪线程队列和所有线程队列,子进程由调试器安排运行 */
+      ASSERT(!elem_find(&amp;thread_ready_list, &amp;child_thread-&gt;general_tag));
+      list_append(&amp;thread_ready_list, &amp;child_thread-&gt;general_tag);
+      ASSERT(!elem_find(&amp;thread_all_list, &amp;child_thread-&gt;all_list_tag));
+      list_append(&amp;thread_all_list, &amp;child_thread-&gt;all_list_tag);
+
+      return child_thread-&gt;pid; // 父进程返回子进程的pid
+}
 </code></pre>
 
-<p><strong>示例 3：</strong></p>
+<h2 id="fork的应用">fork的应用</h2>
 
-<pre><code>输入：n = 0
-输出：1
-</code></pre>
+<p>fork的应用场景非常多，这里只讨论在这里kernel中的应用。</p>
 
-<p>解:</p>
+<p>在之后的内容中，将会实现shell，那么这个shell由谁来调用呢。比如说内建的shell命令，他是写死在程序中的，本质上就是一个函数。肯定要有一个东西来调用它</p>
 
-<pre><code class="language-c++">class Solution {
-public:
-    int numWays(int n) {
-        if(n == 0 || n == 1)
-        {
-            return 1;
-        }
-        int res = 0,a = 1,b = 1;
-        while(n &gt;= 2)
-        {
-            res = (a+b)%1000000007;
-            a = b;
-            b = res;
-            n--;
-        }
-        return res;
-    }
-};
-</code></pre>
-
-<h1 id="数值的整数次方"><a href="https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/">数值的整数次方</a></h1>
-
-<p>实现函数double Power(double base, int exponent)，求base的exponent次方。不得使用库函数，同时不需要考虑大数问题</p>
-
-<blockquote>
-  <p>示例 1:</p>
-</blockquote>
-
-<blockquote>
-  <p>输入: 2.00000, 10
-输出: 1024.00000</p>
-</blockquote>
-
-<blockquote>
-  <p>示例 2:</p>
-</blockquote>
-
-<blockquote>
-  <p>输入: 2.10000, 3
-输出: 9.26100</p>
-</blockquote>
-
-<blockquote>
-  <p>示例 3:</p>
-</blockquote>
-
-<blockquote>
-  <p>输入: 2.00000, -2
-输出: 0.25000
-解释: 2-2 = 1/22 = 1/4 = 0.25</p>
-</blockquote>
-
-<p>解</p>
-
-<pre><code class="language-c++">class Solution {
-public:
-    double myPow(double x, int n) {
-        if(x == 1 || n == 0) return 1;
-        double ans = 1;
-        long num = n;
-        if(n &lt; 0){
-            num = -num;
-            x = 1/x;
-        }
-        while(num){
-            if(num &amp; 1) ans *= x;
-            x *= x;
-            num &gt;&gt;= 1;
-        }
-        return ans;
-    }
-};
-</code></pre>
-
-<h1 id="-旋转数组的最小数字"><a href="https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/"> 旋转数组的最小数字</a></h1>
-
-<p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组 [3,4,5,1,2] 为 [1,2,3,4,5] 的一个旋转，该数组的最小值为1。</p>
-
-<p><strong>示例 1：</strong></p>
-
-<blockquote>
-  <p>输入：[3,4,5,1,2]
-输出：1</p>
-</blockquote>
-
-<p><strong>示例 2：</strong></p>
-
-<blockquote>
-  <p>输入：[2,2,2,0,1]
-输出：0</p>
-</blockquote>
-
-<p>解</p>
-
-<pre><code class="language-c++">class Solution {
-public:
-    int minArray(vector&lt;int&gt;&amp; numbers) {
-        int i = 0, j = numbers.size() - 1;
-        while (i &lt; j) {
-            int m = (i + j) / 2;
-            if (numbers[m] &gt; numbers[j]) i = m + 1;
-            else if (numbers[m] &lt; numbers[j]) j = m;
-            else j--;
-        }
-        return numbers[i];
-    }
-};
-</code></pre>
-
-<h1 id="二进制中1的个数"><a href="https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/">二进制中1的个数</a></h1>
-
-<p>请实现一个函数，输入一个整数，输出该数二进制表示中 1 的个数。例如，把 9 表示成二进制是 1001，有 2 位是 1。因此，如果输入 9，则该函数输出 2。</p>
-
-<blockquote>
-  <p>示例 1：</p>
-</blockquote>
-
-<blockquote>
-  <p>输入：00000000000000000000000000001011
-输出：3
-解释：输入的二进制串 00000000000000000000000000001011 中，共有三位为 ‘1’。</p>
-</blockquote>
-
-<blockquote>
-  <p>示例 2：</p>
-</blockquote>
-
-<blockquote>
-  <p>输入：00000000000000000000000010000000
-输出：1
-解释：输入的二进制串 00000000000000000000000010000000 中，共有一位为 ‘1’。</p>
-</blockquote>
-
-<blockquote>
-  <p>示例 3：</p>
-</blockquote>
-
-<blockquote>
-  <p>输入：11111111111111111111111111111101
-输出：31
-解释：输入的二进制串 11111111111111111111111111111101 中，共有 31 位为 ‘1’。</p>
-</blockquote>
-
-<p>解:</p>
-
-<pre><code class="language-c++">class Solution {
-public:
-    int hammingWeight(uint32_t n) {
-        int res = 0;
-        while(n)
-        {
-            if(n &amp; 1)
-                res++;
-            n &gt;&gt;= 1;
-        }
-        return res;
-    }
-};
-</code></pre>
-
-<pre><code class="language-c++">class Solution {
-public:
-    int hammingWeight(uint32_t n) {
-        int res = 0;
-        while(n)
-        {
-            n = n &amp; (n -1);
-            res++;
-        }
-        return res;
-    }
-};
-</code></pre>
-
+<p>在这个kernel的设计中，会有一个init进程，通过这个init进程fork出一个子进程，这个子进程就专门来处理我们的shell</p>
 
 </div>
 <div class="v">
