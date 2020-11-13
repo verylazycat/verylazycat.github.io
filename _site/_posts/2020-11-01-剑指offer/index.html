@@ -329,8 +329,10 @@
   <li><a href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97">斐波那契数列</a></li>
   <li><a href="#%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6%E9%97%AE%E9%A2%98">青蛙跳台阶问题</a></li>
   <li><a href="#%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9">数值的整数次方</a></li>
-  <li><a href="#-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97"> 旋转数组的最小数字</a></li>
+  <li><a href="#%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97">旋转数组的最小数字</a></li>
   <li><a href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0">二进制中1的个数</a></li>
+  <li><a href="#%E5%A4%96%E8%A7%82%E6%95%B0%E5%88%97">外观数列</a></li>
+  <li><a href="#%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91">对称的二叉树</a></li>
 </ol>
       
       
@@ -598,11 +600,11 @@
     
     
     <i class="fas fa-file-word fa-fw"></i>
-    2774字
+    4085字
     
     
     <i class="fas fa-clock fa-fw"></i>
-    10分
+    14分
     
     
     <span class="leancloud-visitors" id="/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" data-xid="/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" data-flag-title="剑指offer">
@@ -854,7 +856,7 @@ public:
 };
 </code></pre>
 
-<h1 id="-旋转数组的最小数字"><a href="https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/"> 旋转数组的最小数字</a></h1>
+<h1 id="旋转数组的最小数字"><a href="https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/">旋转数组的最小数字</a></h1>
 
 <p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组 [3,4,5,1,2] 为 [1,2,3,4,5] 的一个旋转，该数组的最小值为1。</p>
 
@@ -950,6 +952,96 @@ public:
             res++;
         }
         return res;
+    }
+};
+</code></pre>
+
+<h1 id="外观数列"><a href="https://leetcode-cn.com/problems/count-and-say/">外观数列</a></h1>
+
+<p>给定一个正整数 n ，输出外观数列的第 n 项。</p>
+
+<p>「外观数列」是一个整数序列，从数字 1 开始，序列中的每一项都是对前一项的描述。</p>
+
+<p>你可以将其视作是由递归公式定义的数字字符串序列：</p>
+
+<pre><code>countAndSay(1) = "1"
+countAndSay(n) 是对 countAndSay(n-1) 的描述，然后转换成另一个数字字符串。
+</code></pre>
+
+<blockquote>
+  <p>前五项如下：</p>
+</blockquote>
+
+<pre><code class="language-latex">1.     1
+2.     11
+3.     21
+4.     1211
+5.     111221
+       第一项是数字 1 
+       描述前一项，这个数是 1 即 “ 一 个 1 ”，记作 "11"
+       描述前一项，这个数是 11 即 “ 二 个 1 ” ，记作 "21"
+       描述前一项，这个数是 21 即 “ 一 个 2 + 一 个 1 ” ，记作 "1211"
+       描述前一项，这个数是 1211 即 “ 一 个 1 + 一 个 2 + 二 个 1 ” ，记作 "111221"
+</code></pre>
+
+<p>解</p>
+
+<pre><code class="language-c++">class Solution {
+public:
+    string countAndSay(int n) {
+        if(n == 1) return "1";
+        string previous = countAndSay(n-1), result = ""; 
+        int count = 1; 
+        for(int i=0;i&lt;previous.length();i++)
+        {
+            if(previous[i] == previous[i+1])
+            {
+                count ++; 
+            }
+            else
+            {
+                result += to_string(count) + previous[i]; 
+                count = 1;
+            }
+        }
+        return result;
+    }
+};
+</code></pre>
+
+<h1 id="对称的二叉树"><a href="https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/">对称的二叉树</a></h1>
+
+<p>请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。</p>
+
+<p>解:</p>
+
+<pre><code class="language-c++">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool CmpTree(TreeNode *leftNode,TreeNode *rightNode){
+        if(leftNode == NULL &amp;&amp; rightNode == NULL)
+            return true;
+        else if(leftNode != NULL &amp;&amp; rightNode == NULL)
+            return false;
+        else if(leftNode == NULL &amp;&amp; rightNode != NULL)
+            return false;
+        else if(leftNode-&gt;val != rightNode-&gt;val)
+            return false;
+        bool out =  CmpTree(leftNode-&gt;left,rightNode-&gt;right);
+        bool inner = CmpTree(leftNode-&gt;right,rightNode-&gt;left);
+        return (out &amp;&amp; inner);
+    }
+    bool isSymmetric(TreeNode* root) {
+        if(root ==NULL) return true;
+        return CmpTree(root-&gt;left,root-&gt;right);
     }
 };
 </code></pre>
