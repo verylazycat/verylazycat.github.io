@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-13T03:55:25-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-13T23:43:40-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -3379,6 +3379,37 @@ public:
         vector&amp;lt;int&amp;gt; result;
         dfs(result,root);
         return result[k-1];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;数组中出现次数超过一半的数字&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/&quot;&gt;数组中出现次数超过一半的数字&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。&lt;/p&gt;
+
+&lt;p&gt;你可以假设数组是非空的，并且给定的数组总是存在多数元素。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;示例 1:&lt;/p&gt;
+
+  &lt;p&gt;输入: [1, 2, 3, 2, 2, 2, 5, 4, 2]
+输出: 2&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;解:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int majorityElement(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        // 摩尔投票法
+        int x = 0, votes = 0;
+        for(int num : nums){
+            if(votes == 0) 
+                x = num;
+            votes += num == x ? 1 : -1;
+        }
+        return x;
     }
 };
 &lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry></feed>
