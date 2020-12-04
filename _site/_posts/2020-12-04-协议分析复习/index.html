@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>协议分析复习 | lazycat</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="协议分析复习" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="[toc]" />
+<meta property="og:description" content="[toc]" />
+<link rel="canonical" href="http://localhost:4000/_posts/2020-12-04-%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0/" />
+<meta property="og:url" content="http://localhost:4000/_posts/2020-12-04-%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0/" />
+<meta property="og:site_name" content="lazycat" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-04T00:00:00+08:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"协议分析复习","dateModified":"2020-12-04T00:00:00+08:00","datePublished":"2020-12-04T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/_posts/2020-12-04-%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0/"},"description":"[toc]","url":"http://localhost:4000/_posts/2020-12-04-%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0/","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  
+  
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1"
+/>
+<meta
+  http-equiv="content-type"
+  content="text/html; charset=utf-8"
+/>
+<link
+  rel="alternate"
+  href="/feed.xml"
+  title="RSS"
+  type="application/rss+xml"
+/>
+
+  
+  <link
+  rel="apple-touch-icon-precomposed"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+<link
+  rel="shortcut
+  icon"
+  href="https://pic.cr173.com/up/2017-8/2017841818322084.jpg"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/gh/poole/lanyon@v1.1.0/public/css/poole.min.css,gh/poole/lanyon@v1.1.0/public/css/lanyon.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"
+/>
+
+  
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/Dreamer-Paul/Pio@2.4/static/pio.min.css"
+/>
+<script
+  async="async"
+  src="https://cdn.jsdelivr.net/combine/gh/Dreamer-Paul/Pio@2.4/static/l2d.min.js,gh/Dreamer-Paul/Pio@2.4/static/pio.min.js"
+  onload='
+      let pio_container = document.createElement("div");
+      pio_container.classList.add("pio-container");
+      pio_container.classList.add("right");
+      pio_container.style.bottom = "-2rem";
+      pio_container.style.zIndex = "1";
+      document.body.insertAdjacentElement("beforeend", pio_container);
+      let pio_action = document.createElement("div");
+      pio_action.classList.add("pio-action");
+      pio_container.insertAdjacentElement("beforeend", pio_action);
+      let pio_canvas = document.createElement("canvas");
+      pio_canvas.id = "pio";
+      pio_canvas.style.width = "14rem";
+      pio_canvas.width = "600";
+      pio_canvas.height = "800";
+      pio_container.insertAdjacentElement("beforeend", pio_canvas);
+      let pio = new Paul_Pio({
+        "mode": "fixed",
+        "hidden": true,
+        "night": "for(let i=7; i<16; ++i) if(document.body.classList.contains(`theme-base-0`+i.toString(16))) { document.body.classList.remove(`theme-base-0`+i.toString(16)); document.body.classList.add(`theme-base-0`+((i-6)%9+7).toString(16)); break; }",
+        "content": {
+          "link": ["https://jekyll-theme-WuK.wu-kan.cn"],
+          "skin": ["要换成我的朋友吗？", "让她放个假吧~"],
+          "hidden": true,
+          "custom": [{
+            "selector": "a",
+            "type": "link",
+          }, {
+            "selector": ".sidebar-toggle",
+            "text": "打开侧边栏叭~"
+          }, {
+            "selector": ".effect-info",
+            "text": "哇，你发现了什么！"
+          }, {
+            "selector": "#sidebar-search-input",
+            "text": "想搜索什么呢？很多干货哦！"
+          }, {
+            "selector": "#toc",
+            "text": "这是目录~"
+          }, {
+            "selector": ".page-title",
+            "text": "这是标题~"
+          }, {
+            "selector": ".v",
+            "text": "评论没有审核，要对自己的发言负责哦~"
+          }]
+        },
+        "model": [
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/33/model.2018.bls-winter.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/platelet-2/model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/xiaomai/xiaomai.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/mashiro/seifuku.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/imuncle/live2d/model/Violet/14.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/Kobayaxi/Kobayaxi.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/mikoto/mikoto.model.json",
+          "https:\/\/cdn.jsdelivr.net/gh/xiaoski/live2d_models_collection/uiharu/uiharu.model.json"]
+      });'
+></script>
+
+  
+  <script
+  src='https://zz.bdstatic.com/linksubmit/push.js'
+  async="async"
+></script>
+
+  
+  <script
+  async="async"
+  src="https://www.googletagmanager.com/gtag/js?id=UA-163543967-1"
+  onload="
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-163543967-1');"
+></script>
+
+  
+  <style>
+  .wrap {
+    transition-property: width,background-size,transform;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    min-height: 100%;
+    display: inline-block;
+    background-size: 100% auto;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+  }
+  @media (min-aspect-ratio: 2400/1850) {
+    .wrap {
+      background-image: url(http://img.mp.sohu.com/upload/20170801/1eefea1125e6414d8af68aa91920cdf5_th.png);
+    }
+  }
+  .sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    width: calc(100% - 14rem);
+    background-size: calc(100% - 14rem) auto;
+    transform: translateX(14rem);
+  }
+  .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
+    transform: translateX(0);
+  }
+</style>
+
+  
+  <style>
+  .sidebar,
+  html,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: PingFang SC, Menlo, Monaco, "Courier New", Microsoft JhengHei, monospace;
+  }
+</style>
+
+  
+  <style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+  }
+</style>
+
+  
+  <style>
+  img {
+    display: inline-block;
+    margin: 0;
+  }
+</style>
+
+  
+  <style>
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(45deg, Cyan 0%, Magenta 50%, Yellow 100%);
+  }
+</style>
+
+  
+  <style>
+  ::selection {
+    color: White;
+    background: Black;
+  }
+</style>
+
+  
+</head>
+
+<body
+  class="theme-base-07 sidebar-overlay">
+  
+  
+  
+  <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+  <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"
+     />
+  <!-- Toggleable sidebar -->
+  <div class="sidebar" id="sidebar">
+    
+    <div class="sidebar-item">
+      <div class="effect effect-right_to_left">
+        <img class="effect-img" src="https://pic.cr173.com/up/2017-8/2017841818322084.jpg" alt="img" />
+        <div class="effect-info">
+          lazycat<br/>
+<a href="mailto:verylazycat@outlook.com">
+  <i class="fas fa-envelope"></i>
+</a>
+<a href="https://github.com/verylazycat">
+  <i class="fab fa-github"></i>
+</a>
+
+        </div>
+      </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+      
+      <a class="sidebar-nav-item" href="/">
+        <i class="fas fa-home fa-fw"></i> 首页
+      </a>
+      
+      <a class="sidebar-nav-item" href="/comments/">
+        <i class="fas fa-comments fa-fw"></i> 留言
+      </a>
+      
+      <a class="sidebar-nav-item" href="/tags/">
+        <i class="fas fa-tags fa-fw"></i> 标签
+      </a>
+      
+      <a class="sidebar-nav-item" href="/archive/">
+        <i class="fas fa-archive fa-fw"></i> 归档
+      </a>
+      
+      <a class="sidebar-nav-item" href="/merger/">
+        <i class="fas fa-coffee fa-fw"></i> 打赏
+      </a>
+      
+    </nav>
+    <div class="sidebar-item">
+      
+      <style>
+  #sidebar-search-input {
+    background: none;
+    border: none;
+    color: White;
+    width: 100%;
+  }
+  #sidebar-search-results-container {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+<input
+  id="sidebar-search-input"
+  placeholder="搜索博文"
+/>
+<ol
+  id="sidebar-search-results-container"
+></ol>
+<script
+  src='https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.7/dest/simple-jekyll-search.min.js'
+  async='async'
+  onload='
+    SimpleJekyllSearch({
+      json: "/assets/simple-jekyll-search/search.json",
+      searchInput: document.getElementById("sidebar-search-input"),
+      resultsContainer: document.getElementById("sidebar-search-results-container"),
+      searchResultTemplate: `<li><a href="{url}">{title}</a></li>`,
+      limit: 999,
+      fuzzy: true
+    })'
+></script>
+
+      
+      
+      <style>
+  #toc {
+    overflow: auto auto;
+    max-height: 50vh;
+  }
+</style>
+
+      <ol id="toc">
+  <li><a href="#arp">ARP</a>
+    <ol>
+      <li><a href="#%E6%A0%BC%E5%BC%8F">格式</a></li>
+      <li><a href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%92%8C%E8%BF%87%E7%A8%8B">工作原理和过程</a></li>
+      <li><a href="#%E5%8A%9F%E8%83%BD">功能</a></li>
+      <li><a href="#%E5%AE%89%E5%85%A8">安全</a></li>
+    </ol>
+  </li>
+  <li><a href="#tcpip%E5%8D%8F%E8%AE%AE%E7%B0%87%E7%9A%84%E5%B1%82%E6%AC%A1">TCP/IP协议簇的层次</a></li>
+  <li><a href="#osirm%E6%A8%A1%E5%9E%8B">OSI/RM模型</a>
+    <ol>
+      <li><a href="#osi%E6%A8%A1%E5%9E%8B%E4%B8%AD%E5%90%84%E5%B1%82%E6%95%B0%E6%8D%AE%E5%8D%95%E5%85%83">OSI模型中各层数据单元</a></li>
+    </ol>
+  </li>
+  <li><a href="#%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E6%97%A0%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%9C%80%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB">面向连接、无连接的最主要区别</a></li>
+  <li><a href="#tcpudp">TCP&amp;UDP</a></li>
+  <li><a href="#ip%E6%8A%A5%E6%96%87">IP报文</a></li>
+  <li><a href="#tracert%E5%91%BD%E4%BB%A4">tracert命令</a>
+    <ol>
+      <li><a href="#tracert%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90">tracert工作过程分析</a></li>
+    </ol>
+  </li>
+  <li><a href="#ping-%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90">ping 工作过程分析</a></li>
+  <li><a href="#ip%E5%9C%B0%E5%9D%80">IP地址</a>
+    <ol>
+      <li><a href="#a%E7%B1%BBb%E7%B1%BBc%E7%B1%BB">A类，B类，C类</a></li>
+      <li><a href="#%E7%89%B9%E6%AE%8A">特殊</a></li>
+    </ol>
+  </li>
+  <li><a href="#%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81">子网掩码</a>
+    <ol>
+      <li><a href="#%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81%E8%AE%A1%E7%AE%97">子网掩码计算</a>
+        <ol>
+          <li><a href="#%E4%BE%8B%E5%AD%90">例子</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><a href="#%E7%BD%91%E5%85%B3">网关</a></li>
+  <li><a href="#%E5%B9%BF%E6%92%AD%E5%9C%B0%E5%9D%80">广播地址</a>
+    <ol>
+      <li><a href="#%E6%A0%B9%E6%8D%AEip%E5%9C%B0%E5%9D%80%E5%92%8C%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81%E6%B1%82-%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80-%E5%92%8C-%E5%B9%BF%E6%92%AD%E5%9C%B0%E5%9D%80">根据IP地址和子网掩码求 网络地址 和 广播地址</a></li>
+      <li><a href="#%E6%A0%B9%E6%8D%AE%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81%E5%8F%AF%E4%BB%A5%E5%88%86%E5%89%B2%E7%BD%91%E7%BB%9C%E5%8F%B7%E4%B8%BB%E6%9C%BA%E5%8F%B7">根据子网掩码可以分割网络号+主机号</a></li>
+      <li><a href="#%E8%AE%A1%E7%AE%97%E5%B9%BF%E6%92%AD%E5%9C%B0%E5%9D%80">计算广播地址</a></li>
+      <li><a href="#%E4%B8%BB%E6%9C%BA%E6%95%B0">主机数</a></li>
+    </ol>
+  </li>
+  <li><a href="#ppp%E5%8D%8F%E8%AE%AE">PPP协议</a>
+    1.  <a href="#ppp%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%85%AD%E4%B8%AA%E9%98%B6%E6%AE%B5">PPP协议的六个阶段</a>
+    <ol>
+      <li><a href="#ppp-%E5%B8%A7">PPP 帧</a></li>
+    </ol>
+  </li>
+  <li><a href="#pppoe">PPPOE</a>
+    <ol>
+      <li><a href="#%E6%A6%82%E8%BF%B0">概述</a></li>
+      <li><a href="#pppoe%E5%BB%BA%E7%AB%8B%E9%93%BE%E6%8E%A5%E7%9A%84%E8%BF%87%E7%A8%8B">PPPOE建立链接的过程</a>
+        <ol>
+          <li><a href="#2discovery-%E9%98%B6%E6%AE%B5">2、Discovery 阶段</a></li>
+          <li><a href="#3session-%E9%98%B6%E6%AE%B5">3、Session 阶段</a></li>
+          <li><a href="#4terminate-%E9%98%B6%E6%AE%B5">4、Terminate 阶段</a></li>
+        </ol>
+      </li>
+      <li><a href="#ppp%E4%B8%8Epppoe%E7%9A%84%E5%8C%BA%E5%88%AB">PPP与PPPOE的区别</a></li>
+    </ol>
+  </li>
+  <li><a href="#%E5%B8%B8%E8%A7%81%E7%AB%AF%E5%8F%A3%E5%8F%B7">常见端口号</a></li>
+  <li><a href="#ftp">FTP</a></li>
+  <li><a href="#dns">DNS</a></li>
+  <li><a href="#telnet">Telnet</a></li>
+  <li><a href="#%E7%BD%91%E7%BB%9C%E5%88%86%E6%B5%81%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB">网络分流器的分类</a>
+        1.  <a href="#%E5%8D%83%E5%85%86%E7%9A%84%E7%BD%91%E7%BB%9C%E5%88%86%E6%B5%81%E5%99%A8">千兆的网络分流器</a>
+        1.  <a href="#10g%E7%9A%84%E7%BD%91%E7%BB%9C%E5%88%86%E6%B5%81%E5%99%A8">10G的网络分流器</a>
+        1.  <a href="#40g%E7%9A%84%E7%BD%91%E7%BB%9C%E5%88%86%E6%B5%81%E5%99%A8">40G的网络分流器</a>
+        1.  <a href="#100%EF%BD%87%E7%9A%84%E7%BD%91%E7%BB%9C%E5%88%86%E6%B5%81%E5%99%A8">100Ｇ的网络分流器</a></li>
+  <li><a href="#mac%E5%9C%B0%E5%9D%80%E5%88%86%E7%B1%BB">MAC地址分类</a></li>
+  <li><a href="#%E4%BA%A4%E6%8D%A2%E5%BC%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E6%8D%95%E8%8E%B7%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95">交换式网络中捕获网络流量的基本方法</a></li>
+  <li><a href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E6%95%B0%E6%8D%AE%E5%B8%A78023%E6%9C%80%E5%A4%A7%E9%95%BF%E5%BA%A6">以太网数据帧（802.3）最大长度</a></li>
+  <li><a href="#%E4%B8%89%E4%B8%AA%E7%A7%81%E6%9C%89%E5%9C%B0%E5%9D%80%E5%9D%97">三个私有地址块</a></li>
+  <li><a href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BC%A0%E8%BE%93%E5%8D%95%E5%85%83">以太网帧的最大传输单元</a></li>
+  <li><a href="#dhcp%E5%8D%8F%E8%AE%AE">DHCP协议</a>
+    <ol>
+      <li><a href="#dhcp%E6%8A%A5%E6%96%87%E7%A7%8D%E7%B1%BB">DHCP报文种类</a></li>
+      <li><a href="#dhcp%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F">DHCP报文格式</a></li>
+      <li><a href="#dhcp%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B">DHCP工作流程</a></li>
+    </ol>
+  </li>
+</ol>
+      
+      
+      <style>
+  .sidebar-checkbox {
+    display: none;
+  }
+  .sidebar-toggle {
+    position: fixed;
+  }
+</style>
+
+      
+      <style>
+  .effect {
+    margin: 1rem;
+    perspective: 900px;
+  }
+  .effect-info {
+    text-align: center;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    transform-style: preserve-3d;
+  }
+  .effect-img {
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+  }
+  .effect-img:before {
+    position: absolute;
+    display: block;
+  }
+  .effect-right_to_left .effect-img {
+    transform-origin: 0% 50%;
+  }
+  .effect-right_to_left:hover .effect-img {
+    transform: rotate3d(0, 1, 0, -180deg);
+  }
+</style>
+
+      
+      <div>
+  <i class="fas fa-cog fa-spin fa-fw"></i>
+  <span id="run_time_day">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>天
+  <span id="run_time_hour">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>时
+  <span id="run_time_minute">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>分
+  <span id="run_time_second">
+    <i class="fas fa-spinner fa-pulse"></i>
+  </span>秒
+  <script>
+    setInterval(function (d,h,m,s,b) {
+      function setzero(i) {
+        return i < 10 ? "0" + i : i;
+      }
+      let BirthDay = new Date(b);
+      let today = new Date();
+      let timeold = (today.getTime() - BirthDay.getTime());
+      let sectimeold = timeold / 1000;
+      let secondsold = Math.floor(sectimeold);
+      let msPerDay = 24 * 60 * 60 * 1000;
+      let e_daysold = timeold / msPerDay;
+      let daysold = Math.floor(e_daysold);
+      let e_hrsold = (e_daysold - daysold) * 24;
+      let hrsold = Math.floor(e_hrsold);
+      let e_minsold = (e_hrsold - hrsold) * 60;
+      let minsold = Math.floor((e_hrsold - hrsold) * 60);
+      let seconds = Math.floor((e_minsold - minsold) * 60);
+      d.textContent = daysold;
+      h.textContent = setzero(hrsold);
+      m.textContent = setzero(minsold);
+      s.textContent = setzero(seconds);
+    },
+    1000,
+    document.getElementById("run_time_day"),
+    document.getElementById("run_time_hour"),
+    document.getElementById("run_time_minute"),
+    document.getElementById("run_time_second"),
+    "05/02/2020 11:03:56")// 这是我第一篇博客的时间
+  </script>
+</div>
+
+      
+      <div>
+  <div>
+    <i class="fas fa-eye fa-fw"></i>
+    <span id="busuanzi_value_page_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>次
+  </div>
+  <div>
+    <i class="fas fa-paw fa-fw"></i>
+    <span id="busuanzi_value_site_pv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>枚
+  </div>
+  <div>
+    <i class="fas fa-user-friends fa-fw"></i>
+    <span id="busuanzi_value_site_uv">
+      <i class="fas fa-spinner fa-pulse"></i>
+    </span>人
+  </div>
+  <script
+    src='https://cdn.jsdelivr.net/npm/busuanzi@2.3.0'
+    async='async'
+  ></script>
+</div>
+
+      
+      <div>
+  <i class="fas fa-copyright fa-fw"></i>
+  2020-2022 lazycat
+</div>
+
+      
+      <div>
+  <i class="fas fa-info-circle fa-fw"></i>
+  <a href="http://beian.miit.gov.cn">
+    蜀ICP备20011774号
+  </a>
+</div>
+
+      
+      
+    </div>
+  </div>
+  <!-- Wrap is the content to shift when toggling the sidebar. We wrap the content to avoid any CSS collisions with our real content. -->
+  
+  <div class="wrap">
+    
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/katex@0.11.1/dist/katex.min.js,npm/katex@0.11.1/dist/contrib/mathtex-script-type.min.js,npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  defer="defer"
+  onload='renderMathInElement(document.body, { delimiters: [{ left: "$", right: "$", display: false }] })'
+></script>
+
+
+
+<style>
+  pre.language-mermaid,
+  code.language-mermaid {
+    display: none;
+  }
+</style>
+<script
+  src="https://cdn.jsdelivr.net/npm/mermaid@8.5.1/dist/mermaid.min.js"
+  defer="defer"
+  onload='
+    for(let x of document.getElementsByClassName("language-mermaid"))
+      if(x.nodeName=="CODE")
+      {
+        let m = document.createElement("div");
+        m.classList.add("mermaid");
+        m.textContent = x.textContent;
+        x.parentNode.insertAdjacentElement("beforebegin", m);
+      }'
+></script>
+
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.css,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.css,gh/PrismJS/prism-themes@1955cfef6953b3a59e66016e8a1e016b45d6cc79/themes/prism-nord.min.css"
+/>
+<script
+  src="https://cdn.jsdelivr.net/combine/npm/prismjs@1.20.0/components/prism-core.min.js,npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js,npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.js,npm/prismjs@1.20.0/plugins/toolbar/prism-toolbar.min.js"
+  defer="defer"
+  onload='
+    Prism.plugins.autoloader.languages_path = "https:\/\/cdn.jsdelivr.net/npm/prismjs/components/";
+    for(let x of document.getElementsByTagName("pre"))
+      x.classList.add("line-numbers");
+    Prism.plugins.toolbar.registerButton("select-code", function (env) {
+      let button = document.createElement("button");
+      button.textContent = "select this " + env.language;
+      button.addEventListener("click", function () {
+        if (document.body.createTextRange) {
+          let range = document.body.createTextRange();
+          range.moveToElementText(env.element);
+          range.select();
+        } else if (window.getSelection) {
+          let selection = window.getSelection();
+          let range = document.createRange();
+          range.selectNodeContents(env.element);
+          selection.removeAllRanges();
+            selection.addRange(range);
+        }
+      });
+      return button;
+    })'
+></script>
+
+
+
+<style>
+  pre {
+    max-height: 50vh;
+    overflow: auto;
+  }
+</style>
+
+
+<style>
+  @media (min-width: 56em) {
+    .container {
+      max-width: 66.6%;
+    }
+  }
+</style>
+
+
+<style>
+  .masthead,
+  .container.content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 .75rem rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    animation-duration: 2s;
+    animation-name: fadeIn;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+
+
+<div class="masthead">
+  <h3 class="container masthead-title">
+    
+    协议分析复习
+    <a href="/" title="Home">
+      <small>
+        lazycat
+      </small>
+    </a>
+    
+  </h3>
+</div>
+
+<div class="container content">
+  <div class="post">
+  <span class="post-date">
+    
+    <i class="fas fa-calendar-day fa-fw"></i>
+    04 Dec 2020
+    
+    
+    <i class="fas fa-file-word fa-fw"></i>
+    17519字
+    
+    
+    <i class="fas fa-clock fa-fw"></i>
+    59分
+    
+    
+    <span class="leancloud-visitors" id="/_posts/2020-12-04-%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0/" data-xid="/_posts/2020-12-04-%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0/" data-flag-title="协议分析复习">
+      <i class="fas fa-book-reader fa-fw"></i>
+      <span class="leancloud-visitors-count">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </span>次
+    </span>
+    
+    
+    
+    <i class="fas fa-tag fa-fw"></i>
+    计算机网络
+    
+    
+    <br/>
+<i class="fas fa-coffee fa-fw"></i>
+<a href="/merger/">如果这篇博客帮助到你，可以请我喝一杯咖啡~</a>
+<br/>
+<i class="fab fa-creative-commons-by fa-fw"></i>
+<a
+  href="https://creativecommons.org/licenses/by/4.0/deed.zh"
+  rel="license">
+  CC BY 4.0
+</a>
+（除特别声明或转载文章外）
+
+    
+  </span>
+  <p>[toc]</p>
+
+<h1 id="arp">ARP</h1>
+
+<h2 id="格式">格式</h2>
+
+<p><img src="/img/arp.png" alt="arp" /></p>
+
+<ul>
+  <li>硬件地址类型:该字段表示物理网络类型，即标识数据链路层使用的是那一种协议，其中0x0001为以太网</li>
+  <li>协议地址类型：该字段表示网络地址类型，即标识网络层使用的是那一种协议，其中0x0800表示为ip</li>
+  <li>硬件地址长度：表示源和目的物理地址的长度，单位是字节</li>
+  <li>协议地址长度：表示源和目的的协议地址的长度，单位是字节</li>
+  <li>操作：记录该报文的类型，其中1表示ARP请求报文，2表示ARP响应报文</li>
+  <li>源站的物理地址和目的地址为发送请求报文的主机填写</li>
+  <li>目的站物理地址在请求报文中为空，目的ip为需要进行转换的ip。在回应报文中，目的地址为，arp请求者的地址。目的ip为请求者的ip.</li>
+</ul>
+
+<blockquote>
+  <p>arp报文是直接封装在MAC帧的数据部分，在MAC地址的标识当中注明为0806,如下图：</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>目的地址</th>
+      <th>源地址</th>
+      <th>帧类型</th>
+      <th>帧数据</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>DA</td>
+      <td>SA</td>
+      <td>0806</td>
+      <td>ARP消息</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="工作原理和过程">工作原理和过程</h2>
+
+<p>当需要ip地址和mac地址进行转换的时候，首先，主机会查询自己的arp缓存表，如果自己的arp缓存表中有相应的对应关系，会直接取出对应的MAC地址，填写到MAC帧里面。</p>
+
+<p>如果arp缓存表中没有该地址映射，主机会在局域网内发MAC地址广播，MAC帧的源MAC为自己，目的MAC为ff-ff-ff-ff-ff-ff。发送的arp报文的的源ip为自己的ip，目的ip为需要进行转换的ip地址，源MAC是自己的mac地址，目的地址为空。当其它主机发现自己的ip地址和arp报文中的目的ip地址相同时，会用单播进行回应，源ip为自己的ip，源MAC为自己的MAC,目的ip和目的MAC为刚才请求arp的MAC。例如：主机a的ip地址为192.168.10.14，MAC地址为00-1e-90-7c-b6-fe,它需要知道192.168.10.15的MAC地址。在ARP请求报文中，源ip，MAC为a主机的ip和mac。目的ip为192.168.10.15，目的MAC为空。该帧为广播帧。在回应报文中，源ip为192.168.10.15，源MAC为192.168.10.15的MAC地址。目的ip，目的MAC为a主机的ip和MAC。该帧为单播帧。同时将a主机的ip和mac记录在自己的ARP缓存当中。</p>
+
+<p>如果请求的MAC地址不再同一个网段内，那么该请求报文需要跨网端进行查找，这时候，MAC帧的源ip和源mac都是网管的相应地址。通过，网关进行跨网段的查找。arp报文和上面一样。</p>
+
+<h2 id="功能">功能</h2>
+
+<p>根据IP地址获取物理地址的一个TCP/IP协议</p>
+
+<h2 id="安全">安全</h2>
+
+<p><a href="_posts/2020-06-15-ARP安全">参考文章</a></p>
+
+<h1 id="tcpip协议簇的层次">TCP/IP协议簇的层次</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>硬件</th>
+      <th>传输单元</th>
+      <th>功能</th>
+      <th>主要协议</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>物理层</td>
+      <td>中继器、双绞线、集线器</td>
+      <td>比特</td>
+      <td>实现计算机系统和网络的物理连接，以二进制的形式在物理媒体上传输数据</td>
+      <td>RJ45/CLOCK/IEEE802.3</td>
+    </tr>
+    <tr>
+      <td>数据链路层</td>
+      <td>网卡</td>
+      <td>帧</td>
+      <td>进行数据打包和解包，传输有效的地址帧。形成信息帧被交付物理层实际传输。</td>
+      <td>PPP/MAC/HDLC</td>
+    </tr>
+    <tr>
+      <td>网络层</td>
+      <td>路由器</td>
+      <td>包</td>
+      <td>提供地址解析，提供数据包通过的路由</td>
+      <td>IP</td>
+    </tr>
+    <tr>
+      <td>传输层</td>
+      <td> </td>
+      <td>数据段</td>
+      <td>提供传输顺序和相应信息，为应用层提供端对端的透明可靠的数据传输服务</td>
+      <td>TCP/UDP</td>
+    </tr>
+    <tr>
+      <td>应用层</td>
+      <td> </td>
+      <td>消息流或报文</td>
+      <td>提供用户程序接口，包括文件传输。电子邮件，文件传输，虚拟终端的功能</td>
+      <td>Telnet/HTTP/FTP/WWW/DNS/SMTP</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="osirm模型">OSI/RM模型</h1>
+
+<p>该模型定义了不同计算机互联的标准，是设计和描述计算机网络通信的基本框架。OSI参考模型共分为7个层次，从低到高依次为<strong>物理层、数据链路层、网络层、传输层、会话层、表示层、应用层</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>层次</th>
+      <th>名称</th>
+      <th>主要功能</th>
+      <th>主要设备及协议</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>7</td>
+      <td>应用层</td>
+      <td>实现具体的应用功能</td>
+      <td>POP3、FTP、HTTP、Telnet、SMTP DHCP、TFTP、SNMP、DNS</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>表示层</td>
+      <td>数据的格式与表达、加密、压缩</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>会话层</td>
+      <td>建立、管理和终止对话</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>传输层</td>
+      <td>端到端的连接</td>
+      <td>TCP、UDP</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>网络层</td>
+      <td>分组传输和路由选择</td>
+      <td>三层交换机、路由器 ARP、RARP、IP、ICMP、IGMP</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>数据链路层</td>
+      <td>传输以帧为单位的信息</td>
+      <td>网桥、交换机、网卡 PPTP、L2TP、SLIP、PPP</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>物理层</td>
+      <td>二进制传输</td>
+      <td>中继器、集线器</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>第一层：物理层。
+     物理层是OSI分层结构体系中最重要、最基础的一层，它建立在传输媒介基础上，实现设备之间的物理接口。<strong>物理层关注在一条通信信道上传输原始比特，只需确保当一方发送了比特1时，另一方收到的也是比特1，并不需要考虑信息的意义和信息的结构。</strong>
+     这里涉及的典型问题包括用什么电子信号来表示1和0、一个比特持续多少纳秒、传输是否可以在两个方向上同时进行、初始连接如何建立、当双方结束之后如何撤销连接、网络连接器有多少针以及每一针的用途是什么等。
+     在这一层，数据的单位为比特bit；目前属于物理层定义的典型规范代表有EIA/TIA RS-232，EIA/TIA RS-449，V.35，RJ-45等；
+     常见的网络设备——中继器、<strong>集线器</strong>、Modem工作在该层上。</li>
+  <li>第二层：数据链路层。
+     数据链路层在物理层提供比特流服务的基础上，建立相邻结点之间的数据链路，<strong>将一个原始的传输设施转变成一条没有漏检传输错误的线路，使得发送方发送的数据帧在信道上无差错地传输，</strong>同时为其上面的网络层提供有效的服务。
+     在这一层，数据的单位称为帧frame；典型的协议包括SDLC，HDLC，PPP，Stp等；
+     常见的网络设备——二层<strong>交换机</strong>、网桥工作在该层上。</li>
+  <li>
+    <p>第三层：网络层。
+     网络层也称为通信子网层，用于控制通信子网的操作，是通信子网与资源子网的接口。在计算机网络中进行通信的两个计算机之间可能会经过很多个数据链路，也可能要经过很多通信子网，<strong>网络层的任务就是解封数据链路层收到的帧，提取数据包，并选择合适的网间路由和交换结点，确保数据包即时传送。</strong>其中数据包中封装有网络层包头，含有逻辑地址信息、源站点和目的站点地址的网络地址。
+     在这一层，数据的单位称为数据包或分组packet；典型的协议包括Ip，IPX，RIP等；
+     常见的网络设备——<strong>路由器</strong>、具有路由功能的三层交换机工作在该层上。</p>
+  </li>
+  <li><strong>第四层：传输层。</strong>
+     传输层是真正的点到点，即主机到主机的层，它自始至终将数据从源端携带到接收方。<strong>传输层获得下层（网络层）提供的服务包括：发送和接受正确的数据块分组序列，并用其构成传输层数据；获得网络层地址，包括虚拟信道和逻辑信道。传输层向上层（会话层）提供的服务包括：无差错的有序的报文收发；提供传输连接；进行流量控制。</strong>
+     在这一层，数据的单位称为数据段segment；典型的协议包括TCP，UDP，Spx等；
+     常见的网络设备——传输<strong>网关</strong>工作在该层上。</li>
+  <li>
+    <p>第五层：会话层。
+     管理主机之间的会话进程，即<strong>负责建立、管理、终止进程之间的会话，</strong>一次连接就称为一次会话。会话层还利用在数据中插入校验点来实现数据的同步，以便在系统崩溃之后还能恢复到崩溃之前的状态继续运行。</p>
+  </li>
+  <li>
+    <p>第六层：表示层。
+     表示层以下的五层关注的是如何传递数据位，而<strong>表示层关注的是所传递信息的语法和语义</strong>。不同的计算机可能有不同的内部数据表示法，为了让这些计算机能够进行通信，<strong>表示层会对上层（应用层）的数据或者信息进行变换，</strong>以保证一个主机应用层的信息可以被另一个主机的应用程序所理解。
+     表示层的数据转换包括数据语法转换、语法表示、表示连接管理、数据的加密/压缩/格式转换等。</p>
+  </li>
+  <li>第七层：应用层。
+     应用层直接面对用户的具体应用，它<strong>包含用户应用程序执行通信任务时所需要的协议和功能</strong>，应用层为操作系统或者网络应用程序提供了访问网络服务的<strong>接口</strong>。
+     常见的应用层协议的有：超文本传输协议（该协议为浏览器程序访问因特网中其它主机中web页面提供了基本的网络访问服务接口。）、FTP，DNS等。</li>
+</ul>
+
+<h2 id="osi模型中各层数据单元">OSI模型中各层数据单元</h2>
+
+<ul>
+  <li>
+    <p>第一层：物理层；二进制比特流传输；bit（比特流）；</p>
+  </li>
+  <li>
+    <p>第二层：数据链路层；介质访问控制；frame（帧）；</p>
+  </li>
+  <li>
+    <p>第三层：网络层；确定地址和路由选择；packet（包），又叫做分组</p>
+  </li>
+  <li>
+    <p>第四层：传输层；端到端连接；也叫作数据包。但是谈论TCP等具体协议时有特殊叫法，TCP的数据单元叫数据段，segment（段），而UDP协议的数据单元称为数据报（datagram）</p>
+  </li>
+  <li>
+    <p>第五层：会话层；互联主机通信；</p>
+  </li>
+  <li>
+    <p>第六层：表示层；数据表示；</p>
+  </li>
+  <li>
+    <p>第七层：应用层；为应用程序提供网络服务</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>数据发送时，数据从应用层到物理层；接收时，从物理层到应用层上三层总称应用层，用来控制软件方面；下四层总称数据流层，用来传输数据，管理硬件。数据在高三层传送没有另外命名，统称为报文；发送至数据流层时，会被拆分，每层有特殊叫法，这种叫法是PDU（Protocol Data Unit 协议数据单元）。物理层的PDU叫做比特流，数据链路层的-PDU叫做帧；网络层的PDU叫做包；传输层的PDU叫做段，高层的PDU叫做数据（Data）</p>
+</blockquote>
+
+<h1 id="面向连接无连接的最主要区别">面向连接、无连接的最主要区别</h1>
+
+<ul>
+  <li>面向连接分为三个阶段，第一是建立连接，在此阶段，发出一个建立连接的请求。只有在连接成功建立之后，才能开始数据传输，这是第二阶段。接着，当数据传输完毕，必须释放连接。而面向无连接没有这么多阶段，它直接进行数据传输</li>
+  <li>面向连接的通信具有数据的保序性， 而面向无连接的通信不能保证接收数据的顺序与发送数据的顺序一致</li>
+</ul>
+
+<p>面向连接协议：TCP</p>
+
+<p>无连接协议：UDP</p>
+
+<h1 id="tcpudp">TCP&amp;UDP</h1>
+
+<ul>
+  <li><a href="_posts/2020-06-13-TCP&amp;UDP区别">TCP&amp;UDP</a></li>
+  <li><a href="_posts/2020-10-26-TCP可靠性保证">TCP可靠性</a></li>
+  <li><a href="_posts/2020-06-12-TCP三次握手四次挥手">三次握手四次挥手</a></li>
+</ul>
+
+<h1 id="ip报文">IP报文</h1>
+
+<ul>
+  <li><a href="_posts/2020-07-18-IP报文">IP报文</a></li>
+</ul>
+
+<h1 id="tracert命令">tracert命令</h1>
+
+<blockquote>
+  <p>Tracert(跟踪路由)是路由跟踪实用程序，用于确定 IP数据包访问目标所采取的路径。Tracert 命令使用用 IP 生存时间 (TTL)  字段和 ICMP 错误消息来确定从一个主机到网络上其他主机的路由.其命令格式如下。tracert [-d] [-h maximum_hops]  [-j computer-list] [-w timeout] target_name</p>
+</blockquote>
+
+<h2 id="tracert工作过程分析"><strong>tracert工作过程分析</strong></h2>
+
+<p>首先，tracert送出一个TTL是1的IP 数据包到目的地，当路径上的第一个路由器收到这个数据包时，它将TTL减1。此时，TTL变为0，所以该路由器会将此数据包丢掉，并送回一个「ICMP time exceeded」消息（包括发IP包的源地址，IP包的所有内容及路由器的IP地址），tracert 收到这个消息后，便知道这个路由器存在于这个路径上，接着tracert 再送出另一个TTL是2 的数据包，发现第2 个路由器…… tracert 每次将送出的数据包的TTL 加1来发现另一个路由器，这个重复的动作一直持续到某个数据包 抵达目的地。当数据包到达目的地后，该主机则不会送回ICMP time exceeded消息，一旦到达目的地，由于tracert通过UDP数据包向不常见端口(30000以上)发送数据包，因此会收到「ICMP port unreachable」消息，故可判断到达目的地。</p>
+
+<p>tracert 有一个固定的时间等待响应(ICMP TTL到期消息)。如果这个时间过了，它将打印出一系列的*号表明：在这个路径上，这个设备不能在给定的时间内发出ICMP TTL到期消息的响应。然后，Tracert给TTL记数器加1，继续进行。</p>
+
+<h1 id="ping-工作过程分析">ping 工作过程分析</h1>
+
+<p>PING (Packet Internet Groper)，因特网包探索器，用于测试网络连接量的程序。Ping发送一个ICMP echo请求消息给目的地并报告是否收到所希望的<a href="http://baike.baidu.com/view/30564.htm">ICMP</a> echo （ICMP回声应答）。它是用来检查网络是否通畅或者网络连接速度的命令。原理：利用网络上机器IP地址的唯一性，给目标IP地址发送一个<a href="http://baike.baidu.com/view/25880.htm">数据包</a>，再要求对方返回一个同样大小的数据包来确定两台网络机器是否连接相通，<a href="http://baike.baidu.com/view/476266.htm">时延</a>是多少。</p>
+
+<h1 id="ip地址">IP地址</h1>
+
+<p>IP地址被用来给Internet上的电脑一个编号。大家日常见到的情况是每台联网的PC上都需要有IP地址，才能正常通信。我们可以把“个人电脑”比作“一台电话”，那么“IP地址”就相当于“电话号码”，而Internet中的路由器，就相当于电信局的“程控式交换机”。 
+  IP地址是一个32位的二进制数，通常被分割为4个“8位二进制数”（也就是4个字节）。IP地址通常用“点分十进制”表示成（a.b.c.d）的形式，其中，a,b,c,d都是0~255之间的十进制整数。例：点分十进IP地址（100.4.5.6），实际上是32位二进制数（01100100.00000100.00000101.00000110）</p>
+
+<h2 id="a类b类c类">A类，B类，C类</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>概念</th>
+      <th>特征</th>
+      <th>网络范围</th>
+      <th>默认掩码</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A类地址</td>
+      <td>第1个8位中的第1位始终为0</td>
+      <td>0-127.x.x.x</td>
+      <td>255.0.0.0/8</td>
+    </tr>
+    <tr>
+      <td>B类地址</td>
+      <td>第1个8位中的第1、2位始终为10</td>
+      <td>128-191.x.x.x</td>
+      <td>255.255.0.0/16</td>
+    </tr>
+    <tr>
+      <td>C类地址</td>
+      <td>第1个8位中的第1、2、3位始终为110</td>
+      <td>192-y.x.x.x</td>
+      <td>255.255.255.0/24</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="特殊">特殊</h2>
+
+<p>D类 以1110开始 用于组播 
+ E类 以11110开始 用于科研保留</p>
+
+<p>范围上划分有些要注意的： 
+ A类 从1.0.0.0 到126.255.255.255 
+ B类 从128.0.0.0到191.255.255.255 
+ C类 从192.0.0.0到223.255.255.255 
+ 其中127.x.x.x段地址空间是被保留的回环地址</p>
+
+<p>IP地址包含 网络地址+主机地址，即IP地址=网络地址+主机地址</p>
+
+<p>网络地址: 
+ 1、如果是192的C段地址，那么，网络地址就是：192.168.1.0，地址掩码是：255.255.255.0。 
+ 2、如果地址掩码是：255.255.0.0，那么网络地址就是：192.168.0.0。 
+ 3、网络地址很大一部分是由地址掩码决定的</p>
+
+<p>主机地址：</p>
+
+<p>如IP地址是202.112.14.137，掩码是255.255.255.224 ，</p>
+
+<p>网络地址是202.112.14.128，子网号是128。</p>
+
+<p>主机地址是202.112.14.137</p>
+
+<h1 id="子网掩码">子网掩码</h1>
+
+<p>子网掩码(subnet mask)又叫网络掩码、地址掩码、子网络遮罩，它是一种用来指明一个IP地址的哪些位标识的是主机所在的子网，以及哪些位标识的是主机的位掩码。</p>
+
+<p>子网掩码不能单独存在，它必须结合IP地址一起使用。子网掩码只有一个作用，就是将某个IP地址划分成网络地址和主机地址两部分。 
+ 子网掩码是一个32位地址，用于屏蔽IP地址的一部分以区别网络标识和主机标识，并说明该IP地址是在局域网上，还是在远程网上。</p>
+
+<p>子网掩码——屏蔽一个IP地址的网络部分的“全1”比特模式。对于A类地址来说，默认的子网掩码是255.0.0.0；对于B类地址来说默认的子网掩码是255.255.0.0；对于C类地址来说默认的子网掩码是255.255.255.0。</p>
+
+<ul>
+  <li>通过子网掩码，就可以判断两个IP在不在一个局域网内部。</li>
+  <li>子网掩码可以看出有多少位是网络号，有多少位是主机号</li>
+</ul>
+
+<h2 id="子网掩码计算">子网掩码计算</h2>
+
+<p>在求子网掩码之前必须先搞清楚要划分的子网数目，以及每个子网内的所需主机数目。</p>
+
+<ol>
+  <li>将子网数目转化为二进制来表示</li>
+  <li>取得该二进制的位数，为 N</li>
+  <li>取得该 IP地址的类子网掩码，将其主机地址部分的的前N位置 1 即得出该IP地址划分子网的子网掩码。</li>
+</ol>
+
+<h3 id="例子">例子</h3>
+
+<ol>
+  <li>如欲将C类IP地址192.168.10.0划分成4个子网：
+    <ul>
+      <li>4=100</li>
+      <li>该二进制为三位数，N = 3</li>
+      <li>将A类地址的子网掩码255.255.255.0的主机地址前3位置 1，得到子网掩码255.255.255.224</li>
+    </ul>
+  </li>
+</ol>
+
+<pre><code class="language-bash">IP		11000000 10101000 00001010 00000000
+子网掩码 11111111 11111111 11111111 11100000	
+</code></pre>
+
+<h1 id="网关">网关</h1>
+
+<p>网关(Gateway)又称网间连接器、协议转换器。默认网关在网络层上以实现网络互连，是最复杂的网络互连设备，仅用于两个高层协议不同的网络互连。网关的结构也和路由器类似，不同的是互连层。网关既可以用于广域网互连，也可以用于局域网互连</p>
+
+<p>网关实质上是一个网络通向其他网络的IP地址。</p>
+
+<p>比如有网络A和网络B，网络A的IP地址范围为“192.168.1.1~192. 168.1.254”，子网掩码为255.255.255.0；网络B的IP地址范围为“192.168.2.1~192.168.2.254”，子网掩码为255.255.255.0。</p>
+
+<p>在没有路由器的情况下，两个网络之间是不能进行TCP/IP通信的，即使是两个网络连接在同一台交换机（或集线器）上，TCP/IP协议也会根据子网掩码（255.255.255.0）判定两个网络中的主机处在不同的网络里。</p>
+
+<p>而要实现这两个网络之间的通信，则必须通过网关。如果网络A中的主机发现数据包的目的主机不在本地网络中，就把数据包转发给它自己的网关，再由网关转发给网络B的网关，网络B的网关再转发给网络B的某个主机。</p>
+
+<p>所以说，只有设置好网关的IP地址，TCP/IP协议才能实现不同网络之间的相互通信。那么这个IP地址是哪台机器的IP地址呢？网关的IP地址是具有路由功能的设备的IP地址，具有路由功能的设备有路由器、启用了路由协议的服务器（实质上相当于一台路由器）、代理服务器（也相当于一台路由器）。</p>
+
+<h1 id="广播地址">广播地址</h1>
+
+<p>广播地址(Broadcast Address)是专门用于同时向网络中所有工作站进行发送的一个地址。</p>
+
+<p>在使用TCP/IP 协议的网络中，主机标识段host ID 为全1 的IP 地址为广播地址，广播的分组传送给host  ID段所涉及的所有计算机。例如，对于10.1.1.0 （255.255.255.0 ）网段，其广播地址为10.1.1.255 （255 即为2  进制的11111111 ），当发出一个目的地址为10.1.1.255 的分组（封包）时，它将被分发给该网段上的所有计算机。</p>
+
+<h2 id="根据ip地址和子网掩码求-网络地址-和-广播地址">根据IP地址和子网掩码求 网络地址 和 广播地址</h2>
+
+<ul>
+  <li>将IP地址和子网掩码换算为二进制，子网掩码连续全1的是网络地址，后面的是主机地址，虚线前为网络地址，虚线后为主机地址</li>
+  <li><strong>IP地址和子网掩码进行与运算，结果是网络地址</strong>（即主机号全0是网络地址）</li>
+  <li>将运算结果中的网络地址不变，<strong>主机地址变为1，结果就是广播地址</strong></li>
+  <li>地址范围就是含在本网段内的所有主机</li>
+</ul>
+
+<p>网络地址+1即为第一个主机地址，广播地址-1即为最后一个主机地址， 
+ 由此可以看出地址范围是： 网络地址+1 至 广播地址-1</p>
+
+<ul>
+  <li>主机的数量=2^二进制位数的主机-2</li>
+</ul>
+
+<p>减2是因为主机不包括网络地址和广播地址。</p>
+
+<h2 id="根据子网掩码可以分割网络号主机号">根据子网掩码可以分割网络号+主机号</h2>
+
+<p><code>255.255.255.224</code> 转二进制：</p>
+
+<pre><code>11111111 11111111 11111111 11100000
+</code></pre>
+
+<p>网络号有27位，主机号有5位</p>
+
+<p>网络地址就是：把IP地址转成二进制和子网掩码进行与运算</p>
+
+<p>11001010 01110000 00001110 10001001</p>
+
+<p>IP地址&amp;子网掩码</p>
+
+<pre><code class="language-bash">11001010 01110000 00001110 10001001
+11111111 11111111 11111111 11100000
+------------------------------------------------------
+11001010 01110000 00001110 10000000
+</code></pre>
+
+<h2 id="计算广播地址">计算广播地址</h2>
+
+<p>广播地址：网络地址的主机位全部变成1 ，10011111 即159 即：202.112.14.159</p>
+
+<h2 id="主机数">主机数</h2>
+
+<p>主机号有5位，那么这个地址中，就只能有2^5−2=30个主机</p>
+
+<p>因为其中全0作为网络地址，全1作为广播地址</p>
+
+<h1 id="ppp协议">PPP协议</h1>
+
+<p>点对点协议（Point to Point Protocol，PPP）为在点对点连接上传输多协议数据包提供了一个标准方法。PPP 最初设计是为两个对等节点之间的 IP 流量传输提供一种封装协议。在 TCP-IP 协议集中它是一种用来同步调制连接的数据链路层协议（OSI模式中的第二层），替代了原来非标准的第二层协议，即 SLIP。除了 IP 以外 PPP 还可以携带其它协议，包括 DECnet 和 Novell 的 Internet 网包交换（IPX）。</p>
+
+<p><strong>PPP协议支持以下功能</strong></p>
+
+<ul>
+  <li>IP地址的动态分配和管理</li>
+  <li>同步或异步的物理层通信</li>
+  <li>链路的配置、质量检测和纠错</li>
+  <li>多种配置参数选项的协商</li>
+</ul>
+
+<p>PPP是目前使用最广泛的数据链路层协议，不管是低速的拨号猫连接还是高速的光纤链路，都适用PPP协议。因特网用户通常都要连接到某个ISP  才能接入到因特网。 PPP协议就是用户计算机和ISP进行通信时所使用的数据链路层协议。  ISP使用PPP协议为计算机分配一些网络参数（如IP地址、域名等</p>
+
+<p>PPP协议是一个协议集，主要包含下面三部分</p>
+
+<p>LCP（ Link Control Protocol）链路控制协议</p>
+
+<p>NCP（ Network Control Protocol）</p>
+
+<p>PPP的扩展协议（如Multilink Protocol)</p>
+
+<h3 id="ppp协议的六个阶段">PPP协议的六个阶段</h3>
+
+<p><strong>1. 链路不可用阶段：</strong> 初始阶段 
+ <strong>2. 链路建立阶段：</strong> LCP协商，（协商认证方式等） 
+ <strong>3. 验证阶段：</strong> PAP/CHAP验证 
+ <strong>4. 网络层协议阶段：</strong>NCP协商 
+ <strong>5. PPP会话维持阶段：</strong> 维持PPP会话， 定时发送Echo Request报文，并等待Echo Reply报文 
+ <strong>6. 网络终止阶段：</strong> 终止PPP会话，回到链路不可用阶段</p>
+
+<h2 id="ppp-帧">PPP 帧</h2>
+
+<p>PPP帧从HDLC（High-level link Control）</p>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>Flag</td>
+        <td>Addr</td>
+        <td>Control</td>
+        <td>Protocol</td>
+        <td>Data</td>
+        <td>Pad</td>
+        <td>FCS</td>
+        <td>Flag</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<p><strong>Flag：</strong>标志位、用于标识帧的开始和结束</p>
+
+<p><strong>Addr：</strong>地址位，用于标识Station地址。PPP帧发源自HDLC帧，保留了此字段。对于PPP帧来说，由于是点对点协议，不需要地址位。PPP帧的地址位恒为0xFF。（PPP协议被运用在点对点链路上，不需要知道对端的链路地址，因为点对点链路，如PPPoE帧头中，已经确定了对端的地址）。</p>
+
+<p><strong>Control：</strong>在DHLC帧中，Control位用来标识帧的顺序和重传行为，但由于该功能在PPP协议中并没有普遍实现，因此PPP帧中，Control值固定为）0x03.</p>
+
+<p><strong>Protocol：</strong>协议字段，标识所携带报文的类型。如0x0021时，表示PPP帧的信息字段是IP数据报文。不同的Protocol标识Data字段的不同含义</p>
+
+<p><strong>Data：</strong> 信息字段，即PPP帧的负载(如LCP帧、NCP帧）.信息域缺省时最大长度不能超过1500字节，其中包括填充域的内容</p>
+
+<p><strong>Pad:</strong> 填充字段</p>
+
+<p><strong>FCS：</strong>循环冗余码。 覆盖了两个Flag（不包括）之间的字段。</p>
+
+<p>…..</p>
+
+<h1 id="pppoe">PPPOE</h1>
+
+<h2 id="概述">概述</h2>
+
+<ol>
+  <li>PPPoE（ Point to Point Protocol over Ethernet ，基于以太网的点对点协议）的工作流程包含发现（ Discovery） 和会话（ Session） 两个阶段，发现阶段是无状态的，目的是获得PPPoE 终端（在局端的ADSL设备上）的以太网MAC 地址，并建立一个惟一的PPPoE SESSION-ID。发现阶段结束后，就进入标准的PPP会话阶段</li>
+  <li>当一个主机想开始一个PPPoE会话，它必须首先进行发现阶段，以识别局端的以太网MAC地址，并建立一个PPPoE SESSION-ID。在发现阶段，基于网络的拓扑，主机可以发现多个接入集中器，然后允许用户选择一个。当发现阶段成功完成，主机和选择的接入集中器都有了他们在以太网上建立PPP连接的信息。直到PPP会话建立，发现阶段一直保持无状态的Client/Server（客户/服务器）模式。一旦PPP会话建立，主机和接入集中器都必须为PPP虚接口分配资源</li>
+  <li>PPPOE可以防止ARP攻击。PPPOE能真正防止ARP的原因不在于，PPPOE接口IP和以太网接口IP不同，也不是通讯建立后不再用MAC等原因。而是因为PPPOE根本就没用的ARP协议，尽管它是用以太帧封装的，但它获得服务器MAC的方法不是用ARP协议，而是通过PADI包,所以它可以防止ARP攻击。</li>
+</ol>
+
+<h2 id="pppoe建立链接的过程">PPPOE建立链接的过程</h2>
+
+<p>分为三个阶段Discovery，Session，Terminate</p>
+
+<p><img src="https://images2015.cnblogs.com/blog/686769/201610/686769-20161020151718170-883782470.png" alt="img" /></p>
+
+<p><strong>PADI</strong> （<strong>PPPOE Active Discovery Initiation</strong>）：</p>
+
+<p>　　客户端广播发送PADI请求，查找网络中的服务器。PPPOE发现阶段的第一步，由客户端首先以广播的方式发送这样一个报文。所以该报文所对应的以太网帧的目的地址域应填充为全1，而源地址域填充用户主机的MAC地址。广播包可能会被多个访问集中器接收到。</p>
+
+<p><strong>PADO</strong>（<strong>PPPOE Active Discovery Offer</strong>）：</p>
+
+<p>　　服务器端响应，将自己的一些信息告知客户端。PPPOE发现阶段的第二步，由访问集中器回应各用户主机发送的PADI报文，此时该报文所对应的以太网帧的源地址填充访问集中器的MAC地址，而目的地址则填充从PADI中所获取的用户主机的MAC地址。</p>
+
+<p><strong>PADR</strong> （<strong>PPPOE Active Discovery Request</strong>）：</p>
+
+<p>　　客户端向选中的服务器发送PADR，请求会话号。PPPOE发现阶段的第三步，由用户主机向访问服务器发送单播的请求报文。当用户主机收到PADO报文后，会从这些报文中挑选一个访问集中器作为后续会话的对象。由于用户主机在收到PADO报文后，就获知了访问集中器的MAC地址，因此PADR报文所以应的以太网帧的源地址填充用户主机的MAC地址，而以太网的目的地址填充为访问集中器的MAC地址。</p>
+
+<p><strong>PADS</strong>（<strong>PPPOE Active Discovery Session­confirmation</strong>）：</p>
+
+<p>　　服务器将分配的会话号告知对方。PPPOE发现阶段的第四步，也是最后一步，此时访问集中器当收到PADR报文时，就准备进入开始一个PPP的会话了，而此时访问集中器会为在这个会话分配一个唯一的会话进程ID，并在发送给主机的PADS报文中携带上这个会话ID。当然如果访问集中器不满足用户所申请的服务的话，则会向用户发送一个PADS报文，而其中携带一个服务名错误的标记，而且此时该PADS报文中的会话ID填充0x0000。</p>
+
+<p><strong>PADT</strong> (<strong>PPPOE Active Discovery Terminate</strong>）：</p>
+
+<p>　　服务器或客户端发送终止会话请求。PADT报文可能在会话进行开始之后的任意时间内被发送，主要是用来终止一个PPPOE会话的止。它可以由主机或访问集中器发送，目的地址填充为对端的以太网的MAC地址。</p>
+
+<h3 id="2discovery-阶段">2、Discovery 阶段</h3>
+
+<p>　　Discovery阶段由四个过程组成。完成之后通信双方都会知道PPPoE的Session_ID 以及对方以太网地址，它们共同确定了唯一的PPPoESession。</p>
+
+<p>　　(1) PPPoE Client广播发送一个PADI报文，在此报文中包含PPPoEClient想要得到的服务类型信息。</p>
+
+<p>　　(2) 所有的PPPoEServer收到PADI报文之后，将其中请求的服务与自己能够提供的服务进行比较，如果可以提供，则单播回复一个PADO报文。</p>
+
+<p>　　(3)根据网络的拓扑结构，PPPoEClient可能收到多个PPPoEServer发送的PADO报文，PPPoE Client选择最先收到的PADO报文对应的PPPoEServer做为自己的PPPoE Server，并单播发送一个PADR报文。</p>
+
+<p>　　(4) PPPoE Server产生一个唯一的会话ID（SESSION ID），标识和PPPoE Client的这个会话，通过发送一个PADS报文把会话ID发送给PPPoEClient，如果没有错误，会话建立后便进入PPPoE Session阶段。</p>
+
+<h3 id="3session-阶段">3、Session 阶段</h3>
+
+<p>　　PPPoE Discovery阶段的工作为PPPoEClient和PPPoE之间建立了Session，之后PPPoE便进入了Session阶段，Session阶段可划分为两部分，一是PPP协商阶段，二是PPP报文传输阶段。</p>
+
+<p>　　PPPoESession上的PPP协商和普通的PPP协商方式一致，分为LCP、认证、NCP三个阶段。PPPoE Session的PPP协商成功后，其上就可以承载PPP数据报文。在PPPoESession阶段所有的以太网数据包都是单播发送的。　　　　</p>
+
+<p>　　(1)LCP阶段主要完成建立、配置和检测数据链路连接。</p>
+
+<p>　　(2)LCP协商成功后，开始进行认证工作，认证协议类型由LCP协商结果（CHAP或者PAP）决定。</p>
+
+<p>　　(3) 认证成功后，PPP进入NCP阶段，NCP是一个协议族，用于配置不同的网络层协议，常用的是IP控制协议（IPCP），它负责配置用户的IP和DNS等工作。</p>
+
+<h3 id="4terminate-阶段">4、Terminate 阶段</h3>
+
+<p>　　PPP通信双方应该使用PPP协议自身（比如PPP终结报文）来结束PPPoE会话，但在无法使用PPP协议结束会话时可以使用PADT报文。进入PPPoESession阶段后，PPPoE Client和PPPoE Server都可以通过发送PADT报文的</p>
+
+<p>方式来结束PPPoE连接。PADT数据包可以在会话建立以后的任意时刻单播发送。在发送或接收到PADT后，就不允许再使用该会话发送PPP流量了，即使是常规的PPP结束数据包也不允许发送</p>
+
+<h2 id="ppp与pppoe的区别">PPP与PPPOE的区别</h2>
+
+<ul>
+  <li>PPP建立点对点的对等关系，PPPoE建立Client/Server关系，Client先要拨号连接到Server再进行PPP协商和数据传输。</li>
+  <li>PPP是在点对点物理链路上传输，而PPPoE是在以太网上传输，二者报文格式不同， PPPoE连接包括发现阶段、会话阶段和终止阶段，PPPoE是在以太网帧上对数据进行PPP格式封装，省略了PPP格式的地址和控制字段。</li>
+  <li>PPPoE建立起隧道后，PPP报文和数据报文被分装在PPPoE报文中。</li>
+</ul>
+
+<h1 id="常见端口号">常见端口号</h1>
+
+<p><a href="_posts/2020-08-06-端口">端口</a></p>
+
+<h1 id="ftp">FTP</h1>
+
+<p>文件传输协议（FTP）作为网络共享文件的传输协议，在网络应用软件中具有广泛的应用。FTP的目标是提高文件的共享性和可靠高效地传送数据。</p>
+
+<p>相比其他协议，如 HTTP 协议，FTP 协议要复杂一些。与一般的 C/S 应用不同点在于一般的C/S 应用程序一般只会建立一个 Socket 连接，这个连接同时处理服务器端和客户端的连接命令和数据传输。而FTP协议中将命令与数据分开传送的方法提高了效率。</p>
+
+<p>FTP 使用 2 个端口，一个数据端口和一个命令端口（也叫做控制端口）。这两个端口一般是21 （命令端口）和 20 （数据端口）。控制  Socket 用来传送命令，数据 Socket 是用于传送数据。每一个 FTP 命令发送之后，FTP  服务器都会返回一个字符串，其中包括一个响应代码和一些说明信息。其中的返回码主要是用于判断命令是否被成功执行了。</p>
+
+<h1 id="dns">DNS</h1>
+
+<p>域名系统（Domain Name System，缩写：DNS）是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。DNS使用TCP和UDP端口53。当前，对于每一级域名长度的限制是63个字符，域名总长度则不能超过253个字符。DNS协议是用来将域名转换为IP地址</p>
+
+<p>查询方式：</p>
+
+<ul>
+  <li>递归</li>
+  <li>迭代</li>
+</ul>
+
+<h1 id="telnet">Telnet</h1>
+
+<p>Telnet协议是TCP/IP协议族中的一员，是Internet远程登录服务的标准协议和主要方式</p>
+
+<h1 id="网络分流器的分类">网络分流器的分类</h1>
+
+<p>按速度分</p>
+
+<ul>
+  <li>
+    <h4 id="千兆的网络分流器"><strong>千兆的网络分流器</strong></h4>
+  </li>
+  <li>
+    <h4 id="10g的网络分流器"><strong>10G的网络分流器</strong></h4>
+  </li>
+  <li>
+    <h4 id="40g的网络分流器"><strong>40G的网络分流器</strong></h4>
+  </li>
+  <li>
+    <h4 id="100ｇ的网络分流器"><strong>100Ｇ的网络分流器</strong></h4>
+  </li>
+</ul>
+
+<p>按网络技术</p>
+
+<ul>
+  <li>ＰＯＳ技术</li>
+  <li>ＬＡＮ技术</li>
+  <li>以太网技术</li>
+  <li>ＷＡＮ技术</li>
+</ul>
+
+<h1 id="mac地址分类">MAC地址分类</h1>
+
+<p>一个制造商在生产制造网卡之前，必须先向 IEEE 注册，以获取到一个长度为 24bit 的厂商代码，也称为  OUI（Organizationally-Unique Identifier）。制造商在生产制造网卡的过程中，会往每一块网卡的 ROM  中烧入一个 48bit 的 BIA（Burned-In Address，固化地址）地址，BIA 地址的前 3 个字节就是该制造商的 OUI，后 3 个字节由该制造商自己确定，但不同的网卡，其 BIA 地址的后 3 个字节不相同。烧入进网卡的 BIA 地址是不能被更改的，只能被读取出来使用</p>
+
+<p>注意，BIA 地址只是 MAC 地址的一种，更准确的说，BIA 地址是一种单播 MAC 地址。MAC 地址共分为 3 种，分别为单播 MAC 地址、组播 MAC 地址、广播 MAC 地址。这 3 种 MAC 地址的定义分别如下：</p>
+
+<p>1）单播 MAC 地址是指第一个字节的最低位是 0 的 MAC 地址。
+2）组播 MAC 地址是指第一个字节的最低位是 1 的 MAC 地址。
+3）广播 MAC 地址是指每个比特都是 1 的 MAC 地址。广播 MAC 地址是组播 MAC 地址的一个特例</p>
+
+<h1 id="交换式网络中捕获网络流量的基本方法">交换式网络中捕获网络流量的基本方法</h1>
+
+<p>数据抓包工具——Wireshark</p>
+
+<h1 id="以太网数据帧8023最大长度">以太网数据帧（802.3）最大长度</h1>
+
+<p>以太网(IEEE 802.3)帧格式：</p>
+
+<p>1、前导码：7字节0x55,一串1、0间隔，用于信号同步 
+  2、帧起始定界符：1字节0xD5(10101011)，表示一帧开始 
+  3、DA(目的MAC)：6字节 
+  4、SA(源MAC)：6字节 
+  5、类型/长度：2字节，0～1500保留为长度域值，1536～65535保留为类型域值(0x0600～0xFFFF) 
+  6、数据：46～1500字节 
+  7、帧校验序列(FCS)：4字节，使用CRC计算从目的MAC到数据域这部分内容而得到的校验和。</p>
+
+<p>据RFC894的说明，以太网封装IP数据包的最大长度是1500字节，也就是说以太网最大帧长应该是以太网首部加上1500，再加上7字节的前导同步码和1字节的帧开始定界符，具体就是：7字节前导同步吗＋1字节帧开始定界符＋6字节的目的MAC＋6字节的源MAC＋2字节的帧类型＋1500＋4字节的FCS。</p>
+
+<p>按照上述，最大帧应该是1526字节，但是实际上我们抓包得到的最大帧是1514字节，为什么不是1526字节呢？ 原因是当数据帧到达网卡时，在物理层上网卡要先去掉前导同步码和帧开始定界符，然后对帧进行CRC检验，如果帧校验和错，就丢弃此帧。如果校验和正确，就判断帧的目的硬件地址是否符合自己的接收条件（目的地址是自己的物理硬件地址、广播地址、可接收的多播硬件地址等），如果符合，就将帧交“设备驱动程序”做进一步处理。这时我们的抓包软件才能抓到数据， 因此，抓包软件抓到的是去掉前导同步码、帧开始分界符、FCS之外的数据，其最大值是6＋6＋2＋1500＝1514</p>
+
+<h1 id="三个私有地址块">三个私有地址块</h1>
+
+<p>在现在的网络中，IP地址分为公网IP和私有IP地址。公网IP是在Internet使用的IP地址，而私有IP地址是在局域网中使用的IP地址。</p>
+
+<p>​    由于我们目前使用的IP V4协议的限制，现在IP地址的数量是有限的。这样，我们就不能为居于网中的每一台计算机分配一个公网IP。所以，在局域网中的每台计算机就只能使用私有IP地址了，如我们常见的192.168.0.*，就是私有IP地址。</p>
+
+<p>​    私有IP地址是一段保留的IP地址。只是使用在局域网中，在Internet上是不使用的。</p>
+
+<p>​    私有IP地址的范围有：</p>
+
+<p>​    10.0.0.0-10.255.255.255</p>
+
+<p>​    172.16.0.0—172.31.255.255</p>
+
+<p>​    192.168.0.0-192.168.255.255</p>
+
+<p>​    上述的IP地址都是可以使用在局域网中的。</p>
+
+<h1 id="以太网帧的最大传输单元">以太网帧的最大传输单元</h1>
+
+<p>最大传输单元（Maximum Transmission Unit，MTU）用来通知对方所能接受数据服务单元的最大尺寸，说明发送方能够接受的有效载荷大小。</p>
+
+<p>是包或帧的最大长度，一般以字节记。如果MTU过大，在碰到路由器时会被拒绝转发，因为它不能处理过大的包。如果太小，因为协议一定要在包(或帧)上加上包头，那实际传送的数据量就会过小，这样也划不来。</p>
+
+<p>以太网和802.3对数据帧的长度都有一个限制，其最大值分别是1500字节和1492字节。链路层的这个特性称为MTU，即最大传输单元。</p>
+
+<h1 id="dhcp协议">DHCP协议</h1>
+
+<p>DHCP（Dynamic Host Configuration  Protocol，动态主机配置协议），前身是BOOTP协议，是一个局域网的网络协议，使用UDP协议工作，统一使用两个IANA分配的端口：67（服务器端），68（客户端）。DHCP通常被用于局域网环境，主要作用是集中的管理、分配IP地址，使client动态的获得IP地址、Gateway地址、DNS服务器地址等信息，并能够提升地址的使用率。简单来说，DHCP就是一个不需要账号密码登录的、自动给内网机器分配IP地址等信息的协议。</p>
+
+<h2 id="dhcp报文种类">DHCP报文种类</h2>
+
+<p>DHCP一共有8中报文，各种类型报文的基本功能如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>报文类型</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Discover（0x01）</td>
+      <td>DHCP客户端在请求IP地址时并不知道DHCP服务器的位置，因此DHCP客户端会在本地网络内以广播方式发送Discover请求报文，以发现网络中的DHCP服务器。所有收到Discover报文的DHCP服务器都会发送应答报文，DHCP客户端据此可以知道网络中存在的DHCP服务器的位置。</td>
+    </tr>
+    <tr>
+      <td>Offer（0x02）</td>
+      <td>DHCP服务器收到Discover报文后，就会在所配置的地址池中查找一个合适的IP地址，加上相应的租约期限和其他配置信息（如网关、DNS服务器等），构造一个Offer报文，发送给DHCP客户端，告知用户本服务器可以为其提供IP地址。但这个报文只是告诉DHCP客户端可以提供IP地址，最终还需要客户端通过ARP来检测该IP地址是否重复。</td>
+    </tr>
+    <tr>
+      <td>Request（0x03）</td>
+      <td>DHCP客户端可能会收到很多Offer请求报文，所以必须在这些应答中选择一个。通常是选择第一个Offer应答报文的服务器作为自己的目标服务器，并向该服务器发送一个广播的Request请求报文，通告选择的服务器，希望获得所分配的IP地址。另外，DHCP客户端在成功获取IP地址后，在地址使用租期达到50%时，会向DHCP服务器发送单播Request请求报文请求续延租约，如果没有收到ACK报文，在租期达到87.5%时，会再次发送广播的Request请求报文以请求续延租约。</td>
+    </tr>
+    <tr>
+      <td>ACK（0x05）</td>
+      <td>DHCP服务器收到Request请求报文后，根据Request报文中携带的用户MAC来查找有没有相应的租约记录，如果有则发送ACK应答报文，通知用户可以使用分配的IP地址。</td>
+    </tr>
+    <tr>
+      <td>NAK（0x06）</td>
+      <td>如果DHCP服务器收到Request请求报文后，没有发现有相应的租约记录或者由于某些原因无法正常分配IP地址，则向DHCP客户端发送NAK应答报文，通知用户无法分配合适的IP地址。</td>
+    </tr>
+    <tr>
+      <td>Release（0x07）</td>
+      <td>当DHCP客户端不再需要使用分配IP地址时（一般出现在客户端关机、下线等状况）就会主动向DHCP服务器发送RELEASE请求报文，告知服务器用户不再需要分配IP地址，请求DHCP服务器释放对应的IP地址。</td>
+    </tr>
+    <tr>
+      <td>Decline（0x04）</td>
+      <td>DHCP客户端收到DHCP服务器ACK应答报文后，通过地址冲突检测发现服务器分配的地址冲突或者由于其他原因导致不能使用，则会向DHCP服务器发送Decline请求报文，通知服务器所分配的IP地址不可用，以期获得新的IP地址。</td>
+    </tr>
+    <tr>
+      <td>Inform（0x08）</td>
+      <td>DHCP客户端如果需要从DHCP服务器端获取更为详细的配置信息，则向DHCP服务器发送Inform请求报文；DHCP服务器在收到该报文后，将根据租约进行查找到相应的配置信息后，向DHCP客户端发送ACK应答报文。目前基本上不用了。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="dhcp报文格式">DHCP报文格式</h2>
+
+<p><img src="https://img-blog.csdnimg.cn/20190309214154375.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p6ZF96emQ=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+
+<ul>
+  <li>
+    <p>op</p>
+
+    <p>：报文的操作类型。分为请求报文和响应报文。1：请求报文，2：应答报文。即client送给server的封包，设为1，反之为2。</p>
+
+    <ul>
+      <li>请求报文：DHCP Discover、DHCP Request、DHCP Release、DHCP Inform和DHCP Decline。</li>
+      <li>应答报文：DHCP Offer、DHCP ACK和DHCP NAK。</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>htype</strong>：DHCP客户端的MAC地址类型。MAC地址类型其实是指明网络类型。htype值为1时表示为最常见的以太网MAC地址类型。</p>
+  </li>
+  <li>
+    <p><strong>hlen</strong>：DHCP客户端的MAC地址长度。以太网MAC地址长度为6个字节，即以太网时hlen值为6。</p>
+  </li>
+  <li>
+    <p><strong>hops</strong>：DHCP报文经过的DHCP中继的数目，默认为0。DHCP请求报文每经过一个DHCP中继，该字段就会增加1。没有经过DHCP中继时值为0。(若数据包需经过router传送，每站加1，若在同一网内，为0。)</p>
+  </li>
+  <li>
+    <p><strong>xid</strong>：客户端通过DHCP Discover报文发起一次IP地址请求时选择的随机数，相当于请求标识。用来标识一次IP地址请求过程。在一次请求中所有报文的Xid都是一样的。</p>
+  </li>
+  <li>
+    <p><strong>secs</strong>：DHCP客户端从获取到IP地址或者续约过程开始到现在所消耗的时间，以秒为单位。在没有获得IP地址前该字段始终为0。(DHCP客户端开始DHCP请求后所经过的时间。目前尚未使用，固定为0。)</p>
+  </li>
+  <li>
+    <p>flags</p>
+
+    <p>：标志位，只使用第0比特位，是广播应答标识位，用来标识DHCP服务器应答报文是采用单播还是广播发送，0表示采用单播发送方式，1表示采用广播发送方式。其余位尚未使用。(即从0-15bits，最左1bit为1时表示server将以广播方式传送封包给client。)</p>
+
+    <ul>
+      <li>注意：在客户端正式分配了IP地址之前的第一次IP地址请求过程中，所有DHCP报文都是以广播方式发送的，包括客户端发送的DHCP Discover和DHCP Request报文，以及DHCP服务器发送的DHCP Offer、DHCP ACK和DHCP  NAK报文。当然，如果是由DHCP中继器转的报文，则都是以单播方式发送的。另外，IP地址续约、IP地址释放的相关报文都是采用单播方式进行发送的。</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>ciaddr</strong>：DHCP客户端的IP地址。仅在DHCP服务器发送的ACK报文中显示，因为在得到DHCP服务器确认前，DHCP客户端是还没有分配到IP地址的。在其他报文中均显示，只有客户端是Bound、Renew、Rebinding状态，并且能响应ARP请求时，才能被填充。</p>
+  </li>
+  <li>
+    <p><strong>yiaddr</strong>：DHCP服务器分配给客户端的IP地址。仅在DHCP服务器发送的Offer和ACK报文中显示，其他报文中显示为0。</p>
+  </li>
+  <li>
+    <p>siaddr</p>
+
+    <p>：下一个为DHCP客户端分配IP地址等信息的DHCP服务器IP地址。仅在DHCP Offer、DHCP ACK报文中显示，其他报文中显示为0。(用于bootstrap过程中的IP地址)</p>
+
+    <ul>
+      <li>一般来说是服务器的ip地址.但是注意！根据openwrt源码给出的注释，当报文的源地址、siaddr、option­&gt;server_id字段不一致（有经过跨子网转发）时，通常认为option­&gt;srever_id字段为真正的服务器ip，siaddr有可能是多次路由跳转中的某一个路由的ip</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>giaddr</strong>：DHCP客户端发出请求报文后经过的第一个DHCP中继的IP地址。如果没有经过DHCP中继，则显示为0。(转发代理（网关）IP地址)</p>
+  </li>
+  <li>
+    <p><strong>chaddr</strong>：DHCP客户端的MAC地址。在每个报文中都会显示对应DHCP客户端的MAC地址。</p>
+  </li>
+  <li>
+    <p><strong>sname</strong>：为DHCP客户端分配IP地址的DHCP服务器名称（DNS域名格式）。在Offer和ACK报文中显示发送报文的DHCP服务器名称，其他报文显示为0。</p>
+  </li>
+  <li>
+    <p><strong>file</strong>：DHCP服务器为DHCP客户端指定的启动配置文件名称及路径信息。仅在DHCP Offer报文中显示，其他报文中显示为空。</p>
+  </li>
+  <li>
+    <p><strong>options</strong>：可选项字段，长度可变，格式为”代码+长度+数据”。</p>
+  </li>
+</ul>
+
+<h2 id="dhcp工作流程">DHCP工作流程</h2>
+
+<p>DHCP SERVER负责接收客户端的DHCP请求，集中管理所有客户机的IP地址设定资料，并负责处理客户端的DHCP请求，相比于BOOTP，DHCP通过“租约”来实现动态分配IP的功能，实现IP的时分复用，从而解决IP资源短缺的问题。</p>
+
+<p>其地址分配方式有如下三种</p>
+
+<ul>
+  <li><strong>人工配置</strong>：由管理员对每台具体的计算机指定一个地址</li>
+  <li><strong>自动配置</strong>：服务器为第一次连接网络的计算机分配一个永久地址，DHCP客户端第一次成功地从DHCP服务器端分配到一个IP地址之后，就永远使用这个地址</li>
+  <li><strong>动态配置</strong>：在一定的期限内将地址租给计算机，客户端第一次从DHCP服务器分配到IP地址后，并非永久地使用该地址，每次使用完后，DHCP客户端就得释放这个IP地址，并且租期结束后客户必须续租或者停用该地址，而对于路由器，经常使用的地址分配方式是动态配置。</li>
+</ul>
+
+</div>
+<div class="v">
+  <i class="fas fa-spinner fa-pulse"></i>
+</div>
+<script
+  src='https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js'
+  defer='defer'
+  onload='
+    new Valine({
+      "el": document.getElementsByClassName("v")[0],
+      "appId": "9hABRddSuEkTgqLrt1VSK5B1-gzGzoHsz",
+      "appKey": "NJ7RwmgrxsF7KDzlqU7YewlL",
+      "placeholder": "在这里评论吧！填写邮箱可以获得 Gravatar 头像和回复通知哦",
+      "requiredFields": ["nick","mail"],
+      "visitor": true,
+      "recordIP": true
+    })'
+></script>
+
+</div>
+  </div>
+  
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  
+</body>
+
+</html>

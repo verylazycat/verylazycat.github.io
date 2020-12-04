@@ -103,3 +103,27 @@
 [大三(上)规划](/_posts/2020-06-11-大三上计划.md)
 
 <!-- slide vertical=true -->
+
+## 复制我的博客
+
+下载
+
+```bash
+git clone https://github.com/verylazycat/verylazycat.github.io.git
+```
+
+安装依赖
+
+```bash
+sudo apt-get install gem
+sudo apt-get install ruby-dev
+gem install jekyll
+bundle install
+```
+
+编译运行
+
+```bash
+bundle exec jekyll serve
+```
+
