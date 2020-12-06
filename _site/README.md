@@ -48,6 +48,7 @@
 - 华为云微认证
 - 计算机作品赛
 - 泛珠三角
+- 计算机绿色比赛
 
 <!-- slide vertical=true -->
 
@@ -75,8 +76,6 @@
 - C/C++
 
 - java
-
-- java web
 
 - web penetration
 
@@ -127,3 +126,4 @@ bundle install
 bundle exec jekyll serve
 ```
 
+> 给个star可以咩？？

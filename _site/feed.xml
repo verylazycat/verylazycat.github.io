@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-06T20:30:21+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-06T20:41:22+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -60,7 +60,7 @@
 
 &lt;h2 id=&quot;安全&quot;&gt;安全&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;_posts/2020-06-15-ARP安全&quot;&gt;参考文章&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/_posts/2020-06-15-ARP安全&quot;&gt;参考文章&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;tcpip协议簇的层次&quot;&gt;TCP/IP协议簇的层次&lt;/h1&gt;
 
@@ -250,15 +250,15 @@
 &lt;h1 id=&quot;tcpudp&quot;&gt;TCP&amp;amp;UDP&lt;/h1&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;_posts/2020-06-13-TCP&amp;amp;UDP区别&quot;&gt;TCP&amp;amp;UDP&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;_posts/2020-10-26-TCP可靠性保证&quot;&gt;TCP可靠性&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;_posts/2020-06-12-TCP三次握手四次挥手&quot;&gt;三次握手四次挥手&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/_posts/2020-06-13-TCP&amp;amp;UDP区别&quot;&gt;TCP&amp;amp;UDP&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/_posts/2020-10-26-TCP可靠性保证&quot;&gt;TCP可靠性&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/_posts/2020-06-12-TCP三次握手四次挥手&quot;&gt;三次握手四次挥手&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&quot;ip报文&quot;&gt;IP报文&lt;/h1&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;_posts/2020-07-18-IP报文&quot;&gt;IP报文&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/_posts/2020-07-18-IP报文&quot;&gt;IP报文&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&quot;tracert命令&quot;&gt;tracert命令&lt;/h1&gt;
@@ -595,7 +595,7 @@
 
 &lt;h1 id=&quot;常见端口号&quot;&gt;常见端口号&lt;/h1&gt;
 
-&lt;p&gt;&lt;a href=&quot;_posts/2020-08-06-端口&quot;&gt;端口&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/_posts/2020-08-06-端口&quot;&gt;端口&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;ftp&quot;&gt;FTP&lt;/h1&gt;
 
