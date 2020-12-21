@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-20T14:43:45+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-21T14:44:44+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -33,14 +33,11 @@
 
 &lt;h2 id=&quot;分时技术&quot;&gt;分时技术&lt;/h2&gt;
 
-&lt;p&gt;谓分时技术，是把处理机时间划分成很短的时间片(如几百毫秒)轮地
-分配给各个应用程序使用，如果某个程序在分配的时间片用完之前计
-算还未完成，该程序就暂时中断，等待下一轮继续计算。&lt;/p&gt;
+&lt;p&gt;谓分时技术，是把处理机时间划分成很短的时间片(如几百毫秒)轮地分配给各个应用程序使用，如果某个程序在分配的时间片用完之前计算还未完成，该程序就暂时中断，等待下一轮继续计算。&lt;/p&gt;
 
 &lt;h2 id=&quot;实时处理&quot;&gt;实时处理&lt;/h2&gt;
 
-&lt;p&gt;计算机对于外来信息能够在被控对象允许的截止期限
-(deadline)内作出反应。&lt;/p&gt;
+&lt;p&gt;计算机对于外来信息能够在被控对象允许的截止期限(deadline)内作出反应。&lt;/p&gt;
 
 &lt;h2 id=&quot;单cpu计算机配置的操作系统&quot;&gt;单CPU计算机配置的操作系统&lt;/h2&gt;
 
@@ -781,7 +778,126 @@ I/O中断方式
 DMA方式
 通道方式&lt;/p&gt;
 
-&lt;h2 id=&quot;文件系统&quot;&gt;文件系统&lt;/h2&gt;</content><author><name></name></author><category term="操作系统" /><summary type="html">[toc]</summary></entry><entry><title type="html">协议分析复习</title><link href="http://localhost:4000/_posts/2020-12-04-%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0/" rel="alternate" type="text/html" title="协议分析复习" /><published>2020-12-04T00:00:00+08:00</published><updated>2020-12-04T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0</id><content type="html" xml:base="http://localhost:4000/_posts/2020-12-04-%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0/">&lt;p&gt;[toc]&lt;/p&gt;
+&lt;h2 id=&quot;文件系统&quot;&gt;文件系统&lt;/h2&gt;
+
+&lt;p&gt;…&lt;/p&gt;
+
+&lt;h2 id=&quot;操作系统5大功能&quot;&gt;操作系统5大功能&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;设备管理&lt;/li&gt;
+  &lt;li&gt;作业管理&lt;/li&gt;
+  &lt;li&gt;文件管理&lt;/li&gt;
+  &lt;li&gt;进程管理&lt;/li&gt;
+  &lt;li&gt;存储管理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;管理处理机&lt;/li&gt;
+  &lt;li&gt;管理存储器&lt;/li&gt;
+  &lt;li&gt;管理设备&lt;/li&gt;
+  &lt;li&gt;管理文件&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;进程间制约关系&quot;&gt;进程间制约关系&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;同步&lt;/li&gt;
+  &lt;li&gt;互斥&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;顾客和收银员：同步&lt;/p&gt;
+
+&lt;p&gt;两个球队比赛：互斥&lt;/p&gt;
+
+&lt;p&gt;共享多缓存计算进程和打印进程：同步&lt;/p&gt;
+
+&lt;h2 id=&quot;死锁条件和原因&quot;&gt;死锁条件和原因&lt;/h2&gt;
+
+&lt;p&gt;条件：&lt;/p&gt;
+
+&lt;p&gt;① 互斥条件
+     涉及的资源是非共享的，即为临界资源。
+② 不剥夺条件
+     进程所获得的资源在未使用完毕之前，不能被其他进程强行夺走。
+③ 部分分配
+     进程每次申请它所需要的一部分资源。在等待一新资源的同时，进程继续占用已分配到的资源。
+④ 环路条件
+      存在一种进程的循环链，链中的每一个进程已获得的资源同时被链中下一个进程所请求&lt;/p&gt;
+
+&lt;p&gt;原因：&lt;/p&gt;
+
+&lt;p&gt;① 系统资源不足
+② 进程推进顺序非法&lt;/p&gt;
+
+&lt;h2 id=&quot;虚拟存储器-1&quot;&gt;虚拟存储器&lt;/h2&gt;
+
+&lt;p&gt;由操作系统和硬件相配合来完成主存和辅存之间的信息的动态调度。这样的计算机系统好像为用户提供了一个其存储容量比实际主存大得多的存储器，这个存储器称为虚拟存储器&lt;/p&gt;
+
+&lt;h2 id=&quot;存储器管理的主要功能&quot;&gt;存储器管理的主要功能&lt;/h2&gt;
+
+&lt;p&gt;内存分配，地址映射，内存保护，内存扩充&lt;/p&gt;
+
+&lt;h2 id=&quot;虚拟存储器理论基础&quot;&gt;虚拟存储器理论基础&lt;/h2&gt;
+
+&lt;p&gt;程序执行时某些部分的互斥性和局部性&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;页式虚存管理，一道作业被划分成若干页，其中较活跃的几页放在内存，而其余不活跃的页被放在辅存，当需要访问辅存内的页时，就可通过页面调度将其调人内存运行；但用户感觉不到这种变化，他会以为作业的所有部分都存在于主存。这样可以让更多的作业进入主存，提高系统的效率。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;虚拟存储器大小&quot;&gt;虚拟存储器大小&lt;/h2&gt;
+
+&lt;p&gt;容量由计算机的地址结构和辅存的容量决定，而与实际的主存容量无关&lt;/p&gt;
+
+&lt;p&gt;逻辑地址长度为16位 页面大小为4096字节，页面如下：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;页号&lt;/th&gt;
+      &lt;th&gt;块号&lt;/th&gt;
+      &lt;th&gt;中断位&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;7&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;10&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;计算逻辑地址物理地址，并指出可能的中断：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1D4FH :第一页，不在内存，缺页中断&lt;/li&gt;
+  &lt;li&gt;2AC3H ：4AC3H或者19139&lt;/li&gt;
+  &lt;li&gt;3A7EH：5A7EH或者23166&lt;/li&gt;
+  &lt;li&gt;46C6H：A6C6H或者42694&lt;/li&gt;
+  &lt;li&gt;57B1H：第5页，超过长度，越界中断&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="操作系统" /><summary type="html">[toc]</summary></entry><entry><title type="html">协议分析复习</title><link href="http://localhost:4000/_posts/2020-12-04-%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0/" rel="alternate" type="text/html" title="协议分析复习" /><published>2020-12-04T00:00:00+08:00</published><updated>2020-12-04T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0</id><content type="html" xml:base="http://localhost:4000/_posts/2020-12-04-%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90%E5%A4%8D%E4%B9%A0/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;arp&quot;&gt;ARP&lt;/h1&gt;
 
