@@ -341,6 +341,14 @@
   <li><a href="#%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8">合并两个排序的链表</a></li>
   <li><a href="#-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F"> 二叉树的镜像</a></li>
   <li><a href="#%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E6%95%B0%E5%AD%97-i">在排序数组中查找数字 I</a></li>
+  <li><a href="#%E5%92%8C%E4%B8%BAs%E7%9A%84%E8%BF%9E%E7%BB%AD%E6%AD%A3%E6%95%B0%E5%BA%8F%E5%88%97">和为s的连续正数序列</a></li>
+  <li><a href="#-%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90"> 扑克牌中的顺子</a></li>
+  <li><a href="#%E4%B8%8D%E7%94%A8%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4%E5%81%9A%E5%8A%A0%E6%B3%95">不用加减乘除做加法</a></li>
+  <li><a href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88">二叉搜索树的最近公共祖先</a></li>
+  <li><a href="#%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97">最长公共子序列</a></li>
+  <li><a href="#%E4%B8%91%E6%95%B0">丑数</a></li>
+  <li><a href="#%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C">三数之和</a></li>
+  <li><a href="#%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA">买卖股票的最佳时机</a></li>
 </ol>
       
       
@@ -608,11 +616,11 @@
     
     
     <i class="fas fa-file-word fa-fw"></i>
-    8271字
+    11803字
     
     
     <i class="fas fa-clock fa-fw"></i>
-    28分
+    40分
     
     
     <span class="leancloud-visitors" id="/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" data-xid="/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/" data-flag-title="剑指offer">
@@ -1398,6 +1406,278 @@ public:
         boundaryLeft = right;
 
         return boundaryRight - boundaryLeft - 1;
+    }
+};
+</code></pre>
+
+<h1 id="和为s的连续正数序列"><a href="https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/">和为s的连续正数序列</a></h1>
+
+<p>输入一个正整数 target ，输出所有和为 target 的连续正整数序列（至少含有两个数）。</p>
+
+<p>序列内的数字由小到大排列，不同序列按照首个数字从小到大排列。</p>
+
+<p><strong>示例 1：</strong></p>
+
+<pre><code>输入：target = 9
+输出：[[2,3,4],[4,5]]
+</code></pre>
+
+<p>解：</p>
+
+<pre><code class="language-c++">class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; findContinuousSequence(int target) {
+        //滑动窗口
+        int i = 1,j = 1,sum = 0;
+        vector&lt;vector&lt;int&gt;&gt; res;
+        while(i &lt;= target/2)
+        {
+            if(sum &lt; target)
+            {
+                sum += j;
+                j++;
+            }
+            else if(sum &gt; target)
+            {
+                sum -= i;
+                i++;
+            }
+            else
+            {
+                //sum == target
+                vector&lt;int&gt; temp;
+                for(int k = i;k &lt; j;k++)
+                {
+                    temp.push_back(k);
+                }
+                res.push_back(temp);
+                sum -= i;
+                i++;
+            }
+        }
+        return res;
+    }
+};
+</code></pre>
+
+<h1 id="-扑克牌中的顺子"><a href="https://leetcode-cn.com/problems/bu-ke-pai-zhong-de-shun-zi-lcof/"> 扑克牌中的顺子</a></h1>
+
+<p>从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不是连续的。2～10为数字本身，A为1，J为11，Q为12，K为13，而大、小王为 0 ，可以看成任意数字。A 不能视为 14</p>
+
+<p><strong>示例 1:</strong></p>
+
+<pre><code>输入: [1,2,3,4,5]
+输出: True
+</code></pre>
+
+<p><strong>示例 2:</strong></p>
+
+<pre><code>输入: [0,0,1,2,5]
+输出: True
+</code></pre>
+
+<p>解：</p>
+
+<pre><code class="language-c++">class Solution {
+public:
+    bool isStraight(vector&lt;int&gt;&amp; nums) {
+        //排序，计算0个数，遍历，前后不同，看差的用0补充够不够
+        sort(nums.begin(), nums.end());
+        int zero = 0;
+        for (int i = 0; i &lt; 4; i ++) {
+            if (nums[i] == 0) {
+                zero++;
+                continue;
+            } 
+            if (nums[i] == nums[i+1]) {
+                return false;
+            }
+            zero -= nums[i+1]-nums[i] - 1;
+        }
+        return zero &gt;= 0;
+    }
+};
+</code></pre>
+
+<h1 id="不用加减乘除做加法"><a href="https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/">不用加减乘除做加法</a></h1>
+
+<p>写一个函数，求两个整数之和，要求在函数体内不得使用 “+”、“-”、“*”、“/” 四则运算符号。</p>
+
+<p><strong>示例:</strong></p>
+
+<pre><code>输入: a = 1, b = 1
+输出: 2
+</code></pre>
+
+<pre><code class="language-c++">class Solution {
+public:
+    int add(int a, int b) {
+        if(b == 0)
+            return a;
+        int c = (unsigned int)(a &amp; b) &lt;&lt; 1; //进位
+        int d = a ^ b;
+        return add(d, c);
+    }
+};
+</code></pre>
+
+<h1 id="二叉搜索树的最近公共祖先"><a href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/">二叉搜索树的最近公共祖先</a></h1>
+
+<p>给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。</p>
+
+<p>示例 1:</p>
+
+<p>输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+输出: 6 
+解释: 节点 2 和节点 8 的最近公共祖先是 6。</p>
+
+<p>解：</p>
+
+<pre><code class="language-c++">/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        //递归二叉搜索树
+        if (root-&gt;val &gt; p-&gt;val &amp;&amp; root-&gt;val &gt; q-&gt;val) {
+            return lowestCommonAncestor(root-&gt;left, p, q);
+        } else if (root-&gt;val &lt; p-&gt;val &amp;&amp; root-&gt;val &lt; q-&gt;val) {
+            return lowestCommonAncestor(root-&gt;right, p, q);
+        } 
+        else 
+            return root;
+    }
+};
+</code></pre>
+
+<h1 id="最长公共子序列"><a href="https://leetcode-cn.com/problems/longest-common-subsequence/">最长公共子序列</a></h1>
+
+<pre><code class="language-c++">class Solution {
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        int m=text1.size(),n=text2.size();
+        
+        int dp[m+1][n+1];
+        memset(dp,0,sizeof(dp));
+
+        for (int i=1;i&lt;=m;i++) {
+            for (int j=1;j&lt;=n;j++) {
+                if (text1[i-1]==text2[j-1]) {
+                    dp[i][j]=dp[i-1][j-1]+1;
+                } else {
+                    dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+        }
+        return dp[m][n];
+    }
+};
+</code></pre>
+
+<h1 id="丑数"><a href="https://leetcode-cn.com/problems/chou-shu-lcof/">丑数</a></h1>
+
+<p>我们把只包含质因子 2、3 和 5 的数称作丑数（Ugly Number）。求按从小到大的顺序的第 n 个丑数。</p>
+
+<p><strong>示例:</strong></p>
+
+<pre><code>输入: n = 10
+输出: 12
+解释: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 是前 10 个丑数。
+</code></pre>
+
+<pre><code class="language-c++">class Solution {
+public:
+    int nthUglyNumber(int n) {
+        int two = 0, three = 0, five = 0;
+        vector&lt;int&gt; dp(n);
+        dp[0] = 1; // dp 初始化
+        for (int i = 1; i &lt; n; ++i) {
+            int t1 = dp[two] * 2, t2 = dp[three] * 3, t3 = dp[five] * 5;
+            dp[i] = min(min(t1, t2), t3);
+            if (dp[i] == t1)
+                two++;
+            if (dp[i] == t2)
+                three++;
+            if (dp[i] == t3)
+                five++;
+        }
+        return dp[n - 1];
+    }
+};
+</code></pre>
+
+<h1 id="三数之和"><a href="https://leetcode-cn.com/problems/3sum/">三数之和</a></h1>
+
+<p>给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。</p>
+
+<p>注意：答案中不可以包含重复的三元组。</p>
+
+<p><strong>示例 1：</strong></p>
+
+<pre><code>输入：nums = [-1,0,1,2,-1,-4]
+输出：[[-1,-1,2],[-1,0,1]]
+</code></pre>
+
+<pre><code class="language-c++">class Solution {
+public:
+    vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt;&amp; nums) {
+        sort(nums.begin(), nums.end());
+        vector&lt;vector&lt;int&gt;&gt; res;
+        for(int k = 0;k &lt; nums.size();k++)
+        {
+            if(nums[k] &gt; 0) break;
+            if(k &gt; 0 &amp;&amp; nums[k] == nums[k-1]) continue;
+            int i = k+1,j = nums.size()-1;
+            while(i &lt; j)
+            {
+                int sum = nums[k] + nums[i]+ nums[j];
+                if(sum &lt; 0)
+                    while(i &lt;j &amp;&amp; nums[i] == nums[++i]);
+                else if(sum &gt; 0)
+                    while(i &lt; j &amp;&amp; nums[j] == nums[--j]);
+                else{
+                    res.push_back({nums[k],nums[i],nums[j]});
+                    while(i &lt; j &amp;&amp; nums[i] == nums[++i]);
+                    while(i &lt;j &amp;&amp; nums[j] == nums[--j]);
+                }
+            }
+        }
+        return res;
+    }
+};
+</code></pre>
+
+<h1 id="买卖股票的最佳时机"><a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/">买卖股票的最佳时机</a></h1>
+
+<p>给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。</p>
+
+<p>如果你最多只允许完成一笔交易（即买入和卖出一支股票一次），设计一个算法来计算你所能获取的最大利润。</p>
+
+<p>注意：你不能在买入股票前卖出股票。</p>
+
+<pre><code>输入: [7,1,5,3,6,4]
+输出: 5
+解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
+     注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。
+</code></pre>
+
+<pre><code class="language-c++">class Solution {
+public:
+    int maxProfit(vector&lt;int&gt;&amp; prices) {
+        int minprice = int(1e9);
+        int maxprofit = 0;
+        for (auto price : prices){
+            maxprofit = max(maxprofit, price - minprice);
+            minprice = min(minprice, price);
+        }
+        return maxprofit;
     }
 };
 </code></pre>
