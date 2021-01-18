@@ -341,10 +341,6 @@
 <lastmod>2020-11-01T00:00:00+08:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/_posts/2020-11-01-%E5%89%91%E6%8C%87offer/</loc>
-<lastmod>2020-11-01T00:00:00+08:00</lastmod>
-</url>
-<url>
 <loc>http://localhost:4000/_posts/2020-11-04-C++%E9%94%81/</loc>
 <lastmod>2020-11-04T00:00:00+08:00</lastmod>
 </url>
@@ -379,6 +375,10 @@
 <url>
 <loc>http://localhost:4000/_posts/2020-12-19-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/</loc>
 <lastmod>2020-12-19T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/_posts/2021-01-18-v2ray%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%90%AD%E5%BB%BA/</loc>
+<lastmod>2021-01-18T00:00:00+08:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/404</loc>

@@ -1,11 +1,289 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-15T13:34:37+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-18T16:02:06+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">操作系统复习</title><link href="http://localhost:4000/_posts/2020-12-19-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/" rel="alternate" type="text/html" title="操作系统复习" /><published>2020-12-19T00:00:00+08:00</published><updated>2020-12-19T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0</id><content type="html" xml:base="http://localhost:4000/_posts/2020-12-19-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">v2ray服务器客户端搭建</title><link href="http://localhost:4000/_posts/2021-01-18-v2ray%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%90%AD%E5%BB%BA/" rel="alternate" type="text/html" title="v2ray服务器客户端搭建" /><published>2021-01-18T00:00:00+08:00</published><updated>2021-01-18T00:00:00+08:00</updated><id>http://localhost:4000/_posts/v2ray%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%90%AD%E5%BB%BA</id><content type="html" xml:base="http://localhost:4000/_posts/2021-01-18-v2ray%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%90%AD%E5%BB%BA/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;服务器&quot;&gt;服务器&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;首先需要购买服务器&lt;/strong&gt;：阿里云，腾讯云…&lt;/p&gt;
+
+&lt;p&gt;或者国外的服务器(后续可以科学上网)&lt;/p&gt;
+
+&lt;h1 id=&quot;v2ray服务器搭建&quot;&gt;v2ray服务器搭建&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;连接上服务器&lt;/li&gt;
+  &lt;li&gt;下载安装文件&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;git clone https://github.com/v2fly/fhs-install-v2ray
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;安装&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;cd fhs-install-v2ray-master/
+chmod +x install-release.sh
+./install-release.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;启动v2ray&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;systemctl  start v2ray
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查看状态&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;systemctl  status v2ray
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Active: active (running)&lt;/strong&gt;：表示正在运行&lt;/p&gt;
+
+&lt;p&gt;注意&lt;strong&gt;CGroup&lt;/strong&gt;，可以看见config配置文件在&lt;strong&gt;/usr/local/etc/v2ray/config.json&lt;/strong&gt;，这也是默认位置！&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;UUID准备&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在 &lt;a href=&quot;https://www.uuidgenerator.net/&quot;&gt;Online UUID Generator Tool&lt;/a&gt; 上生成一个 UUID，要记住哦！&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;配置config&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;vim /usr/local/etc/v2ray/config.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;清空其中内容，添加如下内容，此处示例额外配置了禁止 BT 流量，注意替换其中的 &lt;code&gt;自定义端口号&lt;/code&gt;、&lt;code&gt;生成的 UUID&lt;/code&gt;：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-json&quot;&gt;{
+  &quot;log&quot;:{
+    &quot;access&quot;: &quot;/var/log/v2ray/access.log&quot;,
+    &quot;error&quot;: &quot;/var/log/v2ray/error.log&quot;,
+    &quot;loglevel&quot;: &quot;warning&quot;
+  },
+  &quot;inbounds&quot;: [{
+    &quot;port&quot;: 自定义端口号,
+    &quot;protocol&quot;: &quot;vmess&quot;,
+    &quot;settings&quot;: {
+      &quot;clients&quot;: [{
+        &quot;id&quot;: &quot;生成的 UUID&quot;,
+        &quot;alterID&quot;: 64
+      }]
+    },
+    &quot;sniffing&quot;: {
+      &quot;enabled&quot;: true,
+      &quot;destOverride&quot;: [&quot;http&quot;, &quot;tls&quot;]
+    }
+  }],
+  &quot;outbounds&quot;: [
+    {
+      &quot;protocol&quot;: &quot;freedom&quot;,
+      &quot;settings&quot;: {}
+    },
+    {
+      &quot;protocol&quot;: &quot;blackhole&quot;,
+      &quot;settings&quot;: {},
+      &quot;tag&quot;: &quot;blocked&quot;
+    }
+  ],
+  &quot;routing&quot;: {
+    &quot;domainStrategy&quot;: &quot;IPOnDemand&quot;,
+    &quot;rules&quot;: [
+      {
+        &quot;type&quot;: &quot;field&quot;,
+        &quot;ip&quot;: [&quot;geoip:private&quot;],
+        &quot;outboundTag&quot;: &quot;blocked&quot;
+      },
+      {
+        &quot;type&quot;: &quot;field&quot;,
+        &quot;protocol&quot;: [&quot;bittorrent&quot;],
+        &quot;outboundTag&quot;: &quot;blocked&quot;
+      }
+    ]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重启服务&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;systemctl restart v2ray
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;免流服务端配置，不懂的略过此部分&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-json&quot;&gt;    {
+      &quot;log&quot;: {
+          &quot;access&quot;: &quot;/var/log/v2ray/access.log&quot;,
+          &quot;error&quot;: &quot;/var/log/v2ray/error.log&quot;,
+          &quot;loglevel&quot;: &quot;warning&quot;
+      },
+      &quot;inbound&quot;: {
+          &quot;port&quot;: 自定义端口号,
+          &quot;protocol&quot;: &quot;vmess&quot;,
+          &quot;settings&quot;: {
+              &quot;clients&quot;: [{
+                  &quot;id&quot;: &quot;生成的 UUID&quot;,
+                  &quot;alterID&quot;: 64
+      	}]
+      },
+      &quot;outbound&quot;: {
+        &quot;protocol&quot;: &quot;vmess&quot;,
+        &quot;settings&quot;: {
+            &quot;vnext&quot;: [
+                {
+                    &quot;address&quot;: &quot;填你的服务器ip&quot;,
+                    &quot;port&quot;: 填你的端口,
+                    &quot;users&quot;: [
+                        {
+                            &quot;id&quot;: &quot;填你的uuid&quot;,
+                            &quot;alterId&quot;: 填你的alterid
+                        }
+                    ]
+                }
+            ]
+        },
+        &quot;streamSettings&quot;: {
+          &quot;network&quot;: &quot;tcp&quot;,
+          &quot;tcpSettings&quot;: {
+            &quot;connectionReuse&quot;: true,
+            &quot;header&quot;: {
+              &quot;type&quot;: &quot;http&quot;,
+              &quot;request&quot;: {
+                &quot;version&quot;: &quot;1.1&quot;,
+                &quot;method&quot;: &quot;GET&quot;,
+                &quot;path&quot;: [&quot;/&quot;],
+                &quot;headers&quot;: {
+                  &quot;Host&quot;: [&quot;你的免流host&quot;],
+                  &quot;User-Agent&quot;: [
+                    &quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36&quot;,
+                            &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46&quot;
+                  ],
+                  &quot;Accept-Encoding&quot;: [&quot;gzip, deflate&quot;],
+                  &quot;Connection&quot;: [&quot;keep-alive&quot;],
+                  &quot;Pragma&quot;: &quot;no-cache&quot;
+                }
+              },
+              &quot;response&quot;: {
+                &quot;version&quot;: &quot;1.1&quot;,
+                &quot;status&quot;: &quot;200&quot;,
+                &quot;reason&quot;: &quot;OK&quot;,
+                &quot;headers&quot;: {
+                  &quot;Content-Type&quot;: [&quot;application/octet-stream&quot;, &quot;application/x-msdownload&quot;, &quot;text/html&quot;, &quot;application/x-shockwave-flash&quot;],
+                  &quot;Transfer-Encoding&quot;: [&quot;chunked&quot;],
+                  &quot;Connection&quot;: [&quot;keep-alive&quot;],
+                  &quot;Pragma&quot;: &quot;no-cache&quot;
+                }
+              }
+            }
+          }
+        }
+      },
+      &quot;routing&quot;: {
+        &quot;domainStrategy&quot;: &quot;IPOnDemand&quot;,
+            &quot;rules&quot;: [
+              {
+                &quot;type&quot;: &quot;field&quot;,
+                &quot;ip&quot;: [&quot;geoip:private&quot;],
+                &quot;outboundTag&quot;: &quot;blocked&quot;
+              },
+              {
+                &quot;type&quot;: &quot;field&quot;,
+                &quot;protocol&quot;: [&quot;bittorrent&quot;],
+                &quot;outboundTag&quot;: &quot;blocked&quot;
+              }
+      }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;防火墙放行&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;端口就是你在上面设置的端口&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;ufw allow 端口
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;对于某些服务器而言，比如阿里云，需要在他服务器控制面板设置。&lt;/p&gt;
+
+&lt;p&gt;至此，V2Ray 服务端的配置已经完成！&lt;/p&gt;
+
+&lt;h1 id=&quot;客户端配置&quot;&gt;客户端配置&lt;/h1&gt;
+
+&lt;p&gt;对应客户端配置文件为：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-json&quot;&gt;{
+  &quot;log&quot;: {
+    &quot;loglevel&quot;: &quot;warning&quot;
+  },
+  &quot;inbounds&quot;: [
+    {
+      &quot;tag&quot;: &quot;socks&quot;,
+      &quot;port&quot;: 10808,
+      &quot;listen&quot;: &quot;127.0.0.1&quot;,
+      &quot;protocol&quot;: &quot;socks&quot;,
+      &quot;settings&quot;: {
+        &quot;udp&quot;: true
+      },
+      &quot;sniffing&quot;: {
+        &quot;enabled&quot;: true,
+        &quot;destOverride&quot;: [&quot;http&quot;, &quot;tls&quot;]
+      }
+    },
+    {
+      &quot;tag&quot;: &quot;http&quot;,
+      &quot;listen&quot;: &quot;127.0.0.1&quot;,
+      &quot;port&quot;: 10809,
+      &quot;protocol&quot;: &quot;http&quot;,
+      &quot;settings&quot;: {}
+    }
+  ],
+  &quot;outbounds&quot;: [
+    {
+      &quot;protocol&quot;: &quot;vmess&quot;,
+      &quot;settings&quot;: {
+        &quot;vnext&quot;: [{
+          &quot;address&quot;: &quot;服务器 IP 地址&quot;,
+          &quot;port&quot;: 服务器设置的端口,
+          &quot;users&quot;: [{
+            &quot;id&quot;: &quot;服务器使用的 UUID&quot;,
+            &quot;alterId&quot;: 64
+          }]
+        }]
+      }
+    },
+    {
+      &quot;protocol&quot;: &quot;freedom&quot;,
+      &quot;tag&quot;: &quot;direct&quot;,
+      &quot;settings&quot;: {}
+    }
+  ],
+  &quot;routing&quot;: {
+    &quot;domainStrategy&quot;: &quot;IPOnDemand&quot;,
+    &quot;rules&quot;: [{
+      &quot;type&quot;: &quot;field&quot;,
+      &quot;ip&quot;: [&quot;geoip:private&quot;],
+      &quot;outboundTag&quot;: &quot;direct&quot;
+    }]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;代理监听在 &lt;code&gt;socks5://127.0.0.1:10808&lt;/code&gt; 上，此设置同样可导入 &lt;code&gt;v2rayNG&lt;/code&gt; 的 Android 客户端中&lt;/p&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry><entry><title type="html">操作系统复习</title><link href="http://localhost:4000/_posts/2020-12-19-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/" rel="alternate" type="text/html" title="操作系统复习" /><published>2020-12-19T00:00:00+08:00</published><updated>2020-12-19T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0</id><content type="html" xml:base="http://localhost:4000/_posts/2020-12-19-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;基础&quot;&gt;基础&lt;/h1&gt;
 
@@ -4506,26 +4784,4 @@ __limit;})
 
 &lt;p&gt;指向进程所属的全局执行文件格式结构，共有a.out、script、elf、java等四种。&lt;/p&gt;
 
-&lt;p&gt;综上所述，我们对进程的task_struct结构进行了归类讨论,还有一些域没有涉及到，在第六章进程的创建与执行一节几乎涉及到所有的域，在那里可以对很多域有更深入一步的理解。task_struct结构是进程实体的核心，Linux内核通过该结构来控制进程：首先通过其中的调度信息决定该进程是否运行；当该进程运行时，根据其中保存的处理机状态信息来恢复进程运行现场，然后根据虚拟内存信息，找到程序的正文和数据；通过其中的通信信息和其他进程实现同步、通信等合作。几乎所有的操作都要依赖该结构，所以，task_struct结构是一个进程存在的唯一标志。&lt;/p&gt;</content><author><name></name></author><category term="操作系统" /><summary type="html">[toc]</summary></entry><entry><title type="html">inline和define</title><link href="http://localhost:4000/_posts/2020-11-01-inline%E5%92%8Cdefine/" rel="alternate" type="text/html" title="inline和define" /><published>2020-11-01T00:00:00+08:00</published><updated>2020-11-01T00:00:00+08:00</updated><id>http://localhost:4000/_posts/inline%E5%92%8Cdefine</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-01-inline%E5%92%8Cdefine/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;inline与define&quot;&gt;inline与define&lt;/h1&gt;
-
-&lt;p&gt;内联函数是代码被插入到调用者代码处的函数。如同 #define 宏，内联函数通过避免被调用的开销来提高执行效率，尤其是它能够通过调用（“过程化集成”）被编译器优化。&lt;/p&gt;
-
-&lt;h1 id=&quot;区别&quot;&gt;区别&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;内联函数在编译时展开，而宏是由预处理器对宏进行展开&lt;/li&gt;
-  &lt;li&gt;内联函数会检查参数类型，宏定义不检查函数参数 ，所以内联函数更安全。&lt;/li&gt;
-  &lt;li&gt;宏不是函数，而inline函数是函数&lt;/li&gt;
-  &lt;li&gt;宏在定义时要小心处理宏参数，（一般情况是把参数用括弧括起来）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;inline的使用&quot;&gt;inline的使用&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;在C++中，在类的内部定义了函数体的函数，被默认为是内联函数。而不管你是否有inline关键字&lt;/li&gt;
-  &lt;li&gt;在内联函数内不允许用循环语句、开关语句和递归调用等，且函数体不宜过长,否则作为普通函数处理&lt;/li&gt;
-  &lt;li&gt;在你调用一个内联函数之前，这个函数一定要在之前有声明或已定义为inline,如果在前面声明为普通函数，而在调用代码后面才定义为一个inline函数，程序可以通过编译，但该函数没有实现inline&lt;/li&gt;
-  &lt;li&gt;如果一个inline函数会在多个源文件中被用到，那么必须把它定义在头文件中。解析：如果内联函数fun()定义在某个编译单元A中，那么其他编译单元中调用fun()的地方时，可以编译通过（此时并没有展开，结合第三条，此时虽然头文件声明了该inline函数，但此时调用时，还没定义，所以作为普通函数处理）。当链接时将无法解析该符号，出现链接错误。 因为inline函数是作为内部连接存在的，只能够被本模块访问。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry></feed>
+&lt;p&gt;综上所述，我们对进程的task_struct结构进行了归类讨论,还有一些域没有涉及到，在第六章进程的创建与执行一节几乎涉及到所有的域，在那里可以对很多域有更深入一步的理解。task_struct结构是进程实体的核心，Linux内核通过该结构来控制进程：首先通过其中的调度信息决定该进程是否运行；当该进程运行时，根据其中保存的处理机状态信息来恢复进程运行现场，然后根据虚拟内存信息，找到程序的正文和数据；通过其中的通信信息和其他进程实现同步、通信等合作。几乎所有的操作都要依赖该结构，所以，task_struct结构是一个进程存在的唯一标志。&lt;/p&gt;</content><author><name></name></author><category term="操作系统" /><summary type="html">[toc]</summary></entry></feed>
