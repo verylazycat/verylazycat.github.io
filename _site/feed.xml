@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-18T16:24:18+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-18T19:44:44+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -130,35 +130,22 @@ chmod +x install-release.sh
       &quot;loglevel&quot;: &quot;warning&quot;
     },
     &quot;inbounds&quot;: [{
-      &quot;port&quot;: 你的port,
+      &quot;port&quot;: 端口,
       &quot;protocol&quot;: &quot;vmess&quot;,
       &quot;settings&quot;: {
         &quot;clients&quot;: [{
-          &quot;id&quot;: &quot;你的UUID&quot;,
+          &quot;id&quot;: &quot;UUID&quot;,
           &quot;alterID&quot;: 0
         }]
       },
       &quot;streamSettings&quot;: {
         &quot;network&quot;: &quot;tcp&quot;,
+        &quot;httpSettings&quot;: {
+          &quot;path&quot;: &quot;/&quot;
+        },
         &quot;tcpSettings&quot;: {
-          &quot;connectionReuse&quot;: true,
           &quot;header&quot;: {
             &quot;type&quot;: &quot;http&quot;,
-            &quot;request&quot;: {
-              &quot;version&quot;: &quot;1.1&quot;,
-              &quot;method&quot;: &quot;GET&quot;,
-              &quot;path&quot;: [&quot;/&quot;],
-              &quot;headers&quot;: {
-                &quot;Host&quot;: [&quot;免流host],
-                &quot;User-Agent&quot;: [
-                  &quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36&quot;,
-                          &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46&quot;
-                ],
-                &quot;Accept-Encoding&quot;: [&quot;gzip, deflate&quot;],
-                &quot;Connection&quot;: [&quot;keep-alive&quot;],
-                &quot;Pragma&quot;: &quot;no-cache&quot;
-              }
-            },
             &quot;response&quot;: {
               &quot;version&quot;: &quot;1.1&quot;,
               &quot;status&quot;: &quot;200&quot;,
@@ -172,7 +159,7 @@ chmod +x install-release.sh
             }
           }
         }
-      },
+    },
       &quot;sniffing&quot;: {
         &quot;enabled&quot;: true,
         &quot;destOverride&quot;: [&quot;http&quot;, &quot;tls&quot;]
@@ -283,7 +270,312 @@ chmod +x install-release.sh
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;代理监听在 &lt;code&gt;socks5://127.0.0.1:10808&lt;/code&gt; 上，此设置同样可导入 &lt;code&gt;v2rayNG&lt;/code&gt; 的 Android 客户端中&lt;/p&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry><entry><title type="html">操作系统复习</title><link href="http://localhost:4000/_posts/2020-12-19-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/" rel="alternate" type="text/html" title="操作系统复习" /><published>2020-12-19T00:00:00+08:00</published><updated>2020-12-19T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0</id><content type="html" xml:base="http://localhost:4000/_posts/2020-12-19-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/">&lt;p&gt;[toc]&lt;/p&gt;
+&lt;p&gt;代理监听在 &lt;code&gt;socks5://127.0.0.1:10808&lt;/code&gt; 上，此设置同样可导入 &lt;code&gt;v2rayNG&lt;/code&gt; 的 Android 客户端中&lt;/p&gt;
+
+&lt;h1 id=&quot;路由免流&quot;&gt;路由免流&lt;/h1&gt;
+
+&lt;p&gt;Vray路由免流的原理和安卓手机端相同，使用路由器将数据加上http伪装的混淆host后，再发送给云服务器端。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-json&quot;&gt;{
+  &quot;log&quot;: {
+    &quot;error&quot;: &quot;/tmp/syslog.log&quot;,
+    &quot;loglevel&quot;: &quot;warning&quot;
+  },
+  &quot;inbound&quot;: {
+    &quot;port&quot;: 1088,
+    &quot;listen&quot;: &quot;192.168.123.1&quot;,
+    &quot;protocol&quot;: &quot;socks&quot;,
+    &quot;settings&quot;: {
+      &quot;auth&quot;: &quot;noauth&quot;,
+      &quot;udp&quot;: true,
+      &quot;ip&quot;: &quot;192.168.123.1&quot;
+    }
+  },
+  &quot;inboundDetour&quot;: [
+    {
+      &quot;port&quot;: &quot;1099&quot;,
+      &quot;listen&quot;: &quot;0.0.0.0&quot;,
+      &quot;protocol&quot;: &quot;dokodemo-door&quot;,
+      &quot;settings&quot;: {
+        &quot;network&quot;: &quot;tcp,udp&quot;,
+        &quot;timeout&quot;: 30,
+        &quot;followRedirect&quot;: true
+      }
+    }
+  ],
+  &quot;outbound&quot;: {
+    &quot;protocol&quot;: &quot;vmess&quot;,
+    &quot;settings&quot;: {
+        &quot;vnext&quot;: [
+            {
+                &quot;address&quot;: &quot;填你的服务器ip&quot;,
+                &quot;port&quot;: 填你的端口,
+                &quot;users&quot;: [
+                    {
+                        &quot;id&quot;: &quot;填你的uuid&quot;,
+                        &quot;alterId&quot;: 填你的alterid
+                    }
+                ]
+            }
+        ]
+    },
+    &quot;streamSettings&quot;: {
+      &quot;network&quot;: &quot;tcp&quot;,
+      &quot;tcpSettings&quot;: {
+        &quot;connectionReuse&quot;: true,
+        &quot;header&quot;: {
+          &quot;type&quot;: &quot;http&quot;,
+          &quot;request&quot;: {
+            &quot;version&quot;: &quot;1.1&quot;,
+            &quot;method&quot;: &quot;GET&quot;,
+            &quot;path&quot;: [&quot;/&quot;],
+            &quot;headers&quot;: {
+              &quot;Host&quot;: [&quot;你的免流host&quot;],
+              &quot;User-Agent&quot;: [
+                &quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36&quot;,
+                        &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46&quot;
+              ],
+              &quot;Accept-Encoding&quot;: [&quot;gzip, deflate&quot;],
+              &quot;Connection&quot;: [&quot;keep-alive&quot;],
+              &quot;Pragma&quot;: &quot;no-cache&quot;
+            }
+          },
+          &quot;response&quot;: {
+            &quot;version&quot;: &quot;1.1&quot;,
+            &quot;status&quot;: &quot;200&quot;,
+            &quot;reason&quot;: &quot;OK&quot;,
+            &quot;headers&quot;: {
+              &quot;Content-Type&quot;: [&quot;application/octet-stream&quot;, &quot;application/x-msdownload&quot;, &quot;text/html&quot;, &quot;application/x-shockwave-flash&quot;],
+              &quot;Transfer-Encoding&quot;: [&quot;chunked&quot;],
+              &quot;Connection&quot;: [&quot;keep-alive&quot;],
+              &quot;Pragma&quot;: &quot;no-cache&quot;
+            }
+          }
+        }
+      }
+    }
+  },
+  &quot;outboundDetour&quot;: [
+    {
+      &quot;protocol&quot;: &quot;freedom&quot;,
+      &quot;settings&quot;: {},
+      &quot;tag&quot;: &quot;direct&quot;
+    }
+  ],
+  &quot;dns&quot;: {
+    &quot;servers&quot;: [
+      &quot;8.8.8.8&quot;,
+      &quot;8.8.4.4&quot;,
+      &quot;localhost&quot;
+    ]
+  },
+  &quot;routing&quot;: {
+    &quot;strategy&quot;: &quot;rules&quot;,
+    &quot;settings&quot;: {
+      &quot;domainStrategy&quot;: &quot;IPIfNonMatch&quot;,
+      &quot;rules&quot;: []
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;v2ray免流开热点&quot;&gt;v2ray免流开热点&lt;/h1&gt;
+
+&lt;p&gt;SSR免流可以通过注射器APP来开热点，那么V2ray免流可以开热点WIFI吗？理论上是可行的，如果是安卓手机root后安装注射器APP，然后开WIFI。&lt;/p&gt;
+
+&lt;h1 id=&quot;http混淆host&quot;&gt;HTTP混淆host&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;可能不可用，自行测试&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;联通普卡混淆&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-tex&quot;&gt;全国联通沃商店混淆参数1:game.hxll.wostore.cn
+全国联通沃商店混淆参数2:music.hxll.wostore.cn
+沃阅读混淆参数:partner.iread.wo.com.cn
+全国联通沃商店高级混淆参数1:game.hxll.wostore.cn#Connection: Keep-AlivenAccept-Encoding: gzip
+全国联通沃商店高级混淆参数2:music.hxll.wostore.cn#Connection: Keep-AlivenAccept-Encoding: gzip
+沃阅读高级混淆参数:partner.iread.wo.com.cn#Connection: Keep-AlivenAccept-Encoding: gzip
+全国联通沃音乐：box.10155.com←部分地区可用自测
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;普通免流混淆参数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;QQ音乐混淆参数:dl.stream.qqmusic.com
+
+梦想e卡混淆参数1:imhdfs.icbc.com.cn
+
+梦想e卡混淆参数2:v.icbc.com.cn
+
+爱奇艺混淆参数:data.video.qiyi.com
+
+优酷混淆参数:vali-dns.cp31.ott.cibntv.net
+
+高德地图混淆参数:mps.amap.com
+
+央视影音混淆参数:asp.cntv.myalicdn.com
+
+百度贴吧混淆参数:static.tieba.baidu.com
+
+微信混淆参数:short.weixin.qq.com
+
+虾米音乐混淆参数:pic.xiami.net
+
+天翼视讯混淆参数:vod3.nty.tv189.cn
+
+钉钉混淆参数：tms.dingtalk.com
+
+微博混淆参数：tobe.vip.weibo.com
+
+微博混淆参数：new.vip.weibo.cn
+
+微博混淆参数：simg.s.weibo.com
+
+优酷混淆参数：push.m.youku.com
+
+优酷混淆参数：api.mobile.youku.com
+
+书旗混淆参数：spend1.shuqireader.com
+
+书旗混淆参数：c1.shuqireader.com
+
+优酷混淆参数：www.youku.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;高级免流混淆参数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;优酷高级混淆参数:vali-dns.cp31.ott.cibntv.net#Range:bytes=25165824-32586598nAccept: /
+
+爱看4G高级混淆参数:ltevod.tv189.cn#Connection: Keep-AlivenAccept-Encoding: gzip
+
+沃音乐高级混淆参数:woif.10155.com#Accept-Encoding: gzip
+
+微信高级混淆参数(深圳已免):szminorshort.weixin.qq.com#Upgrade: mmtlsnAccept: /nConnection: closenContent-Length: 533nContent-Type: application/octet-stream
+
+淘宝高级混淆参数:adashbc.m.taobao.com#Accept-Encoding: gzip
+
+央视影音高级混淆参数:asp.cntv.myalicdn.com#Icy-MetaData: 1
+
+抖音高级混淆参数:dm.toutiao.com#Connection: Keep-AlivenAccept-Encoding: gzip
+
+百度贴吧高级混淆参数:tbcdn.hiphotos.baidu.com#needginfo: 1/nConnection: Keep-Alive/nUser-Agent: bdtb for Android 9.0.8.0
+
+爱奇艺高级混淆参数:data.video.qiyi.com#Accept: /
+
+美团高级混淆参数:apimeishi.meituan.com#Connection: Keep-Alive
+
+高德地图高级混淆参数:mps.amap.com#Connection: Keep-AlivenAccept-Encoding: gzipnContent-Length: 680
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;电信卡&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;天翼视讯 h5.nty.tv189.com←可用
+天翼视讯 vod3.nty.tv189.cn←可用
+爱玩端口任意 open.4g.play.cn
+爱看端口任意 ltetp.tv189.com
+湖北电信：hb.10000shequ.com:8081
+电信天翼：dy3.nty.tv189.cn
+电信天翼：ltewap.tv189.com
+电信天翼：tp.nty.tv189.com
+电信天翼：ltewap.tv189.com/ik4g/v/C40605803.html?appid=115020310073&amp;amp;token=baebaf0fda892726032db7e8f2f7e0ee&amp;amp;devid=000001&amp;amp;version=5.3.13.14ctch1&amp;amp;channelid=01832020rn
+电信爱听：dl.music.189.cn/res/V/1388/mp3/33/58/94/1388335894003000.mp3?mb=15380197563&amp;amp;fs=10104163&amp;amp;s=800&amp;amp;n=&amp;amp;id=63696337&amp;amp;M=online&amp;amp;sid=240387514
+电信爱玩：open.4g.play.cn/api/v2/egame/log.json&amp;amp;access_token=dc15d6902663913b10a6ff56ae4e0c44&amp;amp;imsi=460022443530655&amp;amp;vc=145&amp;amp;app_key=8888015&amp;amp;channel_id=20310025
+电信大王卡(可欠费使用)：lt.hn.189.cn:1082
+阿里鱼卡：mps.amap.com#Connection: Keep-AlivenAccept-Encoding: gzipnContent-Length: 680
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;电信停机卡&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;全国混淆:a.189.cn
+全国混淆②:www.189.cn
+全国混淆③:a.189.cn/JJGsAL.cn
+湖北:wap.hb.189.cn
+湖南:lt.hn.189.cn
+山东:wapsd.189.cn
+江西:wapjx.189.cn
+四川:wap.sc.189.cn
+重庆:webwebfenxi.189.cn:9000
+广东:http://gd.189.cn/TS/recharge/tzUrl.html
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;联通&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;山东联通：m.t.17186.cn←山东可用自测
+哔哩哔哩：i1.hdslb.com
+哔哩哔哩：i0.hdslb.com
+浙江联通 wo+：w.zj165.com
+联通 wotv 全国：wotv.17wo.cn（浙江、安徽、江苏）
+河北：hb.10000shequ.com
+湖北 (优先 wap 接入点不免 net)：box.10155.com
+沃音乐：box.10155.com (四川、湖北、重庆、河北等)
+沃阅读：partner.iread.wo.com.cn (北京、河南等)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;工商 e 卡&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;v.icbc.com.cn
+m.icbc.com.cn
+m.mall.icbc.com.cn
+elife.icbc.com.cn
+act.icbc.com.cn
+hit.icbc.com.cn
+pv.mall.icbc.com.cn
+mybank.icbc.com.cn
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;腾讯大王卡&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;szminorshort.weixin.qq.com#Upgrade: mmtlsnAccept: /nConnection: closenContent-Length: 533nContent-Type: application/octet-stream
+tx.flv.huya.com
+short.weixin.qq.com
+szextshort.weixin.qq.com
+short.weixin.qq.com
+百度圣卡：data.video.qiyi.com
+阿里宝卡：vali-dns.cp31.ott.cibntv.net
+阿里宝卡微博卡：gw.alicdn.com
+优酷：api.mobile.youku.com
+米粉 api：api.ad.xiaomi.com
+小米应用商店：data.mistat.xiaomi.com
+小米直播：zbupic.zb.mi.com
+小米充值：f100.g.mi.com
+小米商城：mi.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;抖音全部混淆&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;v6-dy-x.ixigua.com
+log.snssdk.com
+xlog.snssdk.com
+i.snssdk.com
+aweme.snssdk.com
+lf.snssdk.com
+is.snssdk.com
+api.amemv.com
+mon.snssdk.com
+effect.snssdk.com
+hotsoon.snssdk.com
+dm.toutiao.com
+iu.snssdk.com
+dy-x.ixigua.com
+dy-y.ixigua.com
+dy-z.ixigua.com
+dy.ixiguavideo.com
+pstatp.com
+dy.ixigua.com
+pull-flv-l6.douyincdn.com←这条可用
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;微博混淆&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;api.weibo.cn
+new.vip.weibo.cn
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;仅用于学习，切勿用于恶意刷流量！！！&lt;/strong&gt;&lt;/p&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry><entry><title type="html">操作系统复习</title><link href="http://localhost:4000/_posts/2020-12-19-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/" rel="alternate" type="text/html" title="操作系统复习" /><published>2020-12-19T00:00:00+08:00</published><updated>2020-12-19T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0</id><content type="html" xml:base="http://localhost:4000/_posts/2020-12-19-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;基础&quot;&gt;基础&lt;/h1&gt;
 
