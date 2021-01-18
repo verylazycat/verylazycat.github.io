@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-18T16:02:06+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-18T16:24:18+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -123,88 +123,88 @@ chmod +x install-release.sh
   &lt;p&gt;免流服务端配置，不懂的略过此部分&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-json&quot;&gt;    {
-      &quot;log&quot;: {
-          &quot;access&quot;: &quot;/var/log/v2ray/access.log&quot;,
-          &quot;error&quot;: &quot;/var/log/v2ray/error.log&quot;,
-          &quot;loglevel&quot;: &quot;warning&quot;
+&lt;pre&gt;&lt;code class=&quot;language-json&quot;&gt;{
+    &quot;log&quot;:{
+      &quot;access&quot;: &quot;/var/log/v2ray/access.log&quot;,
+      &quot;error&quot;: &quot;/var/log/v2ray/error.log&quot;,
+      &quot;loglevel&quot;: &quot;warning&quot;
+    },
+    &quot;inbounds&quot;: [{
+      &quot;port&quot;: 你的port,
+      &quot;protocol&quot;: &quot;vmess&quot;,
+      &quot;settings&quot;: {
+        &quot;clients&quot;: [{
+          &quot;id&quot;: &quot;你的UUID&quot;,
+          &quot;alterID&quot;: 0
+        }]
       },
-      &quot;inbound&quot;: {
-          &quot;port&quot;: 自定义端口号,
-          &quot;protocol&quot;: &quot;vmess&quot;,
-          &quot;settings&quot;: {
-              &quot;clients&quot;: [{
-                  &quot;id&quot;: &quot;生成的 UUID&quot;,
-                  &quot;alterID&quot;: 64
-      	}]
-      },
-      &quot;outbound&quot;: {
-        &quot;protocol&quot;: &quot;vmess&quot;,
-        &quot;settings&quot;: {
-            &quot;vnext&quot;: [
-                {
-                    &quot;address&quot;: &quot;填你的服务器ip&quot;,
-                    &quot;port&quot;: 填你的端口,
-                    &quot;users&quot;: [
-                        {
-                            &quot;id&quot;: &quot;填你的uuid&quot;,
-                            &quot;alterId&quot;: 填你的alterid
-                        }
-                    ]
-                }
-            ]
-        },
-        &quot;streamSettings&quot;: {
-          &quot;network&quot;: &quot;tcp&quot;,
-          &quot;tcpSettings&quot;: {
-            &quot;connectionReuse&quot;: true,
-            &quot;header&quot;: {
-              &quot;type&quot;: &quot;http&quot;,
-              &quot;request&quot;: {
-                &quot;version&quot;: &quot;1.1&quot;,
-                &quot;method&quot;: &quot;GET&quot;,
-                &quot;path&quot;: [&quot;/&quot;],
-                &quot;headers&quot;: {
-                  &quot;Host&quot;: [&quot;你的免流host&quot;],
-                  &quot;User-Agent&quot;: [
-                    &quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36&quot;,
-                            &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46&quot;
-                  ],
-                  &quot;Accept-Encoding&quot;: [&quot;gzip, deflate&quot;],
-                  &quot;Connection&quot;: [&quot;keep-alive&quot;],
-                  &quot;Pragma&quot;: &quot;no-cache&quot;
-                }
-              },
-              &quot;response&quot;: {
-                &quot;version&quot;: &quot;1.1&quot;,
-                &quot;status&quot;: &quot;200&quot;,
-                &quot;reason&quot;: &quot;OK&quot;,
-                &quot;headers&quot;: {
-                  &quot;Content-Type&quot;: [&quot;application/octet-stream&quot;, &quot;application/x-msdownload&quot;, &quot;text/html&quot;, &quot;application/x-shockwave-flash&quot;],
-                  &quot;Transfer-Encoding&quot;: [&quot;chunked&quot;],
-                  &quot;Connection&quot;: [&quot;keep-alive&quot;],
-                  &quot;Pragma&quot;: &quot;no-cache&quot;
-                }
+      &quot;streamSettings&quot;: {
+        &quot;network&quot;: &quot;tcp&quot;,
+        &quot;tcpSettings&quot;: {
+          &quot;connectionReuse&quot;: true,
+          &quot;header&quot;: {
+            &quot;type&quot;: &quot;http&quot;,
+            &quot;request&quot;: {
+              &quot;version&quot;: &quot;1.1&quot;,
+              &quot;method&quot;: &quot;GET&quot;,
+              &quot;path&quot;: [&quot;/&quot;],
+              &quot;headers&quot;: {
+                &quot;Host&quot;: [&quot;免流host],
+                &quot;User-Agent&quot;: [
+                  &quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36&quot;,
+                          &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46&quot;
+                ],
+                &quot;Accept-Encoding&quot;: [&quot;gzip, deflate&quot;],
+                &quot;Connection&quot;: [&quot;keep-alive&quot;],
+                &quot;Pragma&quot;: &quot;no-cache&quot;
+              }
+            },
+            &quot;response&quot;: {
+              &quot;version&quot;: &quot;1.1&quot;,
+              &quot;status&quot;: &quot;200&quot;,
+              &quot;reason&quot;: &quot;OK&quot;,
+              &quot;headers&quot;: {
+                &quot;Content-Type&quot;: [&quot;application/octet-stream&quot;, &quot;application/x-msdownload&quot;, &quot;text/html&quot;, &quot;application/x-shockwave-flash&quot;],
+                &quot;Transfer-Encoding&quot;: [&quot;chunked&quot;],
+                &quot;Connection&quot;: [&quot;keep-alive&quot;],
+                &quot;Pragma&quot;: &quot;no-cache&quot;
               }
             }
           }
         }
       },
-      &quot;routing&quot;: {
-        &quot;domainStrategy&quot;: &quot;IPOnDemand&quot;,
-            &quot;rules&quot;: [
-              {
-                &quot;type&quot;: &quot;field&quot;,
-                &quot;ip&quot;: [&quot;geoip:private&quot;],
-                &quot;outboundTag&quot;: &quot;blocked&quot;
-              },
-              {
-                &quot;type&quot;: &quot;field&quot;,
-                &quot;protocol&quot;: [&quot;bittorrent&quot;],
-                &quot;outboundTag&quot;: &quot;blocked&quot;
-              }
+      &quot;sniffing&quot;: {
+        &quot;enabled&quot;: true,
+        &quot;destOverride&quot;: [&quot;http&quot;, &quot;tls&quot;]
       }
+    }],
+    &quot;outbounds&quot;: [
+      {
+        &quot;protocol&quot;: &quot;freedom&quot;,
+        &quot;settings&quot;: {}
+      },
+      {
+        &quot;protocol&quot;: &quot;blackhole&quot;,
+        &quot;settings&quot;: {},
+        &quot;tag&quot;: &quot;blocked&quot;
+      }
+    ],
+    &quot;routing&quot;: {
+      &quot;domainStrategy&quot;: &quot;IPOnDemand&quot;,
+      &quot;rules&quot;: [
+        {
+          &quot;type&quot;: &quot;field&quot;,
+          &quot;ip&quot;: [&quot;geoip:private&quot;],
+          &quot;outboundTag&quot;: &quot;blocked&quot;
+        },
+        {
+          &quot;type&quot;: &quot;field&quot;,
+          &quot;protocol&quot;: [&quot;bittorrent&quot;],
+          &quot;outboundTag&quot;: &quot;blocked&quot;
+        }
+      ]
     }
+  }
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
