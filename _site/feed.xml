@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-18T19:44:44+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-19T11:10:12+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -36,7 +36,8 @@ chmod +x install-release.sh
   &lt;li&gt;启动v2ray&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;systemctl  start v2ray
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;systemctl enable v2ray
+systemctl  start v2ray
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
@@ -55,6 +56,11 @@ chmod +x install-release.sh
 &lt;/ul&gt;
 
 &lt;p&gt;在 &lt;a href=&quot;https://www.uuidgenerator.net/&quot;&gt;Online UUID Generator Tool&lt;/a&gt; 上生成一个 UUID，要记住哦！&lt;/p&gt;
+
+&lt;p&gt;也可以使用v2ctl生成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;v2ctl uuid
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
   &lt;li&gt;配置config&lt;/li&gt;

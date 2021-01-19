@@ -597,7 +597,7 @@
     
     
     <i class="fas fa-file-word fa-fw"></i>
-    8142字
+    8183字
     
     
     <i class="fas fa-clock fa-fw"></i>
@@ -662,7 +662,8 @@ chmod +x install-release.sh
   <li>启动v2ray</li>
 </ul>
 
-<pre><code class="language-bash">systemctl  start v2ray
+<pre><code class="language-bash">systemctl enable v2ray
+systemctl  start v2ray
 </code></pre>
 
 <ul>
@@ -681,6 +682,11 @@ chmod +x install-release.sh
 </ul>
 
 <p>在 <a href="https://www.uuidgenerator.net/">Online UUID Generator Tool</a> 上生成一个 UUID，要记住哦！</p>
+
+<p>也可以使用v2ctl生成</p>
+
+<pre><code class="language-bash">v2ctl uuid
+</code></pre>
 
 <ul>
   <li>配置config</li>
