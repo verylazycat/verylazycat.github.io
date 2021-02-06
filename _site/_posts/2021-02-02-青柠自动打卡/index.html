@@ -323,7 +323,9 @@
   }
 </style>
 
-      
+      <ol id="toc">
+  <li><a href="#%E6%89%93%E4%BD%93%E6%B8%A9">打体温</a></li>
+</ol>
       
       
       <style>
@@ -590,11 +592,11 @@
     
     
     <i class="fas fa-file-word fa-fw"></i>
-    4507字
+    7344字
     
     
     <i class="fas fa-clock fa-fw"></i>
-    16分
+    25分
     
     
     <span class="leancloud-visitors" id="/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/" data-xid="/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/" data-flag-title="青柠自动打卡">
@@ -744,6 +746,86 @@ def main():
         driver.close()
 main()
 DescNedd()
+</code></pre>
+
+<h1 id="打体温">打体温</h1>
+
+<pre><code class="language-python">from selenium import webdriver
+from selenium.webdriver.support.ui import Select
+from time import sleep
+import pymysql
+def querystudentallinfo():
+    mysql_conn = pymysql.connect(host= '???', port= 3306, user= '???', password= '???', db= '???')
+    sql = "select * from info;"
+    try:
+        with mysql_conn.cursor() as cursor:
+            cursor.execute(sql)
+            result = cursor.fetchall()
+    except Exception as e:
+        print(e)
+    mysql_conn.close()
+    return result
+
+def Temperature():
+    result = querystudentallinfo()
+    print(result)
+    for i in result:
+        if(i[5] &lt;= 0):
+            continue
+        try:
+            if(i[6] == "XHU"):
+                loginURL = "https://wxyqfk.zhxy.net/?yxdm=10623#/login"
+                temperatureReportURL_SCRIPT = "window.open('https://wxyqfk.zhxy.net/?yxdm=10623#/temperatureReport')"
+            if(i[6] == "ABA"):
+                loginURL = "https://wxyqfk.zhxy.net/?yxdm=10646#/login"
+                temperatureReportURL_SCRIPT = "window.open('https://wxyqfk.zhxy.net/?yxdm=10646#/temperatureReport')"
+            if(i[6] == "CDWLXY"):
+                loginURL = "https://wxyqfk.zhxy.net/?yxdm=13671#/login"
+                temperatureReportURL_SCRIPT = "window.open('https://wxyqfk.zhxy.net/?yxdm=13671#/temperatureReport')"
+            if(i[6] == "YXXY"):
+                loginURL = "https://wxyqfk.zhxy.net/?yxdm=13670#/login"
+                temperatureReportURL_SCRIPT = "window.open('https://wxyqfk.zhxy.net/?yxdm=13670#/temperatureReport')"
+            option = webdriver.ChromeOptions()
+            # option.add_argument('headless')
+    #        option.add_argument('--no-sandbox')
+    #       option.add_argument('--disable-dev-shm-usage')
+    #      option.add_argument('--disable-gpu')
+    #     option.add_argument('blink-settings=imagesEnabled=false')
+            driver = webdriver.Chrome("/opt/google/chrome/chromedriver",chrome_options=option)
+            driver.get(loginURL)
+            # uid
+            driver.find_element_by_xpath("//*[@id=\"app\"]/div/div[2]/div[2]/div[1]/div/div[1]/input").send_keys(i[0])
+            # name
+            driver.find_element_by_xpath("//*[@id=\"app\"]/div/div[2]/div[2]/div[2]/div/div/input").send_keys(i[1])
+            # pass
+            driver.find_element_by_xpath("//*[@id=\"app\"]/div/div[2]/div[2]/div[4]/div/div/input").send_keys(i[2])
+            driver.find_element_by_xpath("//*[@id=\"app\"]/div/div[2]/button").click()
+            sleep(1)
+            driver.execute_script(temperatureReportURL_SCRIPT)
+            driver.switch_to_window(driver.window_handles[0])
+            driver.close()
+            driver.switch_to_window(driver.window_handles[0])
+            try:
+                driver.find_element_by_xpath("//*[@id=\"app\"]/div/div[3]/div/div[1]/div/div/div/input").click()
+                driver.find_element_by_xpath("//*[@id=\"app\"]/div/div[4]/div/div[1]/button[2]").click()
+            except Exception as e:
+                print(e)
+            try:
+                driver.find_element_by_xpath("//*[@id=\"app\"]/div/div[3]/div/div[2]/div/div/div/input").click()
+                driver.find_element_by_xpath("//*[@id=\"app\"]/div/div[4]/div/div[1]/button[2]").click()
+            except Exception as e:
+                print(e)
+            try:
+                driver.find_element_by_xpath("//*[@id=\"app\"]/div/div[3]/div/div[3]/div/div/div/input").click()
+                driver.find_element_by_xpath("//*[@id=\"app\"]/div/div[4]/div/div[1]/button[2]").click()
+            except Exception as e:
+                print(e)
+            driver.close()
+        except BaseException as e:
+            print("error")
+    print("------------------ok-----------------")
+if __name__ == "__main__":
+    Temperature()
 </code></pre>
 
 

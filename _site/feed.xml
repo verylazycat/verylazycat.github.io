@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-02-05T12:13:54+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-02-06T16:19:09+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -125,6 +125,86 @@ def main():
         driver.close()
 main()
 DescNedd()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;打体温&quot;&gt;打体温&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;from selenium import webdriver
+from selenium.webdriver.support.ui import Select
+from time import sleep
+import pymysql
+def querystudentallinfo():
+    mysql_conn = pymysql.connect(host= '???', port= 3306, user= '???', password= '???', db= '???')
+    sql = &quot;select * from info;&quot;
+    try:
+        with mysql_conn.cursor() as cursor:
+            cursor.execute(sql)
+            result = cursor.fetchall()
+    except Exception as e:
+        print(e)
+    mysql_conn.close()
+    return result
+
+def Temperature():
+    result = querystudentallinfo()
+    print(result)
+    for i in result:
+        if(i[5] &amp;lt;= 0):
+            continue
+        try:
+            if(i[6] == &quot;XHU&quot;):
+                loginURL = &quot;https://wxyqfk.zhxy.net/?yxdm=10623#/login&quot;
+                temperatureReportURL_SCRIPT = &quot;window.open('https://wxyqfk.zhxy.net/?yxdm=10623#/temperatureReport')&quot;
+            if(i[6] == &quot;ABA&quot;):
+                loginURL = &quot;https://wxyqfk.zhxy.net/?yxdm=10646#/login&quot;
+                temperatureReportURL_SCRIPT = &quot;window.open('https://wxyqfk.zhxy.net/?yxdm=10646#/temperatureReport')&quot;
+            if(i[6] == &quot;CDWLXY&quot;):
+                loginURL = &quot;https://wxyqfk.zhxy.net/?yxdm=13671#/login&quot;
+                temperatureReportURL_SCRIPT = &quot;window.open('https://wxyqfk.zhxy.net/?yxdm=13671#/temperatureReport')&quot;
+            if(i[6] == &quot;YXXY&quot;):
+                loginURL = &quot;https://wxyqfk.zhxy.net/?yxdm=13670#/login&quot;
+                temperatureReportURL_SCRIPT = &quot;window.open('https://wxyqfk.zhxy.net/?yxdm=13670#/temperatureReport')&quot;
+            option = webdriver.ChromeOptions()
+            # option.add_argument('headless')
+    #        option.add_argument('--no-sandbox')
+    #       option.add_argument('--disable-dev-shm-usage')
+    #      option.add_argument('--disable-gpu')
+    #     option.add_argument('blink-settings=imagesEnabled=false')
+            driver = webdriver.Chrome(&quot;/opt/google/chrome/chromedriver&quot;,chrome_options=option)
+            driver.get(loginURL)
+            # uid
+            driver.find_element_by_xpath(&quot;//*[@id=\&quot;app\&quot;]/div/div[2]/div[2]/div[1]/div/div[1]/input&quot;).send_keys(i[0])
+            # name
+            driver.find_element_by_xpath(&quot;//*[@id=\&quot;app\&quot;]/div/div[2]/div[2]/div[2]/div/div/input&quot;).send_keys(i[1])
+            # pass
+            driver.find_element_by_xpath(&quot;//*[@id=\&quot;app\&quot;]/div/div[2]/div[2]/div[4]/div/div/input&quot;).send_keys(i[2])
+            driver.find_element_by_xpath(&quot;//*[@id=\&quot;app\&quot;]/div/div[2]/button&quot;).click()
+            sleep(1)
+            driver.execute_script(temperatureReportURL_SCRIPT)
+            driver.switch_to_window(driver.window_handles[0])
+            driver.close()
+            driver.switch_to_window(driver.window_handles[0])
+            try:
+                driver.find_element_by_xpath(&quot;//*[@id=\&quot;app\&quot;]/div/div[3]/div/div[1]/div/div/div/input&quot;).click()
+                driver.find_element_by_xpath(&quot;//*[@id=\&quot;app\&quot;]/div/div[4]/div/div[1]/button[2]&quot;).click()
+            except Exception as e:
+                print(e)
+            try:
+                driver.find_element_by_xpath(&quot;//*[@id=\&quot;app\&quot;]/div/div[3]/div/div[2]/div/div/div/input&quot;).click()
+                driver.find_element_by_xpath(&quot;//*[@id=\&quot;app\&quot;]/div/div[4]/div/div[1]/button[2]&quot;).click()
+            except Exception as e:
+                print(e)
+            try:
+                driver.find_element_by_xpath(&quot;//*[@id=\&quot;app\&quot;]/div/div[3]/div/div[3]/div/div/div/input&quot;).click()
+                driver.find_element_by_xpath(&quot;//*[@id=\&quot;app\&quot;]/div/div[4]/div/div[1]/button[2]&quot;).click()
+            except Exception as e:
+                print(e)
+            driver.close()
+        except BaseException as e:
+            print(&quot;error&quot;)
+    print(&quot;------------------ok-----------------&quot;)
+if __name__ == &quot;__main__&quot;:
+    Temperature()
 &lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry><entry><title type="html">v2ray服务器客户端搭建</title><link href="http://localhost:4000/_posts/2021-01-18-v2ray%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%90%AD%E5%BB%BA/" rel="alternate" type="text/html" title="v2ray服务器客户端搭建" /><published>2021-01-18T00:00:00+08:00</published><updated>2021-01-18T00:00:00+08:00</updated><id>http://localhost:4000/_posts/v2ray%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%90%AD%E5%BB%BA</id><content type="html" xml:base="http://localhost:4000/_posts/2021-01-18-v2ray%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%90%AD%E5%BB%BA/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;服务器&quot;&gt;服务器&lt;/h1&gt;
