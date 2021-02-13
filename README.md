@@ -39,8 +39,6 @@
 
 <!-- slide -->
 
-
-
 ## 我的一些成就
 
 <!-- slide vertical=true -->
