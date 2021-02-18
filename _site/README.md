@@ -52,8 +52,6 @@
 
 <!-- slide vertical=true -->
 
-
-
 <!-- slide -->
 
 ## 我的一些技能
