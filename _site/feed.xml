@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-02-27T22:53:43+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-02-28T22:01:34+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -125,6 +125,41 @@ public:
             buildmaxheap(nums,0,heapsize);
         }
         return nums[0];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最小的k个数牛客&quot;&gt;最小的K个数(牛客)&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;选择排序&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    vector&amp;lt;int&amp;gt; GetLeastNumbers_Solution(vector&amp;lt;int&amp;gt; input, int k) {
+        vector&amp;lt;int&amp;gt; ret;
+        if(input.empty()||k==0||k&amp;gt;input.size())
+            return ret;
+        int temp,num;
+        for(int i=0;i&amp;lt;k;i++)
+        {
+            temp = INT_MAX;
+            num=0;
+            for(int j=0;j&amp;lt;input.size();j++)
+            {
+                if(temp&amp;gt;input[j])
+                {
+                    temp=input[j];
+                    num=j;
+                }
+            }
+            ret.push_back(temp);
+            input.erase(input.begin()+num);
+        }
+        return ret;
     }
 };
 &lt;/code&gt;&lt;/pre&gt;
@@ -930,10 +965,6 @@ public:
 };
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&quot;最长递增子序列&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-increasing-subsequence/&quot;&gt;最长递增子序列&lt;/a&gt;&lt;/h1&gt;
-
-&lt;p&gt;？？？？&lt;/p&gt;
-
 &lt;h1 id=&quot;长度最小的子数组&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/minimum-size-subarray-sum/&quot;&gt;长度最小的子数组&lt;/a&gt;&lt;/h1&gt;
 
 &lt;blockquote&gt;
@@ -1160,6 +1191,37 @@ public:
                 return false;
         }
         return sk.empty();
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * 
+     * @param s string字符串 
+     * @return bool布尔型
+     */
+    bool isValid(string s) {
+        // write code here
+        stack&amp;lt;char&amp;gt; c;
+        for(int i = 0 ; i &amp;lt; s.length(); i++)
+        {
+            if(c.empty())
+            {
+                c.push(s[i]);
+                continue;
+            }
+            if(s[i]==')'&amp;amp;&amp;amp;c.top()=='(')
+                c.pop();
+            else if(s[i]=='}'&amp;amp;&amp;amp;c.top()=='{')
+                c.pop();
+            else if(s[i]==']'&amp;amp;&amp;amp;c.top()=='[')
+                c.pop();
+            else
+                c.push(s[i]);
+        }
+        return c.empty();
     }
 };
 &lt;/code&gt;&lt;/pre&gt;
@@ -1702,7 +1764,29 @@ public:
 
 &lt;p&gt;&lt;strong&gt;中序遍历第一个是root，前序遍历root前是左子树，后是右子树&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;unordered_map&amp;gt;
+class Solution {
+private:
+    unordered_map&amp;lt;int, int&amp;gt; index;
+public:
+    TreeNode* myBuildTree(const vector&amp;lt;int&amp;gt;&amp;amp; preorder, const vector&amp;lt;int&amp;gt;&amp;amp; inorder, int preorder_left, int preorder_right, int inorder_left, int inorder_right) {
+        if (preorder_left &amp;gt; preorder_right)
+            return nullptr;
+        int preorder_root = preorder_left;
+        int inorder_root = index[preorder[preorder_root]];
+        TreeNode* root = new TreeNode(preorder[preorder_root]);
+        int size_left_subtree = inorder_root - inorder_left;
+        root-&amp;gt;left = myBuildTree(preorder, inorder, preorder_left + 1, preorder_left + size_left_subtree, inorder_left, inorder_root - 1);
+        root-&amp;gt;right = myBuildTree(preorder, inorder, preorder_left + size_left_subtree + 1, preorder_right, inorder_root + 1, inorder_right);
+        return root;
+    }
+    TreeNode* reConstructBinaryTree(vector&amp;lt;int&amp;gt; pre,vector&amp;lt;int&amp;gt; vin) {
+        int n = pre.size();
+        for (int i = 0; i &amp;lt; n; ++i)
+            index[vin[i]] = i;
+        return myBuildTree(pre, vin, 0, n - 1, 0, n - 1);
+    }
+};
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;？？？？&lt;/p&gt;
@@ -2343,6 +2427,26 @@ public:
 };
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;h1 id=&quot;二分查找牛客&quot;&gt;二分查找(牛客)&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;请实现有重复数字的升序数组的二分查找。 输出在数组中&lt;strong&gt;第一个&lt;/strong&gt;大于等于查找值的位置，如果数组中不存在这样的数(指不存在大于等于查找值的数)，则输出数组长度加一&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;    int upper_bound_(int n, int v, vector&amp;lt;int&amp;gt;&amp;amp; a) {
+        // write code here
+        int l = 0,r = n;
+        while(l &amp;lt; r){
+            int mid = l + r &amp;gt;&amp;gt; 1;
+            if(a[mid] &amp;lt; v)
+                l = mid + 1;
+            else
+                r = mid;
+        }
+        return l + 1;
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h1 id=&quot;-x-的平方根&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/sqrtx/&quot;&gt; x 的平方根&lt;/a&gt;&lt;/h1&gt;
 
 &lt;blockquote&gt;
@@ -2741,6 +2845,50 @@ public:
 };
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;h1 id=&quot;高频最长公共子序列牛客&quot;&gt;&lt;strong&gt;高频&lt;/strong&gt;#最长公共子序列(牛客)&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定两个字符串str1和str2,输出两个字符串的最长公共子串,题目保证str1和str2的最长公共子串存在且唯一。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * longest common substring
+     * @param str1 string字符串 the string
+     * @param str2 string字符串 the string
+     * @return string字符串
+     */
+    string LCS(string str1, string str2) {
+        // write code here
+        int len1 = str1.size();
+        int len2 = str2.size();
+        if(len1 == 0 || len2 == 0)
+            return &quot;-1&quot;;
+        vector&amp;lt;int&amp;gt; d(len2+1,0);
+        int reslen = 0;
+        int end;
+        int temp;
+        for(int i = 1;i &amp;lt;=len1;i++){
+            int last = 0;
+            for(int j = 1;j &amp;lt;= len2;j++){
+                temp = d[j]; 
+                if(str1[i-1] == str2[j-1])
+                    d[j] = last + 1;
+                else
+                    d[j] = 0;
+                last = temp;
+                if(reslen &amp;lt; d[j]){
+                    reslen = d[j];
+                    end = j;
+                }
+            }
+        }
+        return reslen &amp;gt; 0 ? str2.substr(end - reslen,reslen) : &quot;-1&quot;;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h1 id=&quot;爬楼梯&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/climbing-stairs/&quot;&gt;爬楼梯&lt;/a&gt;&lt;/h1&gt;
 
 &lt;blockquote&gt;
@@ -2858,6 +3006,37 @@ public:
     vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; permute(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
         vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; res;
         backtrace(nums,res,0,nums.size());
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;牛客字符串排列&quot;&gt;牛客##字符串排列&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则按字典序打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    void permutations(string str,int index,int len,vector&amp;lt;string&amp;gt; &amp;amp;res)
+    {
+        if(index==len-1){
+            res.push_back(str);
+            return ;
+        }
+        for(int i=index;i&amp;lt;len;i++)
+        {
+            if(i!=index &amp;amp;&amp;amp; str[i]==str[index])
+                continue;
+            swap(str[i],str[index]);
+            permutations(str,index+1,str.size(),res);
+        }
+    }
+    vector&amp;lt;string&amp;gt; Permutation(string str) {
+        vector&amp;lt;string&amp;gt; res;
+        if(str.size()==0) return res;
+        permutations(str,0,str.size(),res);
         return res;
     }
 };
@@ -3187,6 +3366,466 @@ public:
             zero -= nums[i+1]-nums[i] - 1;
         }
         return zero &amp;gt;= 0 ? true:false;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;快速排序&quot;&gt;#快速排序&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;    void quickSort(vector&amp;lt;int&amp;gt; &amp;amp;arr,int l,int r){
+        if(l&amp;gt;=r-1) return;
+        int tmp=arr[r-1];
+        int i=l;
+        for(int j=l;j&amp;lt;r-1;j++){
+            if(arr[j]&amp;lt;=tmp){
+                swap(arr[j],arr[i]);
+                i++;
+            }
+        }
+        swap(arr[i],arr[r-1]);
+        quickSort(arr,l,i);
+        quickSort(arr,i+1,r);
+    }
+    vector&amp;lt;int&amp;gt; MySort(vector&amp;lt;int&amp;gt;&amp;amp; arr) {
+        // write code here
+        quickSort(arr,0,arr.size());
+        return arr;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;tips牛客&quot;&gt;Tips(牛客)&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;最长递增子序列&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * retrun the longest increasing subsequence
+     * @param arr int整型vector the array
+     * @return int整型vector
+     */
+    vector&amp;lt;int&amp;gt; LIS(vector&amp;lt;int&amp;gt;&amp;amp; arr)
+    {
+        // 第一步：利用贪心+二分求最长递增子序列长度
+        vector&amp;lt;int&amp;gt; res;
+        vector&amp;lt;int&amp;gt; maxLen;
+        if (arr.size()&amp;lt;1) return res;
+        res.push_back(arr[0]);
+        maxLen.push_back(1);
+        for (int i = 1; i &amp;lt; arr.size(); ++i)
+        {
+            if (arr[i] &amp;gt; res.back())
+            {
+                res.push_back(arr[i]);
+                maxLen.push_back(res.size());
+            }
+            else
+            {
+                // lower_bound(begin, end, val)包含在&amp;lt;algorithm&amp;gt;中
+                // 它的作用是返回有序数组begin..end中第一个大于等于val的元素的迭代器
+                int pos = lower_bound(res.begin(), res.end(), arr[i]) - res.begin();
+                res[pos] = arr[i];
+                maxLen.push_back(pos+1);
+            }
+        }
+        // 第二步：填充最长递增子序列
+        //res中放置的是最长递增序列，maxLen存放的是arr数组中对应每个数字应该放在res数组中的位置
+        //从maxLen的最后往前遍历，依次根据maxLen中元素从大到小取对应的arr中的元素，遇到重复的应选择第一个。
+        for (int i = arr.size()-1, j = res.size(); j &amp;gt; 0; --i)
+        {
+            if (maxLen[i] == j)
+            {
+                res[--j] = arr[i];
+            }
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;旋转排序数组搜索&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * 
+     * @param A int整型一维数组 
+     * @param n int A数组长度
+     * @param target int整型 
+     * @return int整型
+     */
+    int search(int* A, int n, int target) {
+        // write code here
+        int left = 0;
+        int right=n-1;
+        while(left &amp;lt;= right){
+            int mid = left +(right-left)/2;
+            if(A[mid] == target)
+                return mid;
+            else if(A[mid] &amp;gt;= A[left]){
+                //左侧有序
+                if(A[mid] &amp;gt; target &amp;amp;&amp;amp; A[left] &amp;lt;= target)
+                    right=mid-1;
+                else
+                    left=mid+1;
+            }
+            else{
+                //右侧有序
+                if(A[mid]&amp;lt;target &amp;amp;&amp;amp; A[right] &amp;gt;= target)
+                    left=mid+1;
+                else
+                    right=mid-1;
+            }
+        }
+        return -1;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;最长回文子串&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int getLongestPalindrome(string A, int n) {
+        // write code here
+        int left = 0;
+        int right = 0;
+        int res = 0;
+        for(int i = 0;i &amp;lt; n;i++){
+            left = i;
+            right = i;
+            while(right &amp;lt; n &amp;amp;&amp;amp; left &amp;gt;= 0 &amp;amp;&amp;amp; A[right] == A[left]){
+                left--;
+                right++;
+            }
+            res = max(res,right - left - 1);
+            left = i;
+            right = i + 1;
+            while(right &amp;lt; n &amp;amp;&amp;amp; left &amp;gt;= 0 &amp;amp;&amp;amp; A[right] == A[left]){
+                left--;
+                right++;
+            }
+            res = max(res,right - left -1);
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;单链表排序&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * struct ListNode {
+ *	int val;
+ *	struct ListNode *next;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param head ListNode类 the head node
+     * @return ListNode类
+     */
+    ListNode *merge(ListNode *l1,ListNode *l2){
+        if(l1 == nullptr)
+            return l2;
+        else if(l2 == nullptr)
+            return l1;
+        if(l1-&amp;gt;val &amp;lt; l2-&amp;gt;val){
+            l1-&amp;gt;next = merge(l1-&amp;gt;next, l2);
+            return l1;
+        }
+        else{
+            l2-&amp;gt;next = merge(l1, l2-&amp;gt;next);
+            return l2;
+        }
+    }
+    ListNode *findmid(ListNode *head){
+        ListNode *fast = head;
+        ListNode *slow = head;
+        ListNode *pre;
+        while(fast != nullptr &amp;amp;&amp;amp; fast-&amp;gt;next != nullptr){
+            pre = slow;
+            slow = slow-&amp;gt;next;
+            fast = fast-&amp;gt;next-&amp;gt;next;
+        }
+        pre-&amp;gt;next = nullptr;
+        return slow;
+    }
+    ListNode *mergesort(ListNode *head){
+        if(head-&amp;gt;next == nullptr)
+            return head;
+        ListNode *mid = findmid(head);
+        ListNode *l1 = mergesort(head);
+        ListNode *l2 = mergesort(mid);
+        return merge(l1, l2);
+    }
+    ListNode* sortInList(ListNode* head) {
+        // write code here
+        return head == nullptr ? nullptr : mergesort(head);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;数组中只出现一次&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;一个整型数组里除了两个数字之外，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;unordered_map&amp;gt;
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param array int整型vector 
+     * @return int整型vector
+     */
+    vector&amp;lt;int&amp;gt; FindNumsAppearOnce(vector&amp;lt;int&amp;gt;&amp;amp; array) {
+        // write code here
+        int n = array.size();
+        vector&amp;lt;int&amp;gt; res;
+        unordered_map&amp;lt;int, int&amp;gt; map;
+        for(int i = 0;i &amp;lt; n;i++)
+            map[array[i]]++;
+        for(int i = 0;i &amp;lt; n;i++){
+            if(map[array[i]] == 1)
+                res.push_back(array[i]);
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;进制转化&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个十进制数M，以及需要转换的进制数N。将十进制数M转化为N进制数&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * 进制转换
+     * @param M int整型 给定整数
+     * @param N int整型 转换到的进制
+     * @return string字符串
+     */
+    string solve(int M, int N) {
+        // write code here
+        string ans;
+        bool flag = 0;
+        if (M&amp;lt;0) {
+            M=-M;
+            flag = 1;
+        }
+        const char* t = {&quot;0123456789ABCDEF&quot;} ;
+        while (M!=0) {
+            ans= t[M%N]+ans;
+            M/=N;
+        }
+        if (flag)
+            ans = '-'+ans;
+        return ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;链表区间翻转&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * struct ListNode {
+ *	int val;
+ *	struct ListNode *next;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param head ListNode类 
+     * @param m int整型 
+     * @param n int整型 
+     * @return ListNode类
+     */
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        // write code here
+        ListNode *dummy=new ListNode(-1);
+        dummy-&amp;gt;next=head;
+        ListNode *pre=dummy;
+        for(int i=1;i&amp;lt;m;++i)
+            pre=pre-&amp;gt;next;
+        head=pre-&amp;gt;next;
+        for(int i=m;i&amp;lt;n;++i){
+            ListNode *nxt=head-&amp;gt;next;
+            head-&amp;gt;next=nxt-&amp;gt;next;
+            nxt-&amp;gt;next=pre-&amp;gt;next;
+            pre-&amp;gt;next=nxt;
+        }
+        return dummy-&amp;gt;next;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;数组中未出现的最小正整数&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * return the min number
+     * @param arr int整型vector the array
+     * @return int整型
+     */
+    int minNumberdisappered(vector&amp;lt;int&amp;gt;&amp;amp; arr) {
+        // write code here
+        for(int i = 0;i &amp;lt; arr.size();i++){
+            if(arr[i] &amp;lt; arr.size())
+                swap(arr[i],arr[arr[i] - 1]);
+        }
+        for(int i = 0;i &amp;lt; arr.size();i++){
+            if(arr[i] != i+1)
+                return i+1;
+        }
+        return arr.size()+1;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;字符串转整数&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int atoi(const char *str) {
+         if (!strlen(str) ) return 0;
+        int ans = 0;
+        int i = 0;
+        bool neg = false;
+        while(str[i]==' ') 
+            i++;
+        if(str[i]=='-') {
+            neg = true;
+            i++;
+        }
+        if(str[i]=='+') i++;
+        while(str[i]!='\0') {
+            if(str[i]&amp;gt;'9'||str[i]&amp;lt;'0')
+                break;
+            if(ans&amp;gt;=INT_MAX/10) 
+                return neg ? INT_MIN:INT_MAX;
+            ans = 10*ans + str[i]-'0';
+            i++;
+        }
+        return neg?-ans:ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;判断二叉树搜索和完全二叉树&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * struct TreeNode {
+ *	int val;
+ *	struct TreeNode *left;
+ *	struct TreeNode *right;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param root TreeNode类 the root
+     * @return bool布尔型vector
+     */
+    bool isSousuo(TreeNode* root,long long lowwer,long long upper)
+    {
+        if(root == nullptr)return true;
+        if(root-&amp;gt;val &amp;lt;= lowwer || root-&amp;gt;val &amp;gt;= upper)return false;
+        return isSousuo(root-&amp;gt;left, lowwer, root-&amp;gt;val)&amp;amp;&amp;amp;isSousuo(root-&amp;gt;right, root-&amp;gt;val, upper);
+    }
+    bool isComplete(TreeNode* root)
+    {
+        queue&amp;lt;TreeNode*&amp;gt;q;
+        q.push(root);
+        while(q.front())
+        {
+            root = q.front();
+            q.pop();
+            q.push(root-&amp;gt;left);
+            q.push(root-&amp;gt;right);
+        }
+        while(!q.empty() &amp;amp;&amp;amp; q.front() == nullptr)
+        {
+            q.pop();
+        }
+        return q.empty();
+    }
+    vector&amp;lt;bool&amp;gt; judgeIt(TreeNode* root) {
+        // write code here
+        vector&amp;lt;bool&amp;gt;res;
+        res.push_back(isSousuo(root, LONG_MIN, LONG_MAX));
+        res.push_back(isComplete(root));
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;排序&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     * 将给定数组排序
+     * @param arr int整型vector 待排序的数组
+     * @return int整型vector
+     */
+    void quickSort(vector&amp;lt;int&amp;gt; &amp;amp;arr,int l,int r){
+        if(l&amp;gt;=r-1) return;
+        int tmp=arr[r-1];
+        int i=l;
+        for(int j=l;j&amp;lt;r-1;j++){
+            if(arr[j]&amp;lt;=tmp){
+                swap(arr[j],arr[i]);
+                i++;
+            }
+        }
+        swap(arr[i],arr[r-1]);
+        quickSort(arr,l,i);
+        quickSort(arr,i+1,r);
+    }
+    vector&amp;lt;int&amp;gt; MySort(vector&amp;lt;int&amp;gt;&amp;amp; arr) {
+        // write code here
+        quickSort(arr,0,arr.size());
+        return arr;
     }
 };
 &lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><summary type="html">title: 算法 tags: 算法</summary></entry><entry><title type="html">青柠自动打卡</title><link href="http://localhost:4000/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/" rel="alternate" type="text/html" title="青柠自动打卡" /><published>2021-02-02T00:00:00+08:00</published><updated>2021-02-02T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1</id><content type="html" xml:base="http://localhost:4000/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/">&lt;p&gt;[toc]&lt;/p&gt;
