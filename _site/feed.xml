@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-02-28T22:01:34+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-01T17:14:27+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -451,7 +451,7 @@ public:
 &lt;h1 id=&quot;删除排序链表中的重复元素&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/&quot;&gt;删除排序链表中的重复元素&lt;/a&gt;&lt;/h1&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。&lt;/p&gt;
+  &lt;p&gt;给定一个排序链表，删除所有重复的元素，使得每个&lt;code&gt;元素只出现一次&lt;/code&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
@@ -477,6 +477,44 @@ public:
             temp = temp-&amp;gt;next;
         }
         return  head;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;牛客删除链表重复出现的节点&quot;&gt;牛客###删除链表重复出现的节点&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给出一个升序排序的链表，删除链表中的所有重复出现的元素，只保留原链表中只出现一次的元素。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给出的链表为1 \to 2\to 3\to 3\to 4\to 4\to51→2→3→3→4→4→5, 返回1\to 2\to51→2→5&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * 
+     * @param head ListNode类 
+     * @return ListNode类
+     */
+    ListNode* deleteDuplicates(ListNode* head) {
+        // write code here
+        if(head == nullptr || head-&amp;gt;next == nullptr)
+            return head;
+        if(head-&amp;gt;val != head-&amp;gt;next-&amp;gt;val){
+            head-&amp;gt;next = deleteDuplicates(head-&amp;gt;next);
+            return head;
+        }
+        else{
+            int temp = head-&amp;gt;val;
+            while(head-&amp;gt;val == temp){
+                head = head-&amp;gt;next;
+                if(head == nullptr)
+                    return nullptr;
+            }
+            return deleteDuplicates(head);
+        }
     }
 };
 &lt;/code&gt;&lt;/pre&gt;
@@ -3828,6 +3866,207 @@ public:
         return arr;
     }
 };
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;最小编辑代价&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定两个字符串str1和str2，再给定三个整数ic，dc和rc，分别代表插入、删除和替换一个字符的代价，请输出将str1编辑成str2的最小代价。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * min edit cost
+     * @param str1 string字符串 the string
+     * @param str2 string字符串 the string
+     * @param ic int整型 insert cost
+     * @param dc int整型 delete cost
+     * @param rc int整型 replace cost
+     * @return int整型
+     */
+    int minEditCost(string str1, string str2, int ic, int dc, int rc) {
+        // write code here
+        int n1 = str1.size();
+        int n2 = str2.size();
+        vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; dp(n1+1, vector&amp;lt;int&amp;gt;(n2+1,0));
+        for(int i = 0;i&amp;lt;=n1;i++)
+            dp[i][0]=i*dc;
+        for(int j = 0;j&amp;lt;=n2;j++)
+            dp[0][j] = j*ic;
+        for(int i = 1; i&amp;lt;=n1; i++){
+            for(int j = 1; j&amp;lt;=n2; j++){
+                if(str1[i-1]==str2[j-1]){
+                    dp[i][j]=dp[i-1][j-1];
+                }else{
+                    int ict = dp[i][j-1] + ic;
+                    int dct = dp[i-1][j] + dc;
+                    int rct = dp[i-1][j-1] + rc;
+                    dp[i][j] = min({ict,dct, rct});
+                }
+            }
+        }
+        return dp[n1][n2];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;排序&quot;&gt;排序&lt;/h1&gt;
+
+&lt;h2 id=&quot;选择排序&quot;&gt;选择排序&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;//选择排序
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+using namespace std;
+void selectSort(vector&amp;lt;int&amp;gt; &amp;amp;arr){
+    for(int i = 0;i &amp;lt; arr.size();i++){
+        int min = i;
+        for(int j = i + 1;j &amp;lt; arr.size();j++){
+            if(arr[j] &amp;lt; arr[min])
+                min = j;
+        }
+        if(i != min){
+            swap(arr[i],arr[min]);
+        }
+    }
+}
+int main(int argc, char const *argv[])
+{
+    vector&amp;lt;int&amp;gt; test{1,2,1,5,6,4,88,4,5,0,8};
+    selectSort(test);
+    for(int i : test)
+        cout&amp;lt;&amp;lt;i&amp;lt;&amp;lt;' ';
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;插入排序&quot;&gt;插入排序&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;// 将第一待排序序列第一个元素看做一个有序序列，把第二个元素到最后一个元素当成是未排序序列。&lt;/p&gt;
+
+  &lt;p&gt;从头到尾依次扫描未排序序列，将扫描到的每个元素插入有序序列的适当位置。&lt;/p&gt;
+
+  &lt;p&gt;如果待插入的元素与有序序列中的某个元素相等，则将待插入元素插入到相等元素的后面。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;//插入排序
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+using namespace std;
+void insertSort(vector&amp;lt;int&amp;gt; &amp;amp;arr){
+    for(int i = 1;i &amp;lt; arr.size();i++){
+        int temp = arr[i];
+        // 从已经排序的序列最右边的开始比较，找到比其小的数
+        int j = i;
+        while (j &amp;gt; 0 &amp;amp;&amp;amp; temp &amp;lt; arr[j - 1])
+        {
+            arr[j] = arr[j - 1];
+            j--;
+        }
+        if(j != i)
+            arr[j] = temp;
+    }
+}   
+int main(int argc, char const *argv[])
+{
+    vector&amp;lt;int&amp;gt; test{1,2,1,5,6,4,88,4,5,0,8};
+    insertSort(test);
+    for(int i : test)
+        cout&amp;lt;&amp;lt;i&amp;lt;&amp;lt;' ';
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;快速排序-1&quot;&gt;快速排序&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;从数列中挑出一个元素，称为 “基准”（pivot）&lt;/p&gt;
+
+  &lt;p&gt;重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作&lt;/p&gt;
+
+  &lt;p&gt;递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序；&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;//快速排序
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+using namespace std;
+int paritition(vector&amp;lt;int&amp;gt; &amp;amp;arr,int low,int high){
+    int pivot = arr[low];
+    while(low &amp;lt; high){
+        while(low &amp;lt; high &amp;amp;&amp;amp; arr[high] &amp;gt;= pivot)
+            --high;
+        arr[low] = arr[high];
+        while(low &amp;lt; high &amp;amp;&amp;amp; arr[low] &amp;lt;= pivot)
+            ++low;
+        arr[high] = arr[low];
+    }
+    arr[low] = pivot;
+    return low;
+}
+void quickSort(vector&amp;lt;int&amp;gt; &amp;amp;arr,int low,int high){
+    if(low &amp;lt; high){
+        int pivot = paritition(arr,low,high);
+        quickSort(arr,low,pivot - 1);
+        quickSort(arr,pivot + 1,high);
+    }
+}  
+int main(int argc, char const *argv[])
+{
+    vector&amp;lt;int&amp;gt; test{1,2,1,5,6,4,88,4,5,0,8};
+    quickSort(test,0,test.size()-1);
+    for(int i : test)
+        cout&amp;lt;&amp;lt;i&amp;lt;&amp;lt;' ';
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;堆排序&quot;&gt;堆排序&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;居然有人不会堆排序？？？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;//堆排序
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+using namespace std;
+void buildMaxHeap(vector&amp;lt;int&amp;gt; &amp;amp;arr,int i,int heapsize){
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+    int largest = i;
+    if(left &amp;lt; heapsize &amp;amp;&amp;amp; arr[left] &amp;gt; arr[largest])
+        largest = left;
+    if(right &amp;lt; heapsize &amp;amp;&amp;amp; arr[right] &amp;gt; arr[largest])
+        largest = right;
+    if(largest != i){
+        swap(arr[i],arr[largest]);
+        buildMaxHeap(arr,largest,heapsize);
+    }
+}
+void buildHeap(vector&amp;lt;int&amp;gt; &amp;amp;arr,int heapsize){
+    for(int i = heapsize/2; i &amp;gt;= 0;i--)
+        buildMaxHeap(arr,i,heapsize);
+} 
+void HeapSort(vector&amp;lt;int&amp;gt; &amp;amp;arr){
+    int heapsize = arr.size();
+    buildHeap(arr,heapsize);
+    for(int i = heapsize - 1;i &amp;gt; 0;i--){
+        swap(arr[0],arr[i]);
+        heapsize--;
+        buildMaxHeap(arr,0,heapsize);
+    }
+} 
+int main(int argc, char const *argv[])
+{
+    vector&amp;lt;int&amp;gt; test{1,2,1,5,6,4,88,4,5,0,8};
+    HeapSort(test);
+    for(int i : test)
+        cout&amp;lt;&amp;lt;i&amp;lt;&amp;lt;' ';
+    return 0;
+}
 &lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><summary type="html">title: 算法 tags: 算法</summary></entry><entry><title type="html">青柠自动打卡</title><link href="http://localhost:4000/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/" rel="alternate" type="text/html" title="青柠自动打卡" /><published>2021-02-02T00:00:00+08:00</published><updated>2021-02-02T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1</id><content type="html" xml:base="http://localhost:4000/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;数据库&quot;&gt;数据库&lt;/h1&gt;
