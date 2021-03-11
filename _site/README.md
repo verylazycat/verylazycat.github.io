@@ -112,7 +112,8 @@ git clone https://github.com/verylazycat/verylazycat.github.io.git
 ```bash
 sudo apt-get install gem
 sudo apt-get install ruby-dev
-gem install jekyll
+sudo gem install jekyll
+sudo gem install jekyll bundler
 bundle install
 ```
 
@@ -123,3 +124,4 @@ bundle exec jekyll serve
 ```
 
 > 给个star可以咩？？
+
