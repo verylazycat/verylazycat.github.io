@@ -1,11 +1,5409 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-06T22:16:25+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-13T23:43:24+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">青柠自动打卡</title><link href="http://localhost:4000/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/" rel="alternate" type="text/html" title="青柠自动打卡" /><published>2021-02-02T00:00:00+08:00</published><updated>2021-02-02T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1</id><content type="html" xml:base="http://localhost:4000/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">算法</title><link href="http://localhost:4000/_posts/2021-02-02-%E7%AE%97%E6%B3%95/" rel="alternate" type="text/html" title="算法" /><published>2021-02-02T00:00:00+08:00</published><updated>2021-02-02T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E7%AE%97%E6%B3%95</id><content type="html" xml:base="http://localhost:4000/_posts/2021-02-02-%E7%AE%97%E6%B3%95/">&lt;pre&gt;&lt;code&gt;title: 青柠自动打卡
+tags: linux
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;字节跳动：部门不限&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;无重复字符的最长子串&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/&quot;&gt;无重复字符的最长子串&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个字符串，请你找出其中不含有重复字符的 &lt;strong&gt;最长子串&lt;/strong&gt; 的长度&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;思路:unordered_set,left-i+1&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        unordered_set&amp;lt;char&amp;gt; look;
+        int left = 0;
+        int res = 0;
+        for(int i = 0;i &amp;lt; s.size();i++){
+            if(look.find(s[i]) != look.end()){
+                look.erase(left);
+                left++;
+            }
+            look.insert(s[i]);
+            res = max(res,i - left +1);
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;unordered_map&amp;gt;
+class Solution {
+public:
+    /**
+     * 
+     * @param arr int整型vector the array
+     * @return int整型
+     */
+    int maxLength(vector&amp;lt;int&amp;gt;&amp;amp; arr) {
+        // write code here
+        unordered_map&amp;lt;int, int&amp;gt; map;
+        int pos = 0;
+        int res = 0;
+        for(int a : arr)
+            map[a] = -1;
+        for(int i = 0;i &amp;lt; arr.size();i++){
+            if(map[arr[i]] != -1)
+                pos = max(pos,map[arr[i]] +1);
+            res = max(res,i-pos+1);
+            map[arr[i]] = i;
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;字符串解码&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/decode-string/&quot;&gt;字符串解码&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个经过编码的字符串，返回它解码后的字符串。&lt;/p&gt;
+
+  &lt;p&gt;输入：s = “3[a]2[bc]”
+输出：”aaabcbc”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;双栈&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    string decodeString(string s) {
+        string res = &quot;&quot;;
+        stack&amp;lt;int&amp;gt; nums;
+        stack&amp;lt;string&amp;gt; strs;
+        int num = 0;
+        int len = s.size();
+        for(int i = 0;i &amp;lt; len;i++)
+        {
+            if(s[i] &amp;gt;= '0' &amp;amp;&amp;amp; s[i] &amp;lt;= '9')
+                num = num*10 + s[i] - '0';
+            else if((s[i] &amp;gt;= 'a' &amp;amp;&amp;amp; s[i] &amp;lt;= 'z') || (s[i] &amp;gt;= 'A' &amp;amp;&amp;amp; s[i] &amp;lt;= 'Z'))
+                res += s[i];
+            else if(s[i] == '[')
+            {
+                nums.push(num);
+                num = 0;
+                strs.push(res);
+                res = &quot;&quot;;
+            }
+            else
+            {
+                int times = nums.top();
+                nums.pop();
+                for(int i = 0;i &amp;lt; times;i++)
+                    strs.top() += res;
+                res = strs.top();
+                strs.pop();
+            }
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;数组中的第k个最大元素&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/kth-largest-element-in-an-array/&quot;&gt;数组中的第K个最大元素&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;在未排序的数组中找到第 &lt;strong&gt;k&lt;/strong&gt; 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;堆排序&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    void buildmaxheap(vector&amp;lt;int&amp;gt; &amp;amp;nums,int i,int heapsize){
+        int l = 2*i+1;
+        int r = 2*i+2;
+        int largest = i;
+        if(l &amp;lt; heapsize &amp;amp;&amp;amp; nums[l] &amp;gt; nums[largest])
+            largest = l;
+        if(r &amp;lt; heapsize &amp;amp;&amp;amp; nums[r] &amp;gt; nums[largest])
+            largest = r;
+        if(largest != i){
+            swap(nums[i],nums[largest]);
+            buildmaxheap(nums,largest,heapsize);
+        }
+    }
+    void buildheap(vector&amp;lt;int&amp;gt; &amp;amp;nums,int heapsize){
+        for(int i = heapsize/2;i &amp;gt;= 0;i--)
+            buildmaxheap(nums,i,heapsize);
+    }
+    int findKthLargest(vector&amp;lt;int&amp;gt;&amp;amp; nums, int k) {
+        int heapsize = nums.size();
+        buildheap(nums,heapsize);
+        for(int i = nums.size()-1;i &amp;gt;= nums.size()-k+1;i--){
+            swap(nums[0],nums[i]);
+            heapsize--;
+            buildmaxheap(nums,0,heapsize);
+        }
+        return nums[0];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最小的k个数牛客&quot;&gt;最小的K个数(牛客)&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;选择排序&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    vector&amp;lt;int&amp;gt; GetLeastNumbers_Solution(vector&amp;lt;int&amp;gt; input, int k) {
+        vector&amp;lt;int&amp;gt; ret;
+        if(input.empty()||k==0||k&amp;gt;input.size())
+            return ret;
+        int temp,num;
+        for(int i=0;i&amp;lt;k;i++)
+        {
+            temp = INT_MAX;
+            num=0;
+            for(int j=0;j&amp;lt;input.size();j++)
+            {
+                if(temp&amp;gt;input[j])
+                {
+                    temp=input[j];
+                    num=j;
+                }
+            }
+            ret.push_back(temp);
+            input.erase(input.begin()+num);
+        }
+        return ret;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;三数之和&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/3sum/&quot;&gt;三数之和&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;排序+三指针&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; threeSum(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; res;
+        sort(nums.begin(),nums.end());
+        for(int k = 0;k &amp;lt; nums.size();k++){
+            if(nums[k] &amp;gt; 0)
+                break;
+            if(k &amp;gt; 0 &amp;amp;&amp;amp; nums[k] == nums[k-1])
+                continue;
+            int i = k+1;
+            int j = nums.size()-1;
+            while(i &amp;lt; j){
+                int sum = nums[k] + nums[i] + nums[j];
+                if(sum &amp;gt; 0)
+                    while(i &amp;lt; j &amp;amp;&amp;amp; nums[j] == nums[--j]);
+                else if(sum &amp;lt; 0)
+                    while(i &amp;lt; j &amp;amp;&amp;amp; nums[i] == nums[++i]);
+                else{
+                    res.push_back({nums[k],nums[i],nums[j]});
+                    while(i &amp;lt; j &amp;amp;&amp;amp; nums[j] == nums[--j]);
+                    while(i &amp;lt; j &amp;amp;&amp;amp; nums[i] == nums[++i]);
+                }
+            }
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;lru-缓存机制&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/lru-cache/&quot;&gt;LRU 缓存机制&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;运用你所掌握的数据结构，设计和实现一个 &lt;a href=&quot;https://baike.baidu.com/item/LRU&quot;&gt;LRU (最近最少使用) 缓存机制&lt;/a&gt; 。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;双向链表+unordered_map&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;unordered_map&amp;gt;
+#include &amp;lt;list&amp;gt;
+struct Node{
+    int key;
+    int value;
+    Node(int _key,int _value):key(_key),value(_value){}
+};
+class Solution {
+private:
+    list&amp;lt;Node&amp;gt; li;
+    unordered_map&amp;lt;int, list&amp;lt;Node&amp;gt;::iterator&amp;gt; map;
+    int cap;
+public:
+    /**
+     * lru design
+     * @param operators int整型vector&amp;lt;vector&amp;lt;&amp;gt;&amp;gt; the ops
+     * @param k int整型 the k
+     * @return int整型vector
+     */
+    int remove(list&amp;lt;Node&amp;gt;::iterator &amp;amp;ite){
+        int key = ite-&amp;gt;key;
+        int value = ite-&amp;gt;value;
+        li.erase(ite);
+        map.erase(key);
+        return value;
+    }
+    void add(int key,int value){
+        li.push_front(Node(key,value));
+        map[key] = li.begin();
+        if(li.size() &amp;gt; cap){
+            auto last = li.end();
+            last--;
+            remove(last);
+        }
+    }
+    void set(int x,int y){
+        auto ite = map.find(x);
+        if(ite != map.end())
+            remove(ite-&amp;gt;second);
+        add(x, y);
+    }
+    int get(int x){
+        int val = 0;
+        auto ite = map.find(x);
+        if(ite != map.end()){
+            val = remove(ite-&amp;gt;second);
+            add(x, val);
+            return val;
+        }
+        return -1;
+    }
+    vector&amp;lt;int&amp;gt; LRU(vector&amp;lt;vector&amp;lt;int&amp;gt; &amp;gt;&amp;amp; operators, int k) {
+        // write code here
+        cap = k;
+        vector&amp;lt;int&amp;gt; res;
+        for(auto &amp;amp;input : operators){
+            if(input[0] == 1)
+                set(input[1], input[2]);
+            else
+                res.push_back(get(input[1]));
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;lfu-缓存&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/lfu-cache/&quot;&gt;LFU 缓存&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;请你为 &lt;a href=&quot;https://baike.baidu.com/item/缓存算法&quot;&gt;最不经常使用（LFU）&lt;/a&gt;缓存算法设计并实现数据结构&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;买卖股票的最佳时机&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/&quot;&gt;买卖股票的最佳时机&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int maxProfit(vector&amp;lt;int&amp;gt;&amp;amp; prices) {
+      int maxpro = INT_MIN;
+      int minprice = INT_MAX;
+      for(int price:prices){
+          maxpro = max(maxpro,price-minprice);
+          minprice = min(minprice,price);
+      }  
+      return maxpro;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;买卖股票的最佳时机-ii&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/&quot;&gt;买卖股票的最佳时机 II&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个数组，它的第 &lt;em&gt;i&lt;/em&gt; 个元素是一支给定股票第 &lt;em&gt;i&lt;/em&gt; 天的价格。设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;上涨就卖&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int maxProfit(vector&amp;lt;int&amp;gt;&amp;amp; prices) {
+        int res = 0;
+        for(int i = 1;i &amp;lt; prices.size();i++){
+            int temp = prices[i] - prices[i-1];
+            if(temp &amp;gt; 0)
+                res += temp;
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;相交链表&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/intersection-of-two-linked-lists/&quot;&gt;相交链表&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;编写一个程序，找到两个单链表相交的起始节点。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;双指针&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *A = headA;
+        ListNode *B = headB;
+        while(A!=B){
+            A = A == nullptr ? headB:A-&amp;gt;next;
+            B = B == nullptr ? headA:B-&amp;gt;next;
+        }
+        return A;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;环形链表&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/linked-list-cycle/&quot;&gt;环形链表&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个链表，判断链表中是否有环。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;快慢指针&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode *fast = head;
+        ListNode *slow = head;
+        while(fast != nullptr &amp;amp;&amp;amp; fast-&amp;gt;next != nullptr){
+            fast = fast-&amp;gt;next-&amp;gt;next;
+            slow = slow-&amp;gt;next;
+            if(slow == fast){
+                fast = head;
+                while(fast != slow){
+                    fast = fast-&amp;gt;next;
+                    slow = slow-&amp;gt;next;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;环形链表-ii&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/linked-list-cycle-ii/&quot;&gt;环形链表 II&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，pos 仅仅是用于标识环的情况，并不会作为参数传递到函数中&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        ListNode *fast = head;
+        ListNode *slow = head;
+        while(fast != nullptr &amp;amp;&amp;amp; fast-&amp;gt;next != nullptr){
+            fast = fast-&amp;gt;next-&amp;gt;next;
+            slow = slow-&amp;gt;next;
+            if(fast == slow){
+                fast = head;
+                while(fast != slow){
+                    fast = fast-&amp;gt;next;
+                    slow = slow-&amp;gt;next;
+                }
+                return fast;
+            }
+        }
+        return nullptr;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;删除链表的倒数第-n-个结点&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/&quot;&gt;删除链表的倒数第 N 个结点&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个链表，删除链表的倒数第 &lt;code&gt;n&lt;/code&gt; 个结点，并且返回链表的头结点。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;快慢指针&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(head-&amp;gt;next == nullptr)
+            return nullptr;
+        ListNode *fast = head;
+        ListNode *slow = head;
+        for(int i =0 ;i &amp;lt; n;i++)
+            fast = fast-&amp;gt;next;
+        if(fast == nullptr)
+            head = slow-&amp;gt;next;
+        else
+        {
+            while(fast-&amp;gt;next != nullptr)
+            {
+                fast = fast-&amp;gt;next;
+                slow = slow-&amp;gt;next;
+            }
+            slow-&amp;gt;next = slow-&amp;gt;next-&amp;gt;next;
+        }
+        return head;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;删除排序链表中的重复元素&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/&quot;&gt;删除排序链表中的重复元素&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个排序链表，删除所有重复的元素，使得每个&lt;code&gt;元素只出现一次&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode *temp = head;
+        while(temp != nullptr &amp;amp;&amp;amp; temp-&amp;gt;next != nullptr)
+        {
+            if(temp-&amp;gt;val == temp-&amp;gt;next-&amp;gt;val)
+            {
+                temp-&amp;gt;next = temp-&amp;gt;next-&amp;gt;next;
+            }
+            temp = temp-&amp;gt;next;
+        }
+        return  head;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;删除链表重复出现的节点&quot;&gt;删除链表重复出现的节点&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给出一个升序排序的链表，删除链表中的所有重复出现的元素，只保留原链表中只出现一次的元素。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给出的链表为1 \to 2\to 3\to 3\to 4\to 4\to51→2→3→3→4→4→5, 返回1\to 2\to51→2→5&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * 
+     * @param head ListNode类 
+     * @return ListNode类
+     */
+    ListNode* deleteDuplicates(ListNode* head) {
+        // write code here
+        if(head == nullptr || head-&amp;gt;next == nullptr)
+            return head;
+        if(head-&amp;gt;val != head-&amp;gt;next-&amp;gt;val){
+            head-&amp;gt;next = deleteDuplicates(head-&amp;gt;next);
+            return head;
+        }
+        else{
+            int temp = head-&amp;gt;val;
+            while(head-&amp;gt;val == temp){
+                head = head-&amp;gt;next;
+                if(head == nullptr)
+                    return nullptr;
+            }
+            return deleteDuplicates(head);
+        }
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;删除排序链表中的重复元素-ii&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/&quot;&gt;删除排序链表中的重复元素 II&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 &lt;em&gt;没有重复出现&lt;/em&gt; 的数字。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* dummyNode = new ListNode(0,head);
+        ListNode* pre = dummyNode;
+        ListNode* cur = head;
+        while (cur) { 
+            if (cur-&amp;gt;next &amp;amp;&amp;amp; cur-&amp;gt;val == cur-&amp;gt;next-&amp;gt;val) { 
+                while (cur-&amp;gt;next &amp;amp;&amp;amp; cur-&amp;gt;val == cur-&amp;gt;next-&amp;gt;val) { 
+                    cur = cur-&amp;gt;next;
+                }
+                pre-&amp;gt;next = cur-&amp;gt;next; 
+            } else {
+                pre = cur;
+            }                     
+            cur = cur-&amp;gt;next;
+        }
+        return dummyNode-&amp;gt;next;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;排序链表&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/sort-list/&quot;&gt;排序链表&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你链表的头结点 &lt;code&gt;head&lt;/code&gt; ，请将其按 &lt;strong&gt;升序&lt;/strong&gt; 排列并返回 &lt;strong&gt;排序后的链表&lt;/strong&gt; 。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;快慢指针&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *findmid(ListNode *head)
+    {
+        ListNode *slow = head;
+        ListNode *fast = head;
+        ListNode *prev;
+        while(fast != nullptr &amp;amp;&amp;amp; fast-&amp;gt;next != nullptr)
+        {
+            prev = slow;
+            slow = slow-&amp;gt;next;
+            fast = fast-&amp;gt;next-&amp;gt;next;
+        }
+        prev-&amp;gt;next = nullptr;
+        return slow;
+    }
+    ListNode *mergetowlist(ListNode *l1,ListNode *l2)
+    {
+        if(l1 == nullptr)
+            return l2;
+        else if(l2 == nullptr)
+            return l1;
+        if(l1-&amp;gt;val &amp;lt; l2-&amp;gt;val)
+        {
+            l1-&amp;gt;next = mergetowlist(l1-&amp;gt;next,l2);
+            return l1;
+        }
+        else
+        {
+            l2-&amp;gt;next = mergetowlist(l1,l2-&amp;gt;next);
+            return l2;
+        }
+    }
+    ListNode *mergesort(ListNode *head)
+    {
+        if(head-&amp;gt;next  == nullptr)
+            return head;
+        ListNode *mid = findmid(head);
+        ListNode *l1 = mergesort(head);
+        ListNode *l2 = mergesort(mid);
+        return mergetowlist(l1,l2);
+    }
+    ListNode* sortList(ListNode* head) {
+        return head == nullptr ? nullptr : mergesort(head);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;反转链表&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/reverse-linked-list/&quot;&gt;反转链表&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;反转一个单链表。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head == nullptr || head-&amp;gt;next == nullptr)
+            return head;
+        ListNode *dump = reverseList(head-&amp;gt;next);
+        head-&amp;gt;next-&amp;gt;next = head;
+        head-&amp;gt;next =nullptr;
+        return dump;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;反转链表-ii&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/reverse-linked-list-ii/&quot;&gt;反转链表 II&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;反转从位置 &lt;em&gt;m&lt;/em&gt; 到 &lt;em&gt;n&lt;/em&gt; 的链表。请使用一趟扫描完成反转&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * struct ListNode {
+ *	int val;
+ *	struct ListNode *next;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param head ListNode类 
+     * @param m int整型 
+     * @param n int整型 
+     * @return ListNode类
+     */
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        // write code here
+        ListNode  *dummy = new ListNode(-1);
+        dummy-&amp;gt;next = head;
+        ListNode *pre = dummy;
+        for(int i = 1;i &amp;lt; m;i++)
+            pre = pre-&amp;gt;next;
+        head = pre-&amp;gt;next;
+        for(int i = m;i &amp;lt; n;i++){
+            ListNode *next = head-&amp;gt;next;
+            head-&amp;gt;next = next-&amp;gt;next;
+            next-&amp;gt;next = pre-&amp;gt;next;
+            pre-&amp;gt;next = next;
+        }
+        return dummy-&amp;gt;next;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;重排链表&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/reorder-list/&quot;&gt;重排链表&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个单链表 &lt;em&gt;L&lt;/em&gt;：&lt;em&gt;L&lt;/em&gt;0→&lt;em&gt;L&lt;/em&gt;1→…→&lt;em&gt;L&lt;strong&gt;n*-1→*L*n ，
+将其重新排列后变为： *L*0→*L&lt;/strong&gt;n&lt;/em&gt;→&lt;em&gt;L&lt;/em&gt;1→&lt;em&gt;L&lt;strong&gt;n*-1→*L*2→*L&lt;/strong&gt;n&lt;/em&gt;-2→…&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *reverse(ListNode *head)
+    {
+        if(head == nullptr || head-&amp;gt;next == nullptr)
+            return head;
+        ListNode *dump = reverse(head-&amp;gt;next);
+        head-&amp;gt;next-&amp;gt;next = head;
+        head-&amp;gt;next =  nullptr;
+        return dump;
+    }
+    void reorderList(ListNode* head) {
+        if(!head ||  !head-&amp;gt;next)
+            return;
+        //找中点
+        ListNode *slow = head;
+        ListNode *fast = head-&amp;gt;next-&amp;gt;next;
+        while(fast &amp;amp;&amp;amp; fast-&amp;gt;next)
+        {
+            slow = slow-&amp;gt;next;
+            fast = fast-&amp;gt;next-&amp;gt;next;
+        }
+        fast = slow-&amp;gt;next;
+        slow-&amp;gt;next = nullptr;
+        slow = head;
+        //翻转右边
+        fast = reverse(fast);
+        //重排
+        while(slow-&amp;gt;next &amp;amp;&amp;amp; fast)
+        {
+            ListNode *temp = slow-&amp;gt;next;
+            slow-&amp;gt;next = fast;
+            slow = slow-&amp;gt;next;
+            fast =fast-&amp;gt;next;
+            slow-&amp;gt;next = temp;
+            slow = slow-&amp;gt;next;
+        }
+        if(fast)
+            slow-&amp;gt;next = fast;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;-k-个一组翻转链表&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/reverse-nodes-in-k-group/&quot;&gt; K 个一组翻转链表&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。k 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;思路：单链表翻转—» k&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *reverse(ListNode *head,ListNode *tail){
+        ListNode *prev = head;
+        ListNode *cur;
+        while(head != tail){
+            cur = head-&amp;gt;next;
+            head-&amp;gt;next = prev;
+            prev = head;
+            head = cur;
+        }
+        return prev;
+    }
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode *tail = head;
+        ListNode *dump;
+        for(int i = 0;i &amp;lt; k;i++){
+            if(tail == nullptr)
+                return head;
+            tail = tail-&amp;gt;next;
+        }
+        dump = reverse(head,tail);
+        head-&amp;gt;next = reverseKGroup(tail,k);
+        return dump;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;两两交换链表中的节点&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/swap-nodes-in-pairs/&quot;&gt;两两交换链表中的节点&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。&lt;/p&gt;
+
+  &lt;p&gt;&lt;strong&gt;你不能只是单纯的改变节点内部的值&lt;/strong&gt;，而是需要实际的进行节点交换&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *reverse(ListNode *head,ListNode *tail)
+    {
+        ListNode *prev = head;
+        ListNode *curr;
+        while(head != tail)
+        {
+            curr = head-&amp;gt;next;
+            head-&amp;gt;next = prev;
+            prev = head;
+            head = curr;
+        }
+        return prev;
+    }
+    ListNode* swapPairs(ListNode* head) {
+        ListNode *tail = head;
+        ListNode *dump;
+        for(int i = 0;i &amp;lt; 2;i++)
+        {
+            if(tail == nullptr)
+                return head;
+            tail = tail-&amp;gt;next;
+        }
+        dump = reverse(head,tail);
+        head-&amp;gt;next = swapPairs(tail);
+        return dump;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;排序奇升偶降链表&quot;&gt;排序奇升偶降链表&lt;/h1&gt;
+
+&lt;p&gt;https://mp.weixin.qq.com/s/377FfqvpY8NwMInhpoDgsw&lt;/p&gt;
+
+&lt;h1 id=&quot;翻转字符串里的单词&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/reverse-words-in-a-string/&quot;&gt;翻转字符串里的单词&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个字符串，逐个翻转字符串中的每个单词。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;输入：&quot;the sky is blue&quot;
+输出：&quot;blue is sky the&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    string reverseWords(string s) {
+        int left = 0;
+        int right = s.size()-1;
+        while(left &amp;lt; right &amp;amp;&amp;amp; s[left] == ' ') left++;
+        while(left &amp;lt; right &amp;amp;&amp;amp; s[right] == ' ') right--;
+        deque&amp;lt;string&amp;gt; dq;
+        string word;
+        while(left &amp;lt;= right){
+            char c = s[left];
+            if(word.size() != 0 &amp;amp;&amp;amp; c == ' '){
+                dq.push_front(move(word));
+                word = &quot;&quot;;
+            }
+            else if(c != ' ')
+                word += c;
+            left++;
+        }
+        dq.push_front(move(word));
+        string res;
+        while(!dq.empty()){
+            res += dq.front();
+            dq.pop_front();
+            if(!dq.empty())
+                res += ' ';
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;合并k个排序链表&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/merge-k-sorted-lists&quot;&gt;合并K个排序链表&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;问题分解&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *merge(ListNode *l1,ListNode *l2){
+        if(l1 == nullptr) return l2;
+        else if(l2 == nullptr) return l1;
+        if(l1-&amp;gt;val &amp;lt; l2-&amp;gt;val)
+        {
+            l1-&amp;gt;next = merge(l1-&amp;gt;next,l2);
+            return l1;
+        }
+        else
+        {
+            l2-&amp;gt;next = merge(l1,l2-&amp;gt;next);
+            return l2;
+        }
+    }
+    ListNode *merge(vector&amp;lt;ListNode *&amp;gt; &amp;amp;lists,int l,int r){
+        if(l == r)
+            return lists[l];
+        int mid = (l + r)/2;
+        ListNode *l1 = merge(lists,l,mid);
+        ListNode *l2 = merge(lists,mid + 1,r);
+        return merge(l1,l2);
+    }
+    ListNode* mergeKLists(vector&amp;lt;ListNode*&amp;gt;&amp;amp; lists) {
+        if(lists.size() == 0)
+            return nullptr;
+        return merge(lists,0,lists.size()-1);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;链表中倒数第k个节点&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/&quot;&gt;链表中倒数第k个节点&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;getlen&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* getKthFromEnd(ListNode* head, int k) {
+        ListNode *fast = head;
+        ListNode *slow = head;
+        for(int i = 0;i &amp;lt; k;i++){
+            if(fast == nullptr)
+                return fast;
+            fast = fast-&amp;gt;next;
+        }
+        while(fast != nullptr){
+            fast = fast-&amp;gt;next;
+            slow = slow-&amp;gt;next;
+        }
+        return slow;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;两数之和&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/two-sum/&quot;&gt;两数之和&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个整数数组 &lt;code&gt;nums&lt;/code&gt; 和一个整数目标值 &lt;code&gt;target&lt;/code&gt;，请你在该数组中找出 &lt;strong&gt;和为目标值&lt;/strong&gt; 的那 &lt;strong&gt;两个&lt;/strong&gt; 整数，并返回它们的数组下标。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;unordered_map&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    vector&amp;lt;int&amp;gt; twoSum(vector&amp;lt;int&amp;gt;&amp;amp; nums, int target) {
+        unordered_map&amp;lt;int,int&amp;gt; mp;
+        for(int i = 0;i &amp;lt; nums.size();i++){
+            auto it = mp.find(target - nums[i]);
+            if(it != mp.end())
+                return {i,it-&amp;gt;second};
+            mp[nums[i]] = i;
+        }
+        return {};
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;和为k的子数组&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/subarray-sum-equals-k/&quot;&gt;和为K的子数组&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个整数数组和一个整数 &lt;strong&gt;k，&lt;/strong&gt;你需要找到该数组中和为 &lt;strong&gt;k&lt;/strong&gt; 的连续的子数组的个数。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int subarraySum(vector&amp;lt;int&amp;gt;&amp;amp; nums, int k) {
+        unordered_map&amp;lt;int,int&amp;gt; mp;
+        int pre = 0;
+        int res = 0;
+        mp[0] = 1;
+        for(int num:nums){
+            pre += num;
+            if(mp.find(pre - k) != mp.end())
+                res += mp[pre - k];
+            mp[pre]++;
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;字符串相加&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/add-strings/&quot;&gt;字符串相加&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定两个字符串形式的非负整数 &lt;code&gt;num1&lt;/code&gt; 和&lt;code&gt;num2&lt;/code&gt; ，计算它们的和。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;模拟&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        int m = num1.size()-1;
+        int n = num2.size()-1;
+        string res;
+        int carry = 0;
+        while(m &amp;gt;= 0 || n &amp;gt;= 0 || carry != 0){
+            int x = m &amp;gt;= 0 ? num1[m--]-'0' : 0;
+            int y = n &amp;gt;= 0 ? num2[n--]-'0' : 0;
+            int sum = x + y + carry;
+            carry  = sum / 10;
+            sum %= 10;
+            res += (sum + '0');
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;大数加法&quot;&gt;&lt;a href=&quot;https://www.nowcoder.com/practice/11ae12e8c6fe48f883cad618c2e81475?tpId=196&amp;amp;tqId=37176&amp;amp;rp=1&amp;amp;ru=%2Factivity%2Foj&amp;amp;qru=%2Fta%2Fjob-code-total%2Fquestion-ranking&amp;amp;tab=answerKey&quot;&gt;大数加法&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;以字符串的形式读入两个数字，编写一个函数计算它们的和，以字符串形式返回。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     * 计算两个数之和
+     * @param s string字符串 表示第一个整数
+     * @param t string字符串 表示第二个整数
+     * @return string字符串
+     */
+    string solve(string s, string t) {
+        // write code here
+        int m = s.size()-1;
+        int n = t.size()-1;
+        string res;
+        int carry = 0;
+        while(m &amp;gt;=0 || n &amp;gt;= 0 ||carry != 0){
+            int x = m &amp;gt;= 0 ? s[m--] - '0' : 0;
+            int y = n &amp;gt;= 0 ? t[n--] - '0' : 0;
+            int sum = x + y + carry;
+            carry = sum / 10;
+            sum %= 10;
+            res += sum + '0';
+        }
+        reverse(res.begin(), res.end());
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;两数相加&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/add-two-numbers/&quot;&gt;两数相加&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。请你将两个数相加，并以相同形式返回一个表示和的链表。你可以假设除了数字 0 之外，这两个数都不会以 0 开头。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode *head = nullptr;
+        ListNode *tail = nullptr;
+        int carry = 0;
+        while(l1 != nullptr || l2 != nullptr){
+            int x = l1 == nullptr ? 0 : l1-&amp;gt;val;
+            int y = l2 == nullptr ? 0 : l2-&amp;gt;val;
+            int sum = x + y + carry;
+            if(head == nullptr)
+                head = tail = new ListNode(sum % 10);
+            else{
+                tail-&amp;gt;next = new ListNode(sum % 10);
+                tail = tail-&amp;gt;next;
+            }
+            carry =sum/10;
+            if(l1)
+                l1 = l1-&amp;gt;next;
+            if(l2)
+                l2 = l2-&amp;gt;next;
+        }
+        if(carry &amp;gt; 0)
+            tail-&amp;gt;next = new ListNode(carry);
+        return head;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;36进制加法&quot;&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/bgD1Q5lc92mX7RNS1L65qA&quot;&gt;36进制加法&lt;/a&gt;&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+char getChar(int n)
+{
+    if (n &amp;lt;= 9)
+        return n + '0';
+    else
+        return n - 10 + 'a';
+}
+int getInt(char ch)
+{
+    if ('0' &amp;lt;= ch &amp;amp;&amp;amp; ch &amp;lt;= '9')
+        return ch - '0';
+    else
+        return ch - 'a' + 10;
+}
+string add36Strings(string num1, string num2)
+{
+    int carry = 0;
+    int i = num1.size() - 1, j = num2.size() - 1;
+    int x, y;
+    string res;
+    while (i &amp;gt;= 0 || j &amp;gt;= 0 || carry)
+    {
+        x = i &amp;gt;= 0 ? getInt(num1[i]) : 0;
+        y = j &amp;gt;= 0 ? getInt(num2[j]) : 0;
+        int temp = x + y + carry;
+        res += getChar(temp % 36);
+        carry = temp / 36;
+        i--, j--;
+    }
+    reverse(res.begin(), res.end());
+    return res;
+}
+int main()
+{
+    string a = &quot;1b&quot;, b = &quot;2x&quot;, c;
+    c = add36Strings(a, b);
+    cout &amp;lt;&amp;lt; c &amp;lt;&amp;lt; endl;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;基本计算器&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/basic-calculator/&quot;&gt;基本计算器&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个字符串表达式 &lt;code&gt;s&lt;/code&gt; ，请你实现一个基本计算器来计算并返回它的值。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int calculate(string s) {
+        stack&amp;lt;int&amp;gt;st;
+        int temp=0;//记录多位数
+        int result=0;//记录压入栈的数字
+        int symbol = 1;//标志正负数
+        for (int i = 0; i &amp;lt; s.size(); i++)
+        {
+            if (s[i] &amp;gt;= '0'&amp;amp;&amp;amp;s[i] &amp;lt;= '9')
+                temp = 10 * temp + (s[i] - '0');
+            else if (s[i] == '+')
+            {
+                result += symbol*temp;
+                symbol = 1;//重置
+                temp = 0;//重置
+            }
+            else if (s[i] == '-')
+            {
+                result += symbol*temp;
+                symbol = -1;//负数
+                temp = 0;
+            }
+            else if (s[i] == '(')//将迄今为止计算的结果和符号添加到栈上
+            {
+                st.push(result);
+                st.push(symbol);
+                symbol = 1;
+                result = 0;
+            }
+            else if (s[i] == ')')
+            {
+                result += symbol*temp;//计算括号内的结果
+                result *= st.top(); st.pop();//获取入栈前的正负号
+                result += st.top(); st.pop();//加上入栈前的结果
+                temp = 0;//重置，因为)之前是数字，temp还是不变
+            }
+        }
+        //循环退出的时候，肯定最后一个是数字（合法表达式），要把result加上该数字，而且别忘了倒数第二位的正负号
+        return result + (symbol*temp);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;-最大子序和&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximum-subarray/&quot;&gt; 最大子序和&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个整数数组 &lt;code&gt;nums&lt;/code&gt; ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;res = nums[0],pre = 0 …&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int maxSubArray(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        int res = nums[0];
+        int pre = 0;
+        for(int num:nums){
+            pre = max(num,pre + num);
+            res = max(pre,res);
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最大累加和&quot;&gt;&lt;a href=&quot;https://www.nowcoder.com/practice/554aa508dd5d4fefbf0f86e5fe953abd?tpId=117&amp;amp;tqId=37797&amp;amp;companyId=665&amp;amp;rp=1&amp;amp;ru=%2Fcompany%2Fhome%2Fcode%2F665&amp;amp;qru=%2Fta%2Fjob-code-high%2Fquestion-ranking&amp;amp;tab=answerKey&quot;&gt;最大累加和&lt;/a&gt;&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * max sum of the subarray
+     * @param arr int整型vector the array
+     * @return int整型
+     */
+    int maxsumofSubarray(vector&amp;lt;int&amp;gt;&amp;amp; arr) {
+        // write code here
+        int pre = 0;
+        int res = arr[0];
+        for(int a:arr){
+            pre = max(a,a+pre);
+            res = max(res,pre);
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;长度最小的子数组&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/minimum-size-subarray-sum/&quot;&gt;长度最小的子数组&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个含有 n 个正整数的数组和一个正整数 target 。找出该数组中满足其和 ≥ target 的长度最小的 连续子数组 [numsl, numsl+1, …, numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;双指针&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int minSubArrayLen(int target, vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        int n = nums.size();
+        if(n == 0)
+            return 0;
+        int res = INT_MAX;
+        int start = 0;
+        int end = 0;
+        int sum = 0;
+        while(end &amp;lt; n){
+            sum += nums[end];
+            while(sum &amp;gt;= target){
+                res = min(res,end - start + 1);
+                sum -= nums[start];
+                start++;
+            }
+            end++;
+        }
+        return res == INT_MAX ? 0 : res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;合并两个有序链表&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/merge-two-sorted-lists/&quot;&gt;合并两个有序链表&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;将两个升序链表合并为一个新的 &lt;strong&gt;升序&lt;/strong&gt; 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;递归&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(l1 == nullptr)
+            return l2;
+        else if(l2 == nullptr)
+            return l1;
+        if(l1-&amp;gt;val &amp;lt; l2-&amp;gt;val){
+            l1-&amp;gt;next = mergeTwoLists(l1-&amp;gt;next,l2);
+            return l1;
+        } 
+        else{
+            l2-&amp;gt;next = mergeTwoLists(l1,l2-&amp;gt;next);
+            return l2;
+        }
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;迭代&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode *prehead = new ListNode(-1);
+        ListNode *pre = prehead;
+        while(l1 != nullptr &amp;amp;&amp;amp; l2 != nullptr)
+        {
+            if(l1-&amp;gt;val &amp;lt; l2-&amp;gt;val)
+            {
+                pre-&amp;gt;next = l1;
+                l1 = l1-&amp;gt;next;
+            }
+            else
+            {
+                pre-&amp;gt;next = l2;
+                l2 = l2-&amp;gt;next;
+            }
+            pre = pre-&amp;gt;next;
+        }
+        pre-&amp;gt;next = l1 == nullptr ? l2:l1;
+        return prehead-&amp;gt;next;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;接雨水&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/trapping-rain-water/&quot;&gt;接雨水&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定 &lt;em&gt;n&lt;/em&gt; 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int trap(vector&amp;lt;int&amp;gt;&amp;amp; height) {
+        int res = 0;
+        int left_max = 0;
+        int right_max = 0;
+        int left = 0;
+        int right = height.size()-1;
+        while(left &amp;lt; right){
+            if(height[left] &amp;lt; height[right]){
+                height[left] &amp;gt;= left_max ? left_max = height[left] : res += (left_max - height[left]);
+                left++;
+            }
+            else{
+                height[right] &amp;gt;= right_max ? right_max = height[right] : res += (right_max - height[right]);
+                right--;
+            }
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉树的最近公共祖先&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/&quot;&gt;二叉树的最近公共祖先&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;递归&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root == nullptr || p == root || q == root)
+            return root;
+        TreeNode *left = lowestCommonAncestor(root-&amp;gt;left,p,q);
+        TreeNode *right = lowestCommonAncestor(root-&amp;gt;right,p,q);
+        if(left == nullptr &amp;amp;&amp;amp; right == nullptr)
+            return nullptr;
+        if(left == nullptr)
+            return right;
+        if(right == nullptr)
+            return left;
+        return root;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;有效的括号&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/valid-parentheses/&quot;&gt;有效的括号&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个只包括 &lt;code&gt;'('&lt;/code&gt;，&lt;code&gt;')'&lt;/code&gt;，&lt;code&gt;'{'&lt;/code&gt;，&lt;code&gt;'}'&lt;/code&gt;，&lt;code&gt;'['&lt;/code&gt;，&lt;code&gt;']'&lt;/code&gt; 的字符串 &lt;code&gt;s&lt;/code&gt; ，判断字符串是否有效。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;栈辅助&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;//牛客网可过
+class Solution {
+public:
+    /**
+     * 
+     * @param s string字符串 
+     * @return bool布尔型
+     */
+    bool isValid(string s) {
+        // write code here
+        stack&amp;lt;char&amp;gt; c;
+        for(int i = 0 ; i &amp;lt; s.length(); i++)
+        {
+            if(c.empty())
+            {
+                c.push(s[i]);
+                continue;
+            }
+            if(s[i]==')'&amp;amp;&amp;amp;c.top()=='(')
+                c.pop();
+            else if(s[i]=='}'&amp;amp;&amp;amp;c.top()=='{')
+                c.pop();
+            else if(s[i]==']'&amp;amp;&amp;amp;c.top()=='[')
+                c.pop();
+            else
+                c.push(s[i]);
+        }
+        return c.empty();
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最长有效括号&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-valid-parentheses/&quot;&gt;最长有效括号&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个只包含 &lt;code&gt;'('&lt;/code&gt; 和 &lt;code&gt;')'&lt;/code&gt; 的字符串，找出最长有效（格式正确且连续）括号子串的长度。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int maxans = 0;
+        stack&amp;lt;int&amp;gt; stk;
+        stk.push(-1);
+        for (int i = 0; i &amp;lt; s.length(); i++) {
+            if (s[i] == '(') {
+                stk.push(i);
+            } else {
+                stk.pop();
+                if (stk.empty()) {
+                    stk.push(i);
+                } else {
+                    maxans = max(maxans, i - stk.top());
+                }
+            }
+        }
+        return maxans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;括号生成&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/generate-parentheses&quot;&gt;括号生成&lt;/a&gt;&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+void backtrace(vector&amp;lt;string&amp;gt; &amp;amp;res,string &amp;amp;cur,int open,int close,int n){
+        if(cur.size() == n * 2){
+            res.push_back(cur);
+            return;
+        }
+        if(open &amp;lt; n){
+            cur.push_back('(');
+            backtrace(res,cur,open+1,close,n);
+            cur.pop_back();
+        }
+        if(close &amp;lt; open){
+            cur.push_back(')');
+            backtrace(res,cur,open,close+1,n);
+            cur.pop_back();
+        }
+    }
+    vector&amp;lt;string&amp;gt; generateParenthesis(int n) {
+        vector&amp;lt;string&amp;gt; res;
+        string cur;
+        backtrace(res,cur,0,0,n);
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;螺旋矩阵&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/spiral-matrix/&quot;&gt;螺旋矩阵&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个 &lt;code&gt;m&lt;/code&gt; 行 &lt;code&gt;n&lt;/code&gt; 列的矩阵 &lt;code&gt;matrix&lt;/code&gt; ，请按照 &lt;strong&gt;顺时针螺旋顺序&lt;/strong&gt; ，返回矩阵中的所有元素。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    vector&amp;lt;int&amp;gt; spiralOrder(vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt;&amp;amp; matrix) {
+        vector &amp;lt;int&amp;gt; ans;
+        if(matrix.empty()) return ans; //若数组为空，直接返回答案
+        int u = 0; //赋值上下左右边界
+        int d = matrix.size() - 1;
+        int l = 0;
+        int r = matrix[0].size() - 1;
+        while(true)
+        {
+            for(int i = l; i &amp;lt;= r; ++i) ans.push_back(matrix[u][i]); //向右移动直到最右
+            if(++ u &amp;gt; d) break; //重新设定上边界，若上边界大于下边界，则遍历遍历完成，下同
+            for(int i = u; i &amp;lt;= d; ++i) ans.push_back(matrix[i][r]); //向下
+            if(-- r &amp;lt; l) break; //重新设定有边界
+            for(int i = r; i &amp;gt;= l; --i) ans.push_back(matrix[d][i]); //向左
+            if(-- d &amp;lt; u) break; //重新设定下边界
+            for(int i = d; i &amp;gt;= u; --i) ans.push_back(matrix[i][l]); //向上
+            if(++ l &amp;gt; r) break; //重新设定左边界
+        }
+        return ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;螺旋矩阵-ii&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/spiral-matrix-ii/&quot;&gt;螺旋矩阵 II&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个正整数 &lt;code&gt;n&lt;/code&gt; ，生成一个包含 &lt;code&gt;1&lt;/code&gt; 到 &lt;code&gt;n2&lt;/code&gt; 所有元素，且元素按顺时针顺序螺旋排列的 &lt;code&gt;n x n&lt;/code&gt; 正方形矩阵 &lt;code&gt;matrix&lt;/code&gt; 。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; generateMatrix(int n) {
+        vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; matrix(n,vector&amp;lt;int&amp;gt;(n));
+        int u = 0;
+        int d = n-1;
+        int l = 0;
+        int r = n-1;
+        int num = 1;
+
+        while(true){
+            for(int i=l; i &amp;lt;= r; i++) matrix[u][i] = num++;
+            if (u++ &amp;gt;= d) break;
+            for(int i=u; i &amp;lt;= d; i++) matrix[i][r] = num++;
+            if (r-- &amp;lt;= l) break;
+            for(int i=r; i &amp;gt;= l; i--) matrix[d][i] = num++;
+            if (d-- &amp;lt;= u) break;
+            for(int i=d; i &amp;gt;= u; i--) matrix[i][l] = num++;
+            if (l++ &amp;gt;= r) break;
+        }
+        return matrix;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;路径总和-ii&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/path-sum-ii/&quot;&gt;路径总和 II&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个二叉树和一个目标和，找到所有从根节点到叶子节点路径总和等于给定目标和的路径。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+private:
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; res;
+    vector&amp;lt;int&amp;gt; path;
+public:
+    void find(TreeNode *root,int targetSum){
+        if(root == nullptr)
+            return;
+        path.push_back(root-&amp;gt;val);
+        targetSum -= root-&amp;gt;val;
+        if(root-&amp;gt;left == nullptr &amp;amp;&amp;amp; root-&amp;gt;right == nullptr &amp;amp;&amp;amp; targetSum == 0)
+            res.push_back(path);
+        find(root-&amp;gt;left,targetSum);
+        find(root-&amp;gt;right,targetSum);
+        path.pop_back();
+    }
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; pathSum(TreeNode* root, int targetSum) {
+        find(root,targetSum);
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉树的层序遍历&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/binary-tree-level-order-traversal/&quot;&gt;二叉树的层序遍历&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个二叉树，请你返回其按 &lt;strong&gt;层序遍历&lt;/strong&gt; 得到的节点值。 （即逐层地，从左到右访问所有节点）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;队列辅助&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; levelOrder(TreeNode* root) {
+        vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; res;
+        queue&amp;lt;TreeNode *&amp;gt; q;
+        q.push(root);
+        while(!q.empty()){
+            int size = q.size();
+            vector&amp;lt;int&amp;gt; level;
+            for(int i =0;i &amp;lt; size;i++){
+                TreeNode *temp = q.front();
+                q.pop();
+                if(temp == nullptr)
+                    continue;
+                level.push_back(temp-&amp;gt;val);
+                q.push(temp-&amp;gt;left);
+                q.push(temp-&amp;gt;right);
+            }
+            if(!level.empty())
+                res.push_back(level);
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉树的右视图&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/binary-tree-right-side-view/&quot;&gt;二叉树的右视图&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;层次遍历 末位加入res&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector&amp;lt;int&amp;gt; rightSideView(TreeNode* root) {
+        queue&amp;lt;TreeNode*&amp;gt; que;
+        if (root != NULL) que.push(root);
+        vector&amp;lt;int&amp;gt; result;
+        while (!que.empty()) {
+            int size = que.size();
+            for (int i = 0; i &amp;lt; size; i++) {
+                TreeNode* node = que.front();
+                que.pop();
+                if (i == (size - 1)) result.push_back(node-&amp;gt;val); 
+                if (node-&amp;gt;left) que.push(node-&amp;gt;left);
+                if (node-&amp;gt;right) que.push(node-&amp;gt;right);
+            }
+        }
+        return result;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉树的锯齿形层序遍历&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/&quot;&gt;二叉树的锯齿形层序遍历&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个二叉树，返回其节点值的锯齿形层序遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; zigzagLevelOrder(TreeNode* root) {
+        queue&amp;lt;TreeNode *&amp;gt; q;
+        q.push(root);
+        vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; res;
+        bool flag = true;
+        while(!q.empty()){
+            int size = q.size();
+            vector&amp;lt;int&amp;gt; level;
+            for(int i = 0;i &amp;lt; size;i++){
+                if(flag){
+                    TreeNode *temp = q.front();
+                    q.pop();
+                    if(temp == nullptr)
+                        continue;
+                    level.push_back(temp-&amp;gt;val);
+                    q.push(temp-&amp;gt;left);
+                    q.push(temp-&amp;gt;right);
+                }
+                else{
+                    TreeNode *temp = q.front();
+                    q.pop();
+                    if(temp == nullptr)
+                        continue;
+                    level.insert(level.begin(),temp-&amp;gt;val);
+                    q.push(temp-&amp;gt;left);
+                    q.push(temp-&amp;gt;right);
+                }
+            }
+            if(!level.empty())
+                res.push_back(level);
+            flag = !flag;
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉树的前序遍历&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/binary-tree-preorder-traversal/&quot;&gt;二叉树的前序遍历&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你二叉树的根节点 &lt;code&gt;root&lt;/code&gt; ，返回它节点值的 &lt;strong&gt;前序&lt;/strong&gt; 遍历&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;递归&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void preorder(TreeNode *root,vector&amp;lt;int&amp;gt; &amp;amp;res){
+        if(root == nullptr)
+            return;
+        res.push_back(root-&amp;gt;val);
+        preorder(root-&amp;gt;left,res);
+        preorder(root-&amp;gt;right,res);
+    }
+    vector&amp;lt;int&amp;gt; preorderTraversal(TreeNode* root) {
+        vector&amp;lt;int&amp;gt; res;
+        preorder(root,res);
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;迭代&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector&amp;lt;int&amp;gt; preorderTraversal(TreeNode* root) {
+        vector&amp;lt;int&amp;gt; res;
+        if(root == nullptr)
+            return res;
+        stack&amp;lt;TreeNode *&amp;gt; sk;
+        while(root != nullptr || !sk.empty()){
+            while(root != nullptr){
+                res.push_back(root-&amp;gt;val);
+                sk.push(root);
+                root = root-&amp;gt;left;
+            }
+            root = sk.top();
+            sk.pop();
+            root = root-&amp;gt;right;
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉树的中序遍历&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/binary-tree-inorder-traversal/&quot;&gt;二叉树的中序遍历&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个二叉树的根节点 &lt;code&gt;root&lt;/code&gt; ，返回它的 &lt;strong&gt;中序&lt;/strong&gt; 遍历。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;递归&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void inorder(TreeNode *root,vector&amp;lt;int&amp;gt; &amp;amp;res){
+        if(root == nullptr)
+            return;
+        inorder(root-&amp;gt;left,res);
+        res.push_back(root-&amp;gt;val);
+        inorder(root-&amp;gt;right,res);
+    }
+    vector&amp;lt;int&amp;gt; inorderTraversal(TreeNode* root) {
+        vector&amp;lt;int&amp;gt; res;
+        inorder(root,res);
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;迭代&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector&amp;lt;int&amp;gt; inorderTraversal(TreeNode* root) {
+        vector&amp;lt;int&amp;gt; res;
+        stack&amp;lt;TreeNode *&amp;gt; sk;
+        while(root != nullptr || !sk.empty())
+        {
+            while(root != nullptr)
+            {
+                sk.push(root);
+                root = root-&amp;gt;left;
+            }
+            root = sk.top();
+            sk.pop();
+            res.push_back(root-&amp;gt;val);
+            root = root-&amp;gt;right;
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉树中的最大路径和&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/&quot;&gt;二叉树中的最大路径和&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中 至多出现一次 。该路径 至少包含一个 节点，且不一定经过根节点。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;maxgain辅助函数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+private:
+    int res = INT_MIN;
+public:
+    int maxgain(TreeNode *root){
+        if(root == nullptr)
+            return 0;
+        int left = max(maxgain(root-&amp;gt;left),0);
+        int right = max(maxgain(root-&amp;gt;right),0);
+        int price = root-&amp;gt;val + left + right;
+        res = max(res,price);
+        return root-&amp;gt;val + max(left,right);
+    }
+    int maxPathSum(TreeNode* root) {
+        maxgain(root);
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;翻转二叉树&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/invert-binary-tree/&quot;&gt;翻转二叉树&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;翻转一棵二叉树。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(root == nullptr)
+            return nullptr;
+        TreeNode *l = invertTree(root-&amp;gt;left);
+        TreeNode *r = invertTree(root-&amp;gt;right);
+        root-&amp;gt;left = r;
+        root-&amp;gt;right = l;
+        return root;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉树的最大深度&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/&quot;&gt;二叉树的最大深度&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个二叉树，找出其最大深度。二叉树的深度为根节点到最远叶子节点的最长路径上的节点数&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;递归&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(root == nullptr)
+            return 0;
+        return max(maxDepth(root-&amp;gt;left),maxDepth(root-&amp;gt;right))+1;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉树最大宽度&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximum-width-of-binary-tree/&quot;&gt;二叉树最大宽度&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个二叉树，编写一个函数来获取这个树的最大宽度。树的宽度是所有层中的最大宽度。这个二叉树与满二叉树（full binary tree）结构相同，但一些节点为空。&lt;/p&gt;
+
+  &lt;p&gt;每一层的宽度被定义为两个端点（该层最左和最右的非空节点，两端点间的&lt;code&gt;null&lt;/code&gt;节点也计入长度）之间的长度。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int widthOfBinaryTree(TreeNode* root) {
+        if(!root)
+            return 0;
+        queue&amp;lt;TreeNode*&amp;gt; q;
+        root-&amp;gt;val = 1;
+        q.push(root);
+        int ans = 0;
+        while(!q.empty())   {
+            ans = max(q.back()-&amp;gt;val - q.front()-&amp;gt;val + 1, ans);
+            int tmp = q.front()-&amp;gt;val - 1;
+
+            for(int i = q.size(); i &amp;gt; 0; --i)   {
+                auto p = q.front(); q.pop();
+                p-&amp;gt;val -= tmp;
+                if(p-&amp;gt;left) {
+                    p-&amp;gt;left-&amp;gt;val = 2 * p-&amp;gt;val;
+                    q.push(p-&amp;gt;left); 
+                }
+                if(p-&amp;gt;right)    {
+                    p-&amp;gt;right-&amp;gt;val = 2 * p-&amp;gt;val + 1;
+                    q.push(p-&amp;gt;right);
+                }
+            }
+        }
+        return ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;从前序与中序遍历序列构造二叉树&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/&quot;&gt;从前序与中序遍历序列构造二叉树&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;中序遍历第一个是root，前序遍历root前是左子树，后是右子树&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;unordered_map&amp;gt;
+class Solution {
+private:
+    unordered_map&amp;lt;int, int&amp;gt; index;
+public:
+    TreeNode* myBuildTree(const vector&amp;lt;int&amp;gt;&amp;amp; preorder, const vector&amp;lt;int&amp;gt;&amp;amp; inorder, int preorder_left, int preorder_right, int inorder_left, int inorder_right) {
+        if (preorder_left &amp;gt; preorder_right)
+            return nullptr;
+        int preorder_root = preorder_left;
+        int inorder_root = index[preorder[preorder_root]];
+        TreeNode* root = new TreeNode(preorder[preorder_root]);
+        int size_left_subtree = inorder_root - inorder_left;
+        root-&amp;gt;left = myBuildTree(preorder, inorder, preorder_left + 1, preorder_left + size_left_subtree, inorder_left, inorder_root - 1);
+        root-&amp;gt;right = myBuildTree(preorder, inorder, preorder_left + size_left_subtree + 1, preorder_right, inorder_root + 1, inorder_right);
+        return root;
+    }
+    TreeNode* reConstructBinaryTree(vector&amp;lt;int&amp;gt; pre,vector&amp;lt;int&amp;gt; vin) {
+        int n = pre.size();
+        for (int i = 0; i &amp;lt; n; ++i)
+            index[vin[i]] = i;
+        return myBuildTree(pre, vin, 0, n - 1, 0, n - 1);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;平衡二叉树&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/balanced-binary-tree/&quot;&gt;平衡二叉树&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个二叉树，判断它是否是高度平衡的二叉树&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int height(TreeNode *root){
+        if(root == nullptr)
+            return 0;
+        return max(height(root-&amp;gt;left),height(root-&amp;gt;right))+1;
+    }
+    bool isBalanced(TreeNode* root) {
+        if(root == nullptr)
+            return true;
+        else{
+            return abs(height(root-&amp;gt;left) - height(root-&amp;gt;right)) &amp;lt;= 1 &amp;amp;&amp;amp; isBalanced(root-&amp;gt;left) &amp;amp;&amp;amp; isBalanced(root-&amp;gt;right);
+        }
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;验证二叉搜索树&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/validate-binary-search-tree/&quot;&gt;验证二叉搜索树&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个二叉树，判断其是否是一个有效的二叉搜索树。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool helper(TreeNode *root,int large,int small){
+        if(root == nullptr)
+            return true;
+        if(root-&amp;gt;val &amp;lt; large &amp;amp;&amp;amp; root-&amp;gt;val &amp;gt; small)
+            return true;
+        return helper(root-&amp;gt;left,root-&amp;gt;val,small) &amp;amp;&amp;amp; helper(root-&amp;gt;right,large,root-&amp;gt;val);
+    }
+    bool isValidBST(TreeNode* root) {
+        return helper(root,INT_MAX,INT_MIN);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉搜索树中第k小的元素&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/&quot;&gt;二叉搜索树中第K小的元素&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个二叉搜索树的根节点 &lt;code&gt;root&lt;/code&gt; ，和一个整数 &lt;code&gt;k&lt;/code&gt; ，请你设计一个算法查找其中第 &lt;code&gt;k&lt;/code&gt; 个最小元素（从 1 开始计数）。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+private:
+    int res;
+public:
+    void dfs(TreeNode *root,int &amp;amp;k)
+    {
+        if(root == nullptr)
+            return;
+        dfs(root-&amp;gt;left,k);
+        if(--k == 0)
+            res = root-&amp;gt;val;
+        dfs(root-&amp;gt;right,k);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        dfs(root,k);
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉搜索树的第k大节点&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof&quot;&gt;二叉搜索树的第k大节点&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一棵二叉搜索树，请找出其中第k大的节点。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int res = 0;
+    void inorder(TreeNode* root, int &amp;amp;k){ 
+        if(root == NULL)    return ;
+
+        inorder(root-&amp;gt;right, k);  
+        if(--k == 0)    
+        {
+            res = root-&amp;gt;val;
+            return ;
+        }
+        inorder(root-&amp;gt;left , k);
+    }
+    int kthLargest(TreeNode* root, int k) {
+        inorder(root, k);
+        return res;;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉搜索树与双向链表&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/&quot;&gt;二叉搜索树与双向链表&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。要求不能创建任何新的节点，只能调整树中节点指针的指向。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;leetcode&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    Node *pre,*head;
+    void dfs(Node *cur)
+    {
+        if(cur == nullptr)
+            return;
+        dfs(cur-&amp;gt;left);
+        if(pre != nullptr)
+            pre-&amp;gt;right = cur;
+        else
+            head = cur;
+        cur-&amp;gt;left = pre;
+        pre = cur;
+        dfs(cur-&amp;gt;right);
+    }
+    Node* treeToDoublyList(Node* root) {
+        if(root==NULL) return NULL;
+        dfs(root);
+        head-&amp;gt;left=pre;
+        pre-&amp;gt;right=head;
+        return head;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;牛客&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    void inorder(TreeNode* pRoot){
+        if(!pRoot)
+            return;
+        inorder(pRoot-&amp;gt;left);
+        pRoot-&amp;gt;left=last;
+        if(last)
+            last-&amp;gt;right=pRoot;
+        last=pRoot;
+        inorder(pRoot-&amp;gt;right);
+    }
+    TreeNode* last=nullptr;
+    TreeNode* Convert(TreeNode *pRootOfTree) {
+        if(!pRootOfTree)
+            return pRootOfTree;
+        TreeNode* p=pRootOfTree;
+        while(p&amp;amp;&amp;amp;p-&amp;gt;left)
+            p=p-&amp;gt;left;
+        inorder(pRootOfTree);
+        return p;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;将有序数组转换为二叉搜索树&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/&quot;&gt;将有序数组转换为二叉搜索树&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个整数数组 &lt;code&gt;nums&lt;/code&gt; ，其中元素已经按 &lt;strong&gt;升序&lt;/strong&gt; 排列，请你将其转换为一棵 &lt;strong&gt;高度平衡&lt;/strong&gt; 二叉搜索树。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;高度平衡&lt;/strong&gt; 二叉树是一棵满足「每个节点的左右两个子树的高度差的绝对值不超过 1 」的二叉树。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    TreeNode* sortedArrayToBST(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        return helper(nums, 0, nums.size() - 1);
+    }
+
+    TreeNode* helper(vector&amp;lt;int&amp;gt;&amp;amp; nums, int left, int right) {
+        if (left &amp;gt; right) {
+            return nullptr;
+        }
+
+        // 总是选择中间位置左边的数字作为根节点
+        int mid = (left + right) / 2;
+
+        TreeNode* root = new TreeNode(nums[mid]);
+        root-&amp;gt;left = helper(nums, left, mid - 1);
+        root-&amp;gt;right = helper(nums, mid + 1, right);
+        return root;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉树的完全性检验&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/check-completeness-of-a-binary-tree/&quot;&gt;二叉树的完全性检验&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个二叉树，确定它是否是一个&lt;em&gt;完全二叉树&lt;/em&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;层次遍历&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isCompleteTree(TreeNode* root) {
+        if (!root)
+            return true;
+        queue&amp;lt;TreeNode*&amp;gt; q;
+        q.push(root);
+        bool found = false;
+        while (!q.empty()) {
+            auto cur = q.front();
+            q.pop();
+            if (cur == nullptr) {
+                found = true;
+            } else {
+                if (found)
+                    return false;
+                q.push(cur-&amp;gt;left);
+                q.push(cur-&amp;gt;right);
+            }
+        }
+        return true;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;对称二叉树&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/symmetric-tree/&quot;&gt;对称二叉树&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个二叉树，检查它是否是镜像对称的。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;递归：check(p,q)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool check(TreeNode *p,TreeNode *q){
+        if(p == nullptr &amp;amp;&amp;amp; q == nullptr)
+            return true;
+        else if(p == nullptr || q == nullptr)
+            return false;
+        return p-&amp;gt;val == q-&amp;gt;val &amp;amp;&amp;amp; check(p-&amp;gt;left,q-&amp;gt;right) &amp;amp;&amp;amp; check(p-&amp;gt;right,q-&amp;gt;left);
+    }
+    bool isSymmetric(TreeNode* root) {
+        return check(root,root);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉树的镜像&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof/&quot;&gt;二叉树的镜像&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;请完成一个函数，输入一个二叉树，该函数输出它的镜像。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* mirrorTree(TreeNode* root) {
+        if (root == nullptr) 
+            return nullptr;
+        TreeNode *leftRoot = mirrorTree(root-&amp;gt;right);
+        TreeNode *rightRoot = mirrorTree(root-&amp;gt;left);
+        root-&amp;gt;left = leftRoot;
+        root-&amp;gt;right = rightRoot;
+        return root;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉树的直径&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/diameter-of-binary-tree/&quot;&gt;二叉树的直径&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;递归&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int inorder(TreeNode *root,int &amp;amp;res){
+        if(root == nullptr)
+            return 0;
+        int left = inorder(root-&amp;gt;left,res);
+        int right = inorder(root-&amp;gt;right,res);
+        res = max(res,(left+right+1));
+        return max(left,right)+1;
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        int res = 1;
+        inorder(root,res);
+        return res-1;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二叉树展开为链表&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/&quot;&gt;二叉树展开为链表&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你二叉树的根结点 &lt;code&gt;root&lt;/code&gt; ，请你将它展开为一个单链表&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void order(TreeNode *root,vector&amp;lt;TreeNode *&amp;gt; &amp;amp;save)
+    {
+        if(root == nullptr)
+            return;
+        save.push_back(root);
+        order(root-&amp;gt;left,save);
+        order(root-&amp;gt;right,save);
+    }
+    void flatten(TreeNode* root) {
+        vector&amp;lt;TreeNode *&amp;gt; save;
+        order(root,save);
+        for(int i = 1;i &amp;lt; save.size();i++)
+        {
+            TreeNode *cur = save[i];
+            TreeNode *pre = save[i-1];
+            pre-&amp;gt;right = cur;
+            pre-&amp;gt;left = nullptr;
+        }
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;求根到叶子节点数字之和&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/sum-root-to-leaf-numbers/&quot;&gt;求根到叶子节点数字之和&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个二叉树，它的每个结点都存放一个 &lt;code&gt;0-9&lt;/code&gt; 的数字，每条从根到叶子节点的路径都代表一个数字。计算从根到叶子节点生成的所有数字之和&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;递归+dfs&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int dfs(TreeNode *root,int presum)
+    {
+        if(root == nullptr)
+            return 0;
+        int sum = presum*10 + root-&amp;gt;val;
+        if(root-&amp;gt;left == nullptr &amp;amp;&amp;amp; root-&amp;gt;right == nullptr)
+            return sum;
+        else
+            return dfs(root-&amp;gt;left,sum) + dfs(root-&amp;gt;right,sum);
+    }
+    int sumNumbers(TreeNode* root) {
+        return dfs(root,0);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;路径总和&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/path-sum/&quot;&gt;路径总和&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你二叉树的根节点 root 和一个表示目标和的整数 targetSum ，判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;递归&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if(root == nullptr)
+            return false;
+        if(root-&amp;gt;left == nullptr &amp;amp;&amp;amp; root-&amp;gt;right == nullptr)
+            return root-&amp;gt;val == targetSum;
+        return hasPathSum(root-&amp;gt;left,targetSum - root-&amp;gt;val) || hasPathSum(root-&amp;gt;right,targetSum - root-&amp;gt;val);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最小路径和&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/minimum-path-sum/&quot;&gt;最小路径和&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;定一个包含非负整数的 &lt;code&gt;*m* x *n*&lt;/code&gt; 网格 &lt;code&gt;grid&lt;/code&gt; ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。&lt;strong&gt;说明：&lt;/strong&gt;每次只能向下或者向右移动一步。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;动态规划&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int minPathSum(vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt;&amp;amp; grid) {
+        for(int i = 0;i &amp;lt; grid.size();i++){
+            for(int j = 0; j &amp;lt; grid[0].size();j++){
+                if(i == 0 &amp;amp;&amp;amp; j == 0)
+                    continue;
+                else if(i == 0)
+                    grid[i][j] = grid[i][j] + grid[i][j-1];
+                else if(j == 0)
+                    grid[i][j] = grid[i][j] + grid[i-1][j];
+                else    
+                    grid[i][j] = min(grid[i-1][j],grid[i][j-1]) + grid[i][j];
+            }
+        }
+        return grid[grid.size()-1][grid[0].size()-1];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;回文链表&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/palindrome-linked-list/&quot;&gt;回文链表&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;请判断一个链表是否为回文链表。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;获取链表中部：endofhalf&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;翻转链表&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *endofhalf(ListNode *head){
+        ListNode *fast = head;
+        ListNode *slow = head;
+        while(fast-&amp;gt;next != nullptr &amp;amp;&amp;amp; fast-&amp;gt;next-&amp;gt;next != nullptr){
+            fast = fast-&amp;gt;next-&amp;gt;next;
+            slow = slow-&amp;gt;next;
+        }
+        return slow;
+    }
+    ListNode *reverse(ListNode *head)
+    {
+        if(head == nullptr ||  head-&amp;gt;next == nullptr)
+            return head;
+        ListNode *dumphead = reverse(head-&amp;gt;next);
+        head-&amp;gt;next-&amp;gt;next = head;
+        head-&amp;gt;next = nullptr;
+        return dumphead;
+    }
+    bool isPalindrome(ListNode* head) {
+        if(head == nullptr)
+            return true;
+        ListNode *end = endofhalf(head);
+        ListNode *second = reverse(end-&amp;gt;next);
+        while(second != nullptr){
+            if(second-&amp;gt;val != head-&amp;gt;val)
+                return false;
+            else{
+                head = head-&amp;gt;next;
+                second = second-&amp;gt;next;
+            }
+        }
+        return true;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最长回文子串&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-palindromic-substring/&quot;&gt;最长回文子串&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个字符串 &lt;code&gt;s&lt;/code&gt;，找到 &lt;code&gt;s&lt;/code&gt; 中最长的回文子串。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;????&lt;/p&gt;
+
+&lt;h1 id=&quot;合并两个有序数组&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/merge-sorted-array/&quot;&gt;合并两个有序数组&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 nums1 成为一个有序数组。初始化 nums1 和 nums2 的元素数量分别为 m 和 n 。你可以假设 nums1 的空间大小等于 m + n，这样它就有足够的空间保存来自 nums2 的元素。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    void merge(vector&amp;lt;int&amp;gt;&amp;amp; nums1, int m, vector&amp;lt;int&amp;gt;&amp;amp; nums2, int n) {
+        int pos = m-- + n-- -1;
+        while(m &amp;gt;= 0 &amp;amp;&amp;amp; n &amp;gt;= 0)
+            nums1[pos--] = nums1[m] &amp;gt; nums2[n] ? nums1[m--]:nums2[n--];
+        while(n &amp;gt;= 0)
+            nums1[pos--] = nums2[n--];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最小栈&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/min-stack/&quot;&gt;最小栈&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;设计一个支持 &lt;code&gt;push&lt;/code&gt; ，&lt;code&gt;pop&lt;/code&gt; ，&lt;code&gt;top&lt;/code&gt; 操作，并能在常数时间内检索到最小元素的栈&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class MinStack {
+private:
+    stack&amp;lt;int&amp;gt; sk;
+    stack&amp;lt;int&amp;gt; minsk;
+public:
+    /** initialize your data structure here. */
+    MinStack() {
+        minsk.push(INT_MAX);
+    }
+    
+    void push(int x) {
+        sk.push(x);
+        minsk.push(min(minsk.top(),x));
+    }
+    
+    void pop() {
+        sk.pop();
+        minsk.pop();
+    }
+    
+    int top() {
+        return sk.top();
+    }
+    
+    int getMin() {
+        return minsk.top();
+    }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj-&amp;gt;push(x);
+ * obj-&amp;gt;pop();
+ * int param_3 = obj-&amp;gt;top();
+ * int param_4 = obj-&amp;gt;getMin();
+ */
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;用两个栈实现队列&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof&quot;&gt;用两个栈实现队列&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;请你仅使用两个栈实现先入先出队列。队列应当支持一般队列的支持的所有操作（&lt;code&gt;push&lt;/code&gt;、&lt;code&gt;pop&lt;/code&gt;、&lt;code&gt;peek&lt;/code&gt;、&lt;code&gt;empty&lt;/code&gt;）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;双栈&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class MyQueue {
+private:
+    stack&amp;lt;int&amp;gt; A;
+    stack&amp;lt;int&amp;gt; B;
+public:
+    /** Initialize your data structure here. */
+    MyQueue() {
+
+    }
+    
+    /** Push element x to the back of queue. */
+    void push(int x) {
+        A.push(x);
+    }
+    
+    /** Removes the element from in front of queue and returns that element. */
+    int pop() {
+        if(A.empty())
+            return -1;
+        while(!A.empty()){
+            B.push(A.top());
+            A.pop();
+        }
+        int res = B.top();
+        B.pop();
+        while(!B.empty()){
+            A.push(B.top());
+            B.pop();
+        }
+        return res;
+    }
+    
+    /** Get the front element. */
+    int peek() {
+        if(A.empty())
+            return -1;
+        while(!A.empty()){
+            B.push(A.top());
+            A.pop();
+        }
+        int res = B.top();
+        while(!B.empty()){
+            A.push(B.top());
+            B.pop();
+        }
+        return res;
+    }
+    
+    /** Returns whether the queue is empty. */
+    bool empty() {
+        return A.empty();
+    }
+};
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
+ * obj-&amp;gt;push(x);
+ * int param_2 = obj-&amp;gt;pop();
+ * int param_3 = obj-&amp;gt;peek();
+ * bool param_4 = obj-&amp;gt;empty();
+ */
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;用队列实现栈&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/implement-stack-using-queues&quot;&gt;用队列实现栈&lt;/a&gt;&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class MyStack {
+private:
+    queue&amp;lt;int&amp;gt; q1;
+    queue&amp;lt;int&amp;gt; q2;
+public:
+    /** Initialize your data structure here. */
+    MyStack() {
+
+    }
+    
+    /** Push element x onto stack. */
+    void push(int x) {
+        q2.push(x);
+        while(!q1.empty())
+        {
+            q2.push(q1.front());
+            q1.pop();
+        }
+        swap(q1,q2);
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    int pop() {
+        int r = q1.front();
+        q1.pop();
+        return r;
+    }
+    
+    /** Get the top element. */
+    int top() {
+        return q1.front();
+    }
+    
+    /** Returns whether the stack is empty. */
+    bool empty() {
+        return q1.empty();
+    }
+};
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack* obj = new MyStack();
+ * obj-&amp;gt;push(x);
+ * int param_2 = obj-&amp;gt;pop();
+ * int param_3 = obj-&amp;gt;top();
+ * bool param_4 = obj-&amp;gt;empty();
+ */
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二分查找&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/binary-search/&quot;&gt;二分查找&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int search(vector&amp;lt;int&amp;gt;&amp;amp; nums, int target) {
+        int left = 0;
+        int right = nums.size()-1;
+        while(left &amp;lt;= right)
+        {
+            int mid = (left + right)/2;
+            if(nums[mid] &amp;gt; target)
+                right = mid-1;
+            else if(nums[mid] &amp;lt; target)
+                left = mid+1;
+            else    
+                return mid;
+        }
+        return -1;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;二分查找牛客&quot;&gt;二分查找(牛客)&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;请实现有重复数字的升序数组的二分查找。 输出在数组中&lt;strong&gt;第一个&lt;/strong&gt;大于等于查找值的位置，如果数组中不存在这样的数(指不存在大于等于查找值的数)，则输出数组长度加一&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;    int upper_bound_(int n, int v, vector&amp;lt;int&amp;gt;&amp;amp; a) {
+        // write code here
+        int l = 0,r = n;
+        while(l &amp;lt; r){
+            int mid = l + r &amp;gt;&amp;gt; 1;
+            if(a[mid] &amp;lt; v)
+                l = mid + 1;
+            else
+                r = mid;
+        }
+        return l + 1;
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;-x-的平方根&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/sqrtx/&quot;&gt; x 的平方根&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;实现 &lt;code&gt;int sqrt(int x)&lt;/code&gt; 函数。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;二分&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int mySqrt(int x) {
+        int left = 0;
+        int right = x;
+        int res = 0;
+        while(left &amp;lt;= right){
+            int mid = (long long)(left + right)/2;
+            if(mid * mid &amp;lt;= x){
+                left = mid + 1;
+                res = mid;
+            }
+            else
+                right = mid -1;
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;在排序数组中查找元素的第一个和最后一个位置&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/&quot;&gt;在排序数组中查找元素的第一个和最后一个位置&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置,如果数组中不存在目标值 target，返回 [-1, -1]&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution { 
+public:
+    int binarySearch(vector&amp;lt;int&amp;gt;&amp;amp; nums, int target, bool lower) {
+        int left = 0, right = (int)nums.size() - 1, ans = (int)nums.size();
+        while (left &amp;lt;= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] &amp;gt; target || (lower &amp;amp;&amp;amp; nums[mid] &amp;gt;= target)) {
+                right = mid - 1;
+                ans = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+    vector&amp;lt;int&amp;gt; searchRange(vector&amp;lt;int&amp;gt;&amp;amp; nums, int target) {
+        int leftIdx = binarySearch(nums, target, true);
+        int rightIdx = binarySearch(nums, target, false) - 1;
+        if (leftIdx &amp;lt;= rightIdx &amp;amp;&amp;amp; rightIdx &amp;lt; nums.size() &amp;amp;&amp;amp; nums[leftIdx] == target &amp;amp;&amp;amp; nums[rightIdx] == target) {
+            return vector&amp;lt;int&amp;gt;{leftIdx, rightIdx};
+        } 
+        return vector&amp;lt;int&amp;gt;{-1, -1};
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;搜索旋转排序数组&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/search-in-rotated-sorted-array/&quot;&gt;搜索旋转排序数组&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;整数数组 &lt;code&gt;nums&lt;/code&gt; 按升序排列，数组中的值 &lt;strong&gt;互不相同&lt;/strong&gt; 。在传递给函数之前，nums 在预先未知的某个下标 k（0 &amp;lt;= k &amp;lt; nums.length）上进行了 旋转，使数组变为 [nums[k], nums[k+1], …, nums[n-1], nums[0], nums[1], …, nums[k-1]]（下标 从 0 开始 计数）。例如， [0,1,2,4,5,6,7] 在下标 3 处经旋转后可能变为 [4,5,6,7,0,1,2] 。&lt;/p&gt;
+
+  &lt;p&gt;给你 旋转后 的数组 nums 和一个整数 target ，如果 nums 中存在这个目标值 target ，则返回它的索引，否则返回 -1 。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;二分！！！！&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int search(vector&amp;lt;int&amp;gt;&amp;amp; nums, int target) {
+        int n = nums.size();
+        if(n == 0)
+            return -1;
+        if(n == 1)
+            return nums[0] == target ? nums[0] : -1;
+        int left = 0;
+        int right = n-1;
+        while(left &amp;lt;= right){
+            int mid = (left + right)/2;
+            if(nums[mid] == target)
+                return mid;
+            if(nums[0] &amp;lt;= nums[mid]){
+                if(nums[0] &amp;lt;= target &amp;amp;&amp;amp; target &amp;lt; nums[mid])
+                    right = mid - 1;
+                else
+                    left = mid + 1;
+            }
+            else{
+                if(nums[mid] &amp;lt; target &amp;amp;&amp;amp; target &amp;lt;= nums[n-1])
+                    left = mid + 1;
+                else
+                    right = mid -1;
+            }
+        }
+        return -1;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;旋转图像&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/rotate-image/&quot;&gt;旋转图像&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个 &lt;em&gt;n&lt;/em&gt; × &lt;em&gt;n&lt;/em&gt; 的二维矩阵 &lt;code&gt;matrix&lt;/code&gt; 表示一个图像。请你将图像顺时针旋转 90 度。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    void rotate(vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt;&amp;amp; matrix) {
+        int row = matrix.size();
+        int col = matrix[0].size();
+        for(int i = 0;i &amp;lt; row/2;i++)
+        {
+            for(int j = 0;j &amp;lt; col;j++)
+                swap(matrix[i][j],matrix[row-i-1][j]);
+        }
+        for(int i = 0;i &amp;lt; row;i++)
+        {
+            for(int j = 0;j &amp;lt; i;j++)
+                swap(matrix[i][j],matrix[j][i]);
+        }
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;旋转数组&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/rotate-array/&quot;&gt;旋转数组&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个数组，将数组中的元素向右移动 &lt;code&gt;k&lt;/code&gt; 个位置，其中 &lt;code&gt;k&lt;/code&gt; 是非负数。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    void reverse(vector&amp;lt;int&amp;gt;&amp;amp; nums, int start, int end) {
+        while (start &amp;lt; end) {
+            swap(nums[start], nums[end]);
+            start += 1;
+            end -= 1;
+        }
+    }
+
+    void rotate(vector&amp;lt;int&amp;gt;&amp;amp; nums, int k) {
+        k %= nums.size();
+        reverse(nums, 0, nums.size() - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, nums.size() - 1);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;调整数组顺序使奇数位于偶数前面&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/&quot;&gt;调整数组顺序使奇数位于偶数前面&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有奇数位于数组的前半部分，所有偶数位于数组的后半部分&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;不稳定&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    vector&amp;lt;int&amp;gt; exchange(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        if(nums.size() == 0)
+            return nums;
+        int left = 0;
+        int right = nums.size()-1;
+        while(left &amp;lt; right)
+        {
+            if(nums[left] % 2 == 0 &amp;amp;&amp;amp; nums[right] %2==0)
+                right--;
+            else if(nums[left] %2 != 0 &amp;amp;&amp;amp; nums[right] %2 != 0)
+                left++;
+            else if(nums[left] %2 != 0 &amp;amp;&amp;amp; nums[right] %2 == 0)
+            {
+                left++;
+                right--;
+            }
+            else
+            {
+                swap(nums[left],nums[right]);
+                left++;
+                right--;
+            }
+        }
+        return nums;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;稳定&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param array int整型vector 
+     * @return int整型vector
+     */
+    vector&amp;lt;int&amp;gt; reOrderArray(vector&amp;lt;int&amp;gt;&amp;amp; array) {
+        // write code here
+        vector&amp;lt;int&amp;gt; result;
+        for(int i=0;i&amp;lt;array.size();i++){
+            if(array[i]%2==1)
+                result.push_back(array[i]);
+        }
+        for(int i=0;i&amp;lt;array.size();i++){
+            if(array[i]%2==0)
+                result.push_back(array[i]);
+        }
+        return result;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;寻找峰值&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-peak-element/&quot;&gt;寻找峰值&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;峰值元素是指其值大于左右相邻值的元素。给你一个输入数组 nums，找到峰值元素并返回其索引。数组可能包含多个峰值，在这种情况下，返回 任何一个峰值 所在位置即可。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;二分&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int findPeakElement(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        if(nums.size() == 0)
+            return 0;
+        int left = 0;
+        int right = nums.size()-1;
+        while(left &amp;lt; right){
+            int mid = (long long)(left + right)/2;
+            if(nums[mid] &amp;gt; nums[mid + 1])
+                right = mid;
+            else
+                left = mid + 1;
+        }
+        return right;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;寻找两个正序数组的中位数&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/median-of-two-sorted-arrays/&quot;&gt;寻找两个正序数组的中位数&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定两个大小为 m 和 n 的正序（从小到大）数组 &lt;code&gt;nums1&lt;/code&gt; 和 &lt;code&gt;nums2&lt;/code&gt;。请你找出并返回这两个正序数组的中位数。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * find median in two sorted array
+     * @param arr1 int整型vector the array1
+     * @param arr2 int整型vector the array2
+     * @return int整型
+     */
+    int findkthitem(vector&amp;lt;int&amp;gt;&amp;amp; arr1, int index1, vector&amp;lt;int&amp;gt;&amp;amp; arr2, int index2, int kth)
+    {
+        int m = arr1.size() - index1, n = arr2.size() - index2;
+        if(m &amp;gt; n) return findkthitem(arr2,index2,arr1,index1,kth);
+        if(m==0) return arr2[index2+kth-1];
+        if(kth==1) return min(arr1[index1], arr2[index2]);
+        int pa = min(kth/2, m);
+        int pb = kth - pa;
+        if(arr1[index1+pa-1] == arr2[index2+pb-1]) return arr1[index1+pa-1];
+        else if(arr1[index1+pa-1] &amp;lt; arr2[index2+pb-1])
+            return findkthitem(arr1,index1+pa,arr2,index2,kth-pa);
+        else
+            return findkthitem(arr1,index1,arr2,index2+pb,kth-pb);
+    }
+    int findMedianinTwoSortedAray(vector&amp;lt;int&amp;gt;&amp;amp; arr1, vector&amp;lt;int&amp;gt;&amp;amp; arr2) {
+        // write code here
+        int allnum = arr1.size() + arr2.size();
+        int res = 0;
+        res = findkthitem(arr1, 0, arr2, 0, allnum/2);
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;搜索二维矩阵-ii&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/search-a-2d-matrix-ii/&quot;&gt;搜索二维矩阵 II&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target 。该矩阵具有以下特性：&lt;/p&gt;
+
+  &lt;p&gt;每行的元素从左到右升序排列。
+每列的元素从上到下升序排列&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    bool searchMatrix(vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt;&amp;amp; matrix, int target) {
+        int row = matrix.size()-1;
+        int col = 0;
+        while(row &amp;gt;= 0 &amp;amp;&amp;amp; col &amp;lt; matrix[0].size())
+        {
+            if(matrix[row][col] &amp;gt; target)
+                row--;
+            else if(matrix[row][col] &amp;lt; target)
+                col++;
+            else
+                return true;
+        }
+        return false;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;缺失的第一个正数&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/first-missing-positive/&quot;&gt;缺失的第一个正数&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个未排序的整数数组 &lt;code&gt;nums&lt;/code&gt; ，请你找出其中没有出现的最小的正整数。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int firstMissingPositive(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        int n = nums.size();
+        for(int i = 0;i &amp;lt; n;i++){
+            while(nums[i] &amp;gt; 0 &amp;amp;&amp;amp; nums[i] &amp;lt;= n &amp;amp;&amp;amp; nums[nums[i]-1] != nums[i])
+                swap(nums[nums[i] - 1],nums[i]);
+        }
+        for(int i = 0;i &amp;lt; n;i++){
+            if(nums[i] != i+1)
+                return i+1;
+        }
+        return n+1;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;岛屿数量&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/number-of-islands/&quot;&gt;岛屿数量&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个由 ‘1’（陆地）和 ‘0’（水）组成的的二维网格，请你计算网格中岛屿的数量。岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。此外，你可以假设该网格的四条边均被水包围。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;DFS&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    void dfs(vector&amp;lt;vector&amp;lt;char&amp;gt;&amp;gt; &amp;amp;grid,int i,int j){
+        if(i &amp;lt; 0 || j &amp;lt; 0 || i &amp;gt;= grid.size() || j &amp;gt;= grid[0].size() || grid[i][j] == '0')
+            return;
+        grid[i][j] = '0';
+        dfs(grid,i-1,j);
+        dfs(grid,i+1,j);
+        dfs(grid,i,j-1);
+        dfs(grid,i,j+1);
+    }
+    int numIslands(vector&amp;lt;vector&amp;lt;char&amp;gt;&amp;gt;&amp;amp; grid) {
+        int res = 0;
+        for(int i = 0;i &amp;lt; grid.size();i++){
+            for(int j = 0;j &amp;lt; grid[0].size();j++){
+                if(grid[i][j] == '1'){
+                    res++;
+                    dfs(grid,i,j);
+                }
+            }
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;岛屿的最大面积&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/max-area-of-island/&quot;&gt;岛屿的最大面积&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个包含了一些 0 和 1 的非空二维数组 grid 。一个 岛屿 是由一些相邻的 1 (代表土地) 构成的组合，这里的「相邻」要求两个 1 必须在水平或者竖直方向上相邻。你可以假设 grid 的四个边缘都被 0（代表水）包围着&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;DFS&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int dfs(vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; &amp;amp;grid,int i,int j){
+        if(i &amp;lt; 0 || j &amp;lt; 0 ||i &amp;gt;= grid.size() || j &amp;gt;= grid[0].size() || grid[i][j] == 0)
+            return 0;
+        grid[i][j] = 0;
+        int res = 1;
+        res += dfs(grid,i-1,j);
+        res += dfs(grid,i+1,j);
+        res += dfs(grid,i,j-1);
+        res += dfs(grid,i,j+1);
+        return res;
+    }
+    int maxAreaOfIsland(vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt;&amp;amp; grid) {
+        int res = 0;
+        for(int i = 0;i &amp;lt; grid.size();i++){
+            for(int j = 0;j &amp;lt; grid[0].size();j++){
+                if(grid[i][j] == 1){
+                    res = max(res,dfs(grid,i,j));
+                }
+            }
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;单词搜索&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/word-search/&quot;&gt;单词搜索&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个二维网格和一个单词，找出该单词是否存在于网格中。&lt;/p&gt;
+
+  &lt;p&gt;单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;DFS&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    bool dfs(vector&amp;lt;vector&amp;lt;char&amp;gt;&amp;gt; &amp;amp;board,string word,int i,int j,int n){
+        if(n == word.size())
+            return true;
+        if(i &amp;lt; 0 || j &amp;lt; 0 || i &amp;gt;= board.size() || j &amp;gt;= board[0].size() || board[i][j] != word[n])
+        return false;
+        char t = board[i][j];
+        board[i][j] = '0';
+        bool res = dfs(board,word,i+1,j,n+1) || 
+                    dfs(board,word,i-1,j,n+1) ||
+                    dfs(board,word,i,j+1,n+1) ||
+                    dfs(board,word,i,j-1,n+1);
+        board[i][j] = t;
+        return res;
+    }
+    bool exist(vector&amp;lt;vector&amp;lt;char&amp;gt;&amp;gt;&amp;amp; board, string word) {
+        for(int i =0;i &amp;lt; board.size();i++){
+            for(int j = 0;j &amp;lt; board[0].size();j++){
+                if(board[i][j] == word[0]){
+                    if(dfs(board,word,i,j,0))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最长公共子序列&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-common-subsequence/&quot;&gt;最长公共子序列&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定两个字符串 text1 和 text2，返回这两个字符串的最长公共子序列的长度。一个字符串的 子序列 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
+例如，”ace” 是 “abcde” 的子序列，但 “aec” 不是 “abcde” 的子序列。两个字符串的「公共子序列」是这两个字符串所共同拥有的子序列。若这两个字符串没有公共子序列，则返回 0。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;动态规划&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        int m = text1.size();
+        int n = text2.size();
+        int dp[m+1][n+1];
+        memset(dp,0,sizeof(dp));
+        for(int i = 1;i &amp;lt;= m;i++){
+            for(int j = 1;j &amp;lt;= n;j++){
+                if(text1[i-1] == text2[j-1])
+                    dp[i][j] = dp[i-1][j-1] + 1;
+                else
+                    dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+        return dp[m][n];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最长公共子序列牛客&quot;&gt;最长公共子序列(牛客)&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定两个字符串str1和str2,输出两个字符串的最长公共子串,题目保证str1和str2的最长公共子串存在且唯一。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * longest common substring
+     * @param str1 string字符串 the string
+     * @param str2 string字符串 the string
+     * @return string字符串
+     */
+    string LCS(string str1, string str2) {
+        // write code here
+        int len1 = str1.size();
+        int len2 = str2.size();
+        if(len1 == 0 || len2 == 0)
+            return &quot;-1&quot;;
+        vector&amp;lt;int&amp;gt; d(len2+1,0);
+        int reslen = 0;
+        int end;
+        int temp;
+        for(int i = 1;i &amp;lt;=len1;i++){
+            int last = 0;
+            for(int j = 1;j &amp;lt;= len2;j++){
+                temp = d[j]; 
+                if(str1[i-1] == str2[j-1])
+                    d[j] = last + 1;
+                else
+                    d[j] = 0;
+                last = temp;
+                if(reslen &amp;lt; d[j]){
+                    reslen = d[j];
+                    end = j;
+                }
+            }
+        }
+        return reslen &amp;gt; 0 ? str2.substr(end - reslen,reslen) : &quot;-1&quot;;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;爬楼梯&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/climbing-stairs/&quot;&gt;爬楼梯&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;假设你正在爬楼梯。需要 &lt;em&gt;n&lt;/em&gt; 阶你才能到达楼顶。每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;动态规划:dp[0] = 1,dp[1] =1&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int climbStairs(int n) {
+        int dp[n+1];
+        dp[0] = 1;
+        dp[1] = 1;
+        for(int i = 2;i &amp;lt;= n;i++)
+            dp[i] = dp[i-2]+dp[i-1];
+        return dp[n];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;青蛙跳台阶问题&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/qing-wa-tiao-tai-jie-wen-ti-lcof&quot;&gt;青蛙跳台阶问题&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 &lt;code&gt;n&lt;/code&gt; 级的台阶总共有多少种跳法。答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int numWays(int n) {
+        int a = 1;
+        int b = 1;
+        int sum;
+        for(int i = 0;i &amp;lt; n;i++)
+        {
+            sum = (a + b) % 1000000007;
+            a = b;
+            b = sum;
+        }
+        return a;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;打家劫舍&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/house-robber/&quot;&gt;打家劫舍&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。给定一个代表每个房屋存放金额的非负整数数组，计算你 不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;动态规划&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int rob(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        int dp[nums.size()];
+        dp[0] = nums[0];
+        dp[1] = max(nums[0],nums[1]);
+        for(int i = 2;i &amp;lt; nums.size();i++)
+            dp[i] = max(dp[i-1],dp[i-2]+nums[i]);
+        return dp[nums.size()-1];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;不同路径&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/unique-paths/&quot;&gt;不同路径&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;动态规划&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        int dp[m][n];
+        for(int i = 0;i &amp;lt; m;i++)
+            dp[i][0] = 1;
+        for(int i = 0;i &amp;lt; n;i++)
+            dp[0][i] = 1;
+        for(int i = 1;i &amp;lt; m;i++){
+            for(int j = 1;j &amp;lt; n;j++)
+                dp[i][j] = dp[i-1][j] + dp[i][j-1];
+        }
+        return dp[m-1][n-1];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最长重复子数组&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximum-length-of-repeated-subarray/&quot;&gt;最长重复子数组&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给两个整数数组 &lt;code&gt;A&lt;/code&gt; 和 &lt;code&gt;B&lt;/code&gt; ，返回两个数组中公共的、长度最长的子数组的长度。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;动态规划&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int findLength(vector&amp;lt;int&amp;gt;&amp;amp; A, vector&amp;lt;int&amp;gt;&amp;amp; B) {
+        vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; dp(A.size()+1,vector&amp;lt;int&amp;gt;(B.size()+1,0));
+        int res = 0;
+        for(int i = A.size()-1;i &amp;gt;= 0;i--)
+        {
+            for(int j = B.size()-1;j &amp;gt;= 0;j--)
+            {
+                dp[i][j] = A[i] == B[j] ? dp[i+1][j+1]+1:0;
+                res = max(res,dp[i][j]);
+            }
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;全排列&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/permutations/&quot;&gt;全排列&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个 &lt;strong&gt;没有重复&lt;/strong&gt; 数字的序列，返回其所有可能的全排列。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;回溯&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    void backtrace(vector&amp;lt;int&amp;gt; &amp;amp;nums,vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; &amp;amp;res,int first,int len){
+        if(first == len){
+            res.push_back(nums);
+            return;
+        }
+        for(int i = first;i &amp;lt; len;i++){
+            swap(nums[i],nums[first]);
+            backtrace(nums,res,first+1,len);
+            swap(nums[i],nums[first]);
+        }
+    }
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; permute(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; res;
+        backtrace(nums,res,0,nums.size());
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;牛客字符串排列&quot;&gt;牛客##字符串排列&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则按字典序打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    void permutations(string str,int index,int len,vector&amp;lt;string&amp;gt; &amp;amp;res)
+    {
+        if(index==len-1){
+            res.push_back(str);
+            return ;
+        }
+        for(int i=index;i&amp;lt;len;i++)
+        {
+            if(i!=index &amp;amp;&amp;amp; str[i]==str[index])
+                continue;
+            swap(str[i],str[index]);
+            permutations(str,index+1,str.size(),res);
+        }
+    }
+    vector&amp;lt;string&amp;gt; Permutation(string str) {
+        vector&amp;lt;string&amp;gt; res;
+        if(str.size()==0) return res;
+        permutations(str,0,str.size(),res);
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;子集&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/subsets/&quot;&gt;子集&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个整数数组 &lt;code&gt;nums&lt;/code&gt; ，数组中的元素 &lt;strong&gt;互不相同&lt;/strong&gt; 。返回该数组所有可能的子集（幂集）。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; res;
+    vector&amp;lt;int&amp;gt; path;
+    void backtrace(vector&amp;lt;int&amp;gt; &amp;amp;nums,int start)
+    {
+        res.push_back(path);
+        if(start &amp;gt;= nums.size())
+            return;
+        for(int i = start;i &amp;lt; nums.size();i++)
+        {
+            path.push_back(nums[i]);
+            backtrace(nums,i+1);
+            path.pop_back();
+        }
+    }
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; subsets(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        backtrace(nums,0);
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;下一个排列&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/next-permutation/&quot;&gt;下一个排列&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;实现获取 下一个排列 的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    void nextPermutation(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        int i = nums.size()-2;
+        while(i &amp;gt;= 0 &amp;amp;&amp;amp; nums[i] &amp;gt;= nums[i+1])
+            i--;
+        if(i &amp;gt;= 0){
+            int j = nums.size()-1;
+            while(j &amp;gt;= 0 &amp;amp;&amp;amp; nums[i] &amp;gt;= nums[j])
+                j--;
+            swap(nums[i],nums[j]);
+        }
+        reverse(nums.begin()+1+i,nums.end());
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;多数元素&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/majority-element/&quot;&gt;多数元素&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个大小为 &lt;em&gt;n&lt;/em&gt; 的数组，找到其中的多数元素。多数元素是指在数组中出现次数 &lt;strong&gt;大于&lt;/strong&gt; &lt;code&gt;⌊ n/2 ⌋&lt;/code&gt; 的元素。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int majorityElement(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        int res = -1;
+        int count = 0;
+        for(int num:nums){
+            if(res == num)
+                count++;
+            else if(--count &amp;lt; 0){
+                res = num;
+                count = 1;
+            }
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;合并区间&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/merge-intervals/&quot;&gt;合并区间&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返回一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;排序&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; merge(vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt;&amp;amp; intervals) {
+        if(intervals.size() == 0)
+            return {};
+        vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; res;
+        sort(intervals.begin(),intervals.end());
+        for(int i = 0;i &amp;lt; intervals.size();i++){
+            int L = intervals[i][0];
+            int R = intervals[i][1];
+            if(res.size() == 0 || res.back()[1] &amp;lt; L)
+                res.push_back({L,R});
+            else
+                res.back()[1] = max(res.back()[1],R);
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;每日温度&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/daily-temperatures/&quot;&gt;每日温度&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;请根据每日 &lt;code&gt;气温&lt;/code&gt; 列表，重新生成一个列表。对应位置的输出为：要想观测到更高的气温，至少需要等待的天数。如果气温在这之后都不会升高，请在该位置用 &lt;code&gt;0&lt;/code&gt; 来代替。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    vector&amp;lt;int&amp;gt; dailyTemperatures(vector&amp;lt;int&amp;gt;&amp;amp; T) {
+        vector&amp;lt;int&amp;gt; res(T.size());
+        stack&amp;lt;int&amp;gt; s;
+        for(int i = 0;i &amp;lt; T.size();i++)
+        {
+            while(!s.empty() &amp;amp;&amp;amp; T[i] &amp;gt; T[s.top()])
+            {
+                int pre = s.top();
+                res[pre] = i -pre;
+                s.pop();
+            }
+            s.push(i);
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;比较版本号&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/compare-version-numbers/&quot;&gt;比较版本号&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你两个版本号 &lt;code&gt;version1&lt;/code&gt; 和 &lt;code&gt;version2&lt;/code&gt; ，请你比较它们。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int compareVersion(string version1, string version2) {
+        int len_1 = version1.size(), len_2 = version2.size();
+        int i = 0, j = 0;
+        while (i &amp;lt; len_1 || j &amp;lt; len_2)
+        {
+            int cur_1 = i, cur_2 = j;                     //cur表示当前版本段的结束下标
+            while (cur_1 &amp;lt; len_1 &amp;amp;&amp;amp; version1[cur_1] != '.') cur_1 ++ ;  
+            while (cur_2 &amp;lt; len_2 &amp;amp;&amp;amp; version2[cur_2] != '.') cur_2 ++ ;
+            //atoi()的参数是const char*,因此对于一个字符串str我们必须调用c_str()方法把这个string转换成const char*类型
+            int a = (i == cur_1) ? 0 : atoi(version1.substr(i, cur_1 - i).c_str());
+            int b = (j == cur_2) ? 0 : atoi(version2.substr(j, cur_2 - j).c_str());
+            if (a &amp;gt; b) return 1;
+            else if (a &amp;lt; b) return -1;
+            i = cur_1 + 1, j = cur_2 + 1;
+        }
+        return 0;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;零钱兑换&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/coin-change/&quot;&gt;零钱兑换&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。你可以认为每种硬币的数量是无限的&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;动态规划&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int coinChange(vector&amp;lt;int&amp;gt;&amp;amp; coins, int amount) {
+        int Max = amount+1;
+        vector&amp;lt;int&amp;gt; dp(amount+1,Max);
+        dp[0] = 0;
+        for(int i = 1;i &amp;lt;= amount;i++)
+        {
+            for(int j = 0;j &amp;lt; coins.size();j++)
+            {
+                if(coins[j] &amp;lt;= i)
+                    dp[i] = min(dp[i], dp[i - coins[j]] + 1);
+            }
+        }
+        return dp[amount] &amp;gt; amount ? -1 : dp[amount];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;零钱兑换-ii&quot;&gt;###&lt;a href=&quot;https://leetcode-cn.com/problems/coin-change-2/&quot;&gt;零钱兑换 II&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int change(int amount, vector&amp;lt;int&amp;gt;&amp;amp; coins) {
+        int* d = new int[amount+1];
+        // 初始化
+        memset(d, 0, sizeof(int)*(amount+1));
+        d[0] = 1;
+        int n = coins.size();
+        for (int coin : coins)
+        {
+            // 这里直接从coin开始，否则 x-coin会变为无效数字
+            for (int x = coin; x &amp;lt;= amount; ++x)
+            {
+                d[x] += d[x-coin];
+            }
+        }
+        return d[amount];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;-复原-ip-地址&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/restore-ip-addresses/&quot;&gt; 复原 IP 地址&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个只包含数字的字符串，用以表示一个 IP 地址，返回所有可能从 &lt;code&gt;s&lt;/code&gt; 获得的 &lt;strong&gt;有效 IP 地址&lt;/strong&gt; 。你可以按任何顺序返回答案。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    void dfs(string&amp;amp; s, vector&amp;lt;string&amp;gt;&amp;amp; res, vector&amp;lt;string&amp;gt;&amp;amp; cur, int pos) {
+        int maxSize = (4 - cur.size()) * 3;
+        if(s.size() - pos &amp;gt; maxSize)
+            return;
+        if(cur.size() == 4 &amp;amp;&amp;amp; pos == s.size()) {
+            res.push_back(cur[0] + '.' + cur[1] + '.' + cur[2] + '.' + cur[3]);
+            return;
+        }
+        for(int i = pos; i &amp;lt; s.size(); i++) {
+            string temp = s.substr(pos, i - pos + 1);
+            if(isValid(temp)) {
+                cur.push_back(temp);
+                dfs(s, res, cur,i + 1);
+                cur.pop_back();
+            }
+        }
+    }
+    bool isValid(string&amp;amp; s) {
+        if((s.size() &amp;gt; 1 &amp;amp;&amp;amp; s[0] == '0') || s.size() &amp;gt; 3)
+            return false;
+        return stoi(s) &amp;lt; 256;
+    }
+    vector&amp;lt;string&amp;gt; restoreIpAddresses(string s) {
+        vector&amp;lt;string&amp;gt; arrResult, arrTmp;
+        dfs(s, arrResult, arrTmp, 0);
+        return arrResult;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;验证ip地址&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/validate-ip-address/&quot;&gt;验证IP地址&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;???&lt;/p&gt;
+
+&lt;h1 id=&quot;最小覆盖子串&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/minimum-window-substring/&quot;&gt;最小覆盖子串&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个字符串 &lt;code&gt;s&lt;/code&gt; 、一个字符串 &lt;code&gt;t&lt;/code&gt; 。返回 &lt;code&gt;s&lt;/code&gt; 中涵盖 &lt;code&gt;t&lt;/code&gt; 所有字符的最小子串。如果 &lt;code&gt;s&lt;/code&gt; 中不存在涵盖 &lt;code&gt;t&lt;/code&gt; 所有字符的子串，则返回空字符串 &lt;code&gt;&quot;&quot;&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;滑动窗口&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;unordered_map&amp;gt;
+class Solution {
+public:
+    /**
+     * 
+     * @param S string字符串 
+     * @param T string字符串 
+     * @return string字符串
+     */
+    unordered_map &amp;lt;char, int&amp;gt; ori, cnt;
+    bool check() {
+        for (const auto &amp;amp;p: ori) {
+            if (cnt[p.first] &amp;lt; p.second) {
+                return false;
+            }
+        }
+        return true;
+    }
+    string minWindow(string s, string t) {
+        // write code here
+        for (const auto &amp;amp;c: t) {
+            ++ori[c];
+        }
+        int l = 0, r = -1;
+        int len = INT_MAX, ansL = -1, ansR = -1;
+
+        while (r &amp;lt; int(s.size())) {
+            if (ori.find(s[++r]) != ori.end()) {
+                ++cnt[s[r]];
+            }
+            while (check() &amp;amp;&amp;amp; l &amp;lt;= r) {
+                if (r - l + 1 &amp;lt; len) {
+                    len = r - l + 1;
+                    ansL = l;
+                }
+                if (ori.find(s[l]) != ori.end()) {
+                    --cnt[s[l]];
+                }
+                ++l;
+            }
+        }
+        return ansL == -1 ? string() : s.substr(ansL, len);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;用-rand7-实现-rand10&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/implement-rand10-using-rand7/&quot;&gt;用 Rand7() 实现 Rand10()&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;已有方法 &lt;code&gt;rand7&lt;/code&gt; 可生成 1 到 7 范围内的均匀随机整数，试写一个方法 &lt;code&gt;rand10&lt;/code&gt; 生成 1 到 10 范围内的均匀随机整数。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;// The rand7() API is already defined for you.
+// int rand7();
+// @return a random integer in the range 1 to 7
+
+class Solution {
+public:
+    int rand10() {
+        int row, col, idx;
+        do {
+            row = rand7();
+            col = rand7();
+            idx = col + (row - 1) * 7;
+        } while (idx &amp;gt; 40);
+        return 1 + (idx - 1) % 10;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;反转字符串&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/reverse-string/&quot;&gt;反转字符串&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 &lt;code&gt;char[]&lt;/code&gt; 的形式给出。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    void reverseString(vector&amp;lt;char&amp;gt;&amp;amp; s) {
+        int left = 0;
+        int right = s.size()-1;
+        while(left &amp;lt; right)
+        {
+            swap(s[left],s[right]);
+            left++;
+            right--;
+        }
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最长连续序列&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-consecutive-sequence/&quot;&gt;最长连续序列&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个未排序的整数数组 &lt;code&gt;nums&lt;/code&gt; ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;输入：nums = [100,4,200,1,3,2]
+输出：4
+解释：最长数字连续序列是 [1, 2, 3, 4]。它的长度为 4。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int longestConsecutive(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        unordered_set&amp;lt;int&amp;gt; num_set;
+        for (const int&amp;amp; num : nums) {
+            num_set.insert(num);
+        }
+
+        int longestStreak = 0;
+
+        for (const int&amp;amp; num : num_set) {
+            if (!num_set.count(num - 1)) {
+                int currentNum = num;
+                int currentStreak = 1;
+
+                while (num_set.count(currentNum + 1)) {
+                    currentNum += 1;
+                    currentStreak += 1;
+                }
+
+                longestStreak = max(longestStreak, currentStreak);
+            }
+        }
+
+        return longestStreak;           
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最大数&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/largest-number/&quot;&gt;最大数&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一组非负整数 &lt;code&gt;nums&lt;/code&gt;，重新排列它们每个数字的顺序（每个数字不可拆分）使之组成一个最大的整数。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    static bool comparison(const int&amp;amp; a, const int&amp;amp; b)
+    {
+        string concatenation1 = to_string(a) + to_string(b);
+        string concatenation2 = to_string(b) + to_string(a);   
+        return concatenation1 &amp;gt; concatenation2;
+    }
+    string largestNumber(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        if(nums.empty()) 
+            return &quot;&quot;;
+        if(nums.size() == 1) 
+            return to_string(nums[0]);
+        sort(nums.begin(), nums.end(), comparison); // 调用STL中的sort函数
+        string result = &quot;&quot;;
+        for(int i : nums)
+        {
+            result += to_string(i);
+        }
+        if(result[0] == '0')
+             return &quot;0&quot;; // 特殊case，全是0的时候应该输出0而不是00000
+        return result;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;滑动窗口最大值&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/sliding-window-maximum/&quot;&gt;滑动窗口最大值&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个整数数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。返回滑动窗口中的最大值。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    vector&amp;lt;int&amp;gt; maxSlidingWindow(vector&amp;lt;int&amp;gt;&amp;amp; nums, int k) {
+        priority_queue&amp;lt;pair&amp;lt;int,int&amp;gt;&amp;gt; q;
+        int n = nums.size();
+        for(int i = 0;i &amp;lt; k;i++)
+            q.emplace(nums,i);
+        vector&amp;lt;int&amp;gt; res = {q.top().first};
+        for(int i = k;i &amp;lt; n ;i++)
+        {
+            q.emplace(nums[i],i);
+            while(q.top().second &amp;lt;= i-k)
+                q.pop();
+            res.push_back(q.top().first);
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;扑克牌中的顺子&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/bu-ke-pai-zhong-de-shun-zi-lcof/&quot;&gt;扑克牌中的顺子&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不是连续的。2～10为数字本身，A为1，J为11，Q为12，K为13，而大、小王为 0 ，可以看成任意数字。A 不能视为 14。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    bool isStraight(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        int zero = 0;
+        for(int i =0 ;i &amp;lt; 4;i++)
+        {
+            if(nums[i] == 0)
+            {
+                zero++;
+                continue;
+            }
+            if(nums[i] == nums[i+1])
+                return false;
+            zero -= nums[i+1]-nums[i] - 1;
+        }
+        return zero &amp;gt;= 0 ? true:false;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;快速排序&quot;&gt;快速排序&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;    void quickSort(vector&amp;lt;int&amp;gt; &amp;amp;arr,int l,int r){
+        if(l&amp;gt;=r-1) return;
+        int tmp=arr[r-1];
+        int i=l;
+        for(int j=l;j&amp;lt;r-1;j++){
+            if(arr[j]&amp;lt;=tmp){
+                swap(arr[j],arr[i]);
+                i++;
+            }
+        }
+        swap(arr[i],arr[r-1]);
+        quickSort(arr,l,i);
+        quickSort(arr,i+1,r);
+    }
+    vector&amp;lt;int&amp;gt; MySort(vector&amp;lt;int&amp;gt;&amp;amp; arr) {
+        // write code here
+        quickSort(arr,0,arr.size());
+        return arr;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最长递增子序列&quot;&gt;最长递增子序列&lt;/h1&gt;
+
+&lt;h1 id=&quot;最长上升子序列&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-increasing-subsequence&quot;&gt;最长上升子序列&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;牛客&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * retrun the longest increasing subsequence
+     * @param arr int整型vector the array
+     * @return int整型vector
+     */
+    vector&amp;lt;int&amp;gt; LIS(vector&amp;lt;int&amp;gt;&amp;amp; arr)
+    {
+        // 第一步：利用贪心+二分求最长递增子序列长度
+        vector&amp;lt;int&amp;gt; res;
+        vector&amp;lt;int&amp;gt; maxLen;
+        if (arr.size()&amp;lt;1) return res;
+        res.push_back(arr[0]);
+        maxLen.push_back(1);
+        for (int i = 1; i &amp;lt; arr.size(); ++i)
+        {
+            if (arr[i] &amp;gt; res.back())
+            {
+                res.push_back(arr[i]);
+                maxLen.push_back(res.size());
+            }
+            else
+            {
+                // lower_bound(begin, end, val)包含在&amp;lt;algorithm&amp;gt;中
+                // 它的作用是返回有序数组begin..end中第一个大于等于val的元素的迭代器
+                int pos = lower_bound(res.begin(), res.end(), arr[i]) - res.begin();
+                res[pos] = arr[i];
+                maxLen.push_back(pos+1);
+            }
+        }
+        // 第二步：填充最长递增子序列
+        //res中放置的是最长递增序列，maxLen存放的是arr数组中对应每个数字应该放在res数组中的位置
+        //从maxLen的最后往前遍历，依次根据maxLen中元素从大到小取对应的arr中的元素，遇到重复的应选择第一个。
+        for (int i = arr.size()-1, j = res.size(); j &amp;gt; 0; --i)
+        {
+            if (maxLen[i] == j)
+            {
+                res[--j] = arr[i];
+            }
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;leetcode&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int lengthOfLIS(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        int len = 1, n = (int)nums.size();
+        if (n == 0) {
+            return 0;
+        }
+        vector&amp;lt;int&amp;gt; d(n + 1, 0);
+        d[len] = nums[0];
+        for (int i = 1; i &amp;lt; n; ++i) {
+            if (nums[i] &amp;gt; d[len]) {
+                d[++len] = nums[i];
+            } else {
+                int l = 1, r = len, pos = 0; // 如果找不到说明所有的数都比 nums[i] 大，此时要更新 d[1]，所以这里将 pos 设为 0
+                while (l &amp;lt;= r) {
+                    int mid = (l + r) &amp;gt;&amp;gt; 1;
+                    if (d[mid] &amp;lt; nums[i]) {
+                        pos = mid;
+                        l = mid + 1;
+                    } else {
+                        r = mid - 1;
+                    }
+                }
+                d[pos + 1] = nums[i];
+            }
+        }
+        return len;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;旋转排序数组搜索&quot;&gt;旋转排序数组搜索&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * 
+     * @param A int整型一维数组 
+     * @param n int A数组长度
+     * @param target int整型 
+     * @return int整型
+     */
+    int search(int* A, int n, int target) {
+        // write code here
+        int left = 0;
+        int right=n-1;
+        while(left &amp;lt;= right){
+            int mid = left +(right-left)/2;
+            if(A[mid] == target)
+                return mid;
+            else if(A[mid] &amp;gt;= A[left]){
+                //左侧有序
+                if(A[mid] &amp;gt; target &amp;amp;&amp;amp; A[left] &amp;lt;= target)
+                    right=mid-1;
+                else
+                    left=mid+1;
+            }
+            else{
+                //右侧有序
+                if(A[mid]&amp;lt;target &amp;amp;&amp;amp; A[right] &amp;gt;= target)
+                    left=mid+1;
+                else
+                    right=mid-1;
+            }
+        }
+        return -1;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最长回文子串-1&quot;&gt;最长回文子串&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;对于一个字符串，请设计一个高效算法，计算其中最长回文子串的长度。给定字符串&lt;strong&gt;A&lt;/strong&gt;以及它的长度&lt;strong&gt;n&lt;/strong&gt;，请返回最长回文子串的长度。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int getLongestPalindrome(string A, int n) {
+        // write code here
+        int left = 0;
+        int right = 0;
+        int res = 0;
+        for(int i = 0;i &amp;lt; n;i++){
+            left = i;
+            right = i;
+            while(right &amp;lt; n &amp;amp;&amp;amp; left &amp;gt;= 0 &amp;amp;&amp;amp; A[right] == A[left]){
+                left--;
+                right++;
+            }
+            res = max(res,right - left - 1);
+            left = i;
+            right = i + 1;
+            while(right &amp;lt; n &amp;amp;&amp;amp; left &amp;gt;= 0 &amp;amp;&amp;amp; A[right] == A[left]){
+                left--;
+                right++;
+            }
+            res = max(res,right - left -1);
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;验证回文串&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/valid-palindrome/&quot;&gt;验证回文串&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    bool isPalindrome(string s) {
+        string sgood;
+        for (char ch: s) {
+            if (isalnum(ch)) {
+                sgood += tolower(ch);
+            }
+        }
+        int n = sgood.size();
+        int left = 0, right = n - 1;
+        while (left &amp;lt; right) {
+           if (sgood[left] != sgood[right]) {
+                return false;
+            }
+            ++left;
+            --right;
+        }
+        return true;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;验证回文字符串-ⅱ&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/valid-palindrome-ii&quot;&gt;验证回文字符串 Ⅱ&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个非空字符串 &lt;code&gt;s&lt;/code&gt;，&lt;strong&gt;最多&lt;/strong&gt;删除一个字符。判断是否能成为回文字符串。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    bool checkPalindrome(const string&amp;amp; s, int low, int high) {
+        for (int i = low, j = high; i &amp;lt; j; ++i, --j) {
+            if (s[i] != s[j]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    bool validPalindrome(string s) {
+        int low = 0, high = s.size() - 1;
+        while (low &amp;lt; high) {
+            char c1 = s[low], c2 = s[high];
+            if (c1 == c2) {
+                ++low;
+                --high;
+            } else {
+                return checkPalindrome(s, low, high - 1) || checkPalindrome(s, low + 1, high);
+            }
+        }
+        return true;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;单链表排序&quot;&gt;单链表排序&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * struct ListNode {
+ *	int val;
+ *	struct ListNode *next;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param head ListNode类 the head node
+     * @return ListNode类
+     */
+    ListNode *merge(ListNode *l1,ListNode *l2){
+        if(l1 == nullptr)
+            return l2;
+        else if(l2 == nullptr)
+            return l1;
+        if(l1-&amp;gt;val &amp;lt; l2-&amp;gt;val){
+            l1-&amp;gt;next = merge(l1-&amp;gt;next, l2);
+            return l1;
+        }
+        else{
+            l2-&amp;gt;next = merge(l1, l2-&amp;gt;next);
+            return l2;
+        }
+    }
+    ListNode *findmid(ListNode *head){
+        ListNode *fast = head;
+        ListNode *slow = head;
+        ListNode *pre;
+        while(fast != nullptr &amp;amp;&amp;amp; fast-&amp;gt;next != nullptr){
+            pre = slow;
+            slow = slow-&amp;gt;next;
+            fast = fast-&amp;gt;next-&amp;gt;next;
+        }
+        pre-&amp;gt;next = nullptr;
+        return slow;
+    }
+    ListNode *mergesort(ListNode *head){
+        if(head-&amp;gt;next == nullptr)
+            return head;
+        ListNode *mid = findmid(head);
+        ListNode *l1 = mergesort(head);
+        ListNode *l2 = mergesort(mid);
+        return merge(l1, l2);
+    }
+    ListNode* sortInList(ListNode* head) {
+        // write code here
+        return head == nullptr ? nullptr : mergesort(head);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;数组中只出现一次&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;一个整型数组里除了两个数字之外，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;unordered_map&amp;gt;
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param array int整型vector 
+     * @return int整型vector
+     */
+    vector&amp;lt;int&amp;gt; FindNumsAppearOnce(vector&amp;lt;int&amp;gt;&amp;amp; array) {
+        // write code here
+        int n = array.size();
+        vector&amp;lt;int&amp;gt; res;
+        unordered_map&amp;lt;int, int&amp;gt; map;
+        for(int i = 0;i &amp;lt; n;i++)
+            map[array[i]]++;
+        for(int i = 0;i &amp;lt; n;i++){
+            if(map[array[i]] == 1)
+                res.push_back(array[i]);
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;进制转化&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个十进制数M，以及需要转换的进制数N。将十进制数M转化为N进制数&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * 进制转换
+     * @param M int整型 给定整数
+     * @param N int整型 转换到的进制
+     * @return string字符串
+     */
+    string solve(int M, int N) {
+        // write code here
+        string ans;
+        bool flag = 0;
+        if (M&amp;lt;0) {
+            M=-M;
+            flag = 1;
+        }
+        const char* t = {&quot;0123456789ABCDEF&quot;} ;
+        while (M!=0) {
+            ans= t[M%N]+ans;
+            M/=N;
+        }
+        if (flag)
+            ans = '-'+ans;
+        return ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;链表区间翻转&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * struct ListNode {
+ *	int val;
+ *	struct ListNode *next;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param head ListNode类 
+     * @param m int整型 
+     * @param n int整型 
+     * @return ListNode类
+     */
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        // write code here
+        ListNode *dummy=new ListNode(-1);
+        dummy-&amp;gt;next=head;
+        ListNode *pre=dummy;
+        for(int i=1;i&amp;lt;m;++i)
+            pre=pre-&amp;gt;next;
+        head=pre-&amp;gt;next;
+        for(int i=m;i&amp;lt;n;++i){
+            ListNode *nxt=head-&amp;gt;next;
+            head-&amp;gt;next=nxt-&amp;gt;next;
+            nxt-&amp;gt;next=pre-&amp;gt;next;
+            pre-&amp;gt;next=nxt;
+        }
+        return dummy-&amp;gt;next;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;数组中未出现的最小正整数&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * return the min number
+     * @param arr int整型vector the array
+     * @return int整型
+     */
+    int minNumberdisappered(vector&amp;lt;int&amp;gt;&amp;amp; arr) {
+        // write code here
+        for(int i = 0;i &amp;lt; arr.size();i++){
+            if(arr[i] &amp;lt; arr.size())
+                swap(arr[i],arr[arr[i] - 1]);
+        }
+        for(int i = 0;i &amp;lt; arr.size();i++){
+            if(arr[i] != i+1)
+                return i+1;
+        }
+        return arr.size()+1;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;字符串转整数&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int atoi(const char *str) {
+         if (!strlen(str) ) return 0;
+        int ans = 0;
+        int i = 0;
+        bool neg = false;
+        while(str[i]==' ') 
+            i++;
+        if(str[i]=='-') {
+            neg = true;
+            i++;
+        }
+        if(str[i]=='+') i++;
+        while(str[i]!='\0') {
+            if(str[i]&amp;gt;'9'||str[i]&amp;lt;'0')
+                break;
+            if(ans&amp;gt;=INT_MAX/10) 
+                return neg ? INT_MIN:INT_MAX;
+            ans = 10*ans + str[i]-'0';
+            i++;
+        }
+        return neg?-ans:ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;判断二叉树搜索和完全二叉树&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * struct TreeNode {
+ *	int val;
+ *	struct TreeNode *left;
+ *	struct TreeNode *right;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param root TreeNode类 the root
+     * @return bool布尔型vector
+     */
+    bool isSousuo(TreeNode* root,long long lowwer,long long upper)
+    {
+        if(root == nullptr)return true;
+        if(root-&amp;gt;val &amp;lt;= lowwer || root-&amp;gt;val &amp;gt;= upper)return false;
+        return isSousuo(root-&amp;gt;left, lowwer, root-&amp;gt;val)&amp;amp;&amp;amp;isSousuo(root-&amp;gt;right, root-&amp;gt;val, upper);
+    }
+    bool isComplete(TreeNode* root)
+    {
+        queue&amp;lt;TreeNode*&amp;gt;q;
+        q.push(root);
+        while(q.front())
+        {
+            root = q.front();
+            q.pop();
+            q.push(root-&amp;gt;left);
+            q.push(root-&amp;gt;right);
+        }
+        while(!q.empty() &amp;amp;&amp;amp; q.front() == nullptr)
+        {
+            q.pop();
+        }
+        return q.empty();
+    }
+    vector&amp;lt;bool&amp;gt; judgeIt(TreeNode* root) {
+        // write code here
+        vector&amp;lt;bool&amp;gt;res;
+        res.push_back(isSousuo(root, LONG_MIN, LONG_MAX));
+        res.push_back(isComplete(root));
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;排序&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     * 将给定数组排序
+     * @param arr int整型vector 待排序的数组
+     * @return int整型vector
+     */
+    void quickSort(vector&amp;lt;int&amp;gt; &amp;amp;arr,int l,int r){
+        if(l&amp;gt;=r-1) return;
+        int tmp=arr[r-1];
+        int i=l;
+        for(int j=l;j&amp;lt;r-1;j++){
+            if(arr[j]&amp;lt;=tmp){
+                swap(arr[j],arr[i]);
+                i++;
+            }
+        }
+        swap(arr[i],arr[r-1]);
+        quickSort(arr,l,i);
+        quickSort(arr,i+1,r);
+    }
+    vector&amp;lt;int&amp;gt; MySort(vector&amp;lt;int&amp;gt;&amp;amp; arr) {
+        // write code here
+        quickSort(arr,0,arr.size());
+        return arr;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;最小编辑代价&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定两个字符串str1和str2，再给定三个整数ic，dc和rc，分别代表插入、删除和替换一个字符的代价，请输出将str1编辑成str2的最小代价。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * min edit cost
+     * @param str1 string字符串 the string
+     * @param str2 string字符串 the string
+     * @param ic int整型 insert cost
+     * @param dc int整型 delete cost
+     * @param rc int整型 replace cost
+     * @return int整型
+     */
+    int minEditCost(string str1, string str2, int ic, int dc, int rc) {
+        // write code here
+        int n1 = str1.size();
+        int n2 = str2.size();
+        vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; dp(n1+1, vector&amp;lt;int&amp;gt;(n2+1,0));
+        for(int i = 0;i&amp;lt;=n1;i++)
+            dp[i][0]=i*dc;
+        for(int j = 0;j&amp;lt;=n2;j++)
+            dp[0][j] = j*ic;
+        for(int i = 1; i&amp;lt;=n1; i++){
+            for(int j = 1; j&amp;lt;=n2; j++){
+                if(str1[i-1]==str2[j-1]){
+                    dp[i][j]=dp[i-1][j-1];
+                }else{
+                    int ict = dp[i][j-1] + ic;
+                    int dct = dp[i-1][j] + dc;
+                    int rct = dp[i-1][j-1] + rc;
+                    dp[i][j] = min({ict,dct, rct});
+                }
+            }
+        }
+        return dp[n1][n2];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;排序&quot;&gt;排序&lt;/h1&gt;
+
+&lt;h2 id=&quot;选择排序&quot;&gt;选择排序&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;//选择排序
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+using namespace std;
+void selectSort(vector&amp;lt;int&amp;gt; &amp;amp;arr){
+    for(int i = 0;i &amp;lt; arr.size();i++){
+        int min = i;
+        for(int j = i + 1;j &amp;lt; arr.size();j++){
+            if(arr[j] &amp;lt; arr[min])
+                min = j;
+        }
+        if(i != min){
+            swap(arr[i],arr[min]);
+        }
+    }
+}
+int main(int argc, char const *argv[])
+{
+    vector&amp;lt;int&amp;gt; test{1,2,1,5,6,4,88,4,5,0,8};
+    selectSort(test);
+    for(int i : test)
+        cout&amp;lt;&amp;lt;i&amp;lt;&amp;lt;' ';
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;插入排序&quot;&gt;插入排序&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;// 将第一待排序序列第一个元素看做一个有序序列，把第二个元素到最后一个元素当成是未排序序列。&lt;/p&gt;
+
+  &lt;p&gt;从头到尾依次扫描未排序序列，将扫描到的每个元素插入有序序列的适当位置。&lt;/p&gt;
+
+  &lt;p&gt;如果待插入的元素与有序序列中的某个元素相等，则将待插入元素插入到相等元素的后面。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;//插入排序
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+using namespace std;
+void insertSort(vector&amp;lt;int&amp;gt; &amp;amp;arr){
+    for(int i = 1;i &amp;lt; arr.size();i++){
+        int temp = arr[i];
+        // 从已经排序的序列最右边的开始比较，找到比其小的数
+        int j = i;
+        while (j &amp;gt; 0 &amp;amp;&amp;amp; temp &amp;lt; arr[j - 1])
+        {
+            arr[j] = arr[j - 1];
+            j--;
+        }
+        if(j != i)
+            arr[j] = temp;
+    }
+}   
+int main(int argc, char const *argv[])
+{
+    vector&amp;lt;int&amp;gt; test{1,2,1,5,6,4,88,4,5,0,8};
+    insertSort(test);
+    for(int i : test)
+        cout&amp;lt;&amp;lt;i&amp;lt;&amp;lt;' ';
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;快速排序-1&quot;&gt;快速排序&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;从数列中挑出一个元素，称为 “基准”（pivot）&lt;/p&gt;
+
+  &lt;p&gt;重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作&lt;/p&gt;
+
+  &lt;p&gt;递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序；&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;//快速排序
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+using namespace std;
+int paritition(vector&amp;lt;int&amp;gt; &amp;amp;arr,int low,int high){
+    int pivot = arr[low];
+    while(low &amp;lt; high){
+        while(low &amp;lt; high &amp;amp;&amp;amp; arr[high] &amp;gt;= pivot)
+            --high;
+        arr[low] = arr[high];
+        while(low &amp;lt; high &amp;amp;&amp;amp; arr[low] &amp;lt;= pivot)
+            ++low;
+        arr[high] = arr[low];
+    }
+    arr[low] = pivot;
+    return low;
+}
+void quickSort(vector&amp;lt;int&amp;gt; &amp;amp;arr,int low,int high){
+    if(low &amp;lt; high){
+        int pivot = paritition(arr,low,high);
+        quickSort(arr,low,pivot - 1);
+        quickSort(arr,pivot + 1,high);
+    }
+}  
+int main(int argc, char const *argv[])
+{
+    vector&amp;lt;int&amp;gt; test{1,2,1,5,6,4,88,4,5,0,8};
+    quickSort(test,0,test.size()-1);
+    for(int i : test)
+        cout&amp;lt;&amp;lt;i&amp;lt;&amp;lt;' ';
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;堆排序&quot;&gt;堆排序&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;居然有人不会堆排序？？？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;//堆排序
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+using namespace std;
+void buildMaxHeap(vector&amp;lt;int&amp;gt; &amp;amp;arr,int i,int heapsize){
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+    int largest = i;
+    if(left &amp;lt; heapsize &amp;amp;&amp;amp; arr[left] &amp;gt; arr[largest])
+        largest = left;
+    if(right &amp;lt; heapsize &amp;amp;&amp;amp; arr[right] &amp;gt; arr[largest])
+        largest = right;
+    if(largest != i){
+        swap(arr[i],arr[largest]);
+        buildMaxHeap(arr,largest,heapsize);
+    }
+}
+void buildHeap(vector&amp;lt;int&amp;gt; &amp;amp;arr,int heapsize){
+    for(int i = heapsize/2; i &amp;gt;= 0;i--)
+        buildMaxHeap(arr,i,heapsize);
+} 
+void HeapSort(vector&amp;lt;int&amp;gt; &amp;amp;arr){
+    int heapsize = arr.size();
+    buildHeap(arr,heapsize);
+    for(int i = heapsize - 1;i &amp;gt; 0;i--){
+        swap(arr[0],arr[i]);
+        heapsize--;
+        buildMaxHeap(arr,0,heapsize);
+    }
+} 
+int main(int argc, char const *argv[])
+{
+    vector&amp;lt;int&amp;gt; test{1,2,1,5,6,4,88,4,5,0,8};
+    HeapSort(test);
+    for(int i : test)
+        cout&amp;lt;&amp;lt;i&amp;lt;&amp;lt;' ';
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;组合总和&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/combination-sum&quot;&gt;组合总和&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。candidates 中的数字可以无限制重复被选取。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+private:
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; result;
+    vector&amp;lt;int&amp;gt; path;
+    void backtracking(vector&amp;lt;int&amp;gt;&amp;amp; candidates, int target, int sum, int startIndex)
+    {
+        if(sum &amp;gt; target) return;
+        if(sum == target)
+        {
+            result.push_back(path);
+            return;
+        }
+        //如果 sum + candidates[i] &amp;gt; target 就终止遍历
+        for(int i = startIndex; i &amp;lt; candidates.size() &amp;amp;&amp;amp; sum + candidates[i] &amp;lt;= target; i++)
+        {
+            sum += candidates[i];
+            path.push_back(candidates[i]);
+            backtracking(candidates, target, sum, i);//不用i+1，因为此时可以重复
+            sum -= candidates[i];//回溯
+            path.pop_back();//回溯
+        }
+    }
+public:
+    vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; combinationSum(vector&amp;lt;int&amp;gt;&amp;amp; candidates, int target) {
+        result.clear();
+        path.clear();
+        sort(candidates.begin(), candidates.end());
+        backtracking(candidates, target, 0, 0);
+        return result;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;寻找重复数&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-the-duplicate-number&quot;&gt;寻找重复数&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个包含 &lt;code&gt;n + 1&lt;/code&gt; 个整数的数组 &lt;code&gt;nums&lt;/code&gt; ，其数字都在 &lt;code&gt;1&lt;/code&gt; 到 &lt;code&gt;n&lt;/code&gt; 之间（包括 &lt;code&gt;1&lt;/code&gt; 和 &lt;code&gt;n&lt;/code&gt;），可知至少存在一个重复的整数。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int findDuplicate(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+    for(int i = 0; i &amp;lt; nums.size(); ++i){
+        while(nums[i] != i + 1  &amp;amp;&amp;amp; nums[i] != nums[nums[i] - 1])
+            swap(nums[i], nums[nums[i] - 1]);
+    }
+    return nums.back();
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;木头切割问题&quot;&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/o-1VJO2TQZjC5ROmV7CReA&quot;&gt;木头切割问题&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定长度为n的数组，每个元素代表一个木头的长度，木头可以任意截断，从这堆木头中截出至少k个相同长度为m的木块。已知k，求max(m)。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;iostream&amp;gt;
+using namespace std;
+const int N = 100010;
+int a[N];
+int n, k;
+int check(int mid)
+{
+    int res = 0;
+    for (int i = 0; i &amp;lt; n; i ++ ) res += a[i] / mid;
+    return res;
+}
+int main()
+{
+    cin &amp;gt;&amp;gt; n &amp;gt;&amp;gt; k;
+    int l = 1, r = -1;
+    for (int i = 0; i &amp;lt; n; i ++ )
+    {
+        cin &amp;gt;&amp;gt; a[i];
+        r = max(r, a[i]);
+    }
+    while (l &amp;lt; r)
+    {
+        int mid = l + r + 1 &amp;gt;&amp;gt; 1;
+        if (check(mid) &amp;gt;= k) l = mid;
+        else r = mid - 1;
+    } 
+    cout &amp;lt;&amp;lt; l &amp;lt;&amp;lt; endl;
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;数组中的逆序对&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof&quot;&gt;数组中的逆序对&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组,求出这个数组中的逆序对的总数P。并将P对1000000007取模的结果输出。 即输出P%1000000007&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int cnt;
+    void merge_sort(vector&amp;lt;int&amp;gt; &amp;amp;data, vector&amp;lt;int&amp;gt; &amp;amp;arr, int left, int right)
+    {
+        if(left &amp;lt; right){
+            int section_len = (right-left)&amp;gt;&amp;gt;2;
+            merge_sort(arr, data, left, left+section_len);
+            merge_sort(arr, data, left+section_len+1, right);
+            int mid_l = left+section_len, l = mid_l, r = right, idx = right;
+            for( ; l&amp;gt;=left &amp;amp;&amp;amp; r&amp;gt;mid_l; ){
+                if(data[l] &amp;gt; data[r]){
+                    cnt += r-mid_l;   cnt %= 1000000007;
+                    arr[ idx-- ] = data[ l-- ];   continue;
+                }
+                arr[ idx-- ] = data[ r-- ];;
+            }
+            for( ; l&amp;gt;=left; ) arr[ idx-- ] = data[ l-- ];
+            for( ; r&amp;gt;mid_l; ) arr[ idx-- ] = data[ r-- ];
+        }
+    }
+    int InversePairs(vector&amp;lt;int&amp;gt; data) {
+        cnt = 0;
+        vector&amp;lt;int&amp;gt; arr( data );
+        merge_sort(data, arr, 0, data.size()-1);
+        return cnt;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;复制带随机指针的链表&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/copy-list-with-random-pointer&quot;&gt;复制带随机指针的链表&lt;/a&gt;&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        unordered_map&amp;lt;Node*,Node*&amp;gt;mp;
+        mp[nullptr]=nullptr;
+        Node *p=head;
+        while(p){
+            mp[p]=new Node(p-&amp;gt;val);
+            p=p-&amp;gt;next;
+        }
+        p=head;
+        while(p){
+            mp[p]-&amp;gt;next=mp[p-&amp;gt;next];
+            p=p-&amp;gt;next;
+        }
+        p=head;
+        while(p){
+            mp[p]-&amp;gt;random=mp[p-&amp;gt;random];
+            p=p-&amp;gt;next;
+        }
+        return mp[head];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;有序数组的平方&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/squares-of-a-sorted-array&quot;&gt;有序数组的平方&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给你一个按 &lt;strong&gt;非递减顺序&lt;/strong&gt; 排序的整数数组 &lt;code&gt;nums&lt;/code&gt;，返回 &lt;strong&gt;每个数字的平方&lt;/strong&gt; 组成的新数组，要求也按 &lt;strong&gt;非递减顺序&lt;/strong&gt; 排序。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    vector&amp;lt;int&amp;gt; sortedSquares(vector&amp;lt;int&amp;gt;&amp;amp; nums) {
+        int n = nums.size();
+        vector&amp;lt;int&amp;gt; res(n);
+        for(int i =0,j = n-1,pos = n-1;i &amp;lt;= j;){
+            if(nums[i]*nums[i] &amp;gt; nums[j]*nums[j]){
+                res[pos] = nums[i]*nums[i];
+                i++;
+            }
+            else{
+                res[pos] = nums[j] * nums[j];
+                j--;
+            }
+            pos--;
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;圆环回原点问题&quot;&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/VnGFEWHeD3nh1n9JSDkVUg&quot;&gt;圆环回原点问题&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;圆环上有10个点，编号为0~9。从0点出发，每次可以逆时针和顺时针走一步，问走n步回到0点共有多少种走法。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;class Solution:
+    def backToOrigin(self,n):
+        #点的个数为10
+        length = 10
+        dp = [[0 for i in range(length)] for j in range(n+1)]
+        dp[0][0] = 1
+        for i in range(1,n+1):
+            for j in range(length):
+                #dp[i][j]表示从0出发，走i步到j的方案数
+                dp[i][j] = dp[i-1][(j-1+length)%length] + dp[i-1][(j+1)%length]
+        return dp[n][0]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最大交换&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximum-swap&quot;&gt;最大交换&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个非负整数，你&lt;strong&gt;至多&lt;/strong&gt;可以交换一次数字中的任意两位。返回你能得到的最大值。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int maximumSwap(int num) {
+        string res=to_string(num);
+        const int n=res.size();
+        unordered_map&amp;lt;char, int&amp;gt; m;
+        for(int i=n-1; i&amp;gt;=0; i--){
+            if(m.count(res[i])==0)
+                m[res[i]]=i;
+        }
+        for(int i=0; i&amp;lt;n-1; i++){
+            for(char c='9'; c&amp;gt;res[i]; c--){
+                if(m.count(c) &amp;amp;&amp;amp; m[c]&amp;gt;i){
+                    std::swap(res[i], res[m[c]]);
+                    return stoi(res);
+                }
+            }
+        }
+        return num;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;位1的个数&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/number-of-1-bits&quot;&gt;位1的个数&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;编写一个函数，输入是一个无符号整数（以二进制串的形式），返回其二进制表达式中数字位数为 ‘1’ 的个数（也被称为&lt;a href=&quot;https://baike.baidu.com/item/汉明重量&quot;&gt;汉明重量&lt;/a&gt;）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+//n&amp;amp;(n-1):消除最右边的1
+    int hammingWeight(uint32_t n) {
+        int res = 0;
+        while(n != 0)
+        {
+            n = n&amp;amp;(n-1);
+            res++;
+        }
+        return res;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最长公共前缀&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-common-prefix&quot;&gt;最长公共前缀&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;编写一个函数来查找字符串数组中的最长公共前缀。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * 
+     * @param strs string字符串vector 
+     * @return string字符串
+     */
+    string longestCommonPrefix(vector&amp;lt;string&amp;gt;&amp;amp; strs) {
+        // write code here
+        if(strs.empty()) 
+            return string();
+        sort(strs.begin(), strs.end());
+        string st = strs.front();
+        string en = strs.back();
+        int i, num = min(st.size(), en.size());
+        for(i = 0; i &amp;lt; num &amp;amp;&amp;amp; st[i] == en[i]; i ++);
+        return string(st, 0, i);
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最小编辑代价&quot;&gt;&lt;a href=&quot;https://www.nowcoder.com/practice/05fed41805ae4394ab6607d0d745c8e4?tpId=196&amp;amp;tqId=37134&amp;amp;rp=1&amp;amp;ru=%2Factivity%2Foj&amp;amp;qru=%2Fta%2Fjob-code-total%2Fquestion-ranking&amp;amp;tab=answerKey&quot;&gt;最小编辑代价&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定两个字符串str1和str2，再给定三个整数ic，dc和rc，分别代表插入、删除和替换一个字符的代价，请输出将str1编辑成str2的最小代价。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    /**
+     * min edit cost
+     * @param str1 string字符串 the string
+     * @param str2 string字符串 the string
+     * @param ic int整型 insert cost
+     * @param dc int整型 delete cost
+     * @param rc int整型 replace cost
+     * @return int整型
+     */
+    int minEditCost(string str1, string str2, int ic, int dc, int rc) {
+        // write code here
+        int n1 = str1.size();
+        int n2 = str2.size();
+        vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; dp(n1+1, vector&amp;lt;int&amp;gt;(n2+1,0));
+        for(int i = 0;i&amp;lt;=n1;i++)
+            dp[i][0]=i*dc;
+        for(int j = 0;j&amp;lt;=n2;j++)
+            dp[0][j] = j*ic;
+        for(int i = 1; i&amp;lt;=n1; i++){
+            for(int j = 1; j&amp;lt;=n2; j++){
+                if(str1[i-1]==str2[j-1]){
+                    dp[i][j]=dp[i-1][j-1];
+                }else{
+                    int ict = dp[i][j-1] + ic;
+                    int dct = dp[i-1][j] + dc;
+                    int rct = dp[i-1][j-1] + rc;
+                    dp[i][j] = min({ict,dct, rct});
+                }
+            }
+        }
+        return dp[n1][n2];
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;函数-atoi&quot;&gt;&lt;a href=&quot;https://www.nowcoder.com/practice/44d8c152c38f43a1b10e168018dcc13f?tpId=196&amp;amp;tqId=37088&amp;amp;rp=1&amp;amp;ru=%2Factivity%2Foj&amp;amp;qru=%2Fta%2Fjob-code-total%2Fquestion-ranking&amp;amp;tab=answerKey&quot;&gt;函数 atoi&lt;/a&gt;&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int atoi(const char *str) {
+         if (!strlen(str) ) return 0;
+        int ans = 0;
+        int i = 0;
+        bool neg = false;
+        while(str[i]==' ') 
+            i++;
+        if(str[i]=='-') {
+            neg = true;
+            i++;
+        }
+        if(str[i]=='+') i++;
+        while(str[i]!='\0') {
+            if(str[i]&amp;gt;'9'||str[i]&amp;lt;'0')
+                break;
+            if(ans&amp;gt;=INT_MAX/10) 
+                return neg ? INT_MIN:INT_MAX;
+            ans = 10*ans + str[i]-'0';
+            i++;
+        }
+        return neg?-ans:ans;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;字典序的第k小数字&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/k-th-smallest-in-lexicographical-order&quot;&gt;字典序的第K小数字&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定整数 &lt;code&gt;n&lt;/code&gt; 和 &lt;code&gt;k&lt;/code&gt;，找到 &lt;code&gt;1&lt;/code&gt; 到 &lt;code&gt;n&lt;/code&gt; 中字典序第 &lt;code&gt;k&lt;/code&gt; 小的数字。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+typedef long long LL;
+    int findKthNumber(int n, int k) {
+        int prefix = 1;
+        k--; // k记录要找的数字在prefix后的第几个
+        while (k&amp;gt;0){
+            int cnt = getCnt(n, prefix); // 当前prefix 下有多少个元素;包含prefix
+            if (cnt &amp;lt;= k) { // 向右
+                k -= cnt;
+                prefix++;
+            } else { // 向下
+                k--;
+                prefix*=10;
+            }
+        }
+        return prefix;
+    }
+    int getCnt(LL n, LL prefix){
+        LL cnt = 0;
+        for (LL first = prefix, second = prefix+1; first&amp;lt;=n; first*=10, second*=10){
+            cnt+= min(n + 1, second) - first;
+        }
+        return cnt;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;求区间最小数乘区间和的最大值&quot;&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/ABNN4lJpvttulwWaUTgYZQ&quot;&gt;求区间最小数乘区间和的最大值&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一个数组，要求选出一个区间, 使得该区间是所有区间中经过如下计算的值最大的一个：区间中的最小数 * 区间所有数的和。数组中的元素都是非负数。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;//单调栈，时间复杂度O(N)
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;stack&amp;gt;
+using namespace std;
+const int N = 500000+10;
+int a[N];
+int dp[N];
+stack&amp;lt;int&amp;gt; s;
+int main()
+{
+    int n,res=0;
+    cin &amp;gt;&amp;gt; n;
+    for(int i = 0; i &amp;lt; n; i ++) cin &amp;gt;&amp;gt; a[i];
+    //前缀和便于快速求区间和，例如求[l,r]区间和=dp[r+1]-dp[l]。l和r的取值范围是[0,n)
+    for(int i = 1; i &amp;lt;= n; i ++) dp[i] = dp[i-1] + a[i-1]; 
+    for(int i = 0; i &amp;lt; n; i ++) {
+        while(!s.empty() &amp;amp;&amp;amp; a[i] &amp;lt;= a[s.top()]) {
+            int peak = a[s.top()];
+            s.pop();
+            int l = s.empty()? -1 : s.top();
+            int r = i; 
+            //l和r是边界，因此区间是[l+1,r-1]，其区间和dp[r+1]-dp[l]
+            int dist = dp[r] - dp[l+1];
+            res = max(res,peak*dist);
+        }
+        s.push(i);
+    }
+    while(!s.empty())
+    {
+        int peak = a[s.top()];
+        s.pop();
+        int l = s.empty()? -1 : s.top();
+        int r = n; 
+        
+        int dist = dp[r] - dp[l+1];
+        res = max(res,peak*dist);
+    }
+    cout &amp;lt;&amp;lt; res &amp;lt;&amp;lt; endl; 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;最大正方形&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximal-square&quot;&gt;最大正方形&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;在一个由 &lt;code&gt;'0'&lt;/code&gt; 和 &lt;code&gt;'1'&lt;/code&gt; 组成的二维矩阵内，找到只包含 &lt;code&gt;'1'&lt;/code&gt; 的最大正方形，并返回其面积。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int maximalSquare(vector&amp;lt;vector&amp;lt;char&amp;gt;&amp;gt;&amp;amp; matrix) {
+        if (matrix.size() == 0 || matrix[0].size() == 0)
+            return 0;
+        int maxSide = 0;
+        int rows = matrix.size(), columns = matrix[0].size();
+        vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; dp(rows, vector&amp;lt;int&amp;gt;(columns));
+        for (int i = 0; i &amp;lt; rows; i++) {
+            for (int j = 0; j &amp;lt; columns; j++) {
+                if (matrix[i][j] == '1') {
+                    if (i == 0 || j == 0) {
+                        dp[i][j] = 1;
+                    } else {
+                        dp[i][j] = min(min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1]) + 1;
+                    }
+                    maxSide = max(maxSide, dp[i][j]);
+                }
+            }
+        }
+        return maxSide*maxSide;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;压缩字符串&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/string-compression/&quot;&gt;压缩字符串&lt;/a&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;给定一组字符，使用&lt;a href=&quot;https://baike.baidu.com/item/原地算法&quot;&gt;原地算法&lt;/a&gt;将其压缩。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;class Solution {
+public:
+    int compress(vector&amp;lt;char&amp;gt;&amp;amp; chars) {
+        int n = chars.size(), index = 0; //下标index表示下个可以放置字符的位置
+        int i = 0; //用i遍历整个数组
+        while (i &amp;lt; n) {
+            if (i + 1 &amp;lt; n &amp;amp;&amp;amp; chars[i] == chars[i + 1]) { //遇到前后相同的，说明重复了，就利用指针j找到重复子串的末尾，该重复的子串的长度即为j - i
+                int j = i + 1;
+                while (j &amp;lt; n &amp;amp;&amp;amp; chars[j] == chars[i]) j++;
+                string len = to_string (j - i);
+                chars[index++] = chars[i]; //先放置字符，再放置它的长度，放置完记得将index下标右移一位
+                for (auto&amp;amp; ch : len) chars[index++] = ch;
+                i = j; //指针i可以直接跳到重复段的末尾后了
+            } else { //前后不相同，则直接放置该字符，同时指针i后移一位
+                chars[index++] = chars[i++];
+            }
+        }
+        return index;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><summary type="html">title: 青柠自动打卡 tags: linux</summary></entry><entry><title type="html">青柠自动打卡</title><link href="http://localhost:4000/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/" rel="alternate" type="text/html" title="青柠自动打卡" /><published>2021-02-02T00:00:00+08:00</published><updated>2021-02-02T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1</id><content type="html" xml:base="http://localhost:4000/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;数据库&quot;&gt;数据库&lt;/h1&gt;
 
@@ -4405,69 +9803,4 @@ int main(int argc, char** argv) {
     std::cout &amp;lt;&amp;lt; &quot;counter:&quot; &amp;lt;&amp;lt; counter &amp;lt;&amp;lt; std::endl;
     return 0;
 }
-&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">IO模式</title><link href="http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/" rel="alternate" type="text/html" title="IO模式" /><published>2020-11-04T00:00:00+08:00</published><updated>2020-11-04T00:00:00+08:00</updated><id>http://localhost:4000/_posts/IO%E6%A8%A1%E5%BC%8F</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;io模式&quot;&gt;IO模式&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Linux环境下的网络IO&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;对于一次IO访问，数据会先被拷贝到操作系统内核的缓冲区中，然后再从操作系统内核的缓冲区拷贝到应用程序的地址空间。所以，当发生一个IO操作时，它会经历两个阶段：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;等待数据准备&lt;/li&gt;
-  &lt;li&gt;将数据从内核拷贝到进程中&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;对于两个阶段，linux系统产生了下面五种网络模式的IO存储方案。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;阻塞 I/O（blocking IO）&lt;/li&gt;
-  &lt;li&gt;非阻塞 I/O（nonblocking IO）&lt;/li&gt;
-  &lt;li&gt;I/O 多路复用（ IO multiplexing）&lt;/li&gt;
-  &lt;li&gt;信号驱动 I/O（ signal driven IO）&lt;/li&gt;
-  &lt;li&gt;异步 I/O（asynchronous IO）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;信号驱动IO在实际中并不常用，所以我们讨论剩下的四种IO模式，有兴趣可以自行了解信号驱动**IO。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;阻塞-io&quot;&gt;阻塞 I/O&lt;/h1&gt;
-
-&lt;p&gt;在linux中，默认情况下所有的socket都是阻塞io。&lt;/p&gt;
-
-&lt;p&gt;这个模式的特点在于，当用户进程调用了io操作的时候，操作系统就开始准备数据，当操作系统内核一直等到数据准备好了，它就会将数据从操作系统内核中拷贝到用户内存，然后返回结果，用户进程才解除锁住的状态，重新运行起来。整个过程需要等待（不能立刻完成），而用户进程这边，就相当于是卡着一直在等他完成返回结果。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;所以，阻塞IO的特点就是在IO执行的两个阶段都被锁住了&lt;/code&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;非阻塞-io&quot;&gt;非阻塞 I/O&lt;/h1&gt;
-
-&lt;p&gt;linux下，可以通过设置socket使其变为非阻塞IO。&lt;/p&gt;
-
-&lt;p&gt;非阻塞IO的特点是，当用户进程发出IO操作时，在第一个阶段如果内核数据还没准备好，并不会锁住用户进程，而是立刻返回一个error。然后用户进程收到error，就知道没准备好，就会再去问内核有没有准备好，直到内核准备好，并且收到了用户进程的询问，就会立刻拷贝数据，然后进行第二阶段（第二阶段依然会卡住，非阻塞IO只是在第一阶段非阻塞）&lt;/p&gt;
-
-&lt;p&gt;就像打电话一样，对方占线，你就一直打，直到对方接通为止，但效率不高。所以，nonblocking IO的特点是用户进程需要不断的主动询问kernel数据好了没有。&lt;/p&gt;
-
-&lt;h1 id=&quot;io-多路复用&quot;&gt;I/O 多路复用&lt;/h1&gt;
-
-&lt;p&gt;IO多路复用就是我们用的select，poll，epoll。当用户进程调用了select，那么整个进程会被block，而同时，kernel会“监视”所有select负责的socket，当任何一个socket中的数据准备好了，select就会返回。这个时候用户进程再调用read操作，将数据从kernel拷贝到用户进程。简单的说，就是和阻塞IO处理方式一样，但不同的是，select可以一下把很多很多文件描述符都传过来，然后操作系统内核同时监视他们，只要其中一个就绪，就及时处理那个，而不需要一个个等待处理。&lt;/p&gt;
-
-&lt;p&gt;他的性能可能比阻塞IO还要差，但他的优点在于能同时处理多个连接。所以，如果处理的连接数不是很高的话，使用IO多路复用不一定比使用多线程+阻塞IO的性能更好，可能延迟还更大。&lt;/p&gt;
-
-&lt;h1 id=&quot;异步-io&quot;&gt;异步 I/O&lt;/h1&gt;
-
-&lt;p&gt;Linux下的异步IO其实用得很少。&lt;/p&gt;
-
-&lt;p&gt;异步io的特点很简单：当处理一个io操作的时候，用户进程把数据传过来，操作系统会立刻返回“收到”，用户进程就不用管了，可以干别的事情了。等操作系统内核处理完2个阶段，就自动告诉用户进程我处理完了。&lt;/p&gt;
-
-&lt;h1 id=&quot;总结&quot;&gt;总结&lt;/h1&gt;
-
-&lt;p&gt;阻塞IO：用户一直等操作系统内核完成2个阶段io操作，再继续&lt;/p&gt;
-
-&lt;p&gt;非阻塞IO：第一阶段用户一直问操作系统有没有准备好，第二阶段等操作系统完成。&lt;/p&gt;
-
-&lt;p&gt;IO多路复用：用户进程可以同时发多个网络连接IO，操作系统实施监控，虽然用户进程2个阶段都卡住了，但可以处理多个连接。&lt;/p&gt;
-
-&lt;p&gt;异步IO：用户进程完全把东西交给操作系统完成，自己不管了。&lt;/p&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry></feed>
