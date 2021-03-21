@@ -1,17 +1,14 @@
-```
-title: 青柠自动打卡
-tags: linux
-```
-
 [toc]
 
-> 字节跳动：部门不限
-
-# [无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
+# (复习)[无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
 
 > 给定一个字符串，请你找出其中不含有重复字符的 **最长子串** 的长度
 
-**思路:unordered_set,left-i+1**
+输入串，输出的是长度；
+
+**思路:unordered_set记录,**
+
+**return：left-i+1**
 
 ```c++
 class Solution {
@@ -32,6 +29,10 @@ public:
     }
 };
 ```
+
+> 给定一个数组arr，返回arr的最长无的重复子串的长度(无重复指的是所有数字都不相同)
+
+**思路：unordered_map,pos,res**
 
 ```c++
 #include <unordered_map>
@@ -60,16 +61,22 @@ public:
 };
 ```
 
-
-
-# [字符串解码](https://leetcode-cn.com/problems/decode-string/)
+# (复习)[字符串解码](https://leetcode-cn.com/problems/decode-string/)
 
 > 给定一个经过编码的字符串，返回它解码后的字符串。
 >
 > 输入：s = "3[a]2[bc]"
 > 输出："aaabcbc"
 
-**双栈**
+**双栈，nums记录数据，strs记录符号**
+
+**模拟：每次获取数字，加入num：num*10 +s[i]-'0'**
+
+**获取字母，存入res，暂时保存**
+
+**获取[，说明数字，字母获取完整，将num，res，入栈**
+
+**获取]，数据准备完成，规划res次数**
 
 ```c++
 class Solution {
@@ -108,9 +115,7 @@ public:
 };
 ```
 
-
-
-# [数组中的第K个最大元素](https://leetcode-cn.com/problems/kth-largest-element-in-an-array/)
+# (常考)[数组中的第K个最大元素](https://leetcode-cn.com/problems/kth-largest-element-in-an-array/)
 
 > 在未排序的数组中找到第 **k** 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
 
@@ -183,13 +188,11 @@ public:
 };
 ```
 
-
-
 # [三数之和](https://leetcode-cn.com/problems/3sum/)
 
 >给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组
 
-**排序+三指针**
+**排序+三指针,一定要先排序**
 
 ```c++
 class Solution {
@@ -222,7 +225,7 @@ public:
 };
 ```
 
-# [LRU 缓存机制](https://leetcode-cn.com/problems/lru-cache/)
+# (复习，全文默写)[LRU 缓存机制](https://leetcode-cn.com/problems/lru-cache/)
 
 > 运用你所掌握的数据结构，设计和实现一个 [LRU (最近最少使用) 缓存机制](https://baike.baidu.com/item/LRU) 。
 
@@ -305,6 +308,8 @@ public:
 
 >给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。
 
+**一支股票问题：记录maxpro和minprice，遍历prices更新**
+
 ```c++
 class Solution {
 public:
@@ -324,7 +329,9 @@ public:
 
 >给定一个数组，它的第 *i* 个元素是一支给定股票第 *i* 天的价格。设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）
 
-**上涨就卖**
+**多支股票问题：**
+
+**思路：上涨就卖，直接定义temp = prices[i] - prices[i-1],大于0直接保存**
 
 ```c++
 class Solution {
@@ -341,13 +348,11 @@ public:
 };
 ```
 
-
-
 # [相交链表](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/)
 
 > 编写一个程序，找到两个单链表相交的起始节点。
 
-**双指针**
+**双指针，为空时转化为另外链表头**
 
 ```c++
 /**
@@ -444,7 +449,7 @@ public:
 };
 ```
 
-# [删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
+# (复习)[删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
 
 > 给你一个链表，删除链表的倒数第 `n` 个结点，并且返回链表的头结点。
 
@@ -490,6 +495,8 @@ public:
 
 > 给定一个排序链表，删除所有重复的元素，使得每个`元素只出现一次`。
 
+**只出现一次：直接遍历**
+
 ```c++
 /**
  * Definition for singly-linked list.
@@ -524,6 +531,8 @@ public:
 
 > 给出的链表为1 \to 2\to 3\to 3\to 4\to 4\to51→2→3→3→4→4→5, 返回1\to 2\to51→2→5
 
+**有重复出现的，直接全去除：递归**
+
 ```c++
 class Solution {
 public:
@@ -553,40 +562,11 @@ public:
 };
 ```
 
-# [删除排序链表中的重复元素 II](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/)
-
-> 给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 *没有重复出现* 的数字。
-
-```c++
-class Solution {
-public:
-    ListNode* deleteDuplicates(ListNode* head) {
-        ListNode* dummyNode = new ListNode(0,head);
-        ListNode* pre = dummyNode;
-        ListNode* cur = head;
-        while (cur) { 
-            if (cur->next && cur->val == cur->next->val) { 
-                while (cur->next && cur->val == cur->next->val) { 
-                    cur = cur->next;
-                }
-                pre->next = cur->next; 
-            } else {
-                pre = cur;
-            }                     
-            cur = cur->next;
-        }
-        return dummyNode->next;
-    }
-};
-```
-
-
-
-# [排序链表](https://leetcode-cn.com/problems/sort-list/)
+# (复习)[排序链表](https://leetcode-cn.com/problems/sort-list/)
 
 > 给你链表的头结点 `head` ，请将其按 **升序** 排列并返回 **排序后的链表** 。
 
-**快慢指针**
+**快慢指针找mid，mergesort调用merge**
 
 ```c++
 /**
@@ -647,8 +627,6 @@ public:
 };
 ```
 
-
-
 # [反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
 
 > 反转一个单链表。
@@ -677,7 +655,7 @@ public:
 };
 ```
 
-# [反转链表 II](https://leetcode-cn.com/problems/reverse-linked-list-ii/)
+# (复习)[反转链表 II](https://leetcode-cn.com/problems/reverse-linked-list-ii/)
 
 > 反转从位置 *m* 到 *n* 的链表。请使用一趟扫描完成反转
 
@@ -717,9 +695,7 @@ public:
 };
 ```
 
-
-
-# [重排链表](https://leetcode-cn.com/problems/reorder-list/)
+# (复习)[重排链表](https://leetcode-cn.com/problems/reorder-list/)
 
 >给定一个单链表 *L*：*L*0→*L*1→…→*L**n*-1→*L*n ，
 > 将其重新排列后变为： *L*0→*L**n*→*L*1→*L**n*-1→*L*2→*L**n*-2→…
@@ -778,8 +754,6 @@ public:
 };
 ```
 
-
-
 # [ K 个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/)
 
 >给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。k 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序
@@ -831,6 +805,8 @@ public:
 >
 >**你不能只是单纯的改变节点内部的值**，而是需要实际的进行节点交换
 
+**上题：k == 2**
+
 ```c++
 /**
  * Definition for singly-linked list.
@@ -873,13 +849,13 @@ public:
 };
 ```
 
-
-
 # 排序奇升偶降链表                
 
-https://mp.weixin.qq.com/s/377FfqvpY8NwMInhpoDgsw
+-  按奇偶位置拆分链表，得1->3->5->7->NULL和8->6->4->2->NULL
+- 反转偶链表，得1->3->5->7->NULL和2->4->6->8->NULL
+- 合并两个有序链表，得1->2->3->4->5->6->7->8->NULL
 
-# [翻转字符串里的单词](https://leetcode-cn.com/problems/reverse-words-in-a-string/)
+# (复习)[翻转字符串里的单词](https://leetcode-cn.com/problems/reverse-words-in-a-string/)
 
 > 给定一个字符串，逐个翻转字符串中的每个单词。
 
@@ -921,7 +897,7 @@ public:
 };
 ```
 
-# [合并K个排序链表](https://leetcode-cn.com/problems/merge-k-sorted-lists)
+# (复习)[合并K个排序链表](https://leetcode-cn.com/problems/merge-k-sorted-lists)
 
 >给你一个链表数组，每个链表都已经按升序排列。请你将所有链表合并到一个升序链表中，返回合并后的链表。
 
@@ -974,22 +950,30 @@ public:
 
 > 输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。
 
-**getlen**
+**快慢指针**
 
 ```c++
 /**
- * Definition for singly-linked list.
  * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
+ *	int val;
+ *	struct ListNode *next;
+ *	ListNode(int x) : val(x), next(nullptr) {}
  * };
  */
 class Solution {
 public:
-    ListNode* getKthFromEnd(ListNode* head, int k) {
-        ListNode *fast = head;
-        ListNode *slow = head;
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param pHead ListNode类 
+     * @param k int整型 
+     * @return ListNode类
+     */
+    ListNode* FindKthToTail(ListNode* pHead, int k) {
+        // write code here
+        ListNode *fast = pHead;
+        ListNode *slow = pHead;
         for(int i = 0;i < k;i++){
             if(fast == nullptr)
                 return fast;
@@ -1026,7 +1010,7 @@ public:
 };
 ```
 
-# [和为K的子数组](https://leetcode-cn.com/problems/subarray-sum-equals-k/)
+# (复习)[和为K的子数组](https://leetcode-cn.com/problems/subarray-sum-equals-k/)
 
 > 给定一个整数数组和一个整数 **k，**你需要找到该数组中和为 **k** 的连续的子数组的个数。
 
@@ -1048,8 +1032,6 @@ public:
     }
 };
 ```
-
-
 
 # [字符串相加](https://leetcode-cn.com/problems/add-strings/)
 
@@ -1113,8 +1095,6 @@ public:
 };
 ```
 
-
-
 # [两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
 
 >给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。请你将两个数相加，并以相同形式返回一个表示和的链表。你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
@@ -1159,7 +1139,7 @@ public:
 };
 ```
 
-# [36进制加法](https://mp.weixin.qq.com/s/bgD1Q5lc92mX7RNS1L65qA)
+# (复习)[36进制加法](https://mp.weixin.qq.com/s/bgD1Q5lc92mX7RNS1L65qA)
 
 ```c++
 #include <iostream>
@@ -1205,7 +1185,7 @@ int main()
 }
 ```
 
-# [基本计算器](https://leetcode-cn.com/problems/basic-calculator/)
+# (复习)[基本计算器](https://leetcode-cn.com/problems/basic-calculator/)
 
 > 给你一个字符串表达式 `s` ，请你实现一个基本计算器来计算并返回它的值。
 
@@ -1254,8 +1234,6 @@ public:
 };
 ```
 
-
-
 # [ 最大子序和](https://leetcode-cn.com/problems/maximum-subarray/)
 
 > 给定一个整数数组 `nums` ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
@@ -1300,8 +1278,6 @@ public:
 };
 ```
 
-
-
 # [长度最小的子数组](https://leetcode-cn.com/problems/minimum-size-subarray-sum/)
 
 >给定一个含有 n 个正整数的数组和一个正整数 target 。找出该数组中满足其和 ≥ target 的长度最小的 连续子数组 [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。
@@ -1332,8 +1308,6 @@ public:
     }
 };
 ```
-
-
 
 # [合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
 
