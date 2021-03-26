@@ -1,11 +1,119 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-23T16:54:36+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-26T13:01:58+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">青柠自动打卡</title><link href="http://localhost:4000/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/" rel="alternate" type="text/html" title="青柠自动打卡" /><published>2021-02-02T00:00:00+08:00</published><updated>2021-02-02T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1</id><content type="html" xml:base="http://localhost:4000/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">系统设计</title><link href="http://localhost:4000/_posts/2021-03-25-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" rel="alternate" type="text/html" title="系统设计" /><published>2021-03-25T00:00:00+08:00</published><updated>2021-03-25T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="http://localhost:4000/_posts/2021-03-25-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;步骤：&lt;/p&gt;
+
+  &lt;ol&gt;
+    &lt;li&gt;需求说明&lt;/li&gt;
+    &lt;li&gt;粗略估算&lt;/li&gt;
+    &lt;li&gt;接口定义&lt;/li&gt;
+    &lt;li&gt;数据模型确定&lt;/li&gt;
+    &lt;li&gt;高级定义&lt;/li&gt;
+    &lt;li&gt;细节设计&lt;/li&gt;
+    &lt;li&gt;识别并解决瓶颈&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;https://www.educative.io/courses/grokking-the-system-design-interview/m2ygV4E81AR&lt;/p&gt;</content><author><name></name></author><category term="算法" /><summary type="html">[toc]</summary></entry><entry><title type="html">网易笔试练习</title><link href="http://localhost:4000/_posts/2021-03-25-%E7%BD%91%E6%98%93%E7%AC%94%E8%AF%95%E7%BB%83%E4%B9%A0/" rel="alternate" type="text/html" title="网易笔试练习" /><published>2021-03-25T00:00:00+08:00</published><updated>2021-03-25T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E7%BD%91%E6%98%93%E7%AC%94%E8%AF%95%E7%BB%83%E4%B9%A0</id><content type="html" xml:base="http://localhost:4000/_posts/2021-03-25-%E7%BD%91%E6%98%93%E7%AC%94%E8%AF%95%E7%BB%83%E4%B9%A0/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;窗口鼠标点击模拟&quot;&gt;窗口鼠标点击模拟&lt;/h1&gt;
+
+&lt;p&gt;本题需要让你模拟一下在Windows系统里窗口和鼠标点击的操作，具体如下：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;屏幕分辨率为3840*2160，左上角坐标为(0, 0)， 右下角坐标为(3839, 2159)&lt;/li&gt;
+  &lt;li&gt;窗口是一个矩形的形状，由左上角坐标(X, Y)，和宽高(W, H)，四个数字来定位。左上角坐标为(X, Y)、右下角坐标为(X+W, Y+H)，其中左上角坐标一定会在屏幕范围内，其他一些部分可能会超过屏幕范围。&lt;/li&gt;
+  &lt;li&gt;窗口的点击和遮挡规则同Windows，但是不考虑关闭窗口、最大化、最小化和强制置顶的情况。即
+    &lt;ol&gt;
+      &lt;li&gt;如果发生重叠的话，后面打开的窗口会显示在前面打开的窗口上面&lt;/li&gt;
+      &lt;li&gt;当鼠标发生一次点击的时候，需要判断点击到了哪个窗口，如果同个坐标有多个窗口，算点击到最上层的那个&lt;/li&gt;
+      &lt;li&gt;当一个窗口被点击的时候，会浮动到最上层&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;每个测试输入包含1个测试用例&lt;/p&gt;
+
+  &lt;p&gt;第一行为2个整数N, M。其中N表示打开的窗口数目，M表示鼠标点击的数目。其中0&amp;lt;N,M&amp;lt;1000&lt;/p&gt;
+
+  &lt;p&gt;接下来N行，每一行四个整数 Xi Yi Wi Hi，分别表示第i个窗口（窗口Id为i，从1开始计数）的左上角坐标以及宽高，初始时窗口是按输入的顺序依次打开。其中 0&amp;lt;=Xi&amp;lt;3840, 0&amp;lt;=Yi&amp;lt;2160, 0&amp;lt;Wi&amp;lt;3840, 0&amp;lt;Hi&amp;lt;2160再接下来有M行，每一行两个整数 Xj Yj，分别表示接下来发生的鼠标点击坐标。其中 0 &amp;lt;=Xj&amp;lt;3840, 0&amp;lt;=Yj&amp;lt;2160对于每次鼠标点击，输出本次点击到的窗口Id。如果没有点击到窗口，输出-1&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;LRU思想&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;list&amp;gt;
+#include &amp;lt;vector&amp;gt;
+using namespace std;
+struct window{
+    int id;
+    int x;
+    int y;
+    int w;
+    int h;
+};
+struct mousepos    
+{
+    int x;
+    int y;
+};
+int id = 1;
+int main(int argc, char const *argv[])
+{
+    list&amp;lt;window&amp;gt; li;
+    vector&amp;lt;mousepos&amp;gt; ve;
+    int N,M;
+    // cout&amp;lt;&amp;lt;&quot;输入N:打开窗口数量，M鼠标点击数量\n&quot;;
+    cin&amp;gt;&amp;gt;N;
+    cin&amp;gt;&amp;gt;M;
+    //初始化windows
+    // cout&amp;lt;&amp;lt;&quot;初始化windows\n&quot;;
+    for(int i = 0;i &amp;lt; N;i++){
+        window windowtemp;
+        windowtemp.id = id++;
+        cin&amp;gt;&amp;gt;windowtemp.x;
+        cin&amp;gt;&amp;gt;windowtemp.y;
+        cin&amp;gt;&amp;gt;windowtemp.w;
+        cin&amp;gt;&amp;gt;windowtemp.h;
+        li.push_front(windowtemp);
+    }
+    //初始化mousepos
+    // cout&amp;lt;&amp;lt;&quot;初始化mousepos\n&quot;;
+    for(int i = 0;i &amp;lt; M;i++){
+        mousepos mousepostemp;
+        cin&amp;gt;&amp;gt;mousepostemp.x;
+        cin&amp;gt;&amp;gt;mousepostemp.y;
+        ve.push_back(move(mousepostemp));
+    }
+    //判断
+    for(int i = 0;i &amp;lt; M;i++){
+        if(ve[i].x &amp;lt; 0 || ve[i].x &amp;gt;= 3840 || ve[i].y &amp;lt; 0 || ve[i].y &amp;gt;= 2160)
+            printf(&quot;%d\n&quot;,-1);
+        //用语删除
+        auto index = li.begin();
+        for(auto curli : li){
+            if(ve[i].x &amp;gt;= curli.x &amp;amp;&amp;amp; ve[i].x &amp;lt;= curli.x + curli.w &amp;amp;&amp;amp; ve[i].y &amp;gt;= curli.y &amp;amp;&amp;amp; ve[i].y &amp;lt;= curli.y + curli.h){
+                printf(&quot;%d\n&quot;,curli.id);
+                li.erase(index);
+                li.push_front(curli);
+                break;
+            }
+            index++;
+            if(index == li.end())
+                printf(&quot;%d\n&quot;,-1);
+        }
+    }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="算法" /><summary type="html">[toc]</summary></entry><entry><title type="html">青柠自动打卡</title><link href="http://localhost:4000/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/" rel="alternate" type="text/html" title="青柠自动打卡" /><published>2021-02-02T00:00:00+08:00</published><updated>2021-02-02T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1</id><content type="html" xml:base="http://localhost:4000/_posts/2021-02-02-%E9%9D%92%E6%9F%A0%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;数据库&quot;&gt;数据库&lt;/h1&gt;
 
@@ -4294,180 +4402,4 @@ usermod -s /sbin/nologin ftpuser
 
 &lt;h1 id=&quot;登陆&quot;&gt;登陆&lt;/h1&gt;
 
-&lt;p&gt;使用filezilla或者打开文件管理器输入ftp://ipaddress&lt;/p&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry><entry><title type="html">C++锁</title><link href="http://localhost:4000/_posts/2020-11-04-C++%E9%94%81/" rel="alternate" type="text/html" title="C++锁" /><published>2020-11-04T00:00:00+08:00</published><updated>2020-11-04T00:00:00+08:00</updated><id>http://localhost:4000/_posts/C++%E9%94%81</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-04-C++%E9%94%81/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;线程之间的锁有：&lt;strong&gt;互斥锁、条件锁、自旋锁、读写锁、递归锁&lt;/strong&gt;。一般而言，锁的功能与性能成反比。不过我们一般不使用递归锁（C++标准库提供了std::recursive_mutex）&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;互斥锁mutex&quot;&gt;互斥锁（Mutex）&lt;/h1&gt;
-
-&lt;p&gt;互斥锁用于控制多个线程对他们之间共享资源互斥访问的一个信号量。也就是说是为了避免多个线程在某一时刻同时操作一个共享资源。例如线程池中的有多个空闲线程和一个任务队列。任何是一个线程都要使用互斥锁互斥访问任务队列，以避免多个线程同时访问任务队列以发生错乱。&lt;/p&gt;
-
-&lt;p&gt;在某一时刻，只有一个线程可以获取互斥锁，在释放互斥锁之前其他线程都不能获取该互斥锁。如果其他线程想要获取这个互斥锁，那么这个线程只能以阻塞方式进行等待。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;std::mutex - The standard mutex type&lt;/p&gt;
-
-  &lt;p&gt;Public Types
-       typedef __native_type * native_handle_type&lt;/p&gt;
-
-  &lt;p&gt;Public Member Functions
-       mutex (const mutex &amp;amp;)=delete
-       void lock ()
-       native_handle_type native_handle () noexcept
-       mutex &amp;amp; operator= (const mutex &amp;amp;)=delete
-       bool try_lock () noexcept
-       void unlock ()&lt;/p&gt;
-
-  &lt;p&gt;Private Types
-       typedef __gthread_mutex_t __native_type&lt;/p&gt;
-
-  &lt;p&gt;Private Attributes
-       __native_type _M_mutex&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;在C++中，通过构造std::mutex的实例创建互斥元，调用成员函数lock()来锁定它，调用unlock()来解锁，不过一般不推荐这种做法，标准C++库提供了std::lock_guard类模板，实现了互斥元的RAII惯用语法。std::mutex和std::lock _ guard。都声明在&amp;lt; mutex &amp;gt;头文件中&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;thread&amp;gt;
-#include &amp;lt;vector&amp;gt;
-#include &amp;lt;mutex&amp;gt;
-#include &amp;lt;chrono&amp;gt;
-#include &amp;lt;stdexcept&amp;gt;
-
-int counter = 0;
-std::mutex mtx; // 保护counter
-
-void increase(int time) {
-    for (int i = 0; i &amp;lt; time; i++) {
-        mtx.lock();
-        // 当前线程休眠1毫秒
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        counter++;
-        mtx.unlock();
-    }
-}
-
-int main(int argc, char** argv) {
-    std::thread t1(increase, 10000);
-    std::thread t2(increase, 10000);
-    t1.join();
-    t2.join();
-    std::cout &amp;lt;&amp;lt; &quot;counter:&quot; &amp;lt;&amp;lt; counter &amp;lt;&amp;lt; std::endl;
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;lock_guard&quot;&gt;lock_guard&lt;/h2&gt;
-
-&lt;p&gt;虽然std::mutex可以对多线程编程中的共享变量提供保护，但是直接使用std::mutex的情况并不多。因为仅使用std::mutex有时候会发生死锁。回到上边的例子，考虑这样一个情况：假设线程1上锁成功，线程2上锁等待。但是线程1上锁成功后，抛出异常并退出，没有来得及释放锁，导致线程2“永久的等待下去”（线程2：我的心在等待永远在等待……），此时就发生了死锁。给一个发生死锁的 ：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;thread&amp;gt;
-#include &amp;lt;vector&amp;gt;
-#include &amp;lt;mutex&amp;gt;
-#include &amp;lt;chrono&amp;gt;
-#include &amp;lt;stdexcept&amp;gt;
-
-int counter = 0;
-std::mutex mtx; // 保护counter
-
-void increase_proxy(int time, int id) {
-    for (int i = 0; i &amp;lt; time; i++) {
-        // std::lock_guard对象构造时，自动调用mtx.lock()进行上锁
-        // std::lock_guard对象析构时，自动调用mtx.unlock()释放锁
-        std::lock_guard&amp;lt;std::mutex&amp;gt; lk(mtx);
-        // 线程1上锁成功后，抛出异常：未释放锁
-        if (id == 1) {
-            throw std::runtime_error(&quot;throw excption....&quot;);
-        }
-        // 当前线程休眠1毫秒
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        counter++;
-    }
-}
-
-void increase(int time, int id) {
-    try {
-        increase_proxy(time, id);
-    }
-    catch (const std::exception&amp;amp; e){
-        std::cout &amp;lt;&amp;lt; &quot;id:&quot; &amp;lt;&amp;lt; id &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; e.what() &amp;lt;&amp;lt; std::endl;
-    }
-}
-
-int main(int argc, char** argv) {
-    std::thread t1(increase, 10000, 1);
-    std::thread t2(increase, 10000, 2);
-    t1.join();
-    t2.join();
-    std::cout &amp;lt;&amp;lt; &quot;counter:&quot; &amp;lt;&amp;lt; counter &amp;lt;&amp;lt; std::endl;
-    return 0;
-}
-&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">IO模式</title><link href="http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/" rel="alternate" type="text/html" title="IO模式" /><published>2020-11-04T00:00:00+08:00</published><updated>2020-11-04T00:00:00+08:00</updated><id>http://localhost:4000/_posts/IO%E6%A8%A1%E5%BC%8F</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-04-IO%E6%A8%A1%E5%BC%8F/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;io模式&quot;&gt;IO模式&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Linux环境下的网络IO&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;对于一次IO访问，数据会先被拷贝到操作系统内核的缓冲区中，然后再从操作系统内核的缓冲区拷贝到应用程序的地址空间。所以，当发生一个IO操作时，它会经历两个阶段：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;等待数据准备&lt;/li&gt;
-  &lt;li&gt;将数据从内核拷贝到进程中&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;对于两个阶段，linux系统产生了下面五种网络模式的IO存储方案。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;阻塞 I/O（blocking IO）&lt;/li&gt;
-  &lt;li&gt;非阻塞 I/O（nonblocking IO）&lt;/li&gt;
-  &lt;li&gt;I/O 多路复用（ IO multiplexing）&lt;/li&gt;
-  &lt;li&gt;信号驱动 I/O（ signal driven IO）&lt;/li&gt;
-  &lt;li&gt;异步 I/O（asynchronous IO）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;信号驱动IO在实际中并不常用，所以我们讨论剩下的四种IO模式，有兴趣可以自行了解信号驱动**IO。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;阻塞-io&quot;&gt;阻塞 I/O&lt;/h1&gt;
-
-&lt;p&gt;在linux中，默认情况下所有的socket都是阻塞io。&lt;/p&gt;
-
-&lt;p&gt;这个模式的特点在于，当用户进程调用了io操作的时候，操作系统就开始准备数据，当操作系统内核一直等到数据准备好了，它就会将数据从操作系统内核中拷贝到用户内存，然后返回结果，用户进程才解除锁住的状态，重新运行起来。整个过程需要等待（不能立刻完成），而用户进程这边，就相当于是卡着一直在等他完成返回结果。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;所以，阻塞IO的特点就是在IO执行的两个阶段都被锁住了&lt;/code&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;非阻塞-io&quot;&gt;非阻塞 I/O&lt;/h1&gt;
-
-&lt;p&gt;linux下，可以通过设置socket使其变为非阻塞IO。&lt;/p&gt;
-
-&lt;p&gt;非阻塞IO的特点是，当用户进程发出IO操作时，在第一个阶段如果内核数据还没准备好，并不会锁住用户进程，而是立刻返回一个error。然后用户进程收到error，就知道没准备好，就会再去问内核有没有准备好，直到内核准备好，并且收到了用户进程的询问，就会立刻拷贝数据，然后进行第二阶段（第二阶段依然会卡住，非阻塞IO只是在第一阶段非阻塞）&lt;/p&gt;
-
-&lt;p&gt;就像打电话一样，对方占线，你就一直打，直到对方接通为止，但效率不高。所以，nonblocking IO的特点是用户进程需要不断的主动询问kernel数据好了没有。&lt;/p&gt;
-
-&lt;h1 id=&quot;io-多路复用&quot;&gt;I/O 多路复用&lt;/h1&gt;
-
-&lt;p&gt;IO多路复用就是我们用的select，poll，epoll。当用户进程调用了select，那么整个进程会被block，而同时，kernel会“监视”所有select负责的socket，当任何一个socket中的数据准备好了，select就会返回。这个时候用户进程再调用read操作，将数据从kernel拷贝到用户进程。简单的说，就是和阻塞IO处理方式一样，但不同的是，select可以一下把很多很多文件描述符都传过来，然后操作系统内核同时监视他们，只要其中一个就绪，就及时处理那个，而不需要一个个等待处理。&lt;/p&gt;
-
-&lt;p&gt;他的性能可能比阻塞IO还要差，但他的优点在于能同时处理多个连接。所以，如果处理的连接数不是很高的话，使用IO多路复用不一定比使用多线程+阻塞IO的性能更好，可能延迟还更大。&lt;/p&gt;
-
-&lt;h1 id=&quot;异步-io&quot;&gt;异步 I/O&lt;/h1&gt;
-
-&lt;p&gt;Linux下的异步IO其实用得很少。&lt;/p&gt;
-
-&lt;p&gt;异步io的特点很简单：当处理一个io操作的时候，用户进程把数据传过来，操作系统会立刻返回“收到”，用户进程就不用管了，可以干别的事情了。等操作系统内核处理完2个阶段，就自动告诉用户进程我处理完了。&lt;/p&gt;
-
-&lt;h1 id=&quot;总结&quot;&gt;总结&lt;/h1&gt;
-
-&lt;p&gt;阻塞IO：用户一直等操作系统内核完成2个阶段io操作，再继续&lt;/p&gt;
-
-&lt;p&gt;非阻塞IO：第一阶段用户一直问操作系统有没有准备好，第二阶段等操作系统完成。&lt;/p&gt;
-
-&lt;p&gt;IO多路复用：用户进程可以同时发多个网络连接IO，操作系统实施监控，虽然用户进程2个阶段都卡住了，但可以处理多个连接。&lt;/p&gt;
-
-&lt;p&gt;异步IO：用户进程完全把东西交给操作系统完成，自己不管了。&lt;/p&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry></feed>
+&lt;p&gt;使用filezilla或者打开文件管理器输入ftp://ipaddress&lt;/p&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry></feed>
