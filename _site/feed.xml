@@ -1,11 +1,920 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-03-26T13:01:58+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-04-03T16:31:37+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">系统设计</title><link href="http://localhost:4000/_posts/2021-03-25-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" rel="alternate" type="text/html" title="系统设计" /><published>2021-03-25T00:00:00+08:00</published><updated>2021-03-25T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="http://localhost:4000/_posts/2021-03-25-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">长亭未来笔试记录</title><link href="http://localhost:4000/_posts/2021-03-31-%E9%95%BF%E4%BA%AD%E6%9C%AA%E6%9D%A5%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/" rel="alternate" type="text/html" title="长亭未来笔试记录" /><published>2021-03-31T00:00:00+08:00</published><updated>2021-03-31T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E9%95%BF%E4%BA%AD%E6%9C%AA%E6%9D%A5%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95</id><content type="html" xml:base="http://localhost:4000/_posts/2021-03-31-%E9%95%BF%E4%BA%AD%E6%9C%AA%E6%9D%A5%E7%AC%94%E8%AF%95%E8%AE%B0%E5%BD%95/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;难度贼高，赶上网易了&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;数组运算&quot;&gt;数组运算&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Description:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;给你一个 n&lt;em&gt;n&lt;/em&gt; 个数的数组 a_1 ,a_2, …, a_n&lt;em&gt;a&lt;/em&gt;1,&lt;em&gt;a&lt;/em&gt;2,…,&lt;em&gt;a**n&lt;/em&gt; (无序)一次操作可以把两个数替换成这两个数的和。&lt;/p&gt;
+
+&lt;p&gt;比如数组 [2, 1, 4]可以变成: [3, 4], [1, 6], [2, 5] 。请问，在不限次合并操作之后，数组中最多能有多少个数可以被 3 整除。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Input&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;第一行包含一个整数 
+&lt;script type=&quot;math/tex&quot;&gt;t(1\leq t \leq 1000)*t*(1≤*t*≤1000)&lt;/script&gt;
+ ,表示有 t 个样例每个样例的第一行有一个整数 n
+&lt;script type=&quot;math/tex&quot;&gt;(1 \leq n \leq 100)*n*(1≤*n*≤100)&lt;/script&gt;
+表示数组中数的个数, 第二行有 n个整数 a_1 ,a_2, …, a_n 
+&lt;script type=&quot;math/tex&quot;&gt;(1 \leq a_i \leq 1e9)*a*1,*a*2,...,*a**n*(1≤*a**i*≤1*e*9)&lt;/script&gt;
+ 为数组元素。&lt;/p&gt;
+
+&lt;p&gt;Sample Input 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;2
+5
+3 1 2 3 1
+7
+1 1 1 1 1 2 2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sample Output 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;3
+3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Hint&lt;/p&gt;
+
+&lt;p&gt;[3,1,2,3,1]−&amp;gt;[3,3,3,1]&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;vector&amp;gt;
+#include &amp;lt;iostream&amp;gt;
+using namespace std; 
+int main(int argc, char const *argv[])
+{
+  //T个样例
+  int T;
+  vector&amp;lt;int&amp;gt; save;
+  cin&amp;gt;&amp;gt;T;
+  while(T--){
+    int res = 0;
+    //数据量
+    int n; 
+    cin&amp;gt;&amp;gt;n;
+    //记录余数1，2数量，3个1 -&amp;gt;res++,1个1，1个2 -&amp;gt;res++
+    int ones = 0, twos = 0;
+    /**
+     * input:3 1 2 3 1
+     * res1 = 2
+     * ones = 2
+     * twos = 1
+     * **/
+    for(int i = 0; i &amp;lt; n; i ++){
+      int x;
+      cin&amp;gt;&amp;gt;x;
+      if(x%3 == 0) 
+        res ++;
+      else if(x % 3 == 1) 
+        ones++;
+      else 
+        twos++;
+    }
+    if(ones &amp;lt;= twos){
+      res += ones;
+      twos -= ones;
+      res += (twos/3);
+    }
+    // 1 1 1 1 1 2 2
+    else{
+      res += twos;
+      ones -= twos;
+      res += (ones/3);
+    }
+    // cout&amp;lt;&amp;lt;res&amp;lt;&amp;lt;endl;
+    save.push_back(move(res));
+  }
+  for(auto sa : save)
+    cout&amp;lt;&amp;lt;sa&amp;lt;&amp;lt;endl;
+  return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;事故应急&quot;&gt;事故应急&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;描述&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;作为一家业内技术领先的公司，C 公司一直努力为企业客户提供高质量的产品和服务。&lt;/p&gt;
+
+&lt;p&gt;然而天有不测风云，由于某位程序员同学的一个 typo，C 公司核心产品在最新版中引入了一个 bug，于是在新版本对外发布的第二天早上，负责技术支持的 P 同学发现手机上收到了很多家客户的反(吐)馈(槽)，在快速了解清楚原因之后，P 同学决定马上派出技术支持同学们到各个客户现场处理问题。由于每家客户的环境复杂程度不同，以及工作经验原因每位技术支持同学处理问题的能力也不同，P 同学冷静的分析了一下目前的状态：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;一共有 N 家客户遇到了问题，第 i 家客户需要能力值达到&lt;code&gt;p[i]&lt;/code&gt;的技术支持同学才能解决问题；&lt;/li&gt;
+  &lt;li&gt;一共有 K 位技术支持同学，第 i 位技术支持同学的能力值为&lt;code&gt;w[i]&lt;/code&gt;；&lt;/li&gt;
+  &lt;li&gt;由于问题比较复杂，每位技术支持同学当天只能处理一家客户的问题；&lt;/li&gt;
+  &lt;li&gt;每家客户最多只能派一位技术支持同学&lt;/li&gt;
+  &lt;li&gt;P 同学希望当天能处理尽可能多家客户，聪明的你能告诉他当天最多有几家客户的问题能得到处理吗？&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;第一行输入一个整数 T，代表数据组数，对于每组数据：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;第一行输入两个整数 N (&lt;code&gt;1 ≤ N ≤ 10&lt;/code&gt;) 和 K (&lt;code&gt;1 ≤ K ≤ 10&lt;/code&gt;)，表示出问题的客户数量和技术支持同学的人数；&lt;/li&gt;
+  &lt;li&gt;第二行输入输入 N 个整数，第 i 个整数表示第 i 家客户对能力值的需求；&lt;/li&gt;
+  &lt;li&gt;第三行输入 K 个整数，第 i 个整数表示第 i 位技术支持同学的能力值。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输出&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;对于每组输入，输出一个整数 R，表示当天最多有 R 家客户的问题能得到处理。&lt;/p&gt;
+
+&lt;p&gt;输入样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;2
+3 3
+5 7 9
+6 8 10
+3 5
+5 7 9
+3 3 5 3 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;3
+1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;queue&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+priority_queue &amp;lt;int,vector&amp;lt;int&amp;gt;,greater&amp;lt;int&amp;gt; &amp;gt; que;
+int t;
+int n,k;
+int p[15],w[15];
+bool cmp(int a,int b){
+    return a &amp;gt; b;
+}
+int main(int argc,char **argv)
+{
+    vector&amp;lt;int&amp;gt; res;
+    cin&amp;gt;&amp;gt;t;
+    while(t--)
+    {
+        cin&amp;gt;&amp;gt;n&amp;gt;&amp;gt;k;
+        for(int i=0; i&amp;lt;n; i++)
+            cin&amp;gt;&amp;gt;p[i];
+        for(int i=0; i&amp;lt;k; i++)
+            cin&amp;gt;&amp;gt;w[i];
+        sort(p,p+n,cmp);
+        sort(w,w+k,cmp);
+        int ans=0,i=0,j=0;
+        while(i &amp;lt; k &amp;amp;&amp;amp; j &amp;lt; n){
+            if(w[i] &amp;lt; p[j])
+            j++;
+            else if(w[i] &amp;gt;= p[j]){
+                ans++;
+                i++;
+                j++;
+            }
+        }
+        res.push_back(move(ans));
+        // cout&amp;lt;&amp;lt;ans&amp;lt;&amp;lt;endl;
+    }
+    for(int re : res)
+        cout&amp;lt;&amp;lt;re&amp;lt;&amp;lt;endl;
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;base64-与-36-进制&quot;&gt;base64 与 36 进制&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;描述&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;在一次渗透特别行动中，由于一个特别的隧道只能传递 0-9A-Z 这 36 个字符（注意：全部大写），聪明的你决定发明 36 进制来解决数据传输问题。在 36 进制表达方案中，0 仍然代表 0，9 也依然代表 9，A 代表 10，B 代表 11，依次类推，Z 代表 35。与常见 10 进制书写方法类似（如：123 这个数字，1代表百位，是最大的一位），你发明的 36 进制编码也是按照最大的位放在最左边来输出的。题目任务：给定一个 base64 字符串，将这个 base64 所编码的原始内容转换成 36 进制并输出。提示：首先需要将 base64 字符串解码得到原始内容，然后将原始内容转换成 36 进制的最短表达。提示2：仔细观察样例输入输出，确保弄明白编码的方式。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;一个字符串，确保是符合 base64 格式的字符串。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输出&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;编码为 36 进制的最终结果。&lt;/p&gt;
+
+&lt;p&gt;输入样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;YQ==
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;2P
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输入样例 3&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cGFzc3dvcmQgaXMgQWRtaW4xMjM0NTY=
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出样例 3&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;3N4I4HGY6IPFI151WM1CU9FGSRJ8QLQSL92U
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;提示&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;新增了一个样例，注意观察输入和输出的关系，比较他们的长度，并思考什么表达才不浪费空间。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;import base64
+b=&quot;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
+s=input()
+ss=base64.b64decode(s)
+ans=0
+for i in range(0,len(ss)):
+    ans+=(ss[i]) &amp;lt;&amp;lt; ((len(ss) - 1 - i) * 8)
+a=&quot;&quot;
+while ans &amp;gt; 0:
+    top = ans%36
+    a += b[ top ]
+    ans //= 36
+print(a[::-1])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;monster-要喝水&quot;&gt;monster 要喝水&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;描述&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;公司终于安好饮水机了，monster 迫不及待要去接水，但是他到那里才发现前面已经有&lt;code&gt;n&lt;/code&gt;个同事了。他数了数，饮水机一共有&lt;code&gt;m&lt;/code&gt;个接水口。所有的同事严格按照先来后到去接水（&lt;code&gt;m&lt;/code&gt;个接水口同时工作，哪个水龙头有空人们就去哪里，如果 &lt;em&gt;n&lt;/em&gt;&amp;lt;&lt;em&gt;m&lt;/em&gt;，那么就只有&lt;code&gt;n&lt;/code&gt;个接水口工作）。每个人都有一个接水的时间，当一个人接完水后，另一个人马上去接，不会浪费时间。monster 着急要开会，所以他想知道什么时候才能轮到他。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;第一行两个整数&lt;code&gt;n&lt;/code&gt;和&lt;code&gt;m&lt;/code&gt;，表示 monster 前面有&lt;code&gt;n&lt;/code&gt;个人，饮水机有&lt;code&gt;m&lt;/code&gt;个接水口。&lt;em&gt;n&lt;/em&gt;,&lt;em&gt;m&lt;/em&gt;&amp;lt;1100。第二行&lt;code&gt;n&lt;/code&gt;个整数，表示每个同学的接水时间。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输出&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;一行，一个数，表示轮到 monster 接水的时间&lt;/p&gt;
+
+&lt;p&gt;输入样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;4 2
+1 1 1 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include&amp;lt;stdio.h&amp;gt;
+#include&amp;lt;string.h&amp;gt;
+#include&amp;lt;math.h&amp;gt;
+#include&amp;lt;queue&amp;gt;
+using namespace std;
+int main(int argc,char **argv)
+{
+    int n,m,point;
+    if(n&amp;lt;m)///当n&amp;lt;m时，只有n个接水机能用。
+        m=n;
+    int shi[1001],shui[1001];
+    scanf(&quot;%d%d&quot;,&amp;amp;n,&amp;amp;m);
+    for(int i=0;i&amp;lt;n;i++)
+        scanf(&quot;%d&quot;,&amp;amp;shi[i]);//前面n个人所用的时间，因为先来先接，所以用数组盛起来，从头便利即模拟来的顺序。
+    for(int i=0;i&amp;lt;m;i++)
+        shui[i]=0;//所有能用的接水机的时间。初始化为0是为了后面累加显示当前的时间
+    int mm;
+    for(int i=0;i&amp;lt;n;i++){
+        mm=99999999;//对每个人来说，都要去时间最短的去，即都需要判断最小值。
+        for(int j=0;j&amp;lt;m;j++){
+            if(shui[j]&amp;lt;mm){
+                mm=shui[j];
+                point=j;
+            }
+        }
+        shui[point]+=shi[i];//在时间最短的接水机的数组里面加上当前这个人的时间。
+    }
+    mm=99999999;//重新为最大值，目的是为了下面的找最小值
+    for(int i=0;i&amp;lt;m;i++){
+        if(shui[i]&amp;lt;mm){
+            mm=shui[i];//找最小值
+        }
+    }
+    printf(&quot;%d\n&quot;,mm+1);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;rsa&quot;&gt;RSA&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;描述&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;RSA加密算法是一种非对称加密算法，它在1977年被提出，是一种可以用于数据加密或数字签名的算法，至今仍在使用。RSA的安全性依赖于大数分解，所以模数 &lt;em&gt;n&lt;/em&gt; 一般取得较大。一般我们选取两个素数 &lt;em&gt;p&lt;/em&gt; 和 &lt;em&gt;q&lt;/em&gt; ，模数 &lt;em&gt;n&lt;/em&gt;=&lt;em&gt;p&lt;/em&gt;∗&lt;em&gt;q&lt;/em&gt; ，选取 &lt;em&gt;e&lt;/em&gt; 作为加密密钥，&lt;em&gt;m&lt;/em&gt; 为明文消息，则密文消息 &lt;em&gt;c&lt;/em&gt;=&lt;em&gt;m&lt;/em&gt;^e &lt;em&gt;m&lt;strong&gt;o&lt;/strong&gt;d&lt;/em&gt; &lt;em&gt;n&lt;/em&gt; 。欧拉函数 &lt;em&gt;p&lt;strong&gt;h&lt;/strong&gt;i&lt;/em&gt;(&lt;em&gt;n&lt;/em&gt;)=(&lt;em&gt;p&lt;/em&gt;−1)∗(&lt;em&gt;q&lt;/em&gt;−1) ，解密秘钥为 &lt;em&gt;d&lt;/em&gt; ， &lt;em&gt;e&lt;/em&gt;∗&lt;em&gt;d&lt;/em&gt;=1 &lt;em&gt;m&lt;strong&gt;o&lt;/strong&gt;d&lt;/em&gt; &lt;em&gt;p&lt;strong&gt;h&lt;/strong&gt;i&lt;/em&gt;(&lt;em&gt;n&lt;/em&gt;) ，明文消息就可以通过 &lt;em&gt;m&lt;/em&gt;=&lt;em&gt;c&lt;/em&gt;^d &lt;em&gt;m&lt;strong&gt;o&lt;/strong&gt;d&lt;/em&gt; &lt;em&gt;n&lt;/em&gt; 得到。某次CTF比赛中师傅们得到了好多由同一个模数 &lt;em&gt;n&lt;/em&gt;(23333∗10007) 加密的密文，但是每次的 &lt;em&gt;e&lt;/em&gt; 都不一样，师傅们希望你能根据不一样的 &lt;em&gt;e&lt;/em&gt; 去解密出密文消息。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;一行包含两个整数 &lt;em&gt;e&lt;/em&gt;(3≤&lt;em&gt;e&lt;/em&gt;≤&lt;em&gt;p&lt;strong&gt;h&lt;/strong&gt;i&lt;/em&gt;(&lt;em&gt;n&lt;/em&gt;)) 和 &lt;em&gt;c&lt;/em&gt;(0≤&lt;em&gt;c&lt;/em&gt;≤&lt;em&gt;n&lt;/em&gt;)&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输出&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;一行包含 m&lt;/p&gt;
+
+&lt;p&gt;输入样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;3 123612763
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;84859100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;提示&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;由e=3 可以求出 d=155639995,m=c ^d=84859100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;/**
+ * n = p * q
+ * phi(n) = (p-1)*(q-1)
+ * d * e = 1 (mod(p-1)(q-1))
+ * --&amp;gt;&amp;gt; d * e mod phi(n) = 1
+ * &amp;gt;&amp;gt; d
+ * m = c ^ d mod(n)
+ * **/
+#include &amp;lt;iostream&amp;gt;
+using namespace std;
+//模数
+const long long n = 23333*10007;
+long long x,y,gcd,e,c,mod,d;
+//求逆元
+/**
+ * 扩展欧几里得算法
+ * **/
+void exgcd(long long a,long long b,long long &amp;amp;gcd,long long &amp;amp;x,long long &amp;amp;y){
+    if(b == 0){
+        x = 1;
+        y = 0;
+        gcd = a;
+    }
+    else{
+        exgcd(b,a%b,gcd,y,x);
+        y -= x * (a/b);
+    }
+}
+/**
+ * e * d = 1 mod(phi(n))
+ * **/
+long long inv( long long a, long long b ){
+    long long gcd, x, y;
+    exgcd(a, b, gcd, x, y);
+    return gcd == 1 ? (x % b + b)%b : -1;
+}
+//解密
+long long powp(long long a,long long b){
+    long long ans=1;
+    long long base=a;
+    while(b){
+        if(b &amp;amp; 1)
+            ans = ans * base % n;
+        base = base * base % n;
+        b = b &amp;gt;&amp;gt; 1;
+    }
+    return ans % n;
+}
+int main(int argc, char const *argv[])
+{
+    cin&amp;gt;&amp;gt;e;
+    cin&amp;gt;&amp;gt;c;
+    mod = 23332 * 10006;
+    d = inv(e,mod);
+    cout&amp;lt;&amp;lt;powp(c,d)&amp;lt;&amp;lt;endl;
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;申请经费&quot;&gt;申请经费&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;描述&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;通过不懈努力，Alice 终于成为了 X 市网络安全办公室的负责人。作为一个务实的同学，Alice 立刻计划申请一批经费用于提高该市 N 家企业的网络安全水平，从而使每家企业符合新安全标准，新安全标准需要满足以下两个条件的任意一个:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;有自己的安全团队&lt;/li&gt;
+  &lt;li&gt;和任意一个满足标准的企业建立安全方面的合作关系&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;假设最开始所有企业都没有自己的安全团队，相互之间也没有安全方面的合作关系。通过调研 Alice 知道了每家企业组建自己的安全团队需要补助的经费和一些企业之间合作需要补助的经费。现在需要你帮助 Alice 制定一个方案，使得所需要的补助的经费最少。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;第 1 行输入 1 个整数 &lt;em&gt;T&lt;/em&gt; (1≤&lt;em&gt;T&lt;/em&gt;≤10)，表示一共有 &lt;em&gt;T&lt;/em&gt; 组数据；&lt;/p&gt;
+
+&lt;p&gt;对于每一组数据:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;第 1 行输入 2 个整数 &lt;em&gt;N&lt;/em&gt; &lt;em&gt;M&lt;/em&gt;，(1≤&lt;em&gt;N&lt;/em&gt;≤1000,1≤&lt;em&gt;M&lt;/em&gt;≤100000)，表示有 &lt;em&gt;N&lt;/em&gt; 家企业，编号从 1 到 &lt;em&gt;N&lt;/em&gt;，一共有 &lt;em&gt;M&lt;/em&gt; 组合作关系&lt;/li&gt;
+  &lt;li&gt;第 2 行输入 &lt;em&gt;N&lt;/em&gt; 个整数 &lt;em&gt;W&lt;/em&gt;i(1≤&lt;em&gt;W**i&lt;/em&gt;≤10000)，第 &lt;em&gt;i&lt;/em&gt; 个整数表示编号 &lt;em&gt;i&lt;/em&gt; 的企业自己组建安全团队需要的补助&lt;/li&gt;
+  &lt;li&gt;接下里 &lt;em&gt;M&lt;/em&gt; 行，每行输入 3 个整数，&lt;em&gt;a&lt;/em&gt; b&lt;em&gt;b&lt;/em&gt; C&lt;em&gt;C&lt;/em&gt;，表示编号 a&lt;em&gt;a&lt;/em&gt; 的企业和编号 b&lt;em&gt;b&lt;/em&gt; 的企业可以合作，合作需要的补助为 C&lt;em&gt;C&lt;/em&gt; (1 ≤ C ≤ 100001≤&lt;em&gt;C&lt;/em&gt;≤10000) (&lt;strong&gt;请注意，两个公司可能有多种合作方案&lt;/strong&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输出&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;对于每组输入，输出一个整数，表示最少需要的补助。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入样例 1&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;4
+2 1
+100 100
+1 2 1000
+2 1
+100 100
+1 2 1
+3 2
+1 100 1000
+1 2 1000
+2 3 1
+5 4
+100 200 300 400 500
+1 2 10
+2 3 10
+3 4 10
+4 5 10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;200
+101
+102
+140
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;提示&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;对于样例输入的第四组数据，最优方案是公司 1 组建安全团队 (1 满足了标准)，然后 1 和 2 合作(2 满足了标准)，2 和 3 合作 (3 满足了标准)，3 和 4 合作 (4 满足了标准)。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;vector&amp;gt;
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+#include &amp;lt;limits.h&amp;gt;
+using namespace std;
+const int N = 1010, M = 1e6 + 10;
+const int  INF  = INT_MAX;
+int n, m;
+int dist[N];
+bool visit[N];
+int map[N][N];
+int prim()
+{
+	int res = 0;
+	memset(dist, 0x3f, sizeof(dist));
+	for (int i = 0; i &amp;lt;= n; i++)
+	{
+		int t = -1;
+		for (int j = 0; j &amp;lt;= n; j++)
+			if (!visit[j] &amp;amp;&amp;amp; (t == -1 || dist[t] &amp;gt; dist[j]))
+				t = j;
+		if (i != 0 &amp;amp;&amp;amp; dist[t] == INF) return INF;
+		
+		if (i != 0) res += dist[t];
+		visit[t] = true;
+		for (int j = 0; j &amp;lt;= n; j++) dist[j] = min(dist[j], map[t][j]);
+	}
+	return res;
+}
+int main()
+{
+	vector&amp;lt;int&amp;gt; res;	
+	int T;
+	cin &amp;gt;&amp;gt; T;
+	while (T--)
+	{
+		cin &amp;gt;&amp;gt; n &amp;gt;&amp;gt; m;
+		memset(map, 0x3f, sizeof(map));
+		memset(visit, 0, sizeof(visit));
+		for (int i = 1; i &amp;lt;= n; i++)
+		{
+			int x; cin &amp;gt;&amp;gt; x;
+			map[0][i] = map[i][0] = min(map[0][i], x);
+		}
+		while (m--)
+		{
+			int a, b, w;
+			cin &amp;gt;&amp;gt; a &amp;gt;&amp;gt; b &amp;gt;&amp;gt; w;
+			map[a][b] = map[b][a] = min(map[a][b], w);
+		}
+		res.push_back(move(prim()));
+	}
+	for(auto re : res)
+		cout&amp;lt;&amp;lt;re&amp;lt;&amp;lt;endl;
+	return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;剩下的没做出&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;攻击日志统计&quot;&gt;攻击日志统计&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;描述&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;在某重大保障行动中，你作为防守方成员，负责每天处理攻击日志并进行统计和汇报。每条攻击日志都包含时间戳、攻击类型、攻击次数三种信息，而你需要写一个程序来统计一段时间内某个攻击类型的攻击次数。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;第一行有两个数 N 和 M。&lt;/p&gt;
+
+&lt;p&gt;N 表示日志行数，M 表示查询次数。&lt;/p&gt;
+
+&lt;p&gt;接下来的 N 行是攻击日志，每一行根据顺序依次为时间戳、攻击类型、攻击次数。&lt;/p&gt;
+
+&lt;p&gt;再接下来的 M 行是查询，每一行根据顺序依次为查询起始时间、查询终止时间、攻击类型。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输出&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;输出 M 行，每一行表示该查询所查询到的总攻击次数。&lt;/p&gt;
+
+&lt;p&gt;输入样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;4 3
+1575562565 sqli 3
+1575562567 xss 10
+1575562572 csrf 2
+1575562579 sqli 5
+0 1575562571 xss
+1575562565 1575562579 sqli
+1575562565 1575562579 none
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;10
+8
+0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;没ac&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-c++&quot;&gt;#include &amp;lt;algorithm&amp;gt;
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;unordered_map&amp;gt;
+using namespace std;
+
+//时间记录
+vector&amp;lt;int&amp;gt; mytime;
+//记录攻击类型和次数
+unordered_map&amp;lt;long long,pair&amp;lt;string,int&amp;gt;&amp;gt; mymap;
+//查询保存
+pair&amp;lt;pair&amp;lt;long long,long long&amp;gt;,string&amp;gt; req;
+int main(int argc, char const *argv[])
+{
+    vector&amp;lt;int&amp;gt; res;
+    long long N,M;
+    cin&amp;gt;&amp;gt;M;
+    cin&amp;gt;&amp;gt;N;
+    //攻击日志
+    for(long long i = 0;i &amp;lt; M;i++){
+        //攻击时间
+        long long curtime;
+        //攻击方式
+        string attacktype;
+        //攻击次数
+        long long nums;
+        cin&amp;gt;&amp;gt;curtime;
+        cin&amp;gt;&amp;gt;attacktype;
+        cin&amp;gt;&amp;gt;nums;
+        //保存
+        mytime.push_back(curtime);
+        mymap[curtime] = {attacktype,nums};
+    }
+    //sort
+    sort(mytime.begin(),mytime.end());
+    for(long long i = 0;i &amp;lt; N;i++){
+        long long start;
+        long long end;
+        string reqtype;
+        cin&amp;gt;&amp;gt;start;
+        cin&amp;gt;&amp;gt;end;
+        cin&amp;gt;&amp;gt;reqtype;
+        int temp = 0;
+        for(long long i = 0;i &amp;lt; mytime.size();i++){
+            if(mytime[i] &amp;gt;= start &amp;amp;&amp;amp; mytime[i] &amp;lt;= end &amp;amp;&amp;amp; reqtype == mymap[mytime[i]].first){
+                temp += mymap[mytime[i]].second;
+            }
+        }
+        res.push_back(temp);
+    } 
+    for(long long a : res)
+        cout&amp;lt;&amp;lt;a&amp;lt;&amp;lt;endl;
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;fibonacci&quot;&gt;Fibonacci&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;描述&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;斐波那契数列（Fibonacci sequence），又称黄金分割数列、因数学家列昂纳多·斐波那契（Leonardoda Fibonacci）以兔子繁殖为例子而引入，故又称为“兔子数列”，指的是这样一个数列：1、1、2、3、5、8、13、21、34、……在数学上，斐波那契数列以如下被以递推的方法定义&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;F&lt;/em&gt;(1)=1&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;F&lt;/em&gt;(2)=1&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;F&lt;/em&gt;(&lt;em&gt;n&lt;/em&gt;)=&lt;em&gt;F&lt;/em&gt;(&lt;em&gt;n&lt;/em&gt;−1)+&lt;em&gt;F&lt;/em&gt;(&lt;em&gt;n&lt;/em&gt;−2)&lt;/p&gt;
+
+&lt;p&gt;在现代物理、准晶体结构、化学等领域，斐波纳契数列都有直接的应用。&lt;/p&gt;
+
+&lt;p&gt;请编程实现 &lt;em&gt;F&lt;/em&gt;(&lt;em&gt;n&lt;/em&gt;) 函数&lt;/p&gt;
+
+&lt;p&gt;输入样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1
+2
+3
+4
+5
+6
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1
+1
+2
+3
+5
+8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;提示&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;输入中没有注明总数据的行数，需要自行加一个判断；
+
+测试数据中存在较大的输入，如果使用语言不是 python 的话，需要使用支持大数运算的库。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;攻防演练&quot;&gt;攻防演练&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;描述&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;C 公司安全团队为了提升企业网络安全防护能力，会经常组织网络安全攻防演练，在一次演练中，Alice 作为攻方选手，成功获取了某台内网主机的权限。不过防守方也提前做了很多准备，为网络中的各台主机配置了复杂的拓扑关系，但是这些信息已经被机智的 Alice 通过物理渗透获取到了。Alice 发现，她攻击的内网中有 N 台主机，其中只有部分机器能够互通，并且攻击方需要窃取的目标信息被分别放在了其中 K 台主机上。为了尽可能避免被防守方发现，Alice 需要让自己攻击过程中在主机之间跳转的次数尽可能少，请你帮她分析最优的攻击路径至少需要多少次主机之间的跳转。&lt;/p&gt;
+
+&lt;p&gt;PS: Alice 作为一名经验丰富的白帽子，只要两台主机互相连通，她便可以从其中一台跳转到另一台。&lt;/p&gt;
+
+&lt;p&gt;PPS:需要注意的是，由于特殊的网络配置，从主机 a 跳转到主机 b，再从 b 跳转到 a，这是两次跳转行为。不要理解为从 a 机器 ssh 到 b 机器，然后从 b 机器上&lt;code&gt;Ctrl ^D&lt;/code&gt;回来到 a 只算一次。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输入&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;第 1 行输入 1 个整数 &lt;em&gt;T&lt;/em&gt; (1≤&lt;em&gt;T&lt;/em&gt;≤10)，表示数据组数。&lt;/p&gt;
+
+&lt;p&gt;对于每组输入:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;第 1 行输入 2 个整数 &lt;em&gt;N&lt;/em&gt; &lt;em&gt;K&lt;/em&gt;，表示有 &lt;em&gt;N&lt;/em&gt; 台主机，&lt;em&gt;K&lt;/em&gt; 台上有目标信息 (1≤&lt;em&gt;N&lt;/em&gt;≤500，1≤&lt;em&gt;K&lt;/em&gt;≤10，1≤&lt;em&gt;K&lt;/em&gt;≤&lt;em&gt;N&lt;/em&gt;，主机编号从 1 到 N)，Alice 当前在 1 号主机上；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;第 2 行输入空格分隔的 K&lt;em&gt;K&lt;/em&gt; 个整数，表示有目标信息的主机编号；&lt;/li&gt;
+  &lt;li&gt;接下来一个整数 M&lt;em&gt;M&lt;/em&gt;，表示有演练环境拓扑中有 M&lt;em&gt;M&lt;/em&gt; 条边 (0 \le M \le 30000≤&lt;em&gt;M&lt;/em&gt;≤3000)；&lt;/li&gt;
+  &lt;li&gt;接下里输入 M&lt;em&gt;M&lt;/em&gt; 行，每行两个整数 a&lt;em&gt;a&lt;/em&gt; b&lt;em&gt;b&lt;/em&gt;，表示 a&lt;em&gt;a&lt;/em&gt; 和 b&lt;em&gt;b&lt;/em&gt; 直接有一条表 (双向边)。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;输出&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;对于每组输入，输出一个整数，表示要获取全部目标信息，最少需要多少次主机之间的跳转，如果无法获取全部目标信息，则输出 -1&lt;/p&gt;
+
+&lt;p&gt;输入样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;3
+4 3
+2 3 4
+3
+1 2
+1 3
+1 4
+4 3
+2 3 4
+3
+1 2
+2 3
+3 4
+4 3
+2 3 4
+2
+1 2
+3 4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;5
+3
+-1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;缓慢的爬虫&quot;&gt;缓慢的爬虫&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;描述&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;C 公司开发了一款号称是学院路最强漏洞扫描器的工具，并推荐给了公司负责安全服务的 Alice 同学试用。Alice 同学试用过后开始了疯狂吐槽，其中吐槽得最厉害的是扫描器的爬虫很不给力，目标网站的很多页面都扫不出来。然而扫描器的开发同学 Bob 表示并不相信，和 Alice 一起认真研究之后，发现原来是目标网站有些页面响应很慢，超过了 Alice 同学给扫描器配置的超时阈值，导致很多页面没有扫描出来，果然不是扫描器爬虫的问题(==)。 Alice 表示接受，但是她也希望扫描过程能够尽快完成，所以她希望知道自己应该把超时阈值最小配置为多少可能保证 &lt;em&gt;P&lt;/em&gt;% 页面能被发现 (一个页面只有响应完成才能算被发现)。&lt;/p&gt;
+
+&lt;p&gt;输入&lt;/p&gt;
+
+&lt;p&gt;第 1 行输入 1 个整数 T&lt;em&gt;T&lt;/em&gt; (1 \le T \le 101≤&lt;em&gt;T&lt;/em&gt;≤10)，表示一共有 T 组数据；&lt;/p&gt;
+
+&lt;p&gt;对于每一组数据:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;第 1 行输入 2 个整数 N&lt;em&gt;N&lt;/em&gt;, P&lt;em&gt;P&lt;/em&gt; (1 \le N \le 10000001≤&lt;em&gt;N&lt;/em&gt;≤1000000)，表示目标网站有 N&lt;em&gt;N&lt;/em&gt; 个页面，编号从 1 到 N&lt;em&gt;N&lt;/em&gt;，P&lt;em&gt;P&lt;/em&gt; 表示希望 P\%&lt;em&gt;P&lt;/em&gt;% 的页面被发现 (0 \le P \le 1000≤&lt;em&gt;P&lt;/em&gt;≤100)；&lt;/li&gt;
+  &lt;li&gt;接下来一行输入 N&lt;em&gt;N&lt;/em&gt; 个整数，第 i&lt;em&gt;i&lt;/em&gt; 个整数表示页面 i&lt;em&gt;i&lt;/em&gt; 响应需要的时间 t_{i}&lt;em&gt;t&lt;strong&gt;i* (0 &amp;lt; t_{i} \le 100000000&amp;lt;*t&lt;/strong&gt;i&lt;/em&gt;≤10000000)；&lt;/li&gt;
+  &lt;li&gt;接下来输入 N&lt;em&gt;N&lt;/em&gt; 行，第 i&lt;em&gt;i&lt;/em&gt; 行用于表示页面 i&lt;em&gt;i&lt;/em&gt; 有哪些页面的链接，每行先输入一个整数 C_{i}&lt;em&gt;C&lt;strong&gt;i* (0 \le C_{i} &amp;lt; N0≤*C&lt;/strong&gt;i&lt;/em&gt;&amp;lt;&lt;em&gt;N&lt;/em&gt;)，表示页面 i 有C_{i}&lt;em&gt;C&lt;strong&gt;i* 个链接，该行接下来是C_{i}*C&lt;/strong&gt;i&lt;/em&gt;个整数，表示页面 i&lt;em&gt;i&lt;/em&gt; 的中具体有到哪些页面的链接。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;PS: 爬虫总是从页面 1 的链接开始爬取，总链接数不超过 1000000；&lt;/p&gt;
+
+&lt;p&gt;PPS: 输入保证合法；&lt;/p&gt;
+
+&lt;p&gt;PPPS: 当超时阈值为 t 时，如果一个页面加载时间刚好需要 t&lt;em&gt;t&lt;/em&gt;，该页面也属于无法打开的页面。&lt;/p&gt;
+
+&lt;p&gt;输出&lt;/p&gt;
+
+&lt;p&gt;针对每组输入，如果某个配置能达到目标，则输出 Alice 能配置的最小超时时间(整数，必须 \ge 0≥0)，如果无论如何配置都达不到目标，则输出 -1 。&lt;/p&gt;
+
+&lt;p&gt;输入样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;6
+1 100
+100
+0
+5 100
+100 200 300 400 500
+1 2
+1 3
+1 4
+1 5
+0
+4 100
+100 200 300 400
+3 2 3 4
+0
+0
+0
+5 100
+1 500 1 1 1
+1 2
+1 3
+1 4
+1 5
+0
+5 100
+1 1 1 1 1
+1 2
+1 3
+0
+1 5
+0
+5 80
+100 200 300 400 500
+1 2
+1 3
+1 4
+1 5
+0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;101
+501
+401
+501
+-1
+401
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;access-log-处理&quot;&gt;Access Log 处理&lt;/h1&gt;
+
+&lt;p&gt;描述&lt;/p&gt;
+
+&lt;p&gt;C 公司对一个即将上线的业务进行了测试，为了更好的评估该业务测试期间的运行状态，C 公司的 Alice 同学打算写一个工具来对该业务的 Access Log 进行处理，她希望能通过这个工具知道任意一个时间段内 (闭区间，精确到秒) 该业务有多少次访问。&lt;/p&gt;
+
+&lt;p&gt;为了方便处理，机智的 Alice 同学写了个脚本将 Access Log 简化为了每条日志只有一个时间戳数据，即简化后的 Access Log 是一个 N 行的文本，每行是一个整数时间戳，代表该时刻有一次访问，如下图所示:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1564900123
+1564934135
+1564934132
+1564934666
+1564931024
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是 Alice 同学太忙了，所以需要请你帮她实现这个问题。&lt;/p&gt;
+
+&lt;p&gt;输入&lt;/p&gt;
+
+&lt;p&gt;第 1 行输入 1 个整数 T&lt;em&gt;T&lt;/em&gt; (1 \le T \le 101≤&lt;em&gt;T&lt;/em&gt;≤10)，表示一共有 T&lt;em&gt;T&lt;/em&gt; 组数据；&lt;/p&gt;
+
+&lt;p&gt;对于每一组数据:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;第 1 行输入 1 个整数 N&lt;em&gt;N&lt;/em&gt; (1 \le N \le 100000001≤&lt;em&gt;N&lt;/em&gt;≤10000000)，表示有 Access Log 有 N&lt;em&gt;N&lt;/em&gt; 条数据；&lt;/li&gt;
+  &lt;li&gt;接下来 N&lt;em&gt;N&lt;/em&gt; 行，每行输入一个整数 t&lt;em&gt;t&lt;/em&gt; (0 \le t0≤&lt;em&gt;t&lt;/em&gt;，且整数 t 不会超过&lt;code&gt;uint64_t&lt;/code&gt;范围)，表示 Access Log 中的一条数据；&lt;/li&gt;
+  &lt;li&gt;接下来 1 行输入 1 个整数 M (1 \le M \le 10000001≤&lt;em&gt;M&lt;/em&gt;≤1000000)，表示有 M&lt;em&gt;M&lt;/em&gt; 次查询；&lt;/li&gt;
+  &lt;li&gt;接下来 M&lt;em&gt;M&lt;/em&gt; 行，每行两个整数 b&lt;em&gt;b&lt;/em&gt;，e&lt;em&gt;e&lt;/em&gt;，表示查询 [b, e][&lt;em&gt;b&lt;/em&gt;,&lt;em&gt;e&lt;/em&gt;] 时间段内的访问次数 (0 \le b \le e)， 并且0≤&lt;em&gt;b&lt;/em&gt;≤&lt;em&gt;e&lt;/em&gt;)，并且b,,e$ 不会超过&lt;code&gt;uint64_t&lt;/code&gt;范围)。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;注意： Access Log 中的时间戳并不能保证是有序的。&lt;/p&gt;
+
+&lt;p&gt;输出&lt;/p&gt;
+
+&lt;p&gt;对于每次询问输出一行，在该行输出一个整数 R，表示对应区间的访问次数。&lt;/p&gt;
+
+&lt;p&gt;输入样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1
+5
+1564900000
+1564900005
+1564900008
+1564900007
+1564900009
+5
+0 9999999999
+1564900008 1564900008
+1564900006 1564900006
+1564900007 1564900009
+1564900000 1564900007
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出样例 1&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;5
+1
+0
+3
+3
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="算法" /><summary type="html">[toc]</summary></entry><entry><title type="html">系统设计</title><link href="http://localhost:4000/_posts/2021-03-25-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" rel="alternate" type="text/html" title="系统设计" /><published>2021-03-25T00:00:00+08:00</published><updated>2021-03-25T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="http://localhost:4000/_posts/2021-03-25-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;步骤：&lt;/p&gt;
@@ -4189,217 +5098,4 @@ mmap()/munmap() // 通过文件影射的方式，把文件映射到mmap区
 
 &lt;h4 id=&quot;监控内存变化&quot;&gt;监控内存变化&lt;/h4&gt;
 
-&lt;h3 id=&quot;valgrind-massif&quot;&gt;valgrind massif&lt;/h3&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry><entry><title type="html">ubuntu搭建ftp服务</title><link href="http://localhost:4000/_posts/2020-11-08-ubuntu%E6%90%AD%E5%BB%BAtfp%E6%9C%8D%E5%8A%A1/" rel="alternate" type="text/html" title="ubuntu搭建ftp服务" /><published>2020-11-08T00:00:00+08:00</published><updated>2020-11-08T00:00:00+08:00</updated><id>http://localhost:4000/_posts/ubuntu%E6%90%AD%E5%BB%BAtfp%E6%9C%8D%E5%8A%A1</id><content type="html" xml:base="http://localhost:4000/_posts/2020-11-08-ubuntu%E6%90%AD%E5%BB%BAtfp%E6%9C%8D%E5%8A%A1/">&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&quot;vsftpd&quot;&gt;vsftpd&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo apt install vsftpd 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;配置参数&quot;&gt;配置参数&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo vim /etc/vsftpd.conf
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;# Example config file /etc/vsftpd.conf
-#
-# The default compiled in settings are fairly paranoid. This sample file
-# loosens things up a bit, to make the ftp daemon more usable.
-# Please see vsftpd.conf.5 for all compiled in defaults.
-#
-# READ THIS: This example file is NOT an exhaustive list of vsftpd options.
-# Please read the vsftpd.conf.5 manual page to get a full idea of vsftpd's
-# capabilities.
-#
-#
-# Run standalone?  vsftpd can run either from an inetd or as a standalone
-# daemon started from an initscript.
-listen=NO
-#
-# This directive enables listening on IPv6 sockets. By default, listening
-# on the IPv6 &quot;any&quot; address (::) will accept connections from both IPv6
-# and IPv4 clients. It is not necessary to listen on *both* IPv4 and IPv6
-# sockets. If you want that (perhaps because you want to listen on specific
-# addresses) then you must run two copies of vsftpd with two configuration
-# files.
-listen_ipv6=YES
-#
-# Allow anonymous FTP? (Disabled by default).
-anonymous_enable=NO
-#
-# Uncomment this to allow local users to log in.
-local_enable=YES
-#
-# Uncomment this to enable any form of FTP write command.
-#write_enable=YES
-#
-# Default umask for local users is 077. You may wish to change this to 022,
-# if your users expect that (022 is used by most other ftpd's)
-#local_umask=022
-#
-# Uncomment this to allow the anonymous FTP user to upload files. This only
-# has an effect if the above global write enable is activated. Also, you will
-# obviously need to create a directory writable by the FTP user.
-#anon_upload_enable=YES
-#
-# Uncomment this if you want the anonymous FTP user to be able to create
-# new directories.
-#anon_mkdir_write_enable=YES
-#
-# Activate directory messages - messages given to remote users when they
-# go into a certain directory.
-dirmessage_enable=YES
-#
-# If enabled, vsftpd will display directory listings with the time
-# in  your  local  time  zone.  The default is to display GMT. The
-# times returned by the MDTM FTP command are also affected by this
-# option.
-use_localtime=YES
-#
-# Activate logging of uploads/downloads.
-xferlog_enable=YES
-#
-# Make sure PORT transfer connections originate from port 20 (ftp-data).
-connect_from_port_20=YES
-#
-# If you want, you can arrange for uploaded anonymous files to be owned by
-# a different user. Note! Using &quot;root&quot; for uploaded files is not
-# recommended!
-#chown_uploads=YES
-#chown_username=whoever
-#
-# You may override where the log file goes if you like. The default is shown
-# below.
-#xferlog_file=/var/log/vsftpd.log
-#
-# If you want, you can have your log file in standard ftpd xferlog format.
-# Note that the default log file location is /var/log/xferlog in this case.
-#xferlog_std_format=YES
-#
-# You may change the default value for timing out an idle session.
-#idle_session_timeout=600
-#
-# You may change the default value for timing out a data connection.
-#data_connection_timeout=120
-#
-# It is recommended that you define on your system a unique user which the
-# ftp server can use as a totally isolated and unprivileged user.
-#nopriv_user=ftpsecure
-#
-# Enable this and the server will recognise asynchronous ABOR requests. Not
-# recommended for security (the code is non-trivial). Not enabling it,
-# however, may confuse older FTP clients.
-#async_abor_enable=YES
-#
-# By default the server will pretend to allow ASCII mode but in fact ignore
-# the request. Turn on the below options to have the server actually do ASCII
-# mangling on files when in ASCII mode.
-# Beware that on some FTP servers, ASCII support allows a denial of service
-# attack (DoS) via the command &quot;SIZE /big/file&quot; in ASCII mode. vsftpd
-# predicted this attack and has always been safe, reporting the size of the
-# raw file.
-# ASCII mangling is a horrible feature of the protocol.
-#ascii_upload_enable=YES
-#ascii_download_enable=YES
-#
-# You may fully customise the login banner string:
-#ftpd_banner=Welcome to blah FTP service.
-#
-# You may specify a file of disallowed anonymous e-mail addresses. Apparently
-# useful for combatting certain DoS attacks.
-#deny_email_enable=YES
-# (default follows)
-#banned_email_file=/etc/vsftpd.banned_emails
-#
-# You may restrict local users to their home directories.  See the FAQ for
-# the possible risks in this before using chroot_local_user or
-# chroot_list_enable below.
-#chroot_local_user=YES
-#
-# You may specify an explicit list of local users to chroot() to their home
-# directory. If chroot_local_user is YES, then this list becomes a list of
-# users to NOT chroot().
-# (Warning! chroot'ing can be very dangerous. If using chroot, make sure that
-# the user does not have write access to the top level directory within the
-# chroot)
-#chroot_local_user=YES
-#chroot_list_enable=YES
-# (default follows)
-#chroot_list_file=/etc/vsftpd.chroot_list
-#
-# You may activate the &quot;-R&quot; option to the builtin ls. This is disabled by
-# default to avoid remote users being able to cause excessive I/O on large
-# sites. However, some broken FTP clients such as &quot;ncftp&quot; and &quot;mirror&quot; assume
-# the presence of the &quot;-R&quot; option, so there is a strong case for enabling it.
-#ls_recurse_enable=YES
-#
-# Customization
-#
-# Some of vsftpd's settings don't fit the filesystem layout by
-# default.
-#
-# This option should be the name of a directory which is empty.  Also, the
-# directory should not be writable by the ftp user. This directory is used
-# as a secure chroot() jail at times vsftpd does not require filesystem
-# access.
-secure_chroot_dir=/var/run/vsftpd/empty
-#
-# This string is the name of the PAM service vsftpd will use.
-pam_service_name=vsftpd
-#
-# This option specifies the location of the RSA certificate to use for SSL
-# encrypted connections.
-rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
-rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
-ssl_enable=NO
-#
-# Uncomment this to indicate that vsftpd use a utf8 filesystem.
-#utf8_filesystem=YES
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;配置说明&quot;&gt;配置说明&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;anonymous_enable=NO 拒绝匿名登陆&lt;/li&gt;
-  &lt;li&gt;write_enable=YES 设置可以上传文件，这个设置看需要个人需要&lt;/li&gt;
-  &lt;li&gt;xferlog_enable=YES 开启日志记录&lt;/li&gt;
-  &lt;li&gt;xferlog_file=/var/log/vsftpd.log 设置日志文件路径&lt;/li&gt;
-  &lt;li&gt;xferlog_std_format=YES 设置日志格式为标准输出&lt;/li&gt;
-  &lt;li&gt;connect_from_port_20=YES 绑定20端口&lt;/li&gt;
-  &lt;li&gt;ftpd_banner=Welcome to FTP service. 欢迎语句，在使用shell时可以看到&lt;/li&gt;
-  &lt;li&gt;chroot_local_user=YES&lt;/li&gt;
-  &lt;li&gt;chroot_list_enable=YES&lt;/li&gt;
-  &lt;li&gt;chroot_list_file=/etc/vsftpd.chroot_list
- 上面的这几个配置实现的功能是：用户被限制在自己的主目录下。用户名单来源于/etc/vsftpd.chroot_list&lt;/li&gt;
-  &lt;li&gt;user_sub_token=$USER&lt;/li&gt;
-  &lt;li&gt;local_root=/home/$USER/ftp
- 添加一个user_sub_token ，以便插入用户名在我们local_root directory路径，以便我们的配置将为该用户，并可能被添加任何未来的用户&lt;/li&gt;
-  &lt;li&gt;pam_service_name=ftp原配置中为vsftpd，ubuntu用户需要更改成ftp&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;创建ftp用户&quot;&gt;创建ftp用户&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;mkdir /home/ftpuser
-sudo useradd ftpuser -d /home/ftpuser -m
-sudo passwd ftpuser
-mkdir /home/ftpuser/ftp
-chmod 777 -R /home/username/ftp
-usermod -s /sbin/nologin ftpuser
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;/etc/vsftpd.chroot_list要自己创建，并将ftpuser放进去&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;启动vsftpd或者重启&quot;&gt;启动vsftpd或者重启&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;systemctl start vsftpd 或 service vsftpd start&lt;/li&gt;
-  &lt;li&gt;systemctl restart vsftpd 或 service vsftpd restart&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;登陆&quot;&gt;登陆&lt;/h1&gt;
-
-&lt;p&gt;使用filezilla或者打开文件管理器输入ftp://ipaddress&lt;/p&gt;</content><author><name></name></author><category term="linux" /><summary type="html">[toc]</summary></entry></feed>
+&lt;h3 id=&quot;valgrind-massif&quot;&gt;valgrind massif&lt;/h3&gt;</content><author><name></name></author><category term="杂项" /><summary type="html">[toc]</summary></entry></feed>
