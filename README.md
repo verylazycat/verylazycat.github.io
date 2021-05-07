@@ -73,8 +73,6 @@
 
 - C/C++
 
-- java
-
 - web penetration
 
 - Machine learning
