@@ -7,17 +7,12 @@
 ## 我的一些联系方式
 
 -  **SiChuan  China**
--  Phone: +86 17378993771
 - Site: **<https://www.imod.top>**
 
 <!-- slide vertical=true -->
 
 -  E-mail:
   - **[outlook](mailto:verylazycat@outlook.com)**
-  - **[QQ](mailto:1647495684@qq.com)**
-- WeChat: **serendipity_liuY**
-- QQ:  1647495684
-- 微信公众号:CvImod
 
 <!-- slide -->
 
@@ -58,18 +53,13 @@
 
 <!-- slide vertical=true -->
 
-
-
 - linux
 
 - git
 
 - markdown
 
-
 <!-- slide vertical=true -->
-
-
 
 - C/C++
 
@@ -79,19 +69,14 @@
 
 - The data analysis
 
-  
 
 <!-- slide -->
 
 ## 我的一些领导力
 
-深度学习模型分享(QQ群:923763720)
-
-
+日常背锅
 
 <!-- slide -->
-
-
 
 ## 我的一些文字
 
