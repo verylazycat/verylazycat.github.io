@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-18T14:05:17+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-18T18:59:51+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -525,4 +525,617 @@ public interface UserDao {
 ６. 映射配置文件的操作配置，id属性的取值必须是dao接口的方法名&lt;/p&gt;
 
 &lt;p&gt;当遵从了第以上的要求之后，在开发中就不需要再去写dao的实现类
-７. 映射配置文件的resultType=”com.yixuexi.entity.User” 是说 查询出来的结果封装到这个实体类中全类名&lt;/p&gt;</content><author><name></name></author><category term="java-web" /><summary type="html">[toc]</summary></entry></feed>
+７. 映射配置文件的resultType=”com.yixuexi.entity.User” 是说 查询出来的结果封装到这个实体类中全类名&lt;/p&gt;</content><author><name></name></author><category term="java-web" /><summary type="html">[toc]</summary></entry><entry><title type="html">Nacos服务注册和发现</title><link href="http://localhost:4000/_posts/2022-01-18-Nacos%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%92%8C%E5%8F%91%E7%8E%B0/" rel="alternate" type="text/html" title="Nacos服务注册和发现" /><published>2022-01-18T00:00:00+08:00</published><updated>2022-01-18T00:00:00+08:00</updated><id>http://localhost:4000/_posts/Nacos%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%92%8C%E5%8F%91%E7%8E%B0</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-18-Nacos%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%92%8C%E5%8F%91%E7%8E%B0/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;依赖&quot;&gt;依赖&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;dependency&amp;gt;
+  &amp;lt;groupId&amp;gt;com.alibaba.cloud&amp;lt;/groupId&amp;gt;
+  &amp;lt;artifactId&amp;gt;spring-cloud-starter-alibaba-nacos-discovery&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;需要声明 &lt;strong&gt;com.alibaba.cloud:spring-cloud-alibaba-dependencies&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;服务注册发现&quot;&gt;服务注册/发现&lt;/h1&gt;
+
+&lt;h2 id=&quot;启动-nacos-服务器&quot;&gt;启动 Nacos 服务器&lt;/h2&gt;
+
+&lt;h3 id=&quot;预备环境准备&quot;&gt;预备环境准备&lt;/h3&gt;
+
+&lt;p&gt;Nacos 依赖 &lt;a href=&quot;https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/&quot;&gt;Java&lt;/a&gt; 环境来运行。如果您是从代码开始构建并运行Nacos，还需要为此配置 &lt;a href=&quot;https://maven.apache.org/index.html&quot;&gt;Maven&lt;/a&gt;环境，请确保是在以下版本环境中安装使用:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;64 bit OS，支持 Linux/Unix/Mac/Windows，推荐选用 Linux/Unix/Mac。&lt;/li&gt;
+  &lt;li&gt;64 bit JDK 1.8+；&lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html&quot;&gt;下载&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/&quot;&gt;配置&lt;/a&gt;。&lt;/li&gt;
+  &lt;li&gt;Maven 3.2.x+；&lt;a href=&quot;https://maven.apache.org/download.cgi&quot;&gt;下载&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://maven.apache.org/settings.html&quot;&gt;配置&lt;/a&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;下载源码或者安装包&quot;&gt;下载源码或者安装包&lt;/h3&gt;
+
+&lt;p&gt;从 Github 上下载源码方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;git clone https://github.com/alibaba/nacos.git
+cd nacos/
+mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U  
+ls -al distribution/target/
+
+// change the $version to your actual path
+cd distribution/target/nacos-server-$version/nacos/bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;下载编译后压缩包方式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;unzip nacos-server-$version.zip 或者 tar -xvf nacos-server-$version.tar.gz
+cd nacos/bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;启动服务器&quot;&gt;启动服务器&lt;/h3&gt;
+
+&lt;h4 id=&quot;linuxunixmac&quot;&gt;Linux/Unix/Mac&lt;/h4&gt;
+
+&lt;p&gt;启动命令(standalone代表着单机模式运行，非集群模式):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sh startup.sh -m standalone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果您使用的是ubuntu系统，或者运行脚本报错提示[[符号找不到，可尝试如下运行：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;bash startup.sh -m standalone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;windows&quot;&gt;Windows&lt;/h4&gt;
+
+&lt;p&gt;启动命令(standalone代表着单机模式运行，非集群模式):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;startup.cmd -m standalone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nacos Server 启动后，进入 &lt;a href=&quot;http://ip:8848/&quot;&gt;http://ip:8848&lt;/a&gt; 查看控制台(默认账号名/密码为 nacos/nacos)&lt;/p&gt;
+
+&lt;h2 id=&quot;provider&quot;&gt;Provider&lt;/h2&gt;
+
+&lt;h3 id=&quot;增加-maven-依赖&quot;&gt;增加 Maven 依赖&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt; &amp;lt;dependencies&amp;gt;
+      &amp;lt;!-- Spring WebMVC Starter --&amp;gt;
+      &amp;lt;dependency&amp;gt;
+          &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
+          &amp;lt;artifactId&amp;gt;spring-boot-starter-web&amp;lt;/artifactId&amp;gt;
+      &amp;lt;/dependency&amp;gt;
+
+      &amp;lt;!-- Spring Boot Actuator Starter --&amp;gt;
+      &amp;lt;dependency&amp;gt;
+          &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
+          &amp;lt;artifactId&amp;gt;spring-boot-starter-actuator&amp;lt;/artifactId&amp;gt;
+      &amp;lt;/dependency&amp;gt;
+
+      &amp;lt;dependency&amp;gt;
+          &amp;lt;groupId&amp;gt;com.alibaba.cloud&amp;lt;/groupId&amp;gt;
+          &amp;lt;artifactId&amp;gt;spring-cloud-starter-alibaba-nacos-discovery&amp;lt;/artifactId&amp;gt;
+      &amp;lt;/dependency&amp;gt;
+
+    ...
+      &amp;lt;/dependencies&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;配置&quot;&gt;配置&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;application.properties&lt;/strong&gt; (也可以是 &lt;strong&gt;application.yaml&lt;/strong&gt; )&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-yaml&quot;&gt;spring.application.name=nacos-discovery-provider-sample
+
+management.endpoints.jmx.exposure.include=*
+management.endpoints.web.exposure.include=*
+management.endpoint.health.show-details=always
+
+
+# spring cloud access&amp;amp;secret config
+# 可以访问如下地址查看: https://usercenter.console.aliyun.com/#/manage/ak
+alibaba.cloud.access-key=****
+alibaba.cloud.secret-key=****
+
+# 应用服务 WEB 访问端口
+server.port=8080
+# Actuator Web 访问端口
+management.server.port=8081
+
+## Nacos 注册中心配置地址（无需配置 HTTP 协议部分）
+spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848
+## Nacos 客户端认证信息（默认用户名和密码均为 nacos)
+spring.cloud.nacos.discovery.user-name=nacos
+spring.cloud.nacos.discovery.password=naocs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;激活-nacos-discovery-服务注册与发现&quot;&gt;激活 Nacos Discovery 服务注册与发现&lt;/h3&gt;
+
+&lt;p&gt;在引导类（main 方法所在类）标注 Spring Cloud 服务注册与发现标准注解&lt;code&gt;@EnableDiscoveryClient&lt;/code&gt; ，代码如下所示：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class NacosDiscoveryProviderSampleApplication {
+
+  public static void main(String[] args) {
+      SpringApplication.run(NacosDiscoveryProviderSampleApplication.class, args);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;服务提供者添加-web-服务&quot;&gt;服务提供者添加 Web 服务&lt;/h3&gt;
+
+&lt;p&gt;在引导类&lt;code&gt;NacosDiscoveryProviderSampleApplication&lt;/code&gt; 同包下增加&lt;code&gt;@RestController&lt;/code&gt; 实现类：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class ServiceController {
+
+  @GetMapping(&quot;/echo/{message}&quot;)
+  public String echo(@PathVariable String message) {
+      return &quot;[ECHO] : &quot; + message;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;启动引导类&quot;&gt;启动引导类&lt;/h3&gt;
+
+&lt;p&gt;启动引导类 &lt;code&gt;NacosDiscoveryProviderSampleApplication&lt;/code&gt; ，观察控制台输出（隐藏时间部分的内容）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;[           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+[           main] c.a.c.n.registry.NacosServiceRegistry    : nacos registry, DEFAULT_GROUP nacos-discovery-provider-sample 30.225.19.241:8080 register finished
+[           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+[           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+[           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+[           main] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+[           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 176 ms
+[           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 18 endpoint(s) beneath base path '/actuator'
+[           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+[           main] .NacosDiscoveryProviderSampleApplication : Started NacosDiscoveryProviderSampleApplication in 3.037 seconds (JVM running for 3.615)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;consumer&quot;&gt;Consumer&lt;/h2&gt;
+
+&lt;h3 id=&quot;依赖-1&quot;&gt;依赖&lt;/h3&gt;
+
+&lt;h3 id=&quot;配置-1&quot;&gt;配置&lt;/h3&gt;
+
+&lt;h3 id=&quot;服务注册与发现&quot;&gt;服务注册与发现&lt;/h3&gt;
+
+&lt;p&gt;引导类上标注&lt;code&gt;@EnableDiscoveryClient&lt;/code&gt; ，代码如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class NacosDiscoveryConsumerSampleApplication {
+
+  public static void main(String[] args) {
+      SpringApplication.run(NacosDiscoveryConsumerSampleApplication.class, args);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;loadbalanced-resttemplate-实现服务调用&quot;&gt;&lt;a href=&quot;https://developer.aliyun.com/LoadBalanced&quot;&gt;@LoadBalanced &lt;/a&gt;RestTemplate 实现服务调用&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;RestController&lt;/code&gt; 实现:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+@RestController
+public class RestTemplateController {
+
+  @LoadBalanced
+  @Autowired
+  public RestTemplate restTemplate;
+
+  @LoadBalanced
+  @Bean
+  public RestTemplate restTemplate() {
+      return new RestTemplate();
+  }
+
+  @GetMapping(&quot;/call/echo/{message}&quot;)
+  public String callEcho(@PathVariable String message) {
+      // 访问应用 nacos-discovery-provider-sample 的 REST &quot;/echo/{message}&quot;
+      return restTemplate.getForObject(&quot;http://nacos-discovery-provider-sample/echo/&quot; + message, String.class);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;整合-spring-cloud-openfeign&quot;&gt;整合 Spring Cloud OpenFeign&lt;/h1&gt;
+
+&lt;h2 id=&quot;依赖-2&quot;&gt;依赖&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;!-- Spring Cloud OpenFeign --&amp;gt;
+      &amp;lt;dependency&amp;gt;
+          &amp;lt;groupId&amp;gt;org.springframework.cloud&amp;lt;/groupId&amp;gt;
+          &amp;lt;artifactId&amp;gt;spring-cloud-starter-openfeign&amp;lt;/artifactId&amp;gt;
+          &amp;lt;version&amp;gt;2.2.2.RELEASE&amp;lt;/version&amp;gt;
+      &amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;服务消费者增加-spring-cloud-openfeign-服务声明接口&quot;&gt;服务消费者增加 Spring Cloud OpenFeign 服务声明接口&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@FeignClient(&quot;nacos-discovery-provider-sample&quot;) // 指向服务提供者应用
+public interface EchoService {
+
+  @GetMapping(&quot;/echo/{message}&quot;)
+  String echo(@PathVariable(&quot;message&quot;) String message);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;spring-cloud-openfeign-服务声明接口实现服务调用&quot;&gt;Spring Cloud OpenFeign 服务声明接口实现服务调用&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class OpenFeignController {
+
+  @Autowired
+  private EchoService echoService;
+
+  @GetMapping(&quot;/feign/echo/{message}&quot;)
+  public String feignEcho(@PathVariable String message) {
+      return echoService.echo(message);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;激活-spring-cloud-openfeign&quot;&gt;激活 Spring Cloud OpenFeign&lt;/h2&gt;
+
+&lt;p&gt;在引导类标注&lt;code&gt;@EnableFeignClients&lt;/code&gt; ，如果声明接口与引导类不在同一个包的话，请使用&lt;code&gt;basePackages&lt;/code&gt; 属性指定&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@SpringBootApplication
+@EnableDiscoveryClient
+@EnableFeignClients // 激活 @FeignClient
+public class NacosDiscoveryConsumerSampleApplication {
+
+  public static void main(String[] args) {
+      SpringApplication.run(NacosDiscoveryConsumerSampleApplication.class, args);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;nacos-discovery-更多配置项信息&quot;&gt;Nacos Discovery 更多配置项信息&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;配置项&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Key&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;默认值&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;服务端地址&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.server-addr&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Nacos Server 启动监听的ip地址和端口&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;服务名&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.service&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;${spring.application.name}&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;注册的服务名&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;权重&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.weight&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;1&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;取值范围 1 到 100，数值越大，权重越大&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;网卡名&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.network-interface&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;当IP未配置时，注册的IP为此网卡所对应的IP地址，如果此项也未配置，则默认取第一块网卡的地址&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;注册的IP地址&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.ip&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;优先级最高&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;注册的端口&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.port&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;-1&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;默认情况下不用配置，会自动探测&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;命名空间&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.namespace&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;常用场景之一是不同环境的注册的区分隔离，例如开发测试环境和生产环境的资源（如配置、服务）隔离等&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;AccessKey&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.access-key&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;当要上阿里云时，阿里云上面的一个云账号名&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;SecretKey&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.secret-key&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;当要上阿里云时，阿里云上面的一个云账号密码&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Metadata&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.metadata&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;使用Map格式配置，用户可以根据自己的需要自定义一些和服务相关的元数据信息&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;日志文件名&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.log-name&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;集群&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.cluster-name&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;DEFAULT&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Nacos集群名称&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;接入点&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.endpoint&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;地域的某个服务的入口域名，通过此域名可以动态地拿到服务端地址&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;是否集成Ribbon&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;ribbon.nacos.enabled&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;true&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;一般都设置成true即可&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;是否开启Nacos Watch&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code&gt;spring.cloud.nacos.discovery.watch.enabled&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;nacos-discovery-actuator-endpoint&quot;&gt;Nacos Discovery Actuator Endpoint&lt;/h1&gt;
+
+&lt;p&gt;Nacos Discovery 内部提供了一个 Endpoint, 对应的 endpoint id 为&lt;code&gt;nacos-discovery&lt;/code&gt;，其 Actuator Web Endpoint URI 为&lt;code&gt;/actuator/nacos-discovery&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;注：使用 Nacos Config Spring Cloud 1.x 版本的话，其 URI 地址则为&lt;code&gt;/nacos-discovery&lt;/code&gt; ）&lt;/p&gt;
+
+&lt;p&gt;Endpoint 暴露的 json 中包含了两种属性:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;subscribe: 显示了当前服务有哪些服务订阅者&lt;/li&gt;
+  &lt;li&gt;NacosDiscoveryProperties: 当前应用 Nacos 的基础配置信息&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;由于 Aliyun Java Initializr 所生成的应用工程默认激活 Spring Boot Actuator Endpoints（JMX 和 Web），具体配置存放在&lt;code&gt;application.properties&lt;/code&gt; 文件中，同时，Actuator Web 端口设置为 8081，内容如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;management.endpoints.jmx.exposure.include=*
+management.endpoints.web.exposure.include=*
+management.endpoint.health.show-details=always
+
+# Actuator Web 访问端口
+management.server.port=8081
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因此，应用 nacos-discovery-provider-sample 无需调整，直接访问：&lt;a href=&quot;http://127.0.0.1:8081/actuator/nacos-discovery?spm=a2c6h.12873639.0.0.21d114e5ZUU8OX&quot;&gt;http://127.0.0.1:8081/actuator/nacos-discovery&lt;/a&gt;，服务响应的内容如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-json&quot;&gt;{
+&quot;subscribe&quot;: [
+  {
+    &quot;jsonFromServer&quot;: &quot;&quot;,
+    &quot;name&quot;: &quot;nacos-provider&quot;,
+    &quot;clusters&quot;: &quot;&quot;,
+    &quot;cacheMillis&quot;: 10000,
+    &quot;hosts&quot;: [
+      {
+        &quot;instanceId&quot;: &quot;30.5.124.156#8081#DEFAULT#nacos-provider&quot;,
+        &quot;ip&quot;: &quot;30.5.124.156&quot;,
+        &quot;port&quot;: 8081,
+        &quot;weight&quot;: 1.0,
+        &quot;healthy&quot;: true,
+        &quot;enabled&quot;: true,
+        &quot;cluster&quot;: {
+          &quot;serviceName&quot;: null,
+          &quot;name&quot;: null,
+          &quot;healthChecker&quot;: {
+            &quot;type&quot;: &quot;TCP&quot;
+          },
+          &quot;defaultPort&quot;: 80,
+          &quot;defaultCheckPort&quot;: 80,
+          &quot;useIPPort4Check&quot;: true,
+          &quot;metadata&quot;: {
+
+          }
+        },
+        &quot;service&quot;: null,
+        &quot;metadata&quot;: {
+
+        }
+      }
+    ],
+    &quot;lastRefTime&quot;: 1541755293119,
+    &quot;checksum&quot;: &quot;e5a699c9201f5328241c178e804657e11541755293119&quot;,
+    &quot;allIPs&quot;: false,
+    &quot;key&quot;: &quot;nacos-provider&quot;,
+    &quot;valid&quot;: true
+  }
+],
+&quot;NacosDiscoveryProperties&quot;: {
+  &quot;serverAddr&quot;: &quot;127.0.0.1:8848&quot;,
+  &quot;endpoint&quot;: &quot;&quot;,
+  &quot;namespace&quot;: &quot;&quot;,
+  &quot;logName&quot;: &quot;&quot;,
+  &quot;service&quot;: &quot;nacos-provider&quot;,
+  &quot;weight&quot;: 1.0,
+  &quot;clusterName&quot;: &quot;DEFAULT&quot;,
+  &quot;metadata&quot;: {
+
+  },
+  &quot;registerEnabled&quot;: true,
+  &quot;ip&quot;: &quot;30.5.124.201&quot;,
+  &quot;networkInterface&quot;: &quot;&quot;,
+  &quot;port&quot;: 8082,
+  &quot;secure&quot;: false,
+  &quot;accessKey&quot;: &quot;&quot;,
+  &quot;secretKey&quot;: &quot;&quot;
+}
+}
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="java-web" /><summary type="html">[toc]</summary></entry><entry><title type="html">微服务项目创建</title><link href="http://localhost:4000/_posts/2022-01-18-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA/" rel="alternate" type="text/html" title="微服务项目创建" /><published>2022-01-18T00:00:00+08:00</published><updated>2022-01-18T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-18-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://start.aliyun.com/&quot;&gt;Aliyun Java &lt;strong&gt;Initializr&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;父项目&quot;&gt;父项目&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;直接创建maven项目&lt;/li&gt;
+  &lt;li&gt;修改pom为如下：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;properties&amp;gt;
+    &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;
+      &amp;lt;maven.compiler.source&amp;gt;8&amp;lt;/maven.compiler.source&amp;gt;
+      &amp;lt;maven.compiler.target&amp;gt;8&amp;lt;/maven.compiler.target&amp;gt;
+      &amp;lt;netty.version&amp;gt;4.1.56.Final&amp;lt;/netty.version&amp;gt;
+      &amp;lt;spring-boot.version&amp;gt;2.3.5.RELEASE&amp;lt;/spring-boot.version&amp;gt;
+      &amp;lt;dubbo.version&amp;gt;2.7.8&amp;lt;/dubbo.version&amp;gt;
+      &amp;lt;nacos-client.version&amp;gt;1.4.0&amp;lt;/nacos-client.version&amp;gt;
+  &amp;lt;/properties&amp;gt;
+
+    &amp;lt;dependencyManagement&amp;gt;
+        &amp;lt;dependencies&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;spring-boot-dependencies&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${spring-boot.version}&amp;lt;/version&amp;gt;
+                &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt;
+                &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.apache.dubbo&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;dubbo-dependencies-bom&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${dubbo.version}&amp;lt;/version&amp;gt;
+                &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt;
+                &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.apache.dubbo&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;dubbo-spring-boot-starter&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${dubbo.version}&amp;lt;/version&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.apache.dubbo&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;dubbo-registry-nacos&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${dubbo.version}&amp;lt;/version&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;com.alibaba.nacos&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;nacos-client&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${nacos-client.version}&amp;lt;/version&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.apache.dubbo&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;dubbo&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${dubbo.version}&amp;lt;/version&amp;gt;
+                &amp;lt;exclusions&amp;gt;
+                    &amp;lt;exclusion&amp;gt;
+                        &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt;
+                        &amp;lt;artifactId&amp;gt;spring&amp;lt;/artifactId&amp;gt;
+                    &amp;lt;/exclusion&amp;gt;
+                    &amp;lt;exclusion&amp;gt;
+                        &amp;lt;groupId&amp;gt;javax.servlet&amp;lt;/groupId&amp;gt;
+                        &amp;lt;artifactId&amp;gt;servlet-api&amp;lt;/artifactId&amp;gt;
+                    &amp;lt;/exclusion&amp;gt;
+                    &amp;lt;exclusion&amp;gt;
+                        &amp;lt;groupId&amp;gt;log4j&amp;lt;/groupId&amp;gt;
+                        &amp;lt;artifactId&amp;gt;log4j&amp;lt;/artifactId&amp;gt;
+                    &amp;lt;/exclusion&amp;gt;
+                &amp;lt;/exclusions&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;spring-boot-starter-test&amp;lt;/artifactId&amp;gt;
+                &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+        &amp;lt;/dependencies&amp;gt;
+    &amp;lt;/dependencyManagement&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;model模块&quot;&gt;model模块&lt;/h1&gt;
+
+&lt;p&gt;此模块处理数据库，生成entity和mapper&lt;/p&gt;
+
+&lt;h1 id=&quot;api模块&quot;&gt;api模块&lt;/h1&gt;
+
+&lt;p&gt;定义api接口&lt;/p&gt;
+
+&lt;h1 id=&quot;provider模块&quot;&gt;&lt;strong&gt;provider模块&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;实现api接口，创建启动类&lt;/p&gt;
+
+&lt;h1 id=&quot;consumer模块&quot;&gt;&lt;strong&gt;consumer模块&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;配置controller和启动类&lt;/p&gt;
+
+&lt;h1 id=&quot;gateway模块&quot;&gt;gateway模块&lt;/h1&gt;
+
+&lt;h1 id=&quot;common模块&quot;&gt;common模块&lt;/h1&gt;</content><author><name></name></author><category term="java-web" /><summary type="html">[toc]</summary></entry><entry><title type="html">热部署</title><link href="http://localhost:4000/_posts/2022-01-18-%E7%83%AD%E9%83%A8%E7%BD%B2/" rel="alternate" type="text/html" title="热部署" /><published>2022-01-18T00:00:00+08:00</published><updated>2022-01-18T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E7%83%AD%E9%83%A8%E7%BD%B2</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-18-%E7%83%AD%E9%83%A8%E7%BD%B2/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;！！！开发阶段启动！！！&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;devtools 添加到module里&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools --&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spring-boot-devtools&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.5.6&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加到聚合父类总工程pom&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;build&amp;gt;
+    &amp;lt;plugins&amp;gt;
+        &amp;lt;plugin&amp;gt;
+            &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;spring-boot-maven-plugin&amp;lt;artifactId&amp;gt;
+            &amp;lt;configuration&amp;gt;
+                &amp;lt;fork&amp;gt;true&amp;lt;/fork&amp;gt;
+                &amp;lt;addResources&amp;gt;true&amp;lt;/addResources&amp;gt;
+            &amp;lt;/configuration&amp;gt;
+        &amp;lt;/plugin&amp;gt;
+    &amp;lt;/plugins&amp;gt;
+&amp;lt;/build&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;启动IDEA自动编译&lt;/p&gt;</content><author><name></name></author><category term="java-web" /><summary type="html">[toc]</summary></entry></feed>
