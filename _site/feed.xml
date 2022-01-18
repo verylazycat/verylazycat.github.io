@@ -1,10 +1,528 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-18T13:00:09+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-18T14:05:17+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">title</title><link href="http://localhost:4000/_posts/2019-03-13-Hydra/" rel="alternate" type="text/html" title="title" /><published>2019-03-13T00:00:00+08:00</published><updated>2019-03-13T00:00:00+08:00</updated><id>http://localhost:4000/_posts/Hydra</id><content type="html" xml:base="http://localhost:4000/_posts/2019-03-13-Hydra/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">MyBatis-Plus</title><link href="http://localhost:4000/_posts/2022-01-18-MyBatis-Plus/" rel="alternate" type="text/html" title="MyBatis-Plus" /><published>2022-01-18T00:00:00+08:00</published><updated>2022-01-18T00:00:00+08:00</updated><id>http://localhost:4000/_posts/MyBatis-Plus</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-18-MyBatis-Plus/">&lt;p&gt;[toc]&lt;/p&gt;
 
-&lt;h1 id=&quot;xx&quot;&gt;xx&lt;/h1&gt;</content><author><name></name></author><category term="tag" /><summary type="html">[toc]</summary></entry></feed>
+&lt;blockquote&gt;
+  &lt;p&gt;https://baomidou.com/&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;代码生成&quot;&gt;代码生成&lt;/h1&gt;
+
+&lt;h2 id=&quot;添加依赖&quot;&gt;添加依赖&lt;/h2&gt;
+
+&lt;h3 id=&quot;基本依赖&quot;&gt;基本依赖&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.baomidou&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mybatis-plus-generator&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;3.4.1&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.baomidou&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mybatis-plus-boot-starter&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;3.2.0&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;模板引擎依赖&quot;&gt;模板引擎依赖&lt;/h3&gt;
+
+&lt;p&gt;选一个即可&lt;/p&gt;
+
+&lt;p&gt;Velocity（&lt;strong&gt;推荐默认&lt;/strong&gt;）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.apache.velocity&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;velocity-engine-core&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;latest-velocity-version&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Freemarker：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.freemarker&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;freemarker&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Beetl：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.ibeetl&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;beetl&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;latest-beetl-version&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;配置数据库&quot;&gt;配置数据库&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-yaml&quot;&gt;spring.datasource.username=xxx
+spring.datasource.password=xxx
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/xxx?useUnicode=true&amp;amp;useSSL=false&amp;amp;characterEncoding=utf8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;代码生成模板&quot;&gt;代码生成模板&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;按需要修改&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;生成代码后，可以修改Entity的注解，参考：&lt;/em&gt;&lt;/strong&gt;https://baomidou.com/guide/annotation.html#tablename&lt;/p&gt;
+
+&lt;p&gt;记得添加@MapperScan(“com.xxx.mapper”)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;package XXX
+
+import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.generator.AutoGenerator;
+import com.baomidou.mybatisplus.generator.InjectionConfig;
+import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+public class CodeGenerator {
+
+    /**
+     * &amp;lt;p&amp;gt;
+     * 读取控制台内容
+     * &amp;lt;/p&amp;gt;
+     */
+    public static String scanner(String tip) {
+        Scanner scanner = new Scanner(System.in);
+        StringBuilder help = new StringBuilder();
+        help.append(&quot;请输入&quot; + tip + &quot;：&quot;);
+        System.out.println(help.toString());
+        if (scanner.hasNext()) {
+            String ipt = scanner.next();
+            if (StringUtils.isNotBlank(ipt)) {
+                return ipt;
+            }
+        }
+        throw new MybatisPlusException(&quot;请输入正确的&quot; + tip + &quot;！&quot;);
+    }
+
+    public static void main(String[] args) {
+        // 代码生成器
+        AutoGenerator mpg = new AutoGenerator();
+
+        // 全局配置
+        GlobalConfig gc = new GlobalConfig();
+        String projectPath = System.getProperty(&quot;user.dir&quot;);
+        gc.setOutputDir(projectPath + &quot;/src/main/java&quot;);
+        gc.setAuthor(&quot;jobob&quot;);
+        gc.setOpen(false);
+        // gc.setSwagger2(true); 实体属性 Swagger2 注解
+        mpg.setGlobalConfig(gc);
+
+        // 数据源配置
+        DataSourceConfig dsc = new DataSourceConfig();
+        dsc.setUrl(&quot;jdbc:mysql://localhost:3306/ant?useUnicode=true&amp;amp;useSSL=false&amp;amp;characterEncoding=utf8&quot;);
+        // dsc.setSchemaName(&quot;public&quot;);
+        dsc.setDriverName(&quot;com.mysql.cj.jdbc.Driver&quot;);
+        dsc.setUsername(&quot;root&quot;);
+        dsc.setPassword(&quot;密码&quot;);
+        mpg.setDataSource(dsc);
+
+        // 包配置
+        PackageConfig pc = new PackageConfig();
+        pc.setModuleName(scanner(&quot;模块名&quot;));
+        pc.setParent(&quot;com.baomidou.ant&quot;);
+        mpg.setPackageInfo(pc);
+
+        // 自定义配置
+        InjectionConfig cfg = new InjectionConfig() {
+            @Override
+            public void initMap() {
+                // to do nothing
+            }
+        };
+
+        // 如果模板引擎是 freemarker
+        String templatePath = &quot;/templates/mapper.xml.ftl&quot;;
+        // 如果模板引擎是 velocity
+        // String templatePath = &quot;/templates/mapper.xml.vm&quot;;
+
+        // 自定义输出配置
+        List&amp;lt;FileOutConfig&amp;gt; focList = new ArrayList&amp;lt;&amp;gt;();
+        // 自定义配置会被优先输出
+        focList.add(new FileOutConfig(templatePath) {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
+                return projectPath + &quot;/src/main/resources/mapper/&quot; + pc.getModuleName()
+                        + &quot;/&quot; + tableInfo.getEntityName() + &quot;Mapper&quot; + StringPool.DOT_XML;
+            }
+        });
+        /*
+        cfg.setFileCreate(new IFileCreate() {
+            @Override
+            public boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath) {
+                // 判断自定义文件夹是否需要创建
+                checkDir(&quot;调用默认方法创建的目录，自定义目录用&quot;);
+                if (fileType == FileType.MAPPER) {
+                    // 已经生成 mapper 文件判断存在，不想重新生成返回 false
+                    return !new File(filePath).exists();
+                }
+                // 允许生成模板文件
+                return true;
+            }
+        });
+        */
+        cfg.setFileOutConfigList(focList);
+        mpg.setCfg(cfg);
+
+        // 配置模板
+        TemplateConfig templateConfig = new TemplateConfig();
+
+        // 配置自定义输出模板
+        //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
+        // templateConfig.setEntity(&quot;templates/entity2.java&quot;);
+        // templateConfig.setService();
+        // templateConfig.setController();
+
+        templateConfig.setXml(null);
+        mpg.setTemplate(templateConfig);
+
+        // 策略配置
+        StrategyConfig strategy = new StrategyConfig();
+        strategy.setNaming(NamingStrategy.underline_to_camel);
+        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+        strategy.setSuperEntityClass(&quot;你自己的父类实体,没有就不用设置!&quot;);
+        strategy.setEntityLombokModel(true);
+        strategy.setRestControllerStyle(true);
+        // 公共父类
+        strategy.setSuperControllerClass(&quot;你自己的父类控制器,没有就不用设置!&quot;);
+        // 写于父类中的公共字段
+        strategy.setSuperEntityColumns(&quot;id&quot;);
+        strategy.setInclude(scanner(&quot;表名，多个英文逗号分割&quot;).split(&quot;,&quot;));
+        strategy.setControllerMappingHyphenStyle(true);
+        strategy.setTablePrefix(pc.getModuleName() + &quot;_&quot;);
+        mpg.setStrategy(strategy);
+        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+        mpg.execute();
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;测试&quot;&gt;测试&lt;/h1&gt;
+
+&lt;h2 id=&quot;依赖&quot;&gt;依赖&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;dependency&amp;gt;
+  &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
+  &amp;lt;artifactId&amp;gt;spring-boot-starter-test&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;测试类&quot;&gt;测试类&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest
+public class test {
+    @Autowired
+    xxxxMapper xxxxMapper;
+    @Test
+    public void test1(){
+        ....
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;分页&quot;&gt;分页&lt;/h1&gt;
+
+&lt;h2 id=&quot;基本配置&quot;&gt;基本配置&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;//Spring boot方式
+@Configuration
+@MapperScan(&quot;com.baomidou.cloud.service.*.mapper*&quot;)
+public class MybatisPlusConfig {
+
+    // 旧版
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        // 设置请求的页面大于最大页后操作， true调回到首页，false 继续请求  默认false
+        // paginationInterceptor.setOverflow(false);
+        // 设置最大单页限制数量，默认 500 条，-1 不受限制
+        // paginationInterceptor.setLimit(500);
+        // 开启 count 的 join 优化,只针对部分 left join
+        paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
+        return paginationInterceptor;
+    }
+    
+    // 最新版
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.H2));
+        return interceptor;
+    }
+    
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;逻辑删除&quot;&gt;逻辑删除&lt;/h1&gt;
+
+&lt;h2 id=&quot;配置&quot;&gt;配置&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;application.yml:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: flag  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;mybatis-plus.global-config.db-config.logic-delete-value=1
+mybatis-plus.global-config.db-config.logic-not-delete-value=0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;激活&quot;&gt;激活&lt;/h2&gt;
+
+&lt;p&gt;实体加上@TableLogic注解&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@TableLogic
+private Integer deleted;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;自动填充&quot;&gt;自动填充&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;处理某些字段在某些情况下需要自动更新，比如更新时间，创建时间等字段&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;注解填充字段&quot;&gt;注解填充字段&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@TableField(fill = FieldFill.INSERT)
+private Date createTime;
+
+@TableField(fill = FieldFill.INSERT_UPDATE)
+private Date updateTime;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;自定义实现类metaobjecthandler&quot;&gt;自定义实现类MetaObjectHandler&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@Slf4j
+@Component
+public class MyMetaObjectHandler implements MetaObjectHandler {
+    @Override
+    public void insertFill(MetaObject metaObject) {
+        log.info(&quot;start insert fill ....&quot;);
+        this.strictInsertFill(metaObject, &quot;createTime&quot;, LocalDateTime.class, LocalDateTime.now()); // 起始版本 3.3.0(推荐使用)
+        // 或者
+        this.strictInsertFill(metaObject, &quot;createTime&quot;, () -&amp;gt; LocalDateTime.now(), LocalDateTime.class); // 起始版本 3.3.3(推荐)
+        // 或者
+        this.fillStrategy(metaObject, &quot;createTime&quot;, LocalDateTime.now()); // 也可以使用(3.3.0 该方法有bug)
+    }
+
+    @Override
+    public void updateFill(MetaObject metaObject) {
+        log.info(&quot;start update fill ....&quot;);
+        this.strictUpdateFill(metaObject, &quot;updateTime&quot;, LocalDateTime.class, LocalDateTime.now()); // 起始版本 3.3.0(推荐)
+        // 或者
+        this.strictUpdateFill(metaObject, &quot;updateTime&quot;, () -&amp;gt; LocalDateTime.now(), LocalDateTime.class); // 起始版本 3.3.3(推荐)
+        // 或者
+        this.fillStrategy(metaObject, &quot;updateTime&quot;, LocalDateTime.now()); // 也可以使用(3.3.0 该方法有bug)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@Override
+    public void insertFill(MetaObject metaObject) {
+        this.setFieldValByName(&quot;createTime&quot;,new Date(),metaObject);
+        this.setFieldValByName(&quot;updateTime&quot;,new Date(),metaObject);
+    }
+
+    @Override
+    public void updateFill(MetaObject metaObject) {
+        this.setFieldValByName(&quot;updateTime&quot;,new Date(),metaObject);
+    }
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="java-web" /><summary type="html">[toc]</summary></entry><entry><title type="html">MyBatis</title><link href="http://localhost:4000/_posts/2022-01-18-MyBatis/" rel="alternate" type="text/html" title="MyBatis" /><published>2022-01-18T00:00:00+08:00</published><updated>2022-01-18T00:00:00+08:00</updated><id>http://localhost:4000/_posts/MyBatis</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-18-MyBatis/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;什么是框架&quot;&gt;什么是框架&lt;/h1&gt;
+
+&lt;p&gt;把应用逻辑上分成3层，每一层有每一层的职责【像MVC】&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;界面层：接收用户的数据，将处理结果显示给用户（contorller    【xxxSerlvet类】）【在三层架构里controller是界面层】&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;业务逻辑层：服务层，处理业务逻辑的 调用Dao类的  (service【xxxService类】)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;数据访问层：持久层，Dao完成对数据的增删改查  (Dao【xxxDao类】)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;mybatis的概述&quot;&gt;MyBatis的概述&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;mybatis是一个持久层框架&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;它封装了jdbc的细节，是开发者只需要关注sql语句本身，而无需关注注册驱动，建立连接，关闭连接等繁杂思想&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;使用了ORM思想实现了对结果集的封装&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ORM :&lt;/p&gt;
+
+&lt;p&gt;Object Relational Mapping 对象结果映射&lt;/p&gt;
+
+&lt;p&gt;把数据库表和实体类的属性对应起来&lt;/p&gt;
+
+&lt;p&gt;让我们可以操作实体类就可以实现操作数据库表&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;实体类中的属性和数据库表中的字段名称保持一致&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;什么是mybatis框架&quot;&gt;什么是MyBatis框架&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;MyBatis是一个优秀的持久层框架，方便写SQL，不用在写JDBC
+数据持久化：将程序的数据在持久状态和瞬时转化的过程
+● 持久状态：放到数据库/硬盘里面，生活：冷藏，罐头
+● 瞬时状态：放到内存中【断电即失】
+持久层：
+Dao层，Service层，Controller层
+完成持久化工作的代码块&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MyBatis可以使用简单的XML或者注解来配置和映射原生类类型、接口、java的实体类&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;sql mapper : sql映射
+○ 把数据库表中的每一行记录    映射为一个java对象
+○ 操作这个对象，就相当于操作表中的数据&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;data access object (Dao)： 数据访问
+对数据库执行 增删改查&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;总结
+MyBatis是一个sql映射框架，提供了数据库的操作能力，增强的JDBC
+使用MyBatis框架开发，可以集中精神写sql语句，不用关心Connection..等创建和关闭&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;mybatis提供了哪些功能&quot;&gt;MyBatis提供了哪些功能&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;自动创建Connection，Statement，ResultSet的能力&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;自动执行sql语句的能力&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;自动循环sql，将结果转为List集合&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;自动关闭资源的能力。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;开发人员主要提供sql语句就行&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;使用教程&quot;&gt;使用教程&lt;/h1&gt;
+
+&lt;h2 id=&quot;依赖&quot;&gt;依赖&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;dependency&amp;gt;
+  &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt;
+  &amp;lt;artifactId&amp;gt;mybatis&amp;lt;/artifactId&amp;gt;
+  &amp;lt;version&amp;gt;3.5.4&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;创建实体类&quot;&gt;创建实体类&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-tex&quot;&gt;实体类属性和表中的字段一致
+实现Serializable接口【序列化接口】
+该重写的方法都重写了
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;创建该类的接口定义抽象方法&quot;&gt;创建该类的接口，定义抽象方法&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// 接口 操作User表
+public interface UserDao {
+    // 返回List集合  集合中保存的是User对象
+    List&amp;lt;User&amp;gt; getUser();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;创建主配置文件&quot;&gt;创建主配置文件&lt;/h2&gt;
+
+&lt;p&gt;在resources目录下创建 mybatis-config.xml文件&lt;/p&gt;
+
+&lt;p&gt;官网: https://mybatis.org/mybatis-3/zh/getting-started.html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&amp;gt;
+&amp;lt;!DOCTYPE configuration
+  PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
+  &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&amp;gt;
+&amp;lt;configuration&amp;gt;
+  &amp;lt;environments default=&quot;development&quot;&amp;gt;
+    &amp;lt;environment id=&quot;development&quot;&amp;gt;
+      &amp;lt;transactionManager type=&quot;JDBC&quot;/&amp;gt;
+      &amp;lt;dataSource type=&quot;POOLED&quot;&amp;gt;
+        &amp;lt;property name=&quot;driver&quot; value=&quot;${driver}&quot;/&amp;gt;
+        &amp;lt;property name=&quot;url&quot; value=&quot;${url}&quot;/&amp;gt;
+        &amp;lt;property name=&quot;username&quot; value=&quot;${username}&quot;/&amp;gt;
+        &amp;lt;property name=&quot;password&quot; value=&quot;${password}&quot;/&amp;gt;
+      &amp;lt;/dataSource&amp;gt;
+    &amp;lt;/environment&amp;gt;
+  &amp;lt;/environments&amp;gt;
+  &amp;lt;mappers&amp;gt;
+    &amp;lt;mapper resource=&quot;org/mybatis/example/BlogMapper.xml&quot;/&amp;gt;
+  &amp;lt;/mappers&amp;gt;
+&amp;lt;/configuration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;创建映射配置文件usermapperxml&quot;&gt;创建映射配置文件UserMapper.xml&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;!--namespace 填写具体的接口名 带包名--&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;!--id是接口中抽象方法的名称，不加()--&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;!--resultType是查询出来的结果封装到哪里--&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&amp;gt;
+&amp;lt;!DOCTYPE mapper
+  PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+  &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&amp;gt;
+&amp;lt;mapper namespace=&quot;org.mybatis.example.BlogMapper&quot;&amp;gt;
+  &amp;lt;select id=&quot;selectBlog&quot; resultType=&quot;Blog&quot;&amp;gt;
+    select * from Blog where id = #{id}
+  &amp;lt;/select&amp;gt;
+&amp;lt;/mapper&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;环境搭建的注意事项&quot;&gt;环境搭建的注意事项&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;在MyBatis中他把持久层的操作接口名称和映射文件也叫做：Mapper&lt;/li&gt;
+  &lt;li&gt;所以UserDao.java 这个接口和UserMapper.xml是一致的&lt;/li&gt;
+  &lt;li&gt;在IDEA创建目录的时候，他和包是不一样的
+○ 包:com.yixuexi.dao  三层结构
+○ 目录：com/yixuexi/dao 一层目录 【所以要分三次创建】&lt;/li&gt;
+  &lt;li&gt;MyBatis的映射配置文件 必须和dao结构的包结构相同
+○ 也就是说在resources文件夹下建出和dao同样的结构目录然后mapper放进去
+○ 为什么在resources里面搞Mapper？
+■ 因为 main–&amp;gt;java 目录下的xml文件不会被编译
+■ 在一定要用/&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;５. 映射文件的Mapper标签的namespace属性的取值必须是dao接口的全限定类名
+６. 映射配置文件的操作配置，id属性的取值必须是dao接口的方法名&lt;/p&gt;
+
+&lt;p&gt;当遵从了第以上的要求之后，在开发中就不需要再去写dao的实现类
+７. 映射配置文件的resultType=”com.yixuexi.entity.User” 是说 查询出来的结果封装到这个实体类中全类名&lt;/p&gt;</content><author><name></name></author><category term="java-web" /><summary type="html">[toc]</summary></entry></feed>
