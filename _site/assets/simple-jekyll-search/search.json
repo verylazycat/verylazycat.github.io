@@ -2,6 +2,15 @@
 [
   
     {
+      "title"    : "Dubbo服务注册与发现",
+      "category" : "",
+      "tags"     : "java-web",
+      "date"     : "2022-01-19 00:00:00 +0800",
+      
+      "url"      : "/_posts/2022-01-19-Dubbo%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/"
+    } ,
+  
+    {
       "title"    : "热部署",
       "category" : "",
       "tags"     : "java-web",

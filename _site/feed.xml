@@ -1,11 +1,229 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-18T18:59:51+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-19T12:49:20+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">MyBatis-Plus</title><link href="http://localhost:4000/_posts/2022-01-18-MyBatis-Plus/" rel="alternate" type="text/html" title="MyBatis-Plus" /><published>2022-01-18T00:00:00+08:00</published><updated>2022-01-18T00:00:00+08:00</updated><id>http://localhost:4000/_posts/MyBatis-Plus</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-18-MyBatis-Plus/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">Dubbo服务注册与发现</title><link href="http://localhost:4000/_posts/2022-01-19-Dubbo%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/" rel="alternate" type="text/html" title="Dubbo服务注册与发现" /><published>2022-01-19T00:00:00+08:00</published><updated>2022-01-19T00:00:00+08:00</updated><id>http://localhost:4000/_posts/Dubbo%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-19-Dubbo%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;p&gt;Dubbo Spring Cloud 基于 Spring Cloud Commons 抽象实现 Dubbo 服务注册与发现，无需添加任何外部化配置，就能轻松地桥接到所有原生 Spring Cloud 注册中心，包括：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Nacos&lt;/li&gt;
+  &lt;li&gt;Eureka&lt;/li&gt;
+  &lt;li&gt;Zookeeper&lt;/li&gt;
+  &lt;li&gt;Consul&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;依赖&quot;&gt;依赖&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.alibaba.cloud&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spring-cloud-starter-alibaba-nacos-discovery&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.alibaba.cloud&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spring-cloud-starter-dubbo&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;需要声明 &lt;strong&gt;com.alibaba.cloud:spring-cloud-alibaba-dependencies&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;定义-dubbo-服务接口&quot;&gt;定义 Dubbo 服务接口&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;第一个步骤是为服务提供者和服务消费者定义 Dubbo 服务接口。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;为了确保契约的一致性，推荐的做法是将 Dubbo 服务接口打包在第二方或者第三方的 artifact（jar）中，该 artifact 甚至无需添加任何依赖。对于服务提供方而言，不仅通过依赖 artifact 的形式引入 Dubbo 服务接口，而且需要将其实现。对应的服务消费端，同样地需要依赖该 artifact，并以接口调用的方式执行远程方法。接下来的步骤则是创建 artifact。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;定义artifact - dubbo-sample-api&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;通过 Maven 命令行工具构建 artifact dubbo-sample-api，如下所示：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;mvn archetype:generate -DgroupId=com.alibaba.cloud -DartifactId=dubbo-sample-api -Dversion=0.0.1-SNAPSHOT -DinteractiveMode=false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;命令执行后，名为“dubbo-sample-api” 的项目目录生成，切换至该目录，并使用 tree 命令（macOS 命令工具）预览器内部接口：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;% tree
+.
+├── pom.xml
+└── src
+    ├── main
+    │?? └── java
+    │??     └── com
+    │??         └── alibaba
+    │??             └── cloud
+    │??                 └── App.java
+    └── test
+        └── java
+            └── com
+                └── alibaba
+                    └── cloud
+                        └── AppTest.java
+
+11 directories, 3 files
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中，App.java 和 AppTest.java 文件并非需要文件，可将其删除。除此之外，当然最重要的是 pom.xml&lt;/p&gt;
+
+&lt;p&gt;Dubbo 服务接口是服务提供方与消费方的远程通讯契约，通常由普通的 Java 接口（interface）来声明，如&lt;code&gt;EchoService&lt;/code&gt;接口：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;package com.alibaba.cloud;
+
+public interface EchoService {
+    String echo(String message);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;部署 artifact - dubbo-sample-api&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;利用 Maven 命令， 将 dubbo-sample-api 部署到本地 Maven 仓库：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;% mvn clean install 
+...
+[INFO] BUILD SUCCESS
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;服务提供者&quot;&gt;服务提供者&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;依赖 artifact - dubbo-sample-api1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;将 artifact dubbo-sample-api 依赖信息添加到应用 dubbo-provider-sample 中的 pom.xml：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;!-- Dubbo 服务 artifact --&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.alibaba.cloud&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;dubbo-sample-api&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;0.0.1-SNAPSHOT&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;实现 Dubbo 服务&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在 应用 dubbo-provider-sample 中的 com.alibaba.cloud.dubboprovidersample 包下创建实现类：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class SimpleEchoService implements EchoService {
+
+    @Override
+    public String echo(String s) {
+        return &quot;[ECHO] &quot; + s;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;配置 Dubbo 服务提供方&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Dubbo 远程服务需要暴露网络端口，并设定通讯协议，完整的 bootstrap.yaml 配置如下所示：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-yaml&quot;&gt;dubbo:
+  scan:
+    # dubbo 服务扫描基准包
+    base-packages: org.springframework.cloud.alibaba.dubbo.bootstrap
+  protocol:
+    # dubbo 协议
+    name: dubbo
+    # dubbo 协议端口（ -1 表示自增端口，从 20880 开始）
+    port: -1
+  
+spring:
+  cloud:
+    nacos:
+      # Nacos 服务发现与注册配置
+      discovery:
+        server-addr: 127.0.0.1:8848
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;引导 Dubbo Spring Cloud 服务提供方应用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@EnableDiscoveryClient
+@SpringBootApplication
+public class DubboProviderSampleApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DubboProviderSampleApplication.class);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;服务消费方&quot;&gt;服务消费方&lt;/h1&gt;
+
+&lt;h2 id=&quot;依赖-artifact---dubbo-sample-api&quot;&gt;依赖 artifact - dubbo-sample-api&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;spring-boot-starter-actuator&amp;lt;/artifactId&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;spring-boot-starter-web&amp;lt;/artifactId&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;com.alibaba.cloud&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;spring-cloud-starter-alibaba-nacos-discovery&amp;lt;/artifactId&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;com.alibaba.cloud&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;spring-cloud-starter-dubbo&amp;lt;/artifactId&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+
+        &amp;lt;!-- Dubbo 服务 artifact --&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;com.alibaba.cloud&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;dubbo-sample-api&amp;lt;/artifactId&amp;gt;
+            &amp;lt;version&amp;gt;0.0.1-SNAPSHOT&amp;lt;/version&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;配置-dubbo-服务消费方&quot;&gt;配置 Dubbo 服务消费方&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-yaml&quot;&gt;dubbo:
+  cloud:
+    subscribed-services: dubbo-provider-sample
+    
+spring:
+  cloud:
+    nacos:
+      # Nacos 服务发现与注册配置
+      discovery:
+        server-addr: 127.0.0.1:8848
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;引导-dubbo-spring-cloud-服务消费方应用&quot;&gt;引导 Dubbo Spring Cloud 服务消费方应用&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@EnableDiscoveryClient
+@EnableAutoConfiguration
+@RestController
+public class DubboConsumerSampleApplication {
+
+    @Reference
+    private EchoService echoService;
+
+    @GetMapping(&quot;/echo&quot;)
+    public String echo(String message) {
+        return echoService.echo(message);
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(DubboConsumerSampleApplication.class);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><category term="java-web" /><summary type="html">[toc]</summary></entry><entry><title type="html">MyBatis-Plus</title><link href="http://localhost:4000/_posts/2022-01-18-MyBatis-Plus/" rel="alternate" type="text/html" title="MyBatis-Plus" /><published>2022-01-18T00:00:00+08:00</published><updated>2022-01-18T00:00:00+08:00</updated><id>http://localhost:4000/_posts/MyBatis-Plus</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-18-MyBatis-Plus/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;https://baomidou.com/&lt;/p&gt;
