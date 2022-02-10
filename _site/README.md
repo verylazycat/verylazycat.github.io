@@ -13,6 +13,7 @@
 
 -  E-mail:
   - **[outlook](mailto:verylazycat@outlook.com)**
+-  微信:serendipity_liuY
 
 <!-- slide -->
 

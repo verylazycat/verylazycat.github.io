@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-02-09T17:36:27+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-02-10T12:43:49+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
@@ -33,17 +33,20 @@
 &lt;h1 id=&quot;理财&quot;&gt;理财&lt;/h1&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;基金
-    &lt;ul&gt;
-      &lt;li&gt;投机打法&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;虚拟币
-    &lt;ul&gt;
-      &lt;li&gt;量化&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="随笔" /><summary type="html">[toc]</summary></entry><entry><title type="html">Dubbo服务注册与发现</title><link href="http://localhost:4000/_posts/2022-01-19-Dubbo%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/" rel="alternate" type="text/html" title="Dubbo服务注册与发现" /><published>2022-01-19T00:00:00+08:00</published><updated>2022-01-19T00:00:00+08:00</updated><id>http://localhost:4000/_posts/Dubbo%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-19-Dubbo%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/">&lt;p&gt;[toc]&lt;/p&gt;
+  &lt;li&gt;基金&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="随笔" /><summary type="html">[toc]</summary></entry><entry><title type="html">离开币圈</title><link href="http://localhost:4000/_posts/2022-01-30-%E7%A6%BB%E5%BC%80%E5%B8%81%E5%9C%88/" rel="alternate" type="text/html" title="离开币圈" /><published>2022-01-30T00:00:00+08:00</published><updated>2022-01-30T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E7%A6%BB%E5%BC%80%E5%B8%81%E5%9C%88</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-30-%E7%A6%BB%E5%BC%80%E5%B8%81%E5%9C%88/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;p&gt;可以参考知乎写的&lt;a href=&quot;https://www.zhihu.com/question/513224279/answer/2326134334&quot;&gt;文章&lt;/a&gt;（最高收益翻了480倍）&lt;/p&gt;
+
+&lt;p&gt;目前准备离开币圈，奉劝各位别碰！&lt;/p&gt;
+
+&lt;p&gt;以往写过一些策略，监控，如有需要，可在首页加我微信获取&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/Financeinvestment/coin.jpg&quot; alt=&quot;coin&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/Financeinvestment/coin1.jpg&quot; alt=&quot;coin1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/Financeinvestment/coinmonitoring.png&quot; alt=&quot;coinmonitoring&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="理财投资" /><summary type="html">[toc]</summary></entry><entry><title type="html">Dubbo服务注册与发现</title><link href="http://localhost:4000/_posts/2022-01-19-Dubbo%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/" rel="alternate" type="text/html" title="Dubbo服务注册与发现" /><published>2022-01-19T00:00:00+08:00</published><updated>2022-01-19T00:00:00+08:00</updated><id>http://localhost:4000/_posts/Dubbo%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-19-Dubbo%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;p&gt;Dubbo Spring Cloud 基于 Spring Cloud Commons 抽象实现 Dubbo 服务注册与发现，无需添加任何外部化配置，就能轻松地桥接到所有原生 Spring Cloud 注册中心，包括：&lt;/p&gt;
 
