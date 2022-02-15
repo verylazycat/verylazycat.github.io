@@ -1,11 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-02-10T12:43:49+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-02-15T19:27:49+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">lazycat</title><subtitle>lazycat&lt;br/&gt;
 &lt;a href=&quot;mailto:verylazycat@outlook.com&quot;&gt;
   &lt;i class=&quot;fas fa-envelope&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
 &lt;a href=&quot;https://github.com/verylazycat&quot;&gt;
   &lt;i class=&quot;fab fa-github&quot;&gt;&lt;/i&gt;
 &lt;/a&gt;
-</subtitle><entry><title type="html">2022计划</title><link href="http://localhost:4000/_posts/2022-01-30-2022%E8%AE%A1%E5%88%92/" rel="alternate" type="text/html" title="2022计划" /><published>2022-01-30T00:00:00+08:00</published><updated>2022-01-30T00:00:00+08:00</updated><id>http://localhost:4000/_posts/2022%E8%AE%A1%E5%88%92</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-30-2022%E8%AE%A1%E5%88%92/">&lt;p&gt;[toc]&lt;/p&gt;
+</subtitle><entry><title type="html">2022个人基金情况</title><link href="http://localhost:4000/_posts/2022-02-15-2022%E4%B8%AA%E4%BA%BA%E5%9F%BA%E9%87%91%E6%83%85%E5%86%B5/" rel="alternate" type="text/html" title="2022个人基金情况" /><published>2022-02-15T00:00:00+08:00</published><updated>2022-02-15T00:00:00+08:00</updated><id>http://localhost:4000/_posts/2022%E4%B8%AA%E4%BA%BA%E5%9F%BA%E9%87%91%E6%83%85%E5%86%B5</id><content type="html" xml:base="http://localhost:4000/_posts/2022-02-15-2022%E4%B8%AA%E4%BA%BA%E5%9F%BA%E9%87%91%E6%83%85%E5%86%B5/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;过往&quot;&gt;过往&lt;/h1&gt;
+
+&lt;p&gt;自2021年中全仓梭哈买入中信保诚中证800有色指数与中欧医疗健康混合A，期间最高赚了20%左右，后续大跌，没有逃走，收益全亏完，有色最高亏了10%左右，医疗20%，今天2月15日，医疗大涨，现有色亏损4.18%，医疗22.91%，持有不动。&lt;/p&gt;</content><author><name></name></author><category term="理财投资" /><summary type="html">[toc]</summary></entry><entry><title type="html">2022计划</title><link href="http://localhost:4000/_posts/2022-01-30-2022%E8%AE%A1%E5%88%92/" rel="alternate" type="text/html" title="2022计划" /><published>2022-01-30T00:00:00+08:00</published><updated>2022-01-30T00:00:00+08:00</updated><id>http://localhost:4000/_posts/2022%E8%AE%A1%E5%88%92</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-30-2022%E8%AE%A1%E5%88%92/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;h1 id=&quot;阅读&quot;&gt;阅读&lt;/h1&gt;
 
@@ -34,7 +38,9 @@
 
 &lt;ul&gt;
   &lt;li&gt;基金&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="随笔" /><summary type="html">[toc]</summary></entry><entry><title type="html">离开币圈</title><link href="http://localhost:4000/_posts/2022-01-30-%E7%A6%BB%E5%BC%80%E5%B8%81%E5%9C%88/" rel="alternate" type="text/html" title="离开币圈" /><published>2022-01-30T00:00:00+08:00</published><updated>2022-01-30T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E7%A6%BB%E5%BC%80%E5%B8%81%E5%9C%88</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-30-%E7%A6%BB%E5%BC%80%E5%B8%81%E5%9C%88/">&lt;p&gt;[toc]&lt;/p&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="随笔" /><summary type="html">[toc]</summary></entry><entry><title type="html">常用</title><link href="http://localhost:4000/_posts/2022-01-30-%E5%B8%B8%E7%94%A8/" rel="alternate" type="text/html" title="常用" /><published>2022-01-30T00:00:00+08:00</published><updated>2022-01-30T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E5%B8%B8%E7%94%A8</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-30-%E5%B8%B8%E7%94%A8/">&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&quot;网站&quot;&gt;网站&lt;/h1&gt;</content><author><name></name></author><category term="随笔" /><summary type="html">[toc]</summary></entry><entry><title type="html">离开币圈</title><link href="http://localhost:4000/_posts/2022-01-30-%E7%A6%BB%E5%BC%80%E5%B8%81%E5%9C%88/" rel="alternate" type="text/html" title="离开币圈" /><published>2022-01-30T00:00:00+08:00</published><updated>2022-01-30T00:00:00+08:00</updated><id>http://localhost:4000/_posts/%E7%A6%BB%E5%BC%80%E5%B8%81%E5%9C%88</id><content type="html" xml:base="http://localhost:4000/_posts/2022-01-30-%E7%A6%BB%E5%BC%80%E5%B8%81%E5%9C%88/">&lt;p&gt;[toc]&lt;/p&gt;
 
 &lt;p&gt;可以参考知乎写的&lt;a href=&quot;https://www.zhihu.com/question/513224279/answer/2326134334&quot;&gt;文章&lt;/a&gt;（最高收益翻了480倍）&lt;/p&gt;
 
