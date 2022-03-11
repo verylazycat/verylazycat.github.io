@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en"  class="" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Ly-core详细设计, ">
+    <meta name="description" content="Ly-core详细设计">
+    <meta name="generator" content="teedoc">
+    <meta name="theme" content="teedoc-plugin-theme-default">
+    
+    <meta name="markdown-generator" content="teedoc-plugin-markdown-parser">
+    
+    <script>
+MathJax = {"loader": {"load": ["output/svg"]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}, "svg": {"fontCache": "global"}};
+</script>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <link rel="stylesheet" href="/static/css/theme_default/prism.min.css" type="text/css"/>
+    
+    <link rel="stylesheet" href="/static/css/theme_default/viewer.min.css" type="text/css"/>
+    
+    <link rel="stylesheet" href="/static/css/theme_default/dark.css" type="text/css"/>
+    
+    <link rel="stylesheet" href="/static/css/theme_default/light.css" type="text/css"/>
+    
+    <script src="/static/js/theme_default/split.js"></script>
+    
+    <script src="/static/js/theme_default/jquery.min.js"></script>
+    
+    <script src="/static/js/theme_default/pre_main.js"></script>
+    
+    <link rel="stylesheet" href="/static/css/search/style.css" type="text/css"/>
+    
+    <link rel="stylesheet" href="/static/css/custom.css" type="text/css"/>
+    
+    <title>Ly-core详细设计 - Ly</title>
+    <script type="text/javascript">js_vars = {}</script>
+</head>
+<body class="type_doc">
+    <div id="navbar">
+        <div id="navbar_menu">
+            <a class="site_title" href="/">
+                
+                
+                    <h2>LY</h2>
+                
+        </a>
+            <a id="navbar_menu_btn"></a>
+        </div>
+        <div id="navbar_items">
+            <div>
+                <ul id="nav_left">
+<li class=""><a  href="/LY-frame/">LY-frame</a></li>
+<li class="active"><a  href="/LY-core/">LY-core</a></li>
+<li class=""><a  href="/LY-center/">LY-center</a></li>
+<li class=""><a  href="/LY-control/">LY-control</a></li>
+<li class=""><a  href="/LY-fronted/">LY-fronted</a></li>
+<li class=""><a  href="/LY-deployment/">LY-deployment</a></li>
+<li class=""><a  href="/LY-about/">LY-about</a></li>
+</ul>
+
+            </div>
+            <div>
+                <ul id="nav_right">
+</ul>
+
+                <ul class="nav_plugins"><li><a id="themes" class="light"></a></li></ul><ul class="nav_plugins"><li><a id="search"><span class="icon"></span><span class="placeholder">Search</span>
+                            <div id="search_hints">
+                                <span id="search_input_hint">Keywords separated by space</span>
+                                <span id="search_loading_hint">Loading, wait please ...</span>
+                                <span id="search_download_err_hint">Download error, please check network and refresh again</span>
+                                <span id="search_other_docs_result_hint">Result from other docs</span>
+                                <span id="search_curr_doc_result_hint">Result from current doc</span>
+                            </div></a></li></ul>
+            </div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <div id="sidebar_wrapper">
+            <div id="sidebar">
+                <div id="sidebar_title">
+                    
+                </div>
+                <ul class="show">
+<li class="active with_link"><a href="/LY-core/index.html"><span class="label">详细设计</span><span class=""></span></a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="article">
+            <div id="menu_wrapper">
+                <div id="menu">
+                </div>
+            </div>
+            <div id="content_wrapper">
+                <div id="content_body">
+                    <div id="article_head">
+                        <div id="article_title">
+                            <h1>Ly-core详细设计</h1>
+                        </div>
+                        <div id="article_tags">
+                            <ul>
+                            
+                            </ul>
+                        </div>
+                        <div id="article_info">
+                        <div id="article_info_left">
+                            <span class="article_author">
+                                
+                            </span>
+                            <span class="article_date">
+                                
+                            </span>
+                        </div>
+                        <div id="article_info_right">
+                            
+                        </div>
+                        </div>
+                    </div>
+                    <div id="article_content">
+                        <p>[toc]</p>
+<h2 id="%3Cstrong%3ELy-core%3Ca-href%3D%22./html/index.html%22%3E%E6%96%87%E6%A1%A3%3C/a%3E%3C/strong%3E"><strong>Ly-core<a href="./html/index.html">文档</a></strong></h2>
+<h2 id="%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD">核心功能</h2>
+<p><img src="img/LY-core.png" alt="LY-core"></p>
+<h2 id="%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E6%A6%82%E8%BF%B0">功能实现概述</h2>
+<p>在做安全检测时，<strong>大部分工作用于对配置文件的解析</strong>，在核心功能模块中，主要定义了<strong>两个静态函数</strong>去做配置文件的解析：</p>
+<ul>
+<li>KMPsearch</li>
+</ul>
+<pre><code class="lang-c++">bool Utils::KMPsearch(const string &amp;text,const string &amp;pattern){
+    int tLen = text.size();
+    int pLen = pattern.size();
+    int i = 0;
+    int j = 0;
+    while (i &lt; tLen &amp;&amp; j &lt; pLen){
+        if (text[i] == pattern[j]){
+            i++;
+            j++;
+        }else{
+            i = i - j + 1;
+            j = 0;
+        }
+    }
+    if (j == pLen)
+        return true;
+    else
+        return false;
+}
+</code></pre>
+<ul>
+<li>executeCMD</li>
+</ul>
+<pre><code class="lang-c++">void Utils::executeCMD(const char *cmd,char *res){
+    char buf_ps[10000];   
+    char ps[10000]={0};   
+    FILE *ptr;   
+    strcpy(ps, cmd);   
+    if((ptr=popen(ps, &quot;r&quot;))!=NULL){   
+        while(fgets(buf_ps, 10000, ptr)!=NULL){   
+           strcat(res, buf_ps);   
+           if(strlen(res)&gt;10000)   
+               break;   
+        }   
+        pclose(ptr);   
+        ptr = NULL;   
+    }   
+    else{   
+        spdlog::critical(&quot;popen {} error&quot;,ps);
+    }
+}
+</code></pre>
+<h2 id="%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E8%AF%A6%E7%BB%86">功能实现详细</h2>
+<h3 id="Accounting">Accounting</h3>
+<ul>
+<li>数据结构</li>
+</ul>
+<pre><code class="lang-c++">struct utsname sysuname;
+struct sysinfo info;
+</code></pre>
+<ul>
+<li>关键函数</li>
+</ul>
+<pre><code class="lang-text">uname - print system information
+sysinfo - return system information
+</code></pre>
+<hr>
+<h3 id="Auth">Auth</h3>
+<ul>
+<li>函数<ul>
+<li>CheckIsOnlyUser</li>
+<li>CheckNoPwUser<ul>
+<li>通过解析<strong>/etc/passwd</strong>文件实现</li>
+</ul>
+</li>
+<li>CheckUmask<ul>
+<li>调用<code>umask</code>函数实现</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Boot">Boot</h3>
+<ul>
+<li>函数<ul>
+<li>CheckGrubBootLoader<ul>
+<li>校验<strong>/boot/grub/grub.cfg</strong>是否是grub-mkconfig模板(MD5)</li>
+</ul>
+</li>
+<li>CheckAuthBoot<ul>
+<li>解析<strong>/boot/grub/grub.cfg</strong>文件</li>
+</ul>
+</li>
+<li>CheckCron<ul>
+<li>解析<strong>/etc/crontab</strong>文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Crypto">Crypto</h3>
+<ul>
+<li><p>函数</p>
+<ul>
+<li><p>CheckCerts</p>
+<ul>
+<li><p>读取<strong>/etc/ssl/certs</strong>目录所有文件，针对所有文件执行命令：</p>
+<pre><code class="lang-bash">string cmd = &quot;openssl x509 -in /etc/ssl/certs/&quot; + string(ptr-&gt;d_name)+&quot; -noout -enddate | awk &#39;{print $4}&#39;&quot;;
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Database">Database</h3>
+<ul>
+<li><p>函数</p>
+<ul>
+<li><p>CheckNullPass</p>
+<ul>
+<li>空密码登录</li>
+</ul>
+</li>
+<li><p>CheckDangerousCMD</p>
+<ul>
+<li>解析<strong>/etc/redis/redis.conf</strong>配置，高危配置：</li>
+</ul>
+<pre><code class="lang-tex">rename-command FLUSHALL
+rename-command CONFIG
+rename-command EVAL
+</code></pre>
+<ul>
+<li><p>CheckRedisPass</p>
+<ul>
+<li>解析<strong>/etc/redis/redis.conf</strong>是否配置了<code>requirepass</code>属性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>CheckIntranetAccess</p>
+<ul>
+<li>解析<strong>/etc/redis/redis.conf</strong>是否配置了<code>bind 127.0.0.1</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="FileIntegrity">FileIntegrity</h3>
+<ul>
+<li><p>函数：</p>
+<ul>
+<li><p>CheckNecessaryBlock</p>
+<ul>
+<li>执行命令：</li>
+</ul>
+<pre><code class="lang-bash">df -h /home
+df -h /tmp
+</code></pre>
+</li>
+<li><p>CheckSwap</p>
+<ul>
+<li>解析<strong>/etc/fstab</strong>是否配置了<code>/swapfile</code>属性</li>
+</ul>
+</li>
+<li><p>CheckTmp</p>
+<ul>
+<li>执行命令：</li>
+</ul>
+<pre><code class="lang-bash">find /tmp -type f
+</code></pre>
+</li>
+<li><p>CheckAIDE</p>
+<ul>
+<li>解析<strong>/etc/aide/aide.conf</strong>是否配置</li>
+</ul>
+</li>
+<li><p>TmpStickybit</p>
+<ul>
+<li>执行命令：</li>
+</ul>
+<pre><code class="lang-bash">ls -l -d /tmp | awk &#39;{print $1}&#39;
+</code></pre>
+<p>再校验输出</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Firewall">Firewall</h3>
+<ul>
+<li><p>函数</p>
+<ul>
+<li><p>GetIptabelse</p>
+<ul>
+<li>执行命令获取规则</li>
+</ul>
+<pre><code class="lang-bash">sudo iptables -L
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Framework">Framework</h3>
+<ul>
+<li><p>函数</p>
+<ul>
+<li><p>apparmor_status</p>
+<ul>
+<li>执行命令获取apparmor状态</li>
+</ul>
+<pre><code class="lang-bash">sudo apparmor_status
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Hardening">Hardening</h3>
+<ul>
+<li><p>函数</p>
+<ul>
+<li>CheckGCC<ul>
+<li>执行命令获取版本以及权限信息</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-bash">gcc --version | grep \&quot;gcc\&quot; | awk &#39;{print $4}&#39;
+ls -la /bin/gcc | awk &#39;{print $1}&#39;
+</code></pre>
+<ul>
+<li>CheckGPP<ul>
+<li>执行命令获取版本以及权限信息</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-bash">g++ --version | grep \&quot;g++\&quot; | awk &#39;{print $4}&#39;
+ls -la /bin/g++ | awk &#39;{print $1}&#39;
+</code></pre>
+<ul>
+<li>CheckCMAKE<ul>
+<li>执行命令获取版本以及权限信息</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-bash">cmake --version | head -n 1 | awk &#39;{print $3}&#39;
+ls -la /bin/cmake | awk &#39;{print $1}&#39;
+</code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="Kernel">Kernel</h3>
+<ul>
+<li><p>函数</p>
+<ul>
+<li>CheckPAE<ul>
+<li>解析<strong>/proc/cpuinfo</strong><code>pae</code>信息</li>
+</ul>
+</li>
+<li>CheckCoreDumpOK<ul>
+<li>执行命令检测</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-bash">ulimit -c
+</code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="Logging">Logging</h3>
+<ul>
+<li><p>函数</p>
+<ul>
+<li><p>AuditConfiguration</p>
+<ul>
+<li>解析<strong>/etc/rsyslog.conf</strong>配置</li>
+</ul>
+<pre><code class="lang-text">#input(type=\&quot;imudp\&quot; port=\&quot;514\&quot;)
+#input(type=\&quot;imtcp\&quot; port=\&quot;514\&quot;)
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Malware">Malware</h3>
+<ul>
+<li><p>函数</p>
+<ul>
+<li>UpdateDataBase<ul>
+<li>执行命令</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-text">sudo freshclam
+</code></pre>
+<ul>
+<li>FullScan<ul>
+<li>执行命令</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-bash">systemctl start clamav-freshclam
+clamscan -r -i --max-scansize=4000M --max-filesize=4000M /
+</code></pre>
+<ul>
+<li>BinScan<ul>
+<li>执行命令</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-bash">systemctl start clamav-freshclam
+clamscan -r -i --max-scansize=4000M --max-filesize=4000M /bin/
+</code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="Nameservers">Nameservers</h3>
+<ul>
+<li>函数<ul>
+<li>CheckDNS<ul>
+<li>解析<strong>/etc/resolv.conf</strong>是否匹配<code>nameserver 127.0.0.53</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="NetWorking">NetWorking</h3>
+<ul>
+<li><p>函数</p>
+<ul>
+<li>HostsParsing<ul>
+<li>解析<strong>/etc/hosts</strong></li>
+</ul>
+</li>
+<li>NicStatus<ul>
+<li>执行命令</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-bash">ifconfig
+</code></pre>
+<ul>
+<li>ss<ul>
+<li>执行命令</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-bash">ss -tan state syn-sent
+ss -tan state syn-recv
+ss -tan state listening
+ss -tan state established
+ss -tan state fin-wait-1
+ss -tan state close-wait
+ss -tan state fin-wait-2
+ss -tan state time-wait
+ss -tan state last-ack
+ss -tan state closing
+</code></pre>
+<ul>
+<li>arp<ul>
+<li>执行命令</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-bash">arp -vn
+</code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="Printing">Printing</h3>
+<ul>
+<li><p>函数</p>
+<ul>
+<li>CheckCUPSPermissions<ul>
+<li>执行命后校验权限</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-bash">ls -la /sbin/cupsfilter | awk &#39;{print $1}&#39;
+</code></pre>
+<ul>
+<li>CheckCUPSRemoteAccess<ul>
+<li>解析配置文件<strong>/etc/cups/cupsd.conf</strong>是否匹配<code>Listen localhost:631</code>和<code>WebInterface No</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Processes">Processes</h3>
+<ul>
+<li><p>函数</p>
+<ul>
+<li>RetrievingZombieProcesses<ul>
+<li>执行命令</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-bash">ps -A -ostat,ppid,pid,cmd | grep -e &#39;^[Zz]&#39; | awk &#39;{print $2}&#39;
+</code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="Squid">Squid</h3>
+<ul>
+<li><p>函数</p>
+<ul>
+<li>CheckSquidStatus<ul>
+<li>执行命令</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-bash">sudo systemctl status squid | grep -E \&quot;Active\&quot;
+sudo systemctl status squid | grep -E \&quot;PID\&quot;
+squid --version  | grep Version | awk &#39;{print $4}&#39;
+ls -la /etc/squid/squid.conf | awk &#39;{print$1}&#39;
+</code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="SSH">SSH</h3>
+<ul>
+<li><p>函数</p>
+<ul>
+<li>AuditSSHConfig<ul>
+<li>执行命令校验权限以及解析<strong>/etc/ssh/ssh_config</strong>配置<code>PasswordAuthentication</code></li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-bash">ls  -la /etc/ssh/ssh_config | awk &#39;{print $1}&#39;
+</code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="Web">Web</h3>
+<ul>
+<li>函数<ul>
+<li>CheckNginxSSL<ul>
+<li>解析<strong>/etc/nginx/nginx.conf</strong>是否配置<code>443 ssl</code></li>
+</ul>
+</li>
+<li>CheckNginxLog<ul>
+<li>解析<strong>/etc/nginx/nginx.conf</strong>是否配置<code>access_log</code>&amp;<code>error_log</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                    </div>
+                </div>
+                <div id="previous_next">
+                    <div id="previous">
+                        
+                    </div>
+                    <div id="next">
+                        
+                    </div>
+                </div>
+                <div id="comments-container"></div>
+            </div>
+            <div id="toc">
+                <div id="toc_content">
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+    <a id="to_top" href="#"></a>
+    <div id="doc_footer">
+        <div id="footer">
+            <div id="footer_top">
+                <ul>
+<li><a></a><ul><li><a target="_blank" href="/#"></a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <div id="footer_bottom">
+                <ul>
+<li><a target="_blank" href="/#">Generated by Ly & LXW</a></li>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    
+        <script src="/static/js/theme_default/tocbot.min.js"></script>
+    
+        <script src="/static/js/theme_default/main.js"></script>
+    
+        <script src="/static/js/theme_default/viewer.min.js"></script>
+    
+        <script src="/static/css/theme_default/prism.min.js"></script>
+    
+        <script src="/static/js/search/search_main.js"></script>
+    
+        <script src="/static/js/custom.js"></script>
+    
+        <script type="text/javascript" src="/static/js/live.js"></script>
+    
+</body>
+</html>

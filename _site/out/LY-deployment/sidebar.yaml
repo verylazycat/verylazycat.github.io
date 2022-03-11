@@ -1,0 +1,11 @@
+items:
+-   label: 部署
+    file: README.md
+-   label: 文档部署
+    file: document.md
+-   label: 核心部署
+    file: core.md
+-   label: 调度部署
+    file: control.md
+-   label: 前端部署
+    file: fronted.md
