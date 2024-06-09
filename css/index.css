@@ -211,6 +211,13 @@ template {
 }
 .fontawesomeIcon,
 .custom-hr:before,
+#article-container h1:before,
+#article-container h2:before,
+#article-container h3:before,
+#article-container h4:before,
+#article-container h5:before,
+#article-container h6:before,
+#article-container hr:before,
 #post .post-copyright:before,
 #post .post-outdate-notice:before,
 .note:not(.no-icon)::before,
@@ -333,6 +340,7 @@ template {
   transition: all 0.3s ease-out;
 }
 .custom-hr,
+#article-container hr,
 .search-dialog hr {
   position: relative;
   margin: 40px auto;
@@ -340,10 +348,12 @@ template {
   width: calc(100% - 4px);
 }
 .custom-hr:hover:before,
+#article-container hr:hover:before,
 .search-dialog hr:hover:before {
   left: calc(95% - 20px);
 }
 .custom-hr:before,
+#article-container hr:before,
 .search-dialog hr:before {
   position: absolute;
   top: -10px;
@@ -358,79 +368,6 @@ template {
   -o-transition: all 1s ease-in-out;
   -ms-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out;
-}
-#content-inner,
-#footer {
-  -webkit-animation: bottom-top 1s;
-  -moz-animation: bottom-top 1s;
-  -o-animation: bottom-top 1s;
-  -ms-animation: bottom-top 1s;
-  animation: bottom-top 1s;
-}
-#page-header:not(.full_page) {
-  -webkit-animation: header-effect 1s;
-  -moz-animation: header-effect 1s;
-  -o-animation: header-effect 1s;
-  -ms-animation: header-effect 1s;
-  animation: header-effect 1s;
-}
-#site-title,
-#site-subtitle {
-  -webkit-animation: titleScale 1s;
-  -moz-animation: titleScale 1s;
-  -o-animation: titleScale 1s;
-  -ms-animation: titleScale 1s;
-  animation: titleScale 1s;
-}
-#nav.show {
-  -webkit-animation: headerNoOpacity 1s;
-  -moz-animation: headerNoOpacity 1s;
-  -o-animation: headerNoOpacity 1s;
-  -ms-animation: headerNoOpacity 1s;
-  animation: headerNoOpacity 1s;
-}
-canvas:not(#ribbon-canvas),
-#web_bg {
-  -webkit-animation: to_show 4s;
-  -moz-animation: to_show 4s;
-  -o-animation: to_show 4s;
-  -ms-animation: to_show 4s;
-  animation: to_show 4s;
-}
-#ribbon-canvas {
-  -webkit-animation: ribbon_to_show 4s;
-  -moz-animation: ribbon_to_show 4s;
-  -o-animation: ribbon_to_show 4s;
-  -ms-animation: ribbon_to_show 4s;
-  animation: ribbon_to_show 4s;
-}
-#sidebar-menus.open > :nth-child(1) {
-  -webkit-animation: sidebarItem 0.2s;
-  -moz-animation: sidebarItem 0.2s;
-  -o-animation: sidebarItem 0.2s;
-  -ms-animation: sidebarItem 0.2s;
-  animation: sidebarItem 0.2s;
-}
-#sidebar-menus.open > :nth-child(2) {
-  -webkit-animation: sidebarItem 0.4s;
-  -moz-animation: sidebarItem 0.4s;
-  -o-animation: sidebarItem 0.4s;
-  -ms-animation: sidebarItem 0.4s;
-  animation: sidebarItem 0.4s;
-}
-#sidebar-menus.open > :nth-child(3) {
-  -webkit-animation: sidebarItem 0.6s;
-  -moz-animation: sidebarItem 0.6s;
-  -o-animation: sidebarItem 0.6s;
-  -ms-animation: sidebarItem 0.6s;
-  animation: sidebarItem 0.6s;
-}
-#sidebar-menus.open > :nth-child(4) {
-  -webkit-animation: sidebarItem 0.8s;
-  -moz-animation: sidebarItem 0.8s;
-  -o-animation: sidebarItem 0.8s;
-  -ms-animation: sidebarItem 0.8s;
-  animation: sidebarItem 0.8s;
 }
 .scroll-down-effects {
   -webkit-animation: scroll-down-effect 1.5s infinite;
@@ -4028,6 +3965,113 @@ h1.page-title + .tag-cloud-list {
 #article-container hr {
   margin: 20px 0;
 }
+#article-container h1,
+#article-container h2,
+#article-container h3,
+#article-container h4,
+#article-container h5,
+#article-container h6 {
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+#article-container h1:before,
+#article-container h2:before,
+#article-container h3:before,
+#article-container h4:before,
+#article-container h5:before,
+#article-container h6:before {
+  position: absolute;
+  top: calc(50% - 7px);
+  color: #f47466;
+  content: '\f0c1';
+  left: 0;
+  line-height: 1;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+#article-container h1:hover:before,
+#article-container h2:hover:before,
+#article-container h3:hover:before,
+#article-container h4:hover:before,
+#article-container h5:hover:before,
+#article-container h6:hover:before {
+  color: #49b1f5;
+}
+#article-container h1 {
+  padding-left: 28px;
+}
+#article-container h1:before {
+  font-size: 18px;
+}
+#article-container h1:hover {
+  padding-left: 32px;
+}
+#article-container h2 {
+  padding-left: 26px;
+}
+#article-container h2:before {
+  font-size: 16px;
+}
+#article-container h2:hover {
+  padding-left: 30px;
+}
+#article-container h3 {
+  padding-left: 24px;
+}
+#article-container h3:before {
+  font-size: 14px;
+}
+#article-container h3:hover {
+  padding-left: 28px;
+}
+#article-container h4 {
+  padding-left: 22px;
+}
+#article-container h4:before {
+  font-size: 12px;
+}
+#article-container h4:hover {
+  padding-left: 26px;
+}
+#article-container h5 {
+  padding-left: 20px;
+}
+#article-container h5:before {
+  font-size: 10px;
+}
+#article-container h5:hover {
+  padding-left: 24px;
+}
+#article-container h6 {
+  padding-left: 20px;
+}
+#article-container h6:before {
+  font-size: 10px;
+}
+#article-container h6:hover {
+  padding-left: 24px;
+}
+#article-container ol p,
+#article-container ul p {
+  margin: 0 0 8px;
+}
+#article-container li::marker {
+  color: #49b1f5;
+  font-weight: 600;
+  font-size: 1.05em;
+}
+#article-container li:hover::marker {
+  color: var(--pseudo-hover);
+}
+#article-container ul > li {
+  list-style-type: circle;
+}
 #post .tag_share:after {
   display: block;
   clear: both;
@@ -4542,6 +4586,20 @@ mjx-assistive-mml {
 }
 #article-container .aplayer {
   margin: 0 0 20px;
+}
+#article-container .aplayer ol,
+#article-container .aplayer ul {
+  margin: 0;
+  padding: 0;
+}
+#article-container .aplayer ol li,
+#article-container .aplayer ul li {
+  margin: 0;
+  padding: 0 15px;
+}
+#article-container .aplayer ol li:before,
+#article-container .aplayer ul li:before {
+  content: none;
 }
 .snackbar-css {
   border-radius: 5px !important;
