@@ -1,47 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Forex Wiki Green EA</title>
-    <url>/2024/06/07/Forex%20Wiki%20Green%20EA/</url>
-    <content><![CDATA[<h2 id="Forex-Wiki-Green-EA-Introduction"><a href="#Forex-Wiki-Green-EA-Introduction" class="headerlink" title="Forex Wiki Green EA Introduction"></a>Forex Wiki Green EA Introduction</h2><p>Hello,</p>
-<p>As a seasoned group of Forex traders with extensive experience spanning over ten years, we are well-versed in the intricacies and hurdles inherent to the foreign exchange market. Our team has been keeping a close watch on the software market trends for more than a decade, and we are committed to sharing new Forex tools with our Forex Wiki community to enhance their understanding of these tools’ functionalities.</p>
-<p>Our research and development lab has meticulously examined numerous trading strategies. We owe our gratitude to our site’s administrator, a Doctor of Artificial Intelligence, whose expertise has propelled our development efforts to new heights. We have successfully achieved a remarkable 91% accuracy rate in pinpointing entry points, marking a significant advancement in our field.</p>
-<p>However, the complexity of Forex trading extends beyond merely identifying entry points. The market’s swift and often unpredictable movements can swiftly alter trends, complicating the task of setting fixed Take Profit (TP) and Stop Loss (SL) levels.</p>
-<p>This is where our pioneering approach, integrating AI-based martingale management, steps in. We have crafted an advanced training system that employs a novel martingale technique, diverging from the traditional method that solely relies on multiplication. Our system is refined with over 100 real-world parameters derived directly from the market to adeptly handle the martingale process.</p>
-<p>Our AI-driven martingale management system is a revolutionary tool in the Forex trading landscape. It facilitates efficient order management and mitigates the risks inherent in conventional martingale strategies. By harnessing this system, we can optimize our trading strategies and amplify our earnings.</p>
-<p>For those who aspire to elevate their Forex trading prowess, we highly recommend exploring our AI-based martingale management system. Reach out to us now to discover how this innovative system can assist you in realizing your Forex trading ambitions.</p>
-<h2 id="Forex-Wiki-Green-EA-Review"><a href="#Forex-Wiki-Green-EA-Review" class="headerlink" title="Forex Wiki Green EA Review"></a>Forex Wiki Green EA Review</h2><p>The Forex Wiki Green EA is an autonomous, trend-following trading system that is tailored for the EURUSD currency pair, operating within the H1 Time Frame.</p>
-<p>This system is underpinned by a sophisticated and advanced martingale approach, which entails escalating the trade size subsequent to a loss, with the aim of recouping the losses and securing a profit. Although this tactic has the potential to result in substantial drawdowns, the EA has demonstrated its capability to yield reliable profits over an extended period.</p>
-<h3 id="Technical-Specifications"><a href="#Technical-Specifications" class="headerlink" title="Technical Specifications"></a>Technical Specifications</h3><ul>
-<li>**Version: **1.36</li>
-<li><strong>Year of issue: 2024</strong></li>
-<li><strong>Working pairs: EURUSD</strong></li>
-<li><strong>Recommended timeframe: H1</strong></li>
-<li><strong>Minimum Deposit: !</strong></li>
-<li><strong>Average of account: 1:30 To 1:1000</strong></li>
+    <title>Fx Evolution Stratigie EA</title>
+    <url>/2024/06/11/Fx%20Evolution%20Stratigie%20EA/</url>
+    <content><![CDATA[<h1 id="Fx-Evolution-Stratigie-EA-MT5-Description"><a href="#Fx-Evolution-Stratigie-EA-MT5-Description" class="headerlink" title="Fx Evolution Stratigie EA MT5 Description"></a><strong>Fx Evolution Stratigie EA MT5 Description</strong></h1><p>This organic assessment aims to approximate a feasible manual trade approach.<br>The EA’s design and methodology enable it to manage your account effectively, without encountering significant difficulties.<br>It is a master advisor for long-term vision, not a short-term trader.<br>The EA can hold back for more than seven days, patiently waiting for the perfect opportunity.<br>However, it can maintain open positions for several days or weeks to enhance drawdown (DD) and profits.<br>The profit aspect of this ecological assessment is excellent, as is its recovery and risk element.</p>
+<p>This system integrates over eight indicators and filters.<br>The EA is multidisciplinary, operating simultaneously on 28 pairs.<br>It functions with all brokers, regardless of quote, execution speed, fees, spread, etc.</p>
+<p>Benefits include:</p>
+<ul>
+<li>Trading on 28 pairs concurrently</li>
+<li>No need for any adjustments (the set files are provided)</li>
+<li>Operates in both bullish and bearish markets</li>
+<li>It remains unexposed to market conditions</li>
+<li>It enhances profits and limits drawdown due to numerous markers and options: Trailing Stop Loss, indicator-based closing, by Stop Loss, hourly, by profit, by initial distance, etc.</li>
+<li>An innovative news filter with pre and post schedules for news events, as well as independent hours for key news like FOMC, ECB, Fed…<br>Since the update, there is also a specific news filter for nighttime news.</li>
+<li>Multiple capital safeguards, based on percentage, equity, etc.</li>
+<li>Risk Capital Management</li>
 </ul>
-<p><strong>In order to use this EA, a minimum balance of $3000 is required for leverage 1:500, $4000 for leverage 1:200, and $5000 for leverage 1:100.</strong></p>
-<h2 id="Best-Brokers-List"><a href="#Best-Brokers-List" class="headerlink" title="Best Brokers List"></a><del>Best Brokers List</del></h2><h2 id="Forex-Wiki-Green-EA-Strategy"><a href="#Forex-Wiki-Green-EA-Strategy" class="headerlink" title="Forex Wiki Green EA Strategy"></a>Forex Wiki Green EA Strategy</h2><p>The EA deploys a strategy that places trades in alignment with the prevailing market trend, initiating orders only after a price correction has taken place. Should the price correction move counter to the market trend, the EA will activate its martingale strategy to expedite the attainment of the profit target.</p>
-<p>Should the situation arise where an existing order has not achieved the profit target and there is a shift in the market trend, the EA will engage in hedging as a precautionary measure to safeguard the investment. Upon reaching the profit target for both purchase and sale orders, the EA will terminate all orders. Moreover, if all active orders incur a loss reaching up to 5% of the equity, the EA will close all orders to ensure the preservation of funds. Subsequently, the EA will seek out new opportunities and execute orders at the next feasible juncture.</p>
-<h2 id="Forex-Wiki-Green-EA-Setting"><a href="#Forex-Wiki-Green-EA-Setting" class="headerlink" title="Forex Wiki Green EA Setting"></a>Forex Wiki Green EA Setting</h2><p><strong>The EA includes various settings and parameters for lot size, risk, profit targets, and hidden stop loss, as well as buttons for closing orders and filter trades.</strong></p>
-<p><img src="/data/ForexWikiGreenEA/setting.png" alt="setting"></p>
-<p>One of the unique features of Forex Wiki Green EA is the inclusion of more than 10 indicators inside, which are commonly used in technical analysis to identify trends and support&#x2F;resistance levels.</p>
-<p>These indicators enable the EA to follow the market trend and identify opportunities for profitable trades.</p>
-<p>The EA places an order according to the direction of the market trend and places additional positions on floating negative conditions to accelerate reaching the profit target. If the profit target has not been reached and the market trend has changed, the EA will start opening trades in the opposite direction and will close all trades when the profit target has been reached.</p>
-<h2 id="Forex-Wiki-Green-EA-Results"><a href="#Forex-Wiki-Green-EA-Results" class="headerlink" title="Forex Wiki Green EA Results"></a>Forex Wiki Green EA Results</h2><p>The training dataset used to develop this EA contains only historical data of the EURUSD pair.</p>
-<p>To validate the EA, we tried a lot of settings in EURUSD H1, and it was not too complicated, and it was quick to achieve the results below when tested between 2021 and 2023.</p>
-<p><img src="/data/ForexWikiGreenEA/Results1.png" alt="Results1"></p>
-<p><strong>To ensure the real performance of this robot, it has been deployed for 3 years from the end of 2020 until now. The results speak for themselves, and we are confident in the effectiveness of this trading Robot</strong></p>
-<p><img src="/data/ForexWikiGreenEA/Results3.png" alt="Results3"></p>
-<p><img src="/data/ForexWikiGreenEA/results2.png" alt="results2"></p>
-<p><img src="/data/ForexWikiGreenEA/Results5.png" alt="Results5"></p>
-<p><img src="/data/ForexWikiGreenEA/Results4.png" alt="Results4"></p>
-<p><img src="/data/ForexWikiGreenEA/Results6.png" alt="Results6"></p>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p><strong>The Forex Wiki Green EA stands out as a dependable and potent automated trading solution, designed to assist traders in attaining lucrative outcomes within the forex market. Boasting a range of customizable options and distinctive attributes, this trading robot equips traders with the adaptability and command essential for thriving in this fiercely competitive field. Despite the potential for significant drawdowns associated with the martingale strategy, the EA has consistently proven its mettle in delivering steady profits over an extended period.</strong></p>
-<h2 id="Forex-Wiki-Green-EA-Download"><a href="#Forex-Wiki-Green-EA-Download" class="headerlink" title="Forex Wiki Green EA Download"></a><strong>Forex Wiki Green EA Download</strong></h2><p><a href="/data/ForexWikiGreenEA/Forex-Wiki-Green-EA_V1.36.zip" download>click to download</a></p>
+<h1 id="Fx-Evolution-Stratigie-EA-MT5-Settings"><a href="#Fx-Evolution-Stratigie-EA-MT5-Settings" class="headerlink" title="Fx Evolution Stratigie EA MT5 Settings"></a><strong>Fx Evolution Stratigie EA MT5 Settings</strong></h1><p><img src="/data/FxEvolutionStratigieEA/Snipaste_2024-06-11_14-09-00.png" alt="Snipaste_2024-06-11_14-09-00"></p>
+<h1 id="Fx-Evolution-Stratigie-EA-MT5-Results"><a href="#Fx-Evolution-Stratigie-EA-MT5-Results" class="headerlink" title="Fx Evolution Stratigie EA MT5 Results"></a><strong>Fx Evolution Stratigie EA MT5 Results</strong></h1><p><img src="/data/FxEvolutionStratigieEA/Snipaste_2024-06-11_14-10-01.png" alt="Snipaste_2024-06-11_14-10-01"></p>
+<h2 id="Download-Multi-TimeFrame-EA"><a href="#Download-Multi-TimeFrame-EA" class="headerlink" title="Download Multi TimeFrame EA"></a>Download Multi TimeFrame EA</h2><blockquote>
+<p><strong>Installation: drop the file missing32.dll into the root directory of the terminal MT4 ( terminal.exe) Then restart the it.</strong></p>
+<p><strong>password:123456</strong></p>
+</blockquote>
+<p><a href="/data/FxEvolutionStratigieEA/Evolution-MT5-EA.zip" download>click to download</a></p>
 ]]></content>
       <categories>
-        <category>Expert_MT4</category>
+        <category>Expert_MT5</category>
       </categories>
       <tags>
         <tag>Expert</tag>
@@ -101,31 +85,47 @@
       </tags>
   </entry>
   <entry>
-    <title>Fx Evolution Stratigie EA</title>
-    <url>/2024/06/11/Fx%20Evolution%20Stratigie%20EA/</url>
-    <content><![CDATA[<h1 id="Fx-Evolution-Stratigie-EA-MT5-Description"><a href="#Fx-Evolution-Stratigie-EA-MT5-Description" class="headerlink" title="Fx Evolution Stratigie EA MT5 Description"></a><strong>Fx Evolution Stratigie EA MT5 Description</strong></h1><p>This organic assessment aims to approximate a feasible manual trade approach.<br>The EA’s design and methodology enable it to manage your account effectively, without encountering significant difficulties.<br>It is a master advisor for long-term vision, not a short-term trader.<br>The EA can hold back for more than seven days, patiently waiting for the perfect opportunity.<br>However, it can maintain open positions for several days or weeks to enhance drawdown (DD) and profits.<br>The profit aspect of this ecological assessment is excellent, as is its recovery and risk element.</p>
-<p>This system integrates over eight indicators and filters.<br>The EA is multidisciplinary, operating simultaneously on 28 pairs.<br>It functions with all brokers, regardless of quote, execution speed, fees, spread, etc.</p>
-<p>Benefits include:</p>
-<ul>
-<li>Trading on 28 pairs concurrently</li>
-<li>No need for any adjustments (the set files are provided)</li>
-<li>Operates in both bullish and bearish markets</li>
-<li>It remains unexposed to market conditions</li>
-<li>It enhances profits and limits drawdown due to numerous markers and options: Trailing Stop Loss, indicator-based closing, by Stop Loss, hourly, by profit, by initial distance, etc.</li>
-<li>An innovative news filter with pre and post schedules for news events, as well as independent hours for key news like FOMC, ECB, Fed…<br>Since the update, there is also a specific news filter for nighttime news.</li>
-<li>Multiple capital safeguards, based on percentage, equity, etc.</li>
-<li>Risk Capital Management</li>
+    <title>Forex Wiki Green EA</title>
+    <url>/2024/06/07/Forex%20Wiki%20Green%20EA/</url>
+    <content><![CDATA[<h2 id="Forex-Wiki-Green-EA-Introduction"><a href="#Forex-Wiki-Green-EA-Introduction" class="headerlink" title="Forex Wiki Green EA Introduction"></a>Forex Wiki Green EA Introduction</h2><p>Hello,</p>
+<p>As a seasoned group of Forex traders with extensive experience spanning over ten years, we are well-versed in the intricacies and hurdles inherent to the foreign exchange market. Our team has been keeping a close watch on the software market trends for more than a decade, and we are committed to sharing new Forex tools with our Forex Wiki community to enhance their understanding of these tools’ functionalities.</p>
+<p>Our research and development lab has meticulously examined numerous trading strategies. We owe our gratitude to our site’s administrator, a Doctor of Artificial Intelligence, whose expertise has propelled our development efforts to new heights. We have successfully achieved a remarkable 91% accuracy rate in pinpointing entry points, marking a significant advancement in our field.</p>
+<p>However, the complexity of Forex trading extends beyond merely identifying entry points. The market’s swift and often unpredictable movements can swiftly alter trends, complicating the task of setting fixed Take Profit (TP) and Stop Loss (SL) levels.</p>
+<p>This is where our pioneering approach, integrating AI-based martingale management, steps in. We have crafted an advanced training system that employs a novel martingale technique, diverging from the traditional method that solely relies on multiplication. Our system is refined with over 100 real-world parameters derived directly from the market to adeptly handle the martingale process.</p>
+<p>Our AI-driven martingale management system is a revolutionary tool in the Forex trading landscape. It facilitates efficient order management and mitigates the risks inherent in conventional martingale strategies. By harnessing this system, we can optimize our trading strategies and amplify our earnings.</p>
+<p>For those who aspire to elevate their Forex trading prowess, we highly recommend exploring our AI-based martingale management system. Reach out to us now to discover how this innovative system can assist you in realizing your Forex trading ambitions.</p>
+<h2 id="Forex-Wiki-Green-EA-Review"><a href="#Forex-Wiki-Green-EA-Review" class="headerlink" title="Forex Wiki Green EA Review"></a>Forex Wiki Green EA Review</h2><p>The Forex Wiki Green EA is an autonomous, trend-following trading system that is tailored for the EURUSD currency pair, operating within the H1 Time Frame.</p>
+<p>This system is underpinned by a sophisticated and advanced martingale approach, which entails escalating the trade size subsequent to a loss, with the aim of recouping the losses and securing a profit. Although this tactic has the potential to result in substantial drawdowns, the EA has demonstrated its capability to yield reliable profits over an extended period.</p>
+<h3 id="Technical-Specifications"><a href="#Technical-Specifications" class="headerlink" title="Technical Specifications"></a>Technical Specifications</h3><ul>
+<li>**Version: **1.36</li>
+<li><strong>Year of issue: 2024</strong></li>
+<li><strong>Working pairs: EURUSD</strong></li>
+<li><strong>Recommended timeframe: H1</strong></li>
+<li><strong>Minimum Deposit: !</strong></li>
+<li><strong>Average of account: 1:30 To 1:1000</strong></li>
 </ul>
-<h1 id="Fx-Evolution-Stratigie-EA-MT5-Settings"><a href="#Fx-Evolution-Stratigie-EA-MT5-Settings" class="headerlink" title="Fx Evolution Stratigie EA MT5 Settings"></a><strong>Fx Evolution Stratigie EA MT5 Settings</strong></h1><p><img src="/data/FxEvolutionStratigieEA/Snipaste_2024-06-11_14-09-00.png" alt="Snipaste_2024-06-11_14-09-00"></p>
-<h1 id="Fx-Evolution-Stratigie-EA-MT5-Results"><a href="#Fx-Evolution-Stratigie-EA-MT5-Results" class="headerlink" title="Fx Evolution Stratigie EA MT5 Results"></a><strong>Fx Evolution Stratigie EA MT5 Results</strong></h1><p><img src="/data/FxEvolutionStratigieEA/Snipaste_2024-06-11_14-10-01.png" alt="Snipaste_2024-06-11_14-10-01"></p>
-<h2 id="Download-Multi-TimeFrame-EA"><a href="#Download-Multi-TimeFrame-EA" class="headerlink" title="Download Multi TimeFrame EA"></a>Download Multi TimeFrame EA</h2><blockquote>
-<p><strong>Installation: drop the file missing32.dll into the root directory of the terminal MT4 ( terminal.exe) Then restart the it.</strong></p>
-<p><strong>password:123456</strong></p>
-</blockquote>
-<p><a href="/data/FxEvolutionStratigieEA/Evolution-MT5-EA.zip" download>click to download</a></p>
+<p><strong>In order to use this EA, a minimum balance of $3000 is required for leverage 1:500, $4000 for leverage 1:200, and $5000 for leverage 1:100.</strong></p>
+<h2 id="Best-Brokers-List"><a href="#Best-Brokers-List" class="headerlink" title="Best Brokers List"></a><del>Best Brokers List</del></h2><h2 id="Forex-Wiki-Green-EA-Strategy"><a href="#Forex-Wiki-Green-EA-Strategy" class="headerlink" title="Forex Wiki Green EA Strategy"></a>Forex Wiki Green EA Strategy</h2><p>The EA deploys a strategy that places trades in alignment with the prevailing market trend, initiating orders only after a price correction has taken place. Should the price correction move counter to the market trend, the EA will activate its martingale strategy to expedite the attainment of the profit target.</p>
+<p>Should the situation arise where an existing order has not achieved the profit target and there is a shift in the market trend, the EA will engage in hedging as a precautionary measure to safeguard the investment. Upon reaching the profit target for both purchase and sale orders, the EA will terminate all orders. Moreover, if all active orders incur a loss reaching up to 5% of the equity, the EA will close all orders to ensure the preservation of funds. Subsequently, the EA will seek out new opportunities and execute orders at the next feasible juncture.</p>
+<h2 id="Forex-Wiki-Green-EA-Setting"><a href="#Forex-Wiki-Green-EA-Setting" class="headerlink" title="Forex Wiki Green EA Setting"></a>Forex Wiki Green EA Setting</h2><p><strong>The EA includes various settings and parameters for lot size, risk, profit targets, and hidden stop loss, as well as buttons for closing orders and filter trades.</strong></p>
+<p><img src="/data/ForexWikiGreenEA/setting.png" alt="setting"></p>
+<p>One of the unique features of Forex Wiki Green EA is the inclusion of more than 10 indicators inside, which are commonly used in technical analysis to identify trends and support&#x2F;resistance levels.</p>
+<p>These indicators enable the EA to follow the market trend and identify opportunities for profitable trades.</p>
+<p>The EA places an order according to the direction of the market trend and places additional positions on floating negative conditions to accelerate reaching the profit target. If the profit target has not been reached and the market trend has changed, the EA will start opening trades in the opposite direction and will close all trades when the profit target has been reached.</p>
+<h2 id="Forex-Wiki-Green-EA-Results"><a href="#Forex-Wiki-Green-EA-Results" class="headerlink" title="Forex Wiki Green EA Results"></a>Forex Wiki Green EA Results</h2><p>The training dataset used to develop this EA contains only historical data of the EURUSD pair.</p>
+<p>To validate the EA, we tried a lot of settings in EURUSD H1, and it was not too complicated, and it was quick to achieve the results below when tested between 2021 and 2023.</p>
+<p><img src="/data/ForexWikiGreenEA/Results1.png" alt="Results1"></p>
+<p><strong>To ensure the real performance of this robot, it has been deployed for 3 years from the end of 2020 until now. The results speak for themselves, and we are confident in the effectiveness of this trading Robot</strong></p>
+<p><img src="/data/ForexWikiGreenEA/Results3.png" alt="Results3"></p>
+<p><img src="/data/ForexWikiGreenEA/results2.png" alt="results2"></p>
+<p><img src="/data/ForexWikiGreenEA/Results5.png" alt="Results5"></p>
+<p><img src="/data/ForexWikiGreenEA/Results4.png" alt="Results4"></p>
+<p><img src="/data/ForexWikiGreenEA/Results6.png" alt="Results6"></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p><strong>The Forex Wiki Green EA stands out as a dependable and potent automated trading solution, designed to assist traders in attaining lucrative outcomes within the forex market. Boasting a range of customizable options and distinctive attributes, this trading robot equips traders with the adaptability and command essential for thriving in this fiercely competitive field. Despite the potential for significant drawdowns associated with the martingale strategy, the EA has consistently proven its mettle in delivering steady profits over an extended period.</strong></p>
+<h2 id="Forex-Wiki-Green-EA-Download"><a href="#Forex-Wiki-Green-EA-Download" class="headerlink" title="Forex Wiki Green EA Download"></a><strong>Forex Wiki Green EA Download</strong></h2><p><a href="/data/ForexWikiGreenEA/Forex-Wiki-Green-EA_V1.36.zip" download>click to download</a></p>
 ]]></content>
       <categories>
-        <category>Expert_MT5</category>
+        <category>Expert_MT4</category>
       </categories>
       <tags>
         <tag>Expert</tag>
