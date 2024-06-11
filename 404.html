@@ -37,7 +37,7 @@
     rightside: true,
   },
   autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE={title:"Page Not Found",isPost:!1,isHome:!1,isHighlightShrink:!1,isToc:!1,postUpdate:"2024-06-11 10:28:40"}</script><script>(win=>{
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE={title:"Page Not Found",isPost:!1,isHome:!1,isHighlightShrink:!1,isToc:!1,postUpdate:"2024-06-11 10:32:56"}</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
           if (ttl === 0) return
@@ -134,81 +134,4 @@ function panguInit () {
   }
 }
 
-document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><script>window.addEventListener('load', () => {
-  const changeContent = (content) => {
-    if (content === '') return content
-
-    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[image]') // replace image link
-    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[link]') // replace url
-    content = content.replace(/<code>.*?<\/code>/gi, '[code]') // replace code
-    content = content.replace(/<[^>]+>/g,"") // remove html tag
-
-    if (content.length > 150) {
-      content = content.substring(0,150) + '...'
-    }
-    return content
-  }
-
-  const getComment = () => {
-    fetch('https://disqus.com/api/3.0/forums/listPosts.json?forum=imod-top&related=thread&limit=6&api_key=')
-      .then(response => response.json())
-      .then(data => {
-        const disqusArray = data.response.map(item => {
-          return {
-            'avatar': item.author.avatar.cache,
-            'content': changeContent(item.message),
-            'nick': item.author.name,
-            'url': item.url,
-            'date': item.createdAt
-          }
-        })
-
-        saveToLocal.set('disqus-newest-comments', JSON.stringify(disqusArray), 10/(60*24))
-        generateHtml(disqusArray)
-      }).catch(e => {
-        const $dom = document.querySelector('#card-newest-comments .aside-list')
-        $dom.textContent= "Unable to retrieve comments, please check the configuration"
-      })
-  }
-
-  const generateHtml = array => {
-    let result = ''
-
-    if (array.length) {
-      for (let i = 0; i < array.length; i++) {
-        result += '<div class=\'aside-list-item\'>'
-
-        if (true) {
-          const name = 'data-lazy-src'
-          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
-        }
-        
-        result += `<div class='content'>
-        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
-        <div class='name'><span>${array[i].nick}</span><time> / ${btf.diffDate(array[i].date, true)}</time></div>
-        </div></div>`
-      }
-    } else {
-      result += 'No comments'
-    }
-
-    let $dom = document.querySelector('#card-newest-comments .aside-list')
-    $dom && ($dom.innerHTML= result)
-    window.lazyLoadInstance && window.lazyLoadInstance.update()
-    window.pjax && window.pjax.refresh($dom)
-  }
-
-  const newestCommentInit = () => {
-    if (document.querySelector('#card-newest-comments .aside-list')) {
-      const data = saveToLocal.get('disqus-newest-comments')
-      if (data) {
-        generateHtml(JSON.parse(data))
-      } else {
-        getComment()
-      }
-    }
-  }
-
-  newestCommentInit()
-  document.addEventListener('pjax:complete', newestCommentInit)
-})</script><script defer id="fluttering_ribbon" mobile="false" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span> Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.13.0/js/search/local-search.min.js"></script></div></div></body></html>
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><script defer id="fluttering_ribbon" mobile="false" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span> Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.13.0/js/search/local-search.min.js"></script></div></div></body></html>
