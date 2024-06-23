@@ -22,10 +22,10 @@ https://www.imod.top/ForexFactorCalendar/index.html
 https://www.imod.top/CurrencyConverter/index.html
 https://www.imod.top/Resources/index.html
 https://www.imod.top/
-https://www.imod.top/tags/Share/
-https://www.imod.top/tags/Expert/
-https://www.imod.top/tags/Indicator/
-https://www.imod.top/categories/Share/
-https://www.imod.top/categories/Expert-MT4/
-https://www.imod.top/categories/Indicator-MT4/
-https://www.imod.top/categories/Expert-MT5/
+https://www.imod.top/Resources/Indicator/
+https://www.imod.top/Resources/Share/
+https://www.imod.top/Resources/Expert/
+https://www.imod.top/Resources/Indicator-MT4/
+https://www.imod.top/Resources/Share/
+https://www.imod.top/Resources/Expert-MT4/
+https://www.imod.top/Resources/Expert-MT5/
