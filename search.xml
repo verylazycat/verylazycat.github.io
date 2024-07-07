@@ -2133,4 +2133,160 @@ Margin Level = (Equity / Used Margin) x 100\%</script><script type="math/tex; mo
         <tag>Indicator</tag>
       </tags>
   </entry>
+  <entry>
+    <title>One More Average (OMA) Indicators31</title>
+    <url>/2024/07/06/One%20More%20Average%20(OMA)%20Indicators/</url>
+    <content><![CDATA[<p><img src="/data/OneMoreAverage(OMA)Indicators/oma.png" alt="oma +1"></p>
+<p><img src="/data/OneMoreAverage(OMA)Indicators/EURCADH1.png" alt="EURCADH1"></p>
+<h2 id="Download-the-One-More-Average-OMA-Indicators">Download the One More Average (OMA) Indicators</h2>
+<p>To download the One More Average (OMA) Indicator, please [click here](/data/OneMoreAverage(OMA)Indicators/One more average 1.3 Histo(mtf + fl’s).ex4).</p>
+]]></content>
+      <categories>
+        <category>Indicator-MT4</category>
+      </categories>
+      <tags>
+        <tag>Indicator</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>What is a repainting indicator Here are examples</title>
+    <url>/2024/07/07/What%20is%20a%20repainting%20indicator/</url>
+    <content><![CDATA[<p><strong>Understanding “Repainting” in the Forex Context: Clarification and Examples</strong></p>
+<p>The term “repainting” in Forex trading describes the phenomenon where a technical analysis tool’s historical graphical representation is altered in response to incoming price updates.</p>
+<p>A repainting indicator is one that updates its visual output as new price information, such as candlestick or bar charts, becomes available. A prime example is the Zig Zag indicator, which may revise its historical signals with the arrival of new market data.</p>
+<p><strong>The Downside of Repainting</strong></p>
+<p>The issue with repainting is the unreliability of the information it presents. Such indicators can create a misleading sense of precision in their displayed data. However, seasoned traders who are familiar with repainting indicators like the Zig Zag are aware of this behavior and often use these tools in conjunction with other forms of technical analysis, economic fundamentals, price action studies, or indicators that do not repaint, for validation purposes.</p>
+<p><strong>Reasons Behind Indicator Repainting</strong></p>
+<p>There are several reasons why an indicator might repaint, including:</p>
+<ul>
+<li>Poor coding practices leading to unintentional repainting.</li>
+<li>Deliberate design choices by unscrupulous parties to deceive traders into believing in the backtest results or promotional examples, potentially prompting a purchase.</li>
+<li>The inherent limitations in coding that prevent an indicator from being non-repainting.</li>
+</ul>
+<p><strong>The Existence of Effective Non-Repainting Indicators</strong></p>
+<p>Absolutely, there are beneficial non-repainting indicators available. Renowned developers such as <em>Mrtools</em> and <em>Mladen</em> are known for their expertise in crafting indicators that do not repaint. It is advisable to seek out indicators from these credible sources prior to considering other options.</p>
+<p>For a curated list of our top non-repainting indicators, you can visit this resource: <a href="https://www.imod.top/2024/07/05/The%20Best%20Non-Repainting%20Forex%20Indicators%20for%20MT4%20that%20really%20work/">Top 10: The Best Non-Repainting Forex Indicators for MT4 that really work.</a></p>
+<p><strong>Detecting Repainting in an Indicator</strong></p>
+<p>To discern whether an indicator exhibits repainting behavior, follow these straightforward steps:</p>
+<ul>
+<li>Position the indicator on a chart with a 1-minute timeframe.</li>
+<li>Monitor the indicator closely to see if its signals or values are altered as fresh market data is integrated.</li>
+</ul>
+<p>Upon the arrival of new price data, if the chart’s arrows vanish or if the Oscillator revises its previous crossings or angles after several candles have formed, these alterations are indicative of repainting activity.</p>
+<p>As explained by Jeff, code-wise, you can u spot repainters:</p>
+<ol>
+<li>When bars are accessed in the wrong order</li>
+</ol>
+<p>$$<br>
+For example: for (int j = 0; j &lt; limit; j++)<br>
+$$</p>
+<ol start="2">
+<li>
+<p>When there is a minus index</p>
+<p>For example :<br>
+$$<br>
+indicator0 = iCustom(NULL,0,“indi”, 0, i-1)<br>
+$$<br>
+Indicates a reading in the future</p>
+</li>
+</ol>
+<p><strong>Could you illustrate what repainting appears as on a chart?</strong></p>
+<p>Certainly. An instance of a repainting “arrow” type indicator is demonstrated below.</p>
+<p>The provided animation illustrates the following:</p>
+<ul>
+<li>A <em><strong>Green</strong></em> arrow signifies the presence of a BUY signal.</li>
+<li>Subsequently, after several red candles appear, the indicator undergoes repainting, erasing the earlier BUY signal and substituting it with a <em><strong>Red</strong></em> arrow indicating a SELL signal.</li>
+<li>The original BUY signal is entirely effaced by the indicator, creating a misleading impression of accuracy in both historical performance and backtest outcomes.</li>
+</ul>
+<p><img src="/data/share/repaintingForexIndicator.gif" alt="Example"></p>
+]]></content>
+      <categories>
+        <category>Share</category>
+      </categories>
+      <tags>
+        <tag>Share</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>what forex pairs move the most</title>
+    <url>/2024/07/07/what%20forex%20pairs%20move%20the%20most/</url>
+    <content><![CDATA[<p><img src="/data/share/Which-forex-pairs-move-the-most-pips-a-day-SJNG.webp" alt="Which-forex-pairs-move-the-most-pips-a-day-SJNG"></p>
+<h2 id="Key-Insights">Key Insights</h2>
+<p>Forex currency pairs display different levels of volatility, affecting their attractiveness for trading. Major pairs like EUR/USD and USD/JPY are the most liquid due to high trading volumes and typically offer smaller bid/ask spreads, creating more favorable trading environments.</p>
+<p>When identifying which pairs experience the most daily pip movements, consider economic news, geopolitical events, and technical analysis tools such as chart patterns and moving averages. AUD/USD and NZD/USD are examples of pairs that are highly mobile and suitable for trend-following strategies, while AUD/JPY and NZD/JPY are preferred for carry trade strategies.</p>
+<h2 id="Active-Forex-Pairs">Active Forex Pairs</h2>
+<p>High volatility forex pairs are considered the most active, providing ample opportunities for traders to utilize their analysis and strategies. Key pairs to monitor include <strong>EUR/USD, USD/JPY, and GBP/USD</strong>:</p>
+<ul>
+<li><strong>EUR/USD</strong> is the most traded pair, influenced by global economic events and news, offering frequent fluctuations.</li>
+<li><strong>USD/JPY</strong> is favored for its stability and moderate fluctuations, making it a reliable choice.</li>
+<li><strong>GBP/USD</strong> is highly volatile, influenced by news and political events, appealing to traders with a taste for high-risk, high-reward scenarios.</li>
+</ul>
+<p>Staying informed on market trends and news is crucial for anticipating forex pair movements. Strategic trading and technical analysis are essential for identifying trends and maximizing profits in the dynamic forex market.</p>
+<h2 id="Major-Pairs">Major Pairs</h2>
+<ul>
+<li><strong>EUR/USD</strong> is ideal for tracking currency movements.</li>
+<li><strong>USD/JPY</strong> is suited for news trading.</li>
+<li><strong>GBP/USD</strong> is appropriate for technical analysis and chart pattern identification.</li>
+<li><strong>USD/CHF</strong> is good for breakout and range trading.</li>
+<li><strong>AUD/USD</strong> is fitting for scalping and swing strategies.</li>
+<li><strong>NZD/USD</strong> is beneficial for risk management and leverage.</li>
+<li><strong>USD/CAD</strong> is used for analyzing bid/ask spreads and interest rates.</li>
+</ul>
+<h3 id="EUR-USD">EUR/USD</h3>
+<p>Known as the Euro to US Dollar pair, <strong>EUR/USD</strong> is a top forex market contender, representing the exchange rate between the Euro and the US Dollar. It’s influenced by economic and political factors of both regions and is used as a hedge by investors.</p>
+<h3 id="USD-JPY">USD/JPY</h3>
+<p>Globally traded, <strong>USD/JPY</strong> reflects the exchange rate between the US Dollar and Japanese Yen. It’s highly influenced by economic news from both countries and is popular for news trading and technical analysis.</p>
+<h3 id="GBP-USD">GBP/USD</h3>
+<p>The British pound sterling against the US dollar, or <strong>GBP/USD</strong>, is known for high volatility. It’s heavily influenced by news and political events, making it a popular choice for risk-seeking traders.</p>
+<h3 id="USD-CHF">USD/CHF</h3>
+<p>Referred to as “the Swissy,” <strong>USD/CHF</strong> represents the US dollar against the Swiss franc. It’s known for low volatility range trading and is popular among technical analysts.</p>
+<h3 id="AUD-USD">AUD/USD</h3>
+<p>The <strong>AUD/USD</strong> pair is highly active, attracting traders with its volatility and trend-following nature. It’s popular for various trading strategies and is influenced by commodity prices due to Australia’s role as a leading commodity exporter.</p>
+<h3 id="NZD-USD">NZD/USD</h3>
+<p>The <strong>NZD/USD</strong> pair is liquid and volatile, offering opportunities for risk management. It’s affected by economic data releases, geopolitical events, and interest rate changes.</p>
+<h3 id="USD-CAD">USD/CAD</h3>
+<p>The <strong>USD/CAD</strong> pair is active, influenced by factors such as bid/ask spread, session overlaps, and central bank decisions. It’s also impacted by interest rates and crude oil demand, given Canada’s role as a significant oil exporter.</p>
+<h2 id="Crosses">Crosses</h2>
+<p>Forex crosses like <strong>EUR/JPY, GBP/JPY, AUD/JPY, NZD/JPY, EUR/GBP, EUR/CHF, GBP/CHF, and CHF/JPY</strong> offer unique opportunities based on their volatility and the economic factors of the regions they represent.</p>
+<h3 id="EUR-JPY">EUR/JPY</h3>
+<p>The <strong>EUR/JPY</strong> cross pair is sensitive to geopolitical events and economic indicators from both Europe and Japan, making it a popular choice for traders monitoring global economic activity.</p>
+<h3 id="GBP-JPY">GBP/JPY</h3>
+<p>Highly volatile and liquid, <strong>GBP/JPY</strong> is influenced by consumer sentiment, oil and gold prices, and the unpredictability of commodity currencies.</p>
+<h3 id="AUD-JPY">AUD/JPY</h3>
+<p>The <strong>AUD/JPY</strong> cross pair is known for significant volatility and opportunities for carry trade strategies, with traders advised to set stop-loss and take-profit levels due to the risks involved.</p>
+<h3 id="NZD-JPY">NZD/JPY</h3>
+<p>The <strong>NZD/JPY</strong> pair requires careful risk management and discipline, with traders encouraged to backtest strategies using historical data for better insights.</p>
+<h3 id="EUR-GBP">EUR/GBP</h3>
+<p>The <strong>EUR/GBP</strong> pair is characterized by high liquidity and volatility, with automated trading systems often employed to capitalize on its consistent movement.</p>
+<h3 id="EUR-CHF">EUR/CHF</h3>
+<p>The <strong>EUR/CHF</strong> pair is known for its lower volatility and small bid-ask spreads, influenced by demand for long-duration assets from Swiss banks.</p>
+<h3 id="GBP-CHF">GBP/CHF</h3>
+<p>The <strong>GBP/CHF</strong> pair is moderately volatile, with an average daily pip movement of 77, and is influenced by geopolitical events affecting both the UK and Switzerland.</p>
+<h3 id="CHF-JPY">CHF/JPY</h3>
+<p>The <strong>CHF/JPY</strong> cross is active in the forex market, with an average daily pip movement of 60-80, influenced by global economic and political changes.</p>
+<h2 id="Forex-Pairs-Moving-the-Most-Pips">Forex Pairs Moving the Most Pips</h2>
+<ul>
+<li>The <strong>EUR/USD</strong> pair moves the most pips daily, averaging about 100 pips.</li>
+<li>Other active pairs include <strong>USD/JPY, GBP/USD, AUD/USD, and USD/CHF</strong>, with daily ranges of 50-80 pips.</li>
+<li>Forex pairs with emerging market currencies tend to have higher volatility.</li>
+<li>Economic data releases and geopolitical events significantly impact forex volatility.</li>
+<li>Technical analysis tools are widely used to identify potential price movements.</li>
+</ul>
+<h2 id="FAQs">FAQs</h2>
+<ul>
+<li>The most pip-moving forex pairs are <strong>EUR/USD, GBP/USD, USD/JPY, USD/CHF, AUD/USD, and USD/CAD</strong>.</li>
+<li>A pip is the smallest unit of change in forex trading.</li>
+<li>Forex pairs with currencies from major economies tend to move more pips due to higher liquidity.</li>
+<li>Pip movement tracking can be done using a charting platform with a pips-based price format.</li>
+<li>The pip movement significance lies in indicating volatility and trading opportunities.</li>
+<li>Forex pairs moving fewer pips can still be profitable with appropriate strategies and risk management.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Share</category>
+      </categories>
+      <tags>
+        <tag>Share</tag>
+      </tags>
+  </entry>
 </search>
