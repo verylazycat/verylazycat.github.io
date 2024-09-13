@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.imod.top/EasterEgg/timeline/2024/index.html</loc>
+    
+    <lastmod>2024-09-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.imod.top/2024/07/18/TradeScope%20FX%20Dashboard%20Indicator%20MT4/</loc>
     
     <lastmod>2024-07-18</lastmod>
@@ -598,7 +607,7 @@
 
   <url>
     <loc>https://www.imod.top/</loc>
-    <lastmod>2024-07-18</lastmod>
+    <lastmod>2024-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -606,21 +615,21 @@
   
   <url>
     <loc>https://www.imod.top/Resources/Share/</loc>
-    <lastmod>2024-07-18</lastmod>
+    <lastmod>2024-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.imod.top/Resources/Indicator/</loc>
-    <lastmod>2024-07-18</lastmod>
+    <lastmod>2024-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.imod.top/Resources/Expert/</loc>
-    <lastmod>2024-07-18</lastmod>
+    <lastmod>2024-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -629,28 +638,28 @@
   
   <url>
     <loc>https://www.imod.top/Resources/Share/</loc>
-    <lastmod>2024-07-18</lastmod>
+    <lastmod>2024-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.imod.top/Resources/Indicator-MT4/</loc>
-    <lastmod>2024-07-18</lastmod>
+    <lastmod>2024-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.imod.top/Resources/Expert-MT4/</loc>
-    <lastmod>2024-07-18</lastmod>
+    <lastmod>2024-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.imod.top/Resources/Expert-MT5/</loc>
-    <lastmod>2024-07-18</lastmod>
+    <lastmod>2024-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
